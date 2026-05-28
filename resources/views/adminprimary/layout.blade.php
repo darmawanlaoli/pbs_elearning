@@ -24,7 +24,7 @@
 
     {{-- select2 --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
@@ -131,13 +131,22 @@
                                         <span class="hide-menu">Report Approval</span>
                                     </a>
                                 </li>
-                                
+
                                 <li class="sidebar-item">
                                     <a href="{{ route('admin_primary.rank') }}" class="sidebar-link">
                                         <div class="round-16 d-flex align-items-center justify-content-center">
                                             <i class="ti ti-circle"></i>
                                         </div>
                                         <span class="hide-menu">Data Analysis</span>
+                                    </a>
+                                </li>
+
+                                <li class="sidebar-item">
+                                    <a href="{{ route('admin_primary.rank') }}" class="sidebar-link">
+                                        <div class="round-16 d-flex align-items-center justify-content-center">
+                                            <i class="ti ti-circle"></i>
+                                        </div>
+                                        <span class="hide-menu">Accumulate</span>
                                     </a>
                                 </li>
                             </ul>
@@ -199,7 +208,7 @@
                                 </li>
                             </ul>
                         </li>
-                        
+
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{ route('admin_primary.setting') }}" aria-expanded="false">
                                 <span>
