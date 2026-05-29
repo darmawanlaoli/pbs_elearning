@@ -30,113 +30,42 @@
 
     <h2>Student Assessment Recap</h2>
 
-    <table border="1" cellpadding="8">
+    <table class="table table-striped table-bordered">
+        <tr class="text-center">
+            <th>No</th>
+            <th>Class</th>
+            <th>Homeroom</th>
+            <th>Semester I</th>
+            <th>Semester II</th>
+        </tr>
 
-        <thead>
+        @foreach ($classes as $class)
+        <tr>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $class->homeroom_class }}</td>
+            <td>{{ $class->name }}</td>
+            <td class="text-center">
+                <form id="deleteForm-{{ $class->id }}" action="{{ route('admin_primary.accumulate.detail', ['class' => $class->homeroom_class, 'semester' => 1]) }}"
+                    method="POST">
+                    @csrf
+                    @method('POST')
+                    <button tabindex="0" data-bs-toggle="tooltip" title="Approve"
+                        class="border-0 text-white btn btn-primary"><i class="ti ti-eye"></i> Show</button>
+                </form>
 
-            <!-- ROW 1 -->
+            </td>
 
-            <tr>
+            <td class="text-center">
+                <form id="deleteForm-{{ $class->id }}" action="{{ route('admin_primary.accumulate.detail', ['class' => $class->homeroom_class, 'semester' => 2]) }}" method="POST">
+                    @csrf
+                    @method('POST')
+                    <button tabindex="0" data-bs-toggle="tooltip" title="Approve" class="border-0 text-white btn btn-primary"><i
+                            class="ti ti-eye"></i> Show</button>
+                </form>
 
-                <th rowspan="3">NO</th>
-                <th rowspan="3">NAMA</th>
-
-                @foreach($subjects as $subject => $components)
-
-                <th colspan="{{ count($components) * 3 }}">
-
-                    {{ $subject }}
-
-                </th>
-
-                @endforeach
-
-            </tr>
-
-
-
-            <!-- ROW 2 -->
-
-            <tr>
-
-                @foreach($subjects as $subject => $components)
-
-                @foreach($components as $label => $field)
-
-                <th colspan="3">
-
-                    {{ $label }}
-
-                </th>
-
-                @endforeach
-
-                @endforeach
-
-            </tr>
-
-
-
-            <!-- ROW 3 -->
-
-            <tr>
-
-                @foreach($subjects as $subject => $components)
-
-                @foreach($components as $label => $field)
-
-                <th>T1</th>
-                <th>T2</th>
-                <th>AVG</th>
-
-                @endforeach
-
-                @endforeach
-
-            </tr>
-
-        </thead>
-
-
-
-        <tbody>
-
-            @foreach($students as $student)
-
-            <tr>
-
-                <td>{{ $loop->iteration }}</td>
-
-                <td>{{ $student['name'] }}</td>
-
-
-
-                @foreach($subjects as $subject => $components)
-
-                @foreach($components as $label => $field)
-
-                <td>
-                    {{ $student[$subject][$label]['TERM 1'] ?? '-' }}
-                </td>
-
-                <td>
-                    {{ $student[$subject][$label]['TERM 2'] ?? '-' }}
-                </td>
-
-                <td>
-                    {{ $student[$subject][$label]['AVG'] ?? '-' }}
-                </td>
-
-                @endforeach
-
-                @endforeach
-
-            </tr>
-
-            @endforeach
-
-        </tbody>
-
+            </td>
+        </tr>
+        @endforeach
     </table>
 
 </body>

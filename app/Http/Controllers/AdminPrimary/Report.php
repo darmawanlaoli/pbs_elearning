@@ -18,6 +18,7 @@ use App\Models\PrimaryReportDatas;
 use App\Models\PrimaryStudent;
 use Illuminate\Http\RedirectResponse;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\AccumulateExport;
 
 class Report extends Controller
 {
@@ -612,12 +613,21 @@ class Report extends Controller
         return view('adminprimary/report/rank_detail', compact('title', 'path', 'ranks', 'class'));
     }
 
-    public function accumulate() {
+    public function accumulate()
+    {
         $title = 'Accumulate';
         $path = 'Report';
 
+        $classes = DB::table('primary_teachers')->where('is_homeroom', 1)->orderBy('homeroom_class', 'ASC')->get();
 
-        $rows = DB::table('primary_assesment_record_details as d')
+        return view('adminprimary/accumulate/index', compact('title', 'path', 'classes'));
+    }
+
+    public function accumulateDetail($class, $semester) {
+        $title = 'Accumulate';
+        $path = 'Report';
+
+        $query = DB::table('primary_assesment_record_details as d')
 
             ->join(
                 'primary_assesment_records as r',
@@ -630,10 +640,24 @@ class Report extends Controller
                 'd.*',
                 'r.subject',
                 'r.term'
-            )
+            );
 
-            ->whereIn('r.term', ['TERM 1', 'TERM 2'])
-            ->where('class', 'P6 Moscow')
+
+
+        if ($semester == 1) {
+
+            $query->whereIn('r.term', ['TERM 1', 'TERM 2']);
+        } else {
+
+            $query->whereIn('r.term', ['TERM 3', 'TERM 4']);
+        }
+
+
+
+        $rows = $query
+
+            ->where('r.class', $class)
+
             ->orderBy('d.name')
 
             ->get();
@@ -690,34 +714,61 @@ class Report extends Controller
         }
 
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | AVG TERM 1 & TERM 2
-        |--------------------------------------------------------------------------
-        */
-
+        //
         foreach ($students as &$student) {
 
             foreach ($subjects as $subject => $components) {
 
                 foreach ($components as $component => $fields) {
 
-                    $t1 =
-                        $student[$subject][$component]['TERM 1']
-                        ?? null;
+                    if($semester == 1) {
+                        $t1 =
+                            $student[$subject][$component]['TERM 1']
+                            ?? null;
 
-                    $t2 =
-                        $student[$subject][$component]['TERM 2']
-                        ?? null;
+                        $t2 =
+                            $student[$subject][$component]['TERM 2']
+                            ?? null;
 
-                    $student[$subject][$component]['AVG']
-                        = calculateAverage($t1, $t2);
+                        $student[$subject][$component]['AVG']
+                            = calculateAverage($t1, $t2);
+                    }else {
+                        $t3 =
+                            $student[$subject][$component]['TERM 3']
+                            ?? null;
+
+                        $t4 =
+                            $student[$subject][$component]['TERM 4']
+                            ?? null;
+
+                        $student[$subject][$component]['AVG']
+                            = calculateAverage($t3, $t4);
+                    }
                 }
             }
         }
 
-        return view('adminprimary/accumulate/index', compact('title', 'path', 'students', 'subjects'));
+        return view('adminprimary/accumulate/detail', compact('title', 'path', 'students', 'subjects', 'semester', 'class'));
+    }
+
+    public function downloadExcel($class, $semester)
+    {
+        $data = $this->accumulateDetail(
+            $class,
+            $semester
+        );
+
+        return Excel::download(
+
+            new AccumulateExport(
+                $data['students'],
+                $data['subjects'],
+                $semester,
+                $class
+            ),
+
+            'accumulate-' . $class . '.xlsx'
+        );
     }
 
 

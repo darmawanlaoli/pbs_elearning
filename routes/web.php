@@ -78,6 +78,8 @@ Route::middleware(['auth:primaryadmin', 'role:primaryadmin'])->group(function ()
 
     // Accumulate
     Route::get('admin_primary/accumulate', [PrimaryReportAdmin::class, 'accumulate'])->name('admin_primary.accumulate');
+    Route::post('admin_primary/accumulate/{class}/{semester}/detail', [PrimaryReportAdmin::class, 'accumulateDetail'])->name('admin_primary.accumulate.detail');
+    Route::post('admin_primary/accumulate/{class}/{semester}/download', [PrimaryReportAdmin::class, 'downloadExcel'])->name('admin_primary.accumulate.download');
 
     // uts routes
     Route::get('admin_primary/uts', [AdminPrimaryUts::class, 'index'])->name('admin_primary.uts');
