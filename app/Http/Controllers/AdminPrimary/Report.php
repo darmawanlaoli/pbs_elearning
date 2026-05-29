@@ -28,7 +28,7 @@ class Report extends Controller
         $students = DB::table('primary_students')->where('class', session('homeroom_class'))->orderBy('name', 'ASC')->get();
         $academicyears = AcademicYear::first();
         $current_term = $academicyears->term;
-        
+
         $student = $request->student;
         $siswa = $request->student;
         $class_admin = $request->class;
@@ -36,7 +36,7 @@ class Report extends Controller
 
          // ambil semua kelas homeroom
         $classes = DB::table('primary_teachers')->where('is_homeroom', 1)->orderBy('homeroom_class', 'ASC')->get();
-        
+
         $students_request = [];
 
         if ($request->filled('class')) {
@@ -48,7 +48,7 @@ class Report extends Controller
         if($student){
             $academicyears = AcademicYear::first();
             $current_term = $academicyears->term;
-            
+
             $class = $class_admin;
 
             $assesments = DB::table('primary_assesment_records')
@@ -554,7 +554,7 @@ class Report extends Controller
 
         return redirect()->route('admin_primary.report_approval')->with(['success' => 'Report Successfully Approved!']);
     }
-    
+
     public function rank()
     {
         $title = 'Rank';
@@ -563,16 +563,16 @@ class Report extends Controller
 
         return view('adminprimary/report/rank', compact('title', 'path', 'classes'));
     }
-    
+
     public function rankDetail(Request $request, $id)
     {
         $title = 'Data Analysis';
         $path = 'Report';
-        
+
         $class = DB::table('primary_teachers')
                 ->where('id', $id)
                 ->first();
-        
+
         $ranks = DB::table('primary_assesment_record_details as d')
             ->join('primary_assesment_records as r', 'r.id', '=', 'd.id_assesment')
             ->select(
@@ -610,6 +610,114 @@ class Report extends Controller
             ->get();
 
         return view('adminprimary/report/rank_detail', compact('title', 'path', 'ranks', 'class'));
+    }
+
+    public function accumulate() {
+        $title = 'Accumulate';
+        $path = 'Report';
+
+
+        $rows = DB::table('primary_assesment_record_details as d')
+
+            ->join(
+                'primary_assesment_records as r',
+                'r.id',
+                '=',
+                'd.id_assesment'
+            )
+
+            ->select(
+                'd.*',
+                'r.subject',
+                'r.term'
+            )
+
+            ->whereIn('r.term', ['TERM 1', 'TERM 2'])
+            ->where('class', 'P6 Moscow')
+            ->orderBy('d.name')
+
+            ->get();
+
+
+
+        $subjects = subjectComponents();
+
+        $students = [];
+
+
+
+        foreach ($rows as $row) {
+
+            $name = $row->name;
+
+            $subject = strtoupper($row->subject);
+
+            $term = strtoupper($row->term);
+
+
+
+            if (!isset($subjects[$subject])) {
+                continue;
+            }
+
+
+
+            if (!isset($students[$name])) {
+
+                $students[$name] = [
+                    'name' => $name
+                ];
+            }
+
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Loop component
+            |--------------------------------------------------------------------------
+            */
+
+            foreach ($subjects[$subject] as $component => $fields) {
+
+                $score = calculateComponentScore(
+                    $fields,
+                    $row
+                );
+
+                $students[$name][$subject][$component][$term]
+                    = $score;
+            }
+        }
+
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | AVG TERM 1 & TERM 2
+        |--------------------------------------------------------------------------
+        */
+
+        foreach ($students as &$student) {
+
+            foreach ($subjects as $subject => $components) {
+
+                foreach ($components as $component => $fields) {
+
+                    $t1 =
+                        $student[$subject][$component]['TERM 1']
+                        ?? null;
+
+                    $t2 =
+                        $student[$subject][$component]['TERM 2']
+                        ?? null;
+
+                    $student[$subject][$component]['AVG']
+                        = calculateAverage($t1, $t2);
+                }
+            }
+        }
+
+        return view('adminprimary/accumulate/index', compact('title', 'path', 'students', 'subjects'));
     }
 
 

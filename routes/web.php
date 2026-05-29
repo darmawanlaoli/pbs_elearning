@@ -52,9 +52,9 @@ Route::middleware(['auth:primaryadmin', 'role:primaryadmin'])->group(function ()
     Route::delete('superadmin/data_cabang/{id}/destroy', [AdminPrimaryTeacher::class, 'destroy'])->name('admin_primary.teacher.destroy');
     Route::get('superadmin/data_cabang/{id}/edit', [AdminPrimaryTeacher::class, 'edit'])->name('admin_primary.teacher.edit');
     Route::post('superadmin/data_cabang/{id}/update', [AdminPrimaryTeacher::class, 'update'])->name('admin_primary.teacher.update');
-    
+
     Route::get('admin_primary/setting', [AdminPrimarySetting::class, 'index'])->name('admin_primary.setting');
-    
+
     // lesson plan routes
     Route::get('admin_primary/weekly_lp', [WeeklyLessonPlan::class, 'index'])->name('admin_primary.weekly_lp');
     Route::post('admin_primary/weekly_lp/print', [WeeklyLessonPlan::class, 'print'])->name('admin_primary.weekly_lp.print');
@@ -75,7 +75,10 @@ Route::middleware(['auth:primaryadmin', 'role:primaryadmin'])->group(function ()
     Route::post('admin_primary/report/{id}/undo', [PrimaryReportAdmin::class, 'undoAction'])->name('admin_primary.report.undo');
     Route::get('admin_primary/rank', [PrimaryReportAdmin::class, 'rank'])->name('admin_primary.rank');
     Route::post('admin_primary/report/{id}/rank', [PrimaryReportAdmin::class, 'rankDetail'])->name('admin_primary.report.rank');
-    
+
+    // Accumulate
+    Route::get('admin_primary/accumulate', [PrimaryReportAdmin::class, 'accumulate'])->name('admin_primary.accumulate');
+
     // uts routes
     Route::get('admin_primary/uts', [AdminPrimaryUts::class, 'index'])->name('admin_primary.uts');
     Route::post('admin_primary/uts/print', [AdminPrimaryUts::class, 'print'])->name('admin_primary.uts.print');
@@ -130,7 +133,7 @@ Route::middleware(['auth:primaryteacher', 'role:primaryteacher'])->group(functio
     Route::post('primary_teacher/assesment_record/import', [AssesmentRecordPrimaryTeacher::class, 'import'])->name('primary_teacher.assesment_record.import');
     Route::post('primary_teacher/assesment_record/import_action', [AssesmentRecordPrimaryTeacher::class, 'importAction'])->name('primary_teacher.assesment_record.import_action');
     Route::put('primary_teacher/assesment_record/update_all', [AssesmentRecordPrimaryTeacher::class, 'updateAll'])->name('primary_teacher.assesment_record.update_all');
-    
+
     Route::delete('primary_teacher/assesment_record/{id}/destroy', [AssesmentRecordPrimaryTeacher::class, 'destroy'])->name('primary_teacher.assesment_record.destroy');
 
         // assesment record routes
