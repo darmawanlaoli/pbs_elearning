@@ -44,7 +44,7 @@
         .mt-2{
         margin-top: 10px;
         }
-    </style>
+    </style>`
 </head>
 
 <body>

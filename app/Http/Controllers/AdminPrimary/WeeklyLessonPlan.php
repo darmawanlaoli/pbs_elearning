@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AdminPrimary;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PrimaryTeacher;
+use App\Models\PrimaryLessonPlanPic;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\DB;
@@ -44,5 +45,14 @@ class WeeklyLessonPlan extends Controller
             ->orderBy('subject', 'asc')
             ->get();
         return view('adminprimary.lesson_plan.print', compact('lessonplan', 'week', 'term', 'class', 'startdate', 'enddate'));
+    }
+
+    public function pic()
+    {
+        $title = 'Weekly Lesson Plan PIC';
+        $path = 'Lesson Plan';
+        $pics = PrimaryLessonPlanPic::orderBy('teacher', 'asc')->get();
+        $academicyears = \App\Models\AcademicYear::first();
+        return view('adminprimary.lesson_plan.pic', compact('title', 'path', 'pics', 'academicyears'));
     }
 }

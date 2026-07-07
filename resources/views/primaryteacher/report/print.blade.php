@@ -4,8 +4,7 @@
 <title>{{ session('homeroom_class') . ' - '. $siswa }}</title>
 
 <style>
-    .report-container {
-    }
+    .report-container {}
 
     table,
     td,
@@ -13,7 +12,7 @@
         border: 2px solid black;
         padding-left: 10px;
         padding-right: 10px;
-         padding-top: 0px;
+        padding-top: 0px;
         padding-bottom: 0px;
     }
 
@@ -82,7 +81,7 @@
 
     @page {
         size: A4;
-        }
+    }
 
     @media print {
         body {
@@ -114,7 +113,7 @@
     }
 </style>
 
-<?php 
+<?php
     if(session('role') == 'primaryadmin') {
         $grade = Str::substr($class_admin, 0, 2);
     }else{
@@ -214,7 +213,7 @@
                         <tr>
                             <th style="width: 450px" rowspan="2" class="subject header">RELIGIOUS EDUCATION
                             </th>
-                            <th colspan="2" class="header">TERM 3</th>
+                            <th colspan="2" class="header text-uppercase">{{ $academicyears->term }}</th>
                         </tr>
 
                         <tr>
@@ -261,7 +260,7 @@
                     <table class="mt-2" style="font-weight: bold">
                         <tr>
                             <th style="width: 450px" rowspan="2" class="subject header">CIVIC</th>
-                            <th colspan="2" class="header">TERM 3</th>
+                            <th colspan="2" class="header text-uppercase">{{ $academicyears->term }}</th>
                         </tr>
 
                         <tr>
@@ -305,7 +304,7 @@
                     <table class="mt-2" style="font-weight: bold">
                         <tr>
                             <th style="width: 450px" rowspan="2" class="subject header">MATHEMATIC</th>
-                            <th colspan="2" class="header">TERM 3</th>
+                            <th colspan="2" class="header text-uppercase">{{ $academicyears->term }} </th>
                         </tr>
 
                         <tr>
@@ -351,7 +350,7 @@
                             <th style="width: 450px; padding-top: 8px; padding-bottom: 8px" class="subject header">
                                 HEALTH AND PHYSICAL EDUCATION
                             </th>
-                            <th colspan="2" class="header">TERM 3</th>
+                            <th colspan="2" class="header text-uppercase">{{ $academicyears->term }} </th>
                         </tr>
 
                         <tr>
@@ -427,7 +426,7 @@
                     <table style="font-weight: bold">
                         <tr>
                             <th style="width: 450px" rowspan="2" class="subject header">BAHASA INDONESIA</th>
-                            <th colspan="2" class="header">TERM 3</th>
+                            <th colspan="2" class="header text-uppercase">{{ $academicyears->term }} </th>
                         </tr>
 
                         <tr>
@@ -590,7 +589,7 @@
                     <table class="mt-1" style="font-weight: bold">
                         <tr>
                             <th style="width: 450px" rowspan="2" class="subject header">ENGLISH</th>
-                            <th colspan="2" class="header">TERM 3</th>
+                            <th colspan="2" class="header text-uppercase">{{ $academicyears->term }} </th>
                         </tr>
 
                         <tr>
@@ -759,7 +758,7 @@
                                 <br>
                                 TECHNOLOGY
                             </th>
-                            <th colspan="2" class="header">TERM 3</th>
+                            <th colspan="2" class="header text-uppercase">{{ $academicyears->term }} </th>
                         </tr>
 
                         <tr>
@@ -820,7 +819,7 @@
                                 <br>
                                 TECHNOLOGY
                             </th>
-                            <th colspan="2" class="header">TERM 3</th>
+                            <th colspan="2" class="header text-uppercase">{{ $academicyears->term }} </th>
                         </tr>
 
                         <tr>
@@ -864,7 +863,7 @@
                     <table class="mt-2" style="font-weight: bold">
                         <tr>
                             <th style="width: 450px" rowspan="2" class="subject header">ART AND CRAFT</th>
-                            <th colspan="2" class="header">TERM 3</th>
+                            <th colspan="2" class="header text-uppercase">{{ $academicyears->term }} </th>
                         </tr>
 
                         <tr>
@@ -924,7 +923,7 @@
                             <th style="width: 450px; padding-top: 8px; padding-bottom: 8px" class="subject header">
                                 MANDARIN
                             </th>
-                            <th colspan="2" class="header">TERM 3</th>
+                            <th colspan="2" class="header text-uppercase">{{ $academicyears->term }} </th>
                         </tr>
 
                         <tr>
@@ -1066,7 +1065,7 @@
                     <table class="mt-2" style="font-weight: bold">
                         <tr>
                             <th style="width: 450px" rowspan="2" class="subject header">SCIENCE AND SOCIAL STUDY</th>
-                            <th colspan="2" class="header">TERM 3</th>
+                            <th colspan="2" class="header text-uppercase">{{ $academicyears->term }} </th>
                         </tr>
 
                         <tr>
@@ -1111,7 +1110,7 @@
                     <table class="mt-2" style="font-weight: bold">
                         <tr>
                             <th style="width: 450px" rowspan="2" class="subject header">MUSIC</th>
-                            <th colspan="2" class="header">TERM 3</th>
+                            <th colspan="2" class="header text-uppercase">{{ $academicyears->term }} </th>
                         </tr>
 
                         <tr>
@@ -1395,7 +1394,7 @@
                             <table style="text-align: center;">
                                 <tr class="header">
                                     <th>ATTENDANCE</th>
-                                    <th>TERM 3</th>
+                                    <th>{{ $academicyears->term }} </th>
                                 </tr>
 
                                 <tr>
@@ -1419,7 +1418,7 @@
                                 </tr>
                             </table>
                         </div>
-                        
+
                         <div class="col-md-1"></div>
 
                         <div class="col-md-6">
@@ -1431,19 +1430,20 @@
                                 <tr>
                                     <th style="padding: 4px">0 - 60</th>
                                     <th>B</th>
-                                    <th style="padding-left: 4px; white-space: nowrap";>BEGINNING</th>
+                                    <th style="padding-left: 4px; white-space: nowrap" ;>BEGINNING</th>
                                 </tr>
 
                                 <tr>
                                     <th style="padding: 4px">61 – 80</th>
                                     <th>D</th>
-                                    <th style="padding-left: 4px; padding-right: 4px; white-space: nowrap";>DEVELOPING</th>
+                                    <th style="padding-left: 4px; padding-right: 4px; white-space: nowrap" ;>DEVELOPING
+                                    </th>
                                 </tr>
 
                                 <tr>
                                     <th style="padding: 4px">81 - 100</th>
                                     <th>M</th>
-                                    <th style="padding-left: 4px; white-space: nowrap";>MASTERING</th>
+                                    <th style="padding-left: 4px; white-space: nowrap" ;>MASTERING</th>
                                 </tr>
                             </table>
                         </div>
@@ -1509,9 +1509,9 @@
                             @else
                             <th style="vertical-align: bottom; text-align: center">({{ session('name') }})</th>
                             @endif
-                            
+
                             <th style="vertical-align: bottom; text-align: center">(Agus R. Wibowo)</th>
-                            
+
                             <th></th>
                         </tr>
                     </table>

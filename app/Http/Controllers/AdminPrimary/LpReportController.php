@@ -36,13 +36,14 @@ class LpReportController extends Controller
             ->leftJoin('primary_lesson_plans as lp', function ($join) use ($term, $week) {
                 $join->on('pic.teacher', '=', 'lp.teacher')
                      ->on('pic.subject', '=', 'lp.subject')
+                     ->where('lp.academic_year', '=', \App\Models\AcademicYear::first()->id)
                      ->where('lp.term', '=', $term)
                      ->where('lp.week', '=', $week);
             })
             ->whereNull('lp.id')
             ->select('pic.teacher', 'pic.subject', 'pic.class')
             ->get();
-    
+
         return view('adminprimary.lesson_plan_report.print', compact('guruBelumSubmit', 'week', 'term'));
     }
 }

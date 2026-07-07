@@ -1386,17 +1386,17 @@
                                     <th>Excused</th>
                                     <th>{{ ($reportData->att_excused ?? 0) == 0 ? '-' : $reportData->att_excused }}</th>
                                 </tr>
-                                
+
                                 <tr>
                                     <th>Unexcused</th>
                                     <th>{{ ($reportData->att_unexcused ?? 0) == 0 ? '-' : $reportData->att_unexcused }}</th>
                                 </tr>
-                                
+
                                 <tr>
                                     <th>Tardy</th>
                                     <th>{{ ($reportData->att_tardy ?? 0) == 0 ? '-' : $reportData->att_tardy }}</th>
                                 </tr>
-                                
+
                             </table>
                         </div>
 
