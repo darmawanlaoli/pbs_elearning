@@ -126,4 +126,13 @@ class LessonPlanController extends Controller
 
         return view('primaryteacher/lesson_plan/detail', compact('title', 'path', 'lessonplan'));
     }
+
+    public function pic()
+    {
+        $title = 'Weekly Lesson Plan PIC';
+        $path = 'Lesson Plan';
+        $pics = PrimaryLessonPlan::orderBy('teacher', 'asc')->get();
+        $academicyears = \App\Models\AcademicYear::first();
+        return view('primaryteacher.lesson_plan.pic', compact('title', 'path', 'pics', 'academicyears'));
+    }
 }

@@ -22,23 +22,28 @@ class LpReportController extends Controller
 
     public function print(Request $request)
     {
-        $request->validate(
-            [
-                'term' => 'required|string',
-                'week' => 'required|string',
-            ],
-        );
+        $request->validate([
+            'term' => 'required|string',
+            'week' => 'required|string',
+        ]);
+
+        // Ambil data tahun akademik pertama
+        $academicYearModel = \App\Models\AcademicYear::first();
+
+        // Validasi/Fallback jika database academic_years kosong
+        $currentAcademicYear = $academicYearModel ? $academicYearModel->academic_year : null;
 
         $week = $request->week;
         $term = $request->term;
 
         $guruBelumSubmit = DB::table('primary_lesson_plan_pics as pic')
-            ->leftJoin('primary_lesson_plans as lp', function ($join) use ($term, $week) {
+            // Tambahkan $currentAcademicYear ke dalam klausa 'use'
+            ->leftJoin('primary_lesson_plans as lp', function ($join) use ($term, $week, $currentAcademicYear) {
                 $join->on('pic.teacher', '=', 'lp.teacher')
-                     ->on('pic.subject', '=', 'lp.subject')
-                     ->where('lp.academic_year', '=', \App\Models\AcademicYear::first()->id)
-                     ->where('lp.term', '=', $term)
-                     ->where('lp.week', '=', $week);
+                    ->on('pic.subject', '=', 'lp.subject')
+                    ->where('lp.academic_year', '=', $currentAcademicYear) // Ditambahkan '=' agar konsisten
+                    ->where('lp.term', '=', $term)
+                    ->where('lp.week', '=', $week);
             })
             ->whereNull('lp.id')
             ->select('pic.teacher', 'pic.subject', 'pic.class')

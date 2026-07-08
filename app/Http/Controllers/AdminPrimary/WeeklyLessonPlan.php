@@ -31,7 +31,7 @@ class WeeklyLessonPlan extends Controller
             ],
 
         );
-
+        $academicyears = \App\Models\AcademicYear::first();
         $week = $request->week;
         $term = $request->term;
         $class = $request->class;
@@ -39,7 +39,7 @@ class WeeklyLessonPlan extends Controller
         $enddate = $request->end_date;
 
         $lessonplan = DB::table('primary_lesson_plans')
-            ->where('academic_year', \App\Models\AcademicYear::first()->id)
+            ->where('academic_year', $academicyears->academic_year)
             ->where('week', $week)
             ->where('term', $term)
             ->where('class', $class)

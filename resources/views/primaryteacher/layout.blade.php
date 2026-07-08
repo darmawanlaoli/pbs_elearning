@@ -83,6 +83,13 @@
                                         </div>
                                         <span class="hide-menu">Weekly Lesson Plan</span>
                                     </a>
+
+                                    <a href="{{ route('primary_teacher.pic_lesson_plan') }}" class="sidebar-link">
+                                        <div class="round-16 d-flex align-items-center justify-content-center">
+                                            <i class="ti ti-circle"></i>
+                                        </div>
+                                        <span class="hide-menu">PIC Lesson Plan</span>
+                                    </a>
                                 </li>
 
                                 <li class="sidebar-item">

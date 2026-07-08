@@ -117,6 +117,8 @@ Route::middleware(['auth:primaryteacher', 'role:primaryteacher'])->group(functio
     Route::delete('primary_teacher/lesson_plan/{id}/destroy', [LessonPlanPrimaryTeacher::class, 'destroy'])->name('primary_teacher.lesson_plan.destroy');
     Route::get('primary_teacher/lesson_plan/{id}/detail', [LessonPlanPrimaryTeacher::class, 'detail'])->name('primary_teacher.lesson_plan.detail');
 
+    Route::get('primary_teacher/pic_lesson_plan', [LessonPlanPrimaryTeacher::class, 'pic'])->name('primary_teacher.pic_lesson_plan');
+
     Route::get('primary_teacher/uts', [UtsPrimaryTeacher::class, 'index'])->name('primary_teacher.uts');
     Route::get('primary_teacher/uts/create', [UtsPrimaryTeacher::class, 'create'])->name('primary_teacher.uts.create');
     Route::post('primary_teacher/uts/store', [UtsPrimaryTeacher::class, 'store'])->name('primary_teacher.uts.store');
