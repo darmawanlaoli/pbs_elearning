@@ -36,6 +36,7 @@
                         <thead class="header-item">
                             <th>No.</th>
                             <th>Academic Year</th>
+                            <th>Subject</th>
                             <th>Class</th>
                             <th>Term/Week</th>
                             <th>Action</th>
@@ -44,6 +45,7 @@
                             @forelse ($lessonplans as $lesson)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                <td>{{ $lesson->academic_year }}</td>
                                 <td>{{ $lesson->subject }}</td>
                                 <td>{{ $lesson->class }}</td>
                                 <td>{{ $lesson->term .'/'.$lesson->week }}</td>

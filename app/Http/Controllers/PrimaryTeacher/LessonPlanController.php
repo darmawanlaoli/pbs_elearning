@@ -5,6 +5,7 @@ namespace App\Http\Controllers\PrimaryTeacher;
 use App\Http\Controllers\Controller;
 use App\Models\AcademicYearLp;
 use App\Models\PrimaryLessonPlan;
+use App\Models\PrimaryLessonPlanPic;
 use App\Models\PrimarySubject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,11 +18,13 @@ class LessonPlanController extends Controller
         $path = 'Primary Teacher';
         $lessonplans = DB::table('primary_lesson_plans')
             ->where('teacher', session('name'))
+            ->orderBy('id', 'desc')
             ->get();
         return view('primaryteacher/lesson_plan/index', compact('title', 'path', 'lessonplans'));
     }
 
-    public function create(){
+    public function create()
+    {
         $title = 'Input Lesson Plan.';
         $path = 'Lesson Plan';
         $academicyears = AcademicYearLp::first();
@@ -65,7 +68,8 @@ class LessonPlanController extends Controller
         return view('superadmin.cabang.edit', compact('title', 'path', 'branch'));
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
 
         $request->validate(
             [
@@ -131,7 +135,7 @@ class LessonPlanController extends Controller
     {
         $title = 'Weekly Lesson Plan PIC';
         $path = 'Lesson Plan';
-        $pics = PrimaryLessonPlan::orderBy('teacher', 'asc')->get();
+        $pics = PrimaryLessonPlanPic::orderBy('teacher', 'asc')->get();
         $academicyears = \App\Models\AcademicYear::first();
         return view('primaryteacher.lesson_plan.pic', compact('title', 'path', 'pics', 'academicyears'));
     }
