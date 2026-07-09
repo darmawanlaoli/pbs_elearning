@@ -41,7 +41,8 @@
                 <td>{{ 'JHS' }}</td>
                 <td>{{ '2026/2027' }}</td>
                 <td>{{ 'Semester 1' }}</td>
-                <td><a href="<?= asset('assets/academic_calendar/ac20262027sem1smp.xlsx'); ?>" class="btn btn-primary">Download</a></td>
+                <td><a href="<?= '/assets/academic_calendar/ac20262027sem1smp.xlsx'; ?>"
+                        class="btn btn-primary">Download</a></td>
             </tr>
 
             <tr>
@@ -49,7 +50,8 @@
                 <td>{{ 'SHS' }}</td>
                 <td>{{ '2026/2027' }}</td>
                 <td>{{ 'Semester 1' }}</td>
-                <td><a href="<?= asset('assets/academic_calendar/ac20262027sem1sma.xlsx'); ?>" class="btn btn-primary">Download</a></td>
+                <td><a href="<?= '/assets/academic_calendar/ac20262027sem1sma.xlsx'; ?>"
+                        class="btn btn-primary">Download</a></td>
             </tr>
         </tbody>
 

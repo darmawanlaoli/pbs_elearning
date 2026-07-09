@@ -182,8 +182,8 @@
                                             width="24" height="24">
                                     </div>
                                     <div class="d-inline-block">
-                                        <h6 class="mb-1 fw-semibold bg-hover-primary">Assesment Record</h6>
-                                        <span class="fs-2 d-block text-dark">Input assesment record</span>
+                                        <h6 class="mb-1 fw-semibold bg-hover-primary">Assignment</h6>
+                                        <span class="fs-2 d-block text-dark">Manage assignments</span>
                                     </div>
                                 </a>
 
@@ -201,6 +201,22 @@
                                 </a>
                             </div>
                         </div>
+
+                        <div class="col-4">
+                            <div class="position-relative">
+                                <a data-bs-toggle="modal" data-bs-target="#exampleModal" href=""
+                                    class="d-flex align-items-center pb-9 position-relative    ">
+                                    <div class="bg-light rounded-1 me-3 p-6 d-flex align-items-center justify-content-center">
+                                        <img src="../../assets/images/svgs/curriculum.png" alt="" class="img-fluid" width="24" height="24">
+                                    </div>
+                                    <div class="d-inline-block">
+                                        <h6 class="mb-1 fw-semibold bg-hover-primary">Assesment Record</h6>
+                                        <span class="fs-2 d-block text-dark">Input assesment record</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
