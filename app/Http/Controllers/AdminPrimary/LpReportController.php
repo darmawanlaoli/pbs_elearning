@@ -47,6 +47,8 @@ class LpReportController extends Controller
             })
             ->whereNull('lp.id')
             ->select('pic.teacher', 'pic.subject', 'pic.class')
+            ->orderBy('pic.teacher', 'ASC')
+            ->orderBy('pic.class', 'ASC')
             ->get();
 
         return view('adminprimary.lesson_plan_report.print', compact('guruBelumSubmit', 'week', 'term'));

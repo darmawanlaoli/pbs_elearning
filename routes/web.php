@@ -29,7 +29,7 @@ use App\Http\Controllers\HsTeacher\HomeController as HsTeacherHome;
 use App\Http\Controllers\HsTeacher\ProjectFormulation as ProjectFormulationHsTeacher;
 use App\Http\Controllers\HsTeacher\LessonMaterialController as LessonMaterialHsTeacher;
 use App\Http\Controllers\HsTeacher\CtController as CtHsTeacher;
-
+use App\Http\Controllers\HsTeacher\LessonPlanController as LessonPlanHsTeacher;
 
 use App\Http\Controllers\HsStudent\HomeController as HsStudentHome;
 use App\Http\Controllers\HsStudent\LessonMaterialController as StudentLessonMaterial;
@@ -187,6 +187,14 @@ Route::middleware(['auth:hsteacher', 'role:hsteacher'])->group(function () {
     Route::get('hs_teacher/ct/{id}/assign', [CtHsTeacher::class, 'assign'])->name('hs_teacher.ct.assign');
     Route::get('hs_teacher/ct/{id}/responses', [CtHsTeacher::class, 'responses'])->name('hs_teacher.ct.responses');
     Route::post('hs_teacher/ct/assign_action', [CtHsTeacher::class, 'AssignAction'])->name('hs_teacher.ct.assign_action');
+
+    Route::get('hs_teacher/lesson_plan', [LessonPlanHsTeacher::class, 'index'])->name('hs_teacher.lesson_plan');
+    Route::get('hs_teacher/lesson_plan/create', [LessonPlanHsTeacher::class, 'create'])->name('hs_teacher.lesson_plan.create');
+    Route::post('hs_teacher/lesson_plan/store', [LessonPlanHsTeacher::class, 'store'])->name('hs_teacher.lesson_plan.store');
+    Route::delete('hs_teacher/lesson_plan/{id}/destroy', [LessonPlanHsTeacher::class, 'destroy'])->name('hs_teacher.lesson_plan.destroy');
+    Route::get('hs_teacher/lesson_plan/{id}/detail', [LessonPlanHsTeacher::class, 'detail'])->name('hs_teacher.lesson_plan.detail');
+
+    Route::get('hs_teacher/academic_calendar', [HsTeacherHome::class, 'academicCalendar'])->name('hs_teacher.academic_calendar');
 });
 
 

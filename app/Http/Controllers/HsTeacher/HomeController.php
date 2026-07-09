@@ -27,7 +27,7 @@ class HomeController extends Controller
         $request->validate([
             'message' => 'required|string'
         ]);
-        
+
         date_default_timezone_set('Asia/Jakarta');
 
         Chat::create([
@@ -39,5 +39,14 @@ class HomeController extends Controller
         ]);
 
         return response()->json(['success' => true]);
+    }
+
+    public function academicCalendar()
+    {
+        // $messages = Chat::with(['user', 'class'])->orderBy('created_at')->get();
+
+        $title = 'Academic Calendar';
+        $path = 'High School Teacher';
+        return view('hsteacher/academic_calendar', compact('title', 'path'));
     }
 }

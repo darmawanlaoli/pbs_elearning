@@ -89,15 +89,13 @@
                                 <h5 class="fw-semibold mb-0 fs-5">Welcome back {{ session('name') }} </h5>
                             </div>
                             <div class="d-flex align-items-center">
-                                <div class="border-end pe-4 border-muted border-opacity-10">
-                                    <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center">45<i
-                                            class="ti ti-arrow-up-right fs-5 lh-base text-success"></i></h3>
-                                    <p class="mb-0 text-dark">Today’s Visitors</p>
-                                </div>
-                                <div class="ps-4">
-                                    <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center">95%<i
-                                            class="ti ti-arrow-up-right fs-5 lh-base text-success"></i></h3>
-                                    <p class="mb-0 text-dark">Overall Performance</p>
+                                <div class="border-end pe-4">
+                                    <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center">
+                                        <div id="clock">00:00:00</div><i class="ti ti-arrow-up-right fs-5 lh-base text-success"></i>
+                                    </h3>
+                                    <p class="mb-0 text-dark">
+                                    <div id="date">Tanggal</div>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -129,7 +127,7 @@
                                 </a>
 
 
-                                <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                <a href="{{ route('hs_teacher.ct') }}"
                                     class="d-flex align-items-center pb-9 position-relative    ">
                                     <div
                                         class="bg-light rounded-1 me-3 p-6 d-flex align-items-center justify-content-center">
@@ -137,10 +135,8 @@
                                             class="img-fluid" width="24" height="24">
                                     </div>
                                     <div class="d-inline-block">
-                                        <h6 class="mb-1 fw-semibold bg-hover-primary">Email
-                                            App</h6>
-                                        <span class="fs-2 d-block text-dark">Get new
-                                            emails</span>
+                                        <h6 class="mb-1 fw-semibold bg-hover-primary">Chapter Test</h6>
+                                        <span class="fs-2 d-block text-dark">Manage Chapter Tests</span>
                                     </div>
                                 </a>
                             </div>
@@ -160,7 +156,7 @@
                                         <span class="fs-2 d-block text-dark">Manage Lesson Material</span>
                                     </div>
                                 </a>
-                                <a href="{{ route('hs_teacher.ct') }}"
+                                <a href="{{ route('hs_teacher.academic_calendar') }}"
                                     class="d-flex align-items-center pb-9 position-relative    ">
                                     <div
                                         class="bg-light rounded-1 me-3 p-6 d-flex align-items-center justify-content-center">
@@ -169,8 +165,8 @@
                                     </div>
                                     <div class="d-inline-block">
                                         <h6 class="mb-1 fw-semibold bg-hover-primary">
-                                            Chapter Test</h6>
-                                        <span class="fs-2 d-block text-dark">Manage Chapter Test</span>
+                                            Academic Calendar</h6>
+                                        <span class="fs-2 d-block text-dark">View Academic Calendar</span>
                                     </div>
                                 </a>
 
@@ -191,7 +187,7 @@
                                     </div>
                                 </a>
 
-                                <a data-bs-toggle="modal" data-bs-target="#exampleModal" href=""
+                                <a href="{{ route('hs_teacher.lesson_plan') }}"
                                     class="d-flex align-items-center pb-9 position-relative    ">
                                     <div
                                         class="bg-light rounded-1 me-3 p-6 d-flex align-items-center justify-content-center">
@@ -199,10 +195,8 @@
                                             class="img-fluid" width="24" height="24">
                                     </div>
                                     <div class="d-inline-block">
-                                        <h6 class="mb-1 fw-semibold bg-hover-primary">Notes
-                                            Application</h6>
-                                        <span class="fs-2 d-block text-dark">To-do and Daily
-                                            tasks</span>
+                                        <h6 class="mb-1 fw-semibold bg-hover-primary">Lesson Plan</h6>
+                                        <span class="fs-2 d-block text-dark">Manage lesson plans</span>
                                     </div>
                                 </a>
                             </div>
@@ -284,7 +278,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Coming soon! This feature is still being developed.
+                Fitur ini sedang dalam perbaikan, silahkan coba lagi nanti.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -344,6 +338,32 @@
       console.error(error);
     }
   });
+</script>
+
+<script>
+    function updateTime() {
+      const now = new Date();
+
+      // Ambil waktu
+      let hours = now.getHours().toString().padStart(2, '0');
+      let minutes = now.getMinutes().toString().padStart(2, '0');
+      let seconds = now.getSeconds().toString().padStart(2, '0');
+
+      // Format jam
+      const timeString = `${hours}:${minutes}:${seconds}`;
+      document.getElementById("clock").textContent = timeString;
+
+      // Ambil tanggal
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const dateString = now.toLocaleDateString('id-ID', options);
+      document.getElementById("date").textContent = dateString;
+    }
+
+    // Update setiap detik
+    setInterval(updateTime, 1000);
+
+    // Panggil pertama kali
+    updateTime();
 </script>
 
 @endsection
