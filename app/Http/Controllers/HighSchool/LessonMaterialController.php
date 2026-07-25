@@ -23,7 +23,6 @@ class LessonMaterialController extends Controller
             ->get();
         $materialCounts = DB::table('hs_lesson_materials')
             ->select('subject', DB::raw('count(*) as total'))
-            ->where('class', session('grade'))
             ->groupBy('subject')
             ->pluck('total', 'subject');
         return view('high_school/lesson_material/index', compact('title', 'path', 'lessonmaterial', 'subjects', 'materialCounts'));

@@ -305,13 +305,14 @@
 
     try {
       const res = await fetch("{{ route('chat_student.kirim') }}", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        },
-        body: JSON.stringify({ message, kelas_id: kelasId })
-      });
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json', // <--- Tambahkan baris ini
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+          },
+          body: JSON.stringify({ message, kelas_id: kelasId })
+        });
 
       const result = await res.json();
       if (result.success) {
