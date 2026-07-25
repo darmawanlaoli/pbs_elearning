@@ -13,7 +13,7 @@ use App\Http\Controllers\AdminPrimary\UtsReportController as AdminPrimaryUtsRepo
 use App\Http\Controllers\AdminPrimary\AssesmentRecord as PrimaryAssesmentRecordAdmin;
 use App\Http\Controllers\AdminPrimary\Report as PrimaryReportAdmin;
 
-use App\Http\Controllers\AdminHs\HomeController as AdminHsHome;
+use App\Http\Controllers\HighSchool\HomeController as HighSchoolHome;
 
 use App\Http\Controllers\AdminHs\StudentController as HsStudentControllerAdmin;
 use App\Http\Controllers\AdminPrimary\WeeklyLessonPlan;
@@ -30,6 +30,8 @@ use App\Http\Controllers\HsTeacher\ProjectFormulation as ProjectFormulationHsTea
 use App\Http\Controllers\HsTeacher\LessonMaterialController as LessonMaterialHsTeacher;
 use App\Http\Controllers\HsTeacher\CtController as CtHsTeacher;
 use App\Http\Controllers\HsTeacher\LessonPlanController as LessonPlanHsTeacher;
+
+use App\Http\Controllers\HighSchool\LessonMaterialController as HighSchoolLessonMaterial;
 
 use App\Http\Controllers\HsStudent\HomeController as HsStudentHome;
 use App\Http\Controllers\HsStudent\LessonMaterialController as StudentLessonMaterial;
@@ -199,7 +201,10 @@ Route::middleware(['auth:hsteacher', 'role:hsteacher'])->group(function () {
 
 
 Route::middleware(['auth:hsadmin', 'role:hsadmin'])->group(function () {
-    Route::get('hsadmin/home', [AdminHsHome::class, 'index'])->name('hs_admin.home');
+    Route::get('hsadmin/home', [HighSchoolHome::class, 'index'])->name('hs_admin.home');
+
+    Route::get('high_school/lesson_material', [HighSchoolLessonMaterial::class, 'index'])->name('high_school.lesson_material');
+    Route::get('high_school/lesson_material/{id}/show', [HighSchoolLessonMaterial::class, 'show'])->name('high_school.lessonmaterial.show');
 
     Route::get('hs_admin/student', [HsStudentControllerAdmin::class, 'index'])->name('hs_admin.student_data');
 });
@@ -207,7 +212,7 @@ Route::middleware(['auth:hsadmin', 'role:hsadmin'])->group(function () {
 Route::middleware(['auth:hsstudent', 'role:hsstudent'])->group(function () {
     Route::get('hsstudent/home', [HsStudentHome::class, 'index'])->name('hs_student.home');
     Route::post('/chat_student/kirim', [HsStudentHome::class, 'storeChat'])->name('chat_student.kirim');
-    Route::post('hs_student/update_password/store', [HsStudentHome::class, 'storeUpdatePassword'])->name('hs_student.update_password.store');
+    Route::post('hs_student/update_password', [HsStudentHome::class, 'storeUpdatePassword'])->name('hs_student.update_password');
 
     Route::get('hsstudent/project_formulation', [StudentProjectFormulation::class, 'index'])->name('hsstudent.project_formulation');
 

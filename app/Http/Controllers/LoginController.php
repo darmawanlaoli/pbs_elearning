@@ -19,7 +19,7 @@ class LoginController extends Controller
         return view('login');
     }
 
-    public function login_action(Request $request)
+    public function login_action2(Request $request)
     {
         $request->validate([
             'username' => 'required|string',
@@ -124,6 +124,164 @@ class LoginController extends Controller
             'username' => ['Username atau password salah.'],
         ]);
     }
+
+    public function login_action(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+        $username = $request->username;
+        $password = $request->password;
+
+        // =========================
+        // STUDENT PRIMARY
+        // =========================
+        if ($user = PrimaryStudent::where('username', $username)->first()) {
+
+            if (!Hash::check($password, $user->password)) {
+                throw ValidationException::withMessages([
+                    'username' => ['Username atau password salah.'],
+                ]);
+            }
+
+            Auth::guard('primarystudent')->login($user);
+            $request->session()->regenerate();
+
+            session([
+                'role' => 'primarystudent',
+                'name' => $user->name,
+                'username' => $user->username,
+                'class' => $user->class,
+            ]);
+
+            return redirect()->route('primary_student.home');
+        }
+
+        // =========================
+        // HS STUDENT
+        // =========================
+        if ($user = HsStudent::where('username', $username)->first()) {
+
+            if (!Hash::check($password, $user->password)) {
+                throw ValidationException::withMessages([
+                    'username' => ['Username atau password salah.'],
+                ]);
+            }
+
+            Auth::guard('hsstudent')->login($user);
+            $request->session()->regenerate();
+
+            session([
+                'role' => 'hsstudent',
+                'name' => $user->name,
+                'username' => $user->username,
+                'grade' => $user->grade,
+                'class' => $user->class,
+                'is_update_password' => $user->is_update_password,
+            ]);
+
+            return redirect()->route('hs_student.home');
+        }
+
+        // =========================
+        // HS TEACHER
+        // =========================
+        if ($user = HsTeacher::where('username', $username)->first()) {
+
+            if (!Hash::check($password, $user->password)) {
+                throw ValidationException::withMessages([
+                    'username' => ['Username atau password salah.'],
+                ]);
+            }
+
+            Auth::guard('hsteacher')->login($user);
+            $request->session()->regenerate();
+
+            session([
+                'role' => 'hsteacher',
+                'name' => $user->name,
+                'username' => $user->username,
+            ]);
+
+            return redirect()->route('hs_teacher.home');
+        }
+
+        // =========================
+        // PRIMARY TEACHER
+        // =========================
+        if ($user = PrimaryTeacher::where('username', $username)->first()) {
+
+            if (!Hash::check($password, $user->password)) {
+                throw ValidationException::withMessages([
+                    'username' => ['Username atau password salah.'],
+                ]);
+            }
+
+            Auth::guard('primaryteacher')->login($user);
+            $request->session()->regenerate();
+
+            session([
+                'role' => 'primaryteacher',
+                'name' => $user->name,
+                'username' => $user->username,
+                'is_homeroom' => $user->is_homeroom,
+                'homeroom_class' => $user->homeroom_class,
+                'is_allow_print_report' => $user->is_allow_print_report,
+            ]);
+
+            return redirect()->route('primary_teacher.home');
+        }
+
+        // =========================
+        // ADMIN (User)
+        // =========================
+        if ($user = User::where('username', $username)->first()) {
+
+            if (!Hash::check($password, $user->password)) {
+                throw ValidationException::withMessages([
+                    'username' => ['Username atau password salah.'],
+                ]);
+            }
+
+            switch ($user->role) {
+
+                case 'primaryadmin':
+
+                    Auth::guard('primaryadmin')->login($user);
+
+                    session([
+                        'role' => 'primaryadmin',
+                        'name' => $user->name,
+                        'username' => $user->username,
+                    ]);
+
+                    $request->session()->regenerate();
+
+                    return redirect()->route('admin_primary.home');
+
+                case 'hsadmin':
+
+                    Auth::guard('hsadmin')->login($user);
+
+                    session([
+                        'role' => 'hsadmin',
+                        'name' => $user->name,
+                        'username' => $user->username,
+                    ]);
+
+                    $request->session()->regenerate();
+
+                    return redirect()->route('hs_admin.home');
+            }
+        }
+
+        throw ValidationException::withMessages([
+            'username' => ['Username atau password salah.'],
+        ]);
+    }
+
 
     public function logout(Request $request)
     {

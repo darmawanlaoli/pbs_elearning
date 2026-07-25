@@ -1,4 +1,4 @@
-@extends('highschool.layout')
+@extends('hsteacher.layout')
 
 @section('content')
 
@@ -143,7 +143,7 @@
                         </div>
                         <div class="col-4">
                             <div class="position-relative">
-                                <a href="{{ route('hs_teacher.lesson_material') }}"
+                                <a href="{{ route('high_school.lesson_material') }}"
                                     class="d-flex align-items-center pb-9 position-relative    ">
                                     <div
                                         class="bg-light rounded-1 me-3 p-6 d-flex align-items-center justify-content-center">
