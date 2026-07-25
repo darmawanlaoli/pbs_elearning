@@ -55,7 +55,6 @@ class LessonMaterialController extends Controller
         $path = 'Lesson Material';
         $lessonmaterial = DB::table('hs_lesson_materials')
             ->where('subject', $subject)
-            ->where('class', session('grade'))
             ->get();
 
         if (!$lessonmaterial) {
