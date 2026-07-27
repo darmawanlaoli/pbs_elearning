@@ -32,6 +32,7 @@ use App\Http\Controllers\HsTeacher\CtController as CtHsTeacher;
 use App\Http\Controllers\HsTeacher\LessonPlanController as LessonPlanHsTeacher;
 
 use App\Http\Controllers\HighSchool\LessonMaterialController as HighSchoolLessonMaterial;
+use App\Http\Controllers\HighSchool\ProjectFormulationController as HighSchoolProjectFormulation;
 
 use App\Http\Controllers\HsStudent\HomeController as HsStudentHome;
 use App\Http\Controllers\HsStudent\LessonMaterialController as StudentLessonMaterial;
@@ -206,6 +207,9 @@ Route::middleware(['auth:hsadmin', 'role:hsadmin'])->group(function () {
     Route::get('high_school/lesson_material', [HighSchoolLessonMaterial::class, 'index'])->name('high_school.lesson_material');
     Route::get('high_school/lesson_material/{id}/show', [HighSchoolLessonMaterial::class, 'show'])->name('high_school.lessonmaterial.show');
 
+    Route::get('high_school/project_formulation', [HighSchoolProjectFormulation::class, 'index'])->name('high_school.project_formulation');
+    Route::get('high_school/project_formulation/{id}/show', [HighSchoolProjectFormulation::class, 'show'])->name('high_school.project_formulation.show');
+
     Route::get('hs_admin/student', [HsStudentControllerAdmin::class, 'index'])->name('hs_admin.student_data');
 });
 
@@ -213,6 +217,7 @@ Route::middleware(['auth:hsstudent', 'role:hsstudent'])->group(function () {
     Route::get('hsstudent/home', [HsStudentHome::class, 'index'])->name('hs_student.home');
     Route::post('/chat_student/kirim', [HsStudentHome::class, 'storeChat'])->name('chat_student.kirim');
     Route::post('hs_student/update_password', [HsStudentHome::class, 'storeUpdatePassword'])->name('hs_student.update_password');
+    Route::post('hs_student/update_password/store', [HsStudentHome::class, 'storeUpdatePassword'])->name('hs_student.update_password.store');
 
     Route::get('hsstudent/project_formulation', [StudentProjectFormulation::class, 'index'])->name('hsstudent.project_formulation');
 

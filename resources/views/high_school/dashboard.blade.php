@@ -113,7 +113,7 @@
                     <div class="row">
                         <div class="col-4">
                             <div class="position-relative">
-                                <a href="{{ route('hs_teacher.project_formulation') }}"
+                                <a href="{{ route('high_school.project_formulation') }}"
                                     class="d-flex align-items-center pb-9 position-relative    ">
                                     <div
                                         class="bg-light rounded-1 me-3 p-6 d-flex align-items-center justify-content-center">
