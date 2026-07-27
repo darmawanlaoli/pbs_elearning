@@ -89,15 +89,13 @@
                                 <h5 class="fw-semibold mb-0 fs-5">Welcome back {{ session('name') }} </h5>
                             </div>
                             <div class="d-flex align-items-center">
-                                <div class="border-end pe-4 border-muted border-opacity-10">
-                                    <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center">45<i
-                                            class="ti ti-arrow-up-right fs-5 lh-base text-success"></i></h3>
-                                    <p class="mb-0 text-dark">Today’s Visitors</p>
-                                </div>
-                                <div class="ps-4">
-                                    <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center">95%<i
-                                            class="ti ti-arrow-up-right fs-5 lh-base text-success"></i></h3>
-                                    <p class="mb-0 text-dark">Overall Performance</p>
+                                <div class="border-end pe-4">
+                                    <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center">
+                                        <div id="clock">00:00:00</div><i class="ti ti-arrow-up-right fs-5 lh-base text-success"></i>
+                                    </h3>
+                                    <p class="mb-0 text-dark">
+                                    <div id="date">Tanggal</div>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -185,8 +183,8 @@
                                             width="24" height="24">
                                     </div>
                                     <div class="d-inline-block">
-                                        <h6 class="mb-1 fw-semibold bg-hover-primary">Assesment Record</h6>
-                                        <span class="fs-2 d-block text-dark">Input assesment record</span>
+                                        <h6 class="mb-1 fw-semibold bg-hover-primary">Assignment</h6>
+                                        <span class="fs-2 d-block text-dark">Manage Assignment</span>
                                     </div>
                                 </a>
 
@@ -335,6 +333,33 @@
       console.error(error);
     }
   });
+</script>
+
+
+<script>
+    function updateTime() {
+      const now = new Date();
+
+      // Ambil waktu
+      let hours = now.getHours().toString().padStart(2, '0');
+      let minutes = now.getMinutes().toString().padStart(2, '0');
+      let seconds = now.getSeconds().toString().padStart(2, '0');
+
+      // Format jam
+      const timeString = `${hours}:${minutes}:${seconds}`;
+      document.getElementById("clock").textContent = timeString;
+
+      // Ambil tanggal
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const dateString = now.toLocaleDateString('id-ID', options);
+      document.getElementById("date").textContent = dateString;
+    }
+
+    // Update setiap detik
+    setInterval(updateTime, 1000);
+
+    // Panggil pertama kali
+    updateTime();
 </script>
 
 @endsection

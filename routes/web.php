@@ -217,7 +217,7 @@ Route::middleware(['auth:hsstudent', 'role:hsstudent'])->group(function () {
     Route::get('hsstudent/home', [HsStudentHome::class, 'index'])->name('hs_student.home');
     Route::post('/chat_student/kirim', [HsStudentHome::class, 'storeChat'])->name('chat_student.kirim');
     Route::post('hs_student/update_password', [HsStudentHome::class, 'storeUpdatePassword'])->name('hs_student.update_password');
-    Route::post('hs_student/update_password/store', [HsStudentHome::class, 'storeUpdatePassword'])->name('hs_student.update_password.store');
+    // Route::post('hs_student/update_password/store', [HsStudentHome::class, 'storeUpdatePassword'])->name('hs_student.update_password.store');
 
     Route::get('hsstudent/project_formulation', [StudentProjectFormulation::class, 'index'])->name('hsstudent.project_formulation');
 
@@ -230,8 +230,8 @@ Route::middleware(['auth:hsstudent', 'role:hsstudent'])->group(function () {
 
 Route::middleware(['auth:primarystudent', 'role:primarystudent'])->group(function () {
     Route::get('primary_student/home', [PrimaryStudentHome::class, 'index'])->name('primary_student.home');
-    Route::post('/chat_student/kirim', [PrimaryStudentHome::class, 'storeChat'])->name('chat_student.kirim');
-    Route::post('hs_student/update_password/store', [PrimaryStudentHome::class, 'storeUpdatePassword'])->name('primary_student.update_password.store');
+    // Route::post('/chat_student/kirim', [PrimaryStudentHome::class, 'storeChat'])->name('chat_student.kirim');
+    // Route::post('hs_student/update_password/store', [PrimaryStudentHome::class, 'storeUpdatePassword'])->name('primary_student.update_password.store');
 
     Route::get('primary_student/assignment', [StudentProjectFormulation::class, 'index'])->name('primary_student.assignment');
 

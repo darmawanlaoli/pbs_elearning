@@ -17,7 +17,7 @@
                 continue.</span>
         </div>
         <div class="card-body">
-            <form action="{{ route('hs_student.update_password.store') }}" method="POST">
+            <form action="{{ route('hs_student.update_password') }}" method="POST">
                 @csrf
                 <div class="mb-3">
                     <label for="password" class="form-label">New Password</label>

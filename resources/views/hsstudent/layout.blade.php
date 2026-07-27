@@ -60,7 +60,7 @@
                         <!-- Dashboard -->
                         <!-- =================== -->
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{ route('primary_student.home') }}" aria-expanded="false">
+                            <a class="sidebar-link" href="{{ route('hs_student.home') }}" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-dashboard"></i>
                                 </span>
@@ -86,7 +86,16 @@
                                 </li>
 
                                 <li class="sidebar-item">
-                                    <a href="{{ route('primary_student.lesson_material') }}" class="sidebar-link">
+                                    <a href="{{ route('hsstudent.project_formulation') }}" class="sidebar-link">
+                                        <div class="round-16 d-flex align-items-center justify-content-center">
+                                            <i class="ti ti-circle"></i>
+                                        </div>
+                                        <span class="hide-menu">Project Formulation</span>
+                                    </a>
+                                </li>
+
+                                <li class="sidebar-item">
+                                    <a href="{{ route('hsstudent.lesson_material') }}" class="sidebar-link">
                                         <div class="round-16 d-flex align-items-center justify-content-center">
                                             <i class="ti ti-circle"></i>
                                         </div>
@@ -274,7 +283,7 @@
             });
         });
     </script>
-    
+
     <script>
 function myFunction() {
   alert("this page is under construction, please check again later");
