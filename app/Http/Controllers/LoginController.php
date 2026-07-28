@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException; // Tambahkan ini
+use App\Models\LoginLog;
+use Illuminate\Support\Carbon;
 
 class LoginController extends Controller
 {
@@ -127,6 +129,8 @@ class LoginController extends Controller
 
     public function login_action(Request $request)
     {
+        date_default_timezone_set('Asia/Jakarta');
+
         $request->validate([
             'username' => 'required|string',
             'password' => 'required|string',
@@ -147,6 +151,7 @@ class LoginController extends Controller
             }
 
             Auth::guard('primarystudent')->login($user);
+            $this->saveLoginLog($request, $user, 'primarystudent');
             $request->session()->regenerate();
 
             session([
@@ -171,6 +176,7 @@ class LoginController extends Controller
             }
 
             Auth::guard('hsstudent')->login($user);
+            $this->saveLoginLog($request, $user, 'hsstudent');
             $request->session()->regenerate();
 
             session([
@@ -197,6 +203,7 @@ class LoginController extends Controller
             }
 
             Auth::guard('hsteacher')->login($user);
+            $this->saveLoginLog($request, $user, 'hsteacher');
             $request->session()->regenerate();
 
             session([
@@ -220,6 +227,7 @@ class LoginController extends Controller
             }
 
             Auth::guard('primaryteacher')->login($user);
+            $this->saveLoginLog($request, $user, 'primaryteacher');
             $request->session()->regenerate();
 
             session([
@@ -250,7 +258,7 @@ class LoginController extends Controller
                 case 'primaryadmin':
 
                     Auth::guard('primaryadmin')->login($user);
-
+                    $this->saveLoginLog($request, $user, 'primaryadmin');
                     session([
                         'role' => 'primaryadmin',
                         'name' => $user->name,
@@ -264,7 +272,7 @@ class LoginController extends Controller
                 case 'hsadmin':
 
                     Auth::guard('hsadmin')->login($user);
-
+                    $this->saveLoginLog($request, $user, 'hsadmin');
                     session([
                         'role' => 'hsadmin',
                         'name' => $user->name,
@@ -279,6 +287,18 @@ class LoginController extends Controller
 
         throw ValidationException::withMessages([
             'username' => ['Username atau password salah.'],
+        ]);
+    }
+
+    private function saveLoginLog(Request $request, $user, $role)
+    {
+        LoginLog::create([
+            'username'   => $user->username,
+            'name'       => $user->name,
+            'role'       => $role,
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+            'login_at'   => Carbon::now(),
         ]);
     }
 
