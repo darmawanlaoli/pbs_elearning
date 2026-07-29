@@ -1,4 +1,4 @@
-@extends('hsteacher.layout')
+@extends('high_school.layout')
 
 @section('content')
 
