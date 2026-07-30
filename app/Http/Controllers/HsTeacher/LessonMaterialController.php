@@ -11,6 +11,7 @@ use App\Models\HsLessonMaterial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Models\Log;
 
 class LessonMaterialController extends Controller
 {
@@ -33,6 +34,83 @@ class LessonMaterialController extends Controller
     }
 
     public function store(Request $request)
+    {
+        $request->validate([
+            'class' => 'required|string',
+            'subject' => 'required|string',
+            'radioDefault' => 'required|in:link,upload',
+        ]);
+
+        $type = $request->radioDefault;
+        $filePathOrLink = null;
+
+        if ($type === 'upload') {
+
+            $request->validate([
+                'file_upload' => 'required|file|mimes:pdf,doc,docx,ppt,pptx,xls,xlsx,jpg,jpeg,png|max:15048',
+            ]);
+
+            if ($request->hasFile('file_upload')) {
+
+                $file = $request->file('file_upload');
+                $filePathOrLink = time() . '_' . $file->getClientOriginalName();
+
+                // Local
+                $destination = public_path('lesson_material');
+
+                // Hosting
+                // $destination = base_path('../../public_html/elearning/lesson_material');
+
+                $file->move($destination, $filePathOrLink);
+            }
+        } else {
+
+            $request->validate([
+                'file_link' => 'required|url|max:2048',
+            ]);
+
+            $filePathOrLink = $request->file_link;
+        }
+
+        DB::beginTransaction();
+
+        try {
+
+            $lessonMaterial = HsLessonMaterial::create([
+                'class'       => $request->class,
+                'subject'     => $request->subject,
+                'description' => $request->description,
+                'type'        => $type,
+                'file'        => $filePathOrLink,
+                'teacher'     => session('name'),
+            ]);
+
+            // Simpan ke tabel logs
+            Log::create([
+                'user'        => session('name'),
+                'description'    => $request->description,
+                'activity' => 'Teacher ' . session('name') . ' uploaded lesson material "' . $request->subject . '" for class ' . $request->class,
+                'grade'  => $request->class,
+                'role'   => 'HS Teacher',
+                'created_at'  => now(),
+            ]);
+
+            DB::commit();
+
+            return redirect()
+                ->route('hs_teacher.lesson_material')
+                ->with('success', 'Lesson material successfully saved.');
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            return back()
+                ->withInput()
+                ->with('error', 'Failed to save lesson material. ' . $e->getMessage());
+        }
+    }
+
+    public function store1(Request $request)
     {
         // Validasi input umum
         $request->validate([
