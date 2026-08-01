@@ -16,6 +16,8 @@ use App\Http\Controllers\AdminPrimary\Report as PrimaryReportAdmin;
 use App\Http\Controllers\HighSchool\HomeController as HighSchoolHome;
 use App\Http\Controllers\HighSchool\LoginLogController as HighSchoolLoginLog;
 
+use App\Http\Controllers\HighSchool\LogController as HighSchoolActivityLog;
+
 use App\Http\Controllers\AdminHs\StudentController as HsStudentControllerAdmin;
 use App\Http\Controllers\AdminPrimary\WeeklyLessonPlan;
 use App\Http\Controllers\PrimaryTeacher\HomeController as PrimaryTeacherHome;
@@ -206,6 +208,7 @@ Route::middleware(['auth:hsadmin', 'role:hsadmin'])->group(function () {
     Route::get('hsadmin/home', [HighSchoolHome::class, 'index'])->name('hs_admin.home');
 
     Route::get('high_school/login_log', [HighSchoolLoginLog::class, 'index'])->name('high_school.login_log');
+    Route::get('high_school/activity_log', [HighSchoolActivityLog::class, 'index'])->name('high_school.activity_log');
 
     Route::get('high_school/lesson_material', [HighSchoolLessonMaterial::class, 'index'])->name('high_school.lesson_material');
     Route::get('high_school/lesson_material/{id}/show', [HighSchoolLessonMaterial::class, 'show'])->name('high_school.lessonmaterial.show');
