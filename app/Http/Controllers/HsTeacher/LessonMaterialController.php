@@ -56,10 +56,10 @@ class LessonMaterialController extends Controller
                 $filePathOrLink = time() . '_' . $file->getClientOriginalName();
 
                 // Local
-                $destination = public_path('lesson_material');
+                // $destination = public_path('lesson_material');
 
                 // Hosting
-                // $destination = base_path('../../public_html/elearning/lesson_material');
+                $destination = base_path('../../public_html/elearning/lesson_material');
 
                 $file->move($destination, $filePathOrLink);
             }

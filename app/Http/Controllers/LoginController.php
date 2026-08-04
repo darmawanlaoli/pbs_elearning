@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\HsTeacher;
 use App\Models\PrimaryTeacher;
 use App\Models\PrimaryStudent;
+use App\Models\KindergartenTeacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -89,6 +90,14 @@ class LoginController extends Controller
                     'homeroom_class' => 'homeroom_class',
                     'is_allow_print_report' => 'is_allow_print_report'
                 ]
+            ],
+
+            'kindergartenteacher' => [
+                'model' => KindergartenTeacher::class,
+                'field' => 'username',
+                'role' => 'kindergartenteacher',
+                'redirect' => 'kindergarten_teacher.home',
+                'session_data' => ['name' => 'name', 'username' => 'username']
             ],
 
             'web' => [
@@ -240,6 +249,33 @@ class LoginController extends Controller
             ]);
 
             return redirect()->route('primary_teacher.home');
+        }
+
+        // =========================
+        // KINDERGARTEN TEACHER
+        // =========================
+        if ($user = KindergartenTeacher::where('username', $username)->first()) {
+
+            if (!Hash::check($password, $user->password)) {
+                throw ValidationException::withMessages([
+                    'username' => ['Username atau password salah.'],
+                ]);
+            }
+
+            Auth::guard('kindergartenteacher')->login($user);
+            $this->saveLoginLog($request, $user, 'kindergartenteacher');
+            $request->session()->regenerate();
+
+            session([
+                'role' => 'kindergartenteacher',
+                'name' => $user->name,
+                'username' => $user->username,
+                'is_homeroom' => $user->is_homeroom,
+                'homeroom_class' => $user->homeroom_class,
+                'is_allow_print_report' => $user->is_allow_print_report,
+            ]);
+
+            return redirect()->route('kindergarten_teacher.home');
         }
 
         // =========================

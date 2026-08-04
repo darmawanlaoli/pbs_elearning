@@ -1,4 +1,4 @@
-@extends('primary_student.layout')
+@extends('kindergarten.layout')
 
 @section('content')
 
@@ -82,17 +82,17 @@
 
             <h2 class="mt-5 mb-3 text-center text-primary">Join Zoom Meeting</h2>
 
-            <a target="_blank" href="{{ $zoom->link }}" class="btn btn-primary mx-auto mb-3">Join Now</a>
+            <a target="_blank" href="" class="btn btn-primary mx-auto mb-3">Join Now</a>
 
             <table class="table">
                 <tr>
                     <th>Zoom Id</th>
-                    <th>: {{ $zoom->zoom_id }}</th>
+                    <th>: </th>
                 </tr>
 
                 <tr>
                     <th>Passcode</th>
-                    <th>: {{ $zoom->passcode }}</th>
+                    <th>: </th>
                 </tr>
             </table>
 

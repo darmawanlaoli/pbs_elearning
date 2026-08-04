@@ -69,6 +69,10 @@ return [
             'driver' => 'session',
             'provider' => 'students', // ini penting
         ],
+        'kindergartenteacher' => [
+            'driver' => 'session',
+            'provider' => 'kindergartenteachers', // ini penting
+        ],
     ],
 
     /*
@@ -122,6 +126,10 @@ return [
         'students' => [
             'driver' => 'eloquent',
             'model' => App\Models\Student::class, // pastikan model Stage ini ada
+        ],
+        'kindergartenteachers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\KindergartenTeacher::class,
         ],
     ],
 

@@ -18,6 +18,9 @@ use App\Http\Controllers\HighSchool\LoginLogController as HighSchoolLoginLog;
 
 use App\Http\Controllers\HighSchool\LogController as HighSchoolActivityLog;
 
+use App\Http\Controllers\Kindergarten\HomeController as KindergartenHome;
+use App\Http\Controllers\Kindergarten\AssesmentRecordController as KindergartenAssessmentRecord;
+
 use App\Http\Controllers\AdminHs\StudentController as HsStudentControllerAdmin;
 use App\Http\Controllers\AdminPrimary\WeeklyLessonPlan;
 use App\Http\Controllers\PrimaryTeacher\HomeController as PrimaryTeacherHome;
@@ -114,6 +117,14 @@ Route::middleware(['auth:primaryadmin', 'role:primaryadmin'])->group(function ()
 
 
 });
+
+Route::middleware(['auth:kindergartenteacher', 'role:kindergartenteacher'])->group(function () {
+    Route::get('kindergarten_teacher/home', [KindergartenHome::class, 'index'])->name('kindergarten_teacher.home');
+    Route::get('kindergarten/assessment_record', [KindergartenAssessmentRecord::class, 'index'])->name('kindergarten.assessment_record');
+    Route::get('kindergarten/assessment_record/create', [KindergartenAssessmentRecord::class, 'create'])->name('kindergarten.assessment_record.create');
+    Route::post('kindergarten/assessment_record/store', [KindergartenAssessmentRecord::class, 'store'])->name('kindergarten.assessment_record.store');
+});
+
 
 Route::middleware(['auth:primaryteacher', 'role:primaryteacher'])->group(function () {
     Route::get('primary_teacher/home', [PrimaryTeacherHome::class, 'index'])->name('primary_teacher.home');
