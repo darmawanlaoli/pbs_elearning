@@ -267,6 +267,7 @@
                             <option value="Y9">Y9</option>
                             <option value="Y10">Y10</option>
                             <option value="Y11">Y11</option>
+                            <option value="Y12">Y12</option>
                         </select>
 
                         <div class="d-flex gap-2">
