@@ -383,4 +383,42 @@
     updateTime();
 </script>
 
+
+<!-- The Modal Structure -->
+<div class="modal fade" id="autoPopupModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Fitur Baru: Acak Tempat Duduk Siswa (Beta)</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Telah ditambahkan fitur baru "Acak Tempat Duduk Siswa" pada e-Learning untuk membantu menyusun posisi duduk siswa secara
+                lebih mudah, cepat, dan bervariasi.</p>
+
+                <p>⚠️ Fitur ini masih dalam tahap uji coba (Beta), sehingga mungkin masih terdapat beberapa kekurangan atau hal yang
+                perlu disempurnakan.</p>
+            </div>
+            <div class="text-end text-center" style="padding: 0 20px 20px 20px;">
+                <a href="{{ route("acak") }}" class="btn btn-lg btn-primary">🎉 Coba</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Auto-open Script -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Select the modal element by its ID
+      const modalElement = document.getElementById('autoPopupModal');
+
+      // Initialize the Bootstrap 5 modal object
+      const myModal = new bootstrap.Modal(modalElement);
+
+      // Force display the popup immediately
+      myModal.show();
+    });
+</script>
+
 @endsection

@@ -15,6 +15,7 @@ use App\Http\Controllers\AdminPrimary\Report as PrimaryReportAdmin;
 
 use App\Http\Controllers\HighSchool\HomeController as HighSchoolHome;
 use App\Http\Controllers\HighSchool\LoginLogController as HighSchoolLoginLog;
+use App\Http\Controllers\HighSchool\StudentDatabaseController as HighSchoolDatabaseStudents;
 
 use App\Http\Controllers\HighSchool\LogController as HighSchoolActivityLog;
 
@@ -51,6 +52,8 @@ use App\Http\Controllers\PrimaryStudent\LessonMaterialController as PrimaryStude
 Route::get('/', [LoginController::class, 'index'])->name('login');
 Route::post('login_action', [LoginController::class, 'login_action'])->name('login_action');
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::view('/acak', 'pengacak')->name('acak');
 
 Route::middleware(['auth:primaryadmin', 'role:primaryadmin'])->group(function () {
     Route::get('admin_primary/home', [AdminPrimaryHome::class, 'index'])->name('admin_primary.home');
@@ -228,6 +231,13 @@ Route::middleware(['auth:hsadmin', 'role:hsadmin'])->group(function () {
     Route::get('high_school/project_formulation/{id}/show', [HighSchoolProjectFormulation::class, 'show'])->name('high_school.project_formulation.show');
 
     Route::get('hs_admin/student', [HsStudentControllerAdmin::class, 'index'])->name('hs_admin.student_data');
+
+    // routes database students - high school
+    Route::get('high_school/database/students', [HighSchoolDatabaseStudents::class, 'index'])->name('high_school.database.students');
+    Route::get('high_school/database/students/create', [HighSchoolDatabaseStudents::class, 'create'])->name('high_school.database.students.create');
+    Route::post('high_school/database/students/store', [HighSchoolDatabaseStudents::class, 'store'])->name('high_school.database.students.store');
+    Route::delete('high_school/database/students/{id}/destroy', [HighSchoolDatabaseStudents::class, 'destroy'])->name('high_school.database.students.destroy');
+    Route::get('high_school/database/students/{id}/detail', [HighSchoolDatabaseStudents::class, 'detail'])->name('high_school.database.students.detail');
 });
 
 Route::middleware(['auth:hsstudent', 'role:hsstudent'])->group(function () {
