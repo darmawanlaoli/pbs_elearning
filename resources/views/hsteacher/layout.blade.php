@@ -95,7 +95,16 @@
                                 </li>
 
                                 <li class="sidebar-item">
-                                    <a href="{{ route('hs_teacher.lesson_material') }}" class="sidebar-link">
+                                    <a href="{{ route('hs_teacher.assignment') }}" class="sidebar-link">
+                                        <div class="round-16 d-flex align-items-center justify-content-center">
+                                            <i class="ti ti-circle"></i>
+                                        </div>
+                                        <span class="hide-menu">Assignment</span>
+                                    </a>
+                                </li>
+
+                                <li class="sidebar-item">
+                                    <a href="{{ route('hs_teacher.lesson_plan') }}" class="sidebar-link">
                                         <div class="round-16 d-flex align-items-center justify-content-center">
                                             <i class="ti ti-circle"></i>
                                         </div>

@@ -21,7 +21,12 @@ class AssesmentRecordController extends Controller
     {
         $title = 'Create Assessment Record';
         $path = 'Report';
-        return view('kindergarten/assessment_record/create', compact('title', 'path'));
+        $class = session('homeroom_class');
+
+        $classes = DB::table('kindergarten_classes')->orderBy('id', 'DESC')->get();
+        $academic_year = DB::table('kindergarten_academic_years')->first();
+        $students = DB::table('kindergarten_students')->orderBy('id', 'DESC')->get();
+        return view('kindergarten/assessment_record/create', compact('title', 'path', 'classes', 'academic_year', 'students'));
     }
 
     public function store(Request $request)

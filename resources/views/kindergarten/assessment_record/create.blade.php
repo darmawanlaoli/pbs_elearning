@@ -25,24 +25,47 @@
     </div>
     <div class="widget-content searchable-container list">
 
-    <div class="card">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
 
-        <div class="card-body">
-            <form action="{{ route('kindergarten.assessment_record.store') }}" method="POST">
-                @csrf
-                <div class="mb-3">
-                    <label for="student_name" class="form-label">Student Name</label>
-                    <input type="text" class="form-control" id="student_name" name="student_name" required>
+                <div class="card-body">
+                    <form action="{{ route('kindergarten.assessment_record.store') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="assessment_date" class="form-label">Academic Year</label>
+                            <input type="text" class="form-control" id="assessment_date" name="assessment_date"
+                                value="{{ $academic_year->academic_year }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="assessment_score" class="form-label">Term</label>
+                            <input type="text" class="form-control" value="{{ $academic_year->term }}" id="assessment_score"
+                                name="assessment_score" required>
+                        </div>
+                    </form>
                 </div>
-                <div class="mb-3">
-                    <label for="assessment_date" class="form-label">Assessment Date</label>
-                    <input type="date" class="form-control" id="assessment_date" name="assessment_date" required>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+
+                <div class="card-body">
+                    <form action="{{ route('kindergarten.assessment_record.store') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="class" class="form-label">Class</label>
+                            <input type="text" readonly class="form-control" value="{{ session('homeroom_class') }}" id="class"
+                                name="class" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="assessment_score" class="form-label">Report Card Distribution</label>
+                            <input type="date" class="form-control" id="assessment_score" name="assessment_score" required>
+                        </div>
+                    </form>
                 </div>
-                <div class="mb-3">
-                    <label for="assessment_score" class="form-label">Assessment Score</label>
-                    <input type="number" class="form-control" id="assessment_score" name="assessment_score" required>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 
@@ -50,28 +73,30 @@
     <div class="card">
 
         <div class="card-body">
-            <form action="{{ route('kindergarten.assessment_record.store') }}" method="POST">
-                @csrf
-                <div class="mb-3">
-                    <label for="student_name" class="form-label">Student Name</label>
-                    <input type="text" class="form-control" id="student_name" name="student_name" required>
-                </div>
-                <div class="mb-3">
-                    <label for="assessment_date" class="form-label">Assessment Date</label>
-                    <input type="date" class="form-control" id="assessment_date" name="assessment_date" required>
-                </div>
-                <div class="mb-3">
-                    <label for="assessment_score" class="form-label">Assessment Score</label>
-                    <input type="number" class="form-control" id="assessment_score" name="assessment_score" required>
-                </div>
-
-                <div class="mb-3">
-                    <input type="checkbox" id="is_passed" name="is_passed" value="1">
-                    <label for="is_passed" class="form-label">Dengan ini saya menyatakan bahwa data siswa di atas sudah
-                        benar dan sesuai</label>
-                </div>
-                <button type="submit" class="btn btn-primary">Simpan</button>
-            </form>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tr class="text-center align-middle bg-primary text-white">
+                        <th>Student Name</th>
+                        <th>Reg. Number</th>
+                        <th>Gender</th>
+                        <th>Date of Birth</th>
+                        <th>Address</th>
+                        <th>Parents Name</th>
+                        <th>Teachers</th>
+                    </tr>
+                    @foreach ($students as $student)
+                        <tr>
+                            <td>{{ $student->name }}</td>
+                            <td>{{ $student->registration_number }}</td>
+                            <td>{{ $student->gender }}</td>
+                            <td>{{ $student->dob }}</td>
+                            <td>{{ $student->address }}</td>
+                            <td>{{ $student->name_of_parents }}</td>
+                            <td>{{ $student->teachers }}</td>
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
         </div>
     </div>
 

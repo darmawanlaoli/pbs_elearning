@@ -13,6 +13,7 @@ use App\Http\Controllers\AdminPrimary\UtsReportController as AdminPrimaryUtsRepo
 use App\Http\Controllers\AdminPrimary\AssesmentRecord as PrimaryAssesmentRecordAdmin;
 use App\Http\Controllers\AdminPrimary\Report as PrimaryReportAdmin;
 
+
 use App\Http\Controllers\HighSchool\HomeController as HighSchoolHome;
 use App\Http\Controllers\HighSchool\LoginLogController as HighSchoolLoginLog;
 use App\Http\Controllers\HighSchool\StudentDatabaseController as HighSchoolDatabaseStudents;
@@ -36,11 +37,13 @@ use App\Http\Controllers\HsTeacher\HomeController as HsTeacherHome;
 use App\Http\Controllers\HsTeacher\ProjectFormulation as ProjectFormulationHsTeacher;
 use App\Http\Controllers\HsTeacher\LessonMaterialController as LessonMaterialHsTeacher;
 use App\Http\Controllers\HsTeacher\CtController as CtHsTeacher;
+use App\Http\Controllers\HsTeacher\AssignmentController as AssignmentHsTeacher;
 use App\Http\Controllers\HsTeacher\LessonPlanController as LessonPlanHsTeacher;
 
 use App\Http\Controllers\HighSchool\LessonMaterialController as HighSchoolLessonMaterial;
 use App\Http\Controllers\HighSchool\ProjectFormulationController as HighSchoolProjectFormulation;
 
+use App\Http\Controllers\HsStudent\AssignmentController as HsStudentAssignment;
 use App\Http\Controllers\HsStudent\HomeController as HsStudentHome;
 use App\Http\Controllers\HsStudent\LessonMaterialController as StudentLessonMaterial;
 use App\Http\Controllers\HsStudent\ProjectFormulationController as StudentProjectFormulation;
@@ -192,6 +195,13 @@ Route::middleware(['auth:hsteacher', 'role:hsteacher'])->group(function () {
     Route::delete('hs_teacher/project_formulation/{id}/destroy', [ProjectFormulationHsTeacher::class, 'destroy'])->name('hs_teacher.project_formulation.destroy');
     Route::get('hs_teacher/project_formulation/{id}/detail', [ProjectFormulationHsTeacher::class, 'detail'])->name('hs_teacher.project_formulation.detail');
 
+    Route::get('hs_teacher/assignment', [AssignmentHsTeacher::class, 'index'])->name('hs_teacher.assignment');
+    Route::get('hs_teacher/assignment/create', [AssignmentHsTeacher::class, 'create'])->name('hs_teacher.assignment.create');
+    Route::post('hs_teacher/assignment/store', [AssignmentHsTeacher::class, 'store'])->name('hs_teacher.assignment.store');
+    Route::delete('hs_teacher/assignment/{id}/destroy', [AssignmentHsTeacher::class, 'destroy'])->name('hs_teacher.assignment.destroy');
+    Route::post('hs_teacher/assignment/{id}/detail', [AssignmentHsTeacher::class, 'detail'])->name('hs_teacher.assignment.detail');
+    Route::post('hs_teacher/assignment/{id}/assign', [AssignmentHsTeacher::class, 'assign'])->name('hs_teacher.assignment.assign');
+
     // routes lesson material - hsteacher
     Route::get('hs_teacher/lesson_material', [LessonMaterialHsTeacher::class, 'index'])->name('hs_teacher.lesson_material');
     Route::get('hs_teacher/lesson_material/create', [LessonMaterialHsTeacher::class, 'create'])->name('hs_teacher.lesson_material.create');
@@ -247,6 +257,9 @@ Route::middleware(['auth:hsstudent', 'role:hsstudent'])->group(function () {
     // Route::post('hs_student/update_password/store', [HsStudentHome::class, 'storeUpdatePassword'])->name('hs_student.update_password.store');
 
     Route::get('hsstudent/project_formulation', [StudentProjectFormulation::class, 'index'])->name('hsstudent.project_formulation');
+    Route::get('hsstudent/assignment', [HsStudentAssignment::class, 'index'])->name('hsstudent.assignment');
+    Route::get('hsstudent/assignment/{id}/detail', [HsStudentAssignment::class, 'detail'])->name('hsstudent.assignment.detail');
+    Route::put('/hsstudent/assignment/{id}/submit', [HsStudentAssignment::class, 'submit'])->name('hsstudent.assignment.submit');
 
     Route::get('hsstudent/lesson_material', [StudentLessonMaterial::class, 'index'])->name('hsstudent.lesson_material');
     Route::get('hsstudent/lesson_material/{id}/show', [StudentLessonMaterial::class, 'show'])->name('hsstudent.lessonmaterial.show');
