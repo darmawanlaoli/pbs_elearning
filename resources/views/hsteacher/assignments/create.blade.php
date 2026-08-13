@@ -39,9 +39,9 @@
                         <label class="control-label col-form-label">Class</label>
                         <div class="input-group">
                             <select name="class" class="form-control @error('class') is-invalid @enderror">
-                                <option value="" disabled selected>Select Class</option>
-                                @for ($i = 7; $i <= 12; $i++) <option value="{{ 'Y'.$i }}">{{ 'Y'.$i }}</option>
-                                    @endfor
+                                <option value="Y7 Justice">Y7 Justice</option>
+                                <option value="Y7 Wisdom">Y7 Wisdom</option>
+                                <option value="Y10 Prudence">Y10 Prudence</option>
                             </select>
                             @error('class')
                             <div class="invalid-feedback">{{$message}}</div>
