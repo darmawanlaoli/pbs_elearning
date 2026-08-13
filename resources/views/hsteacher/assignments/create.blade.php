@@ -42,6 +42,7 @@
                                 <option value="Y7 Justice">Y7 Justice</option>
                                 <option value="Y7 Wisdom">Y7 Wisdom</option>
                                 <option value="Y10 Prudence">Y10 Prudence</option>
+                                <option value="Y11 Diligence">Y11 Diligence</option>
                             </select>
                             @error('class')
                             <div class="invalid-feedback">{{$message}}</div>
