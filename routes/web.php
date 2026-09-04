@@ -22,6 +22,8 @@ use App\Http\Controllers\HighSchool\LogController as HighSchoolActivityLog;
 
 use App\Http\Controllers\Kindergarten\HomeController as KindergartenHome;
 use App\Http\Controllers\Kindergarten\AssesmentRecordController as KindergartenAssessmentRecord;
+use App\Http\Controllers\Kindergarten\ReportDataController as KindergartenReportData;
+use App\Http\Controllers\Kindergarten\StudentDataController as KindergartenStudentData;
 
 use App\Http\Controllers\AdminHs\StudentController as HsStudentControllerAdmin;
 use App\Http\Controllers\AdminPrimary\WeeklyLessonPlan;
@@ -42,6 +44,7 @@ use App\Http\Controllers\HsTeacher\LessonPlanController as LessonPlanHsTeacher;
 
 use App\Http\Controllers\HighSchool\LessonMaterialController as HighSchoolLessonMaterial;
 use App\Http\Controllers\HighSchool\ProjectFormulationController as HighSchoolProjectFormulation;
+use App\Http\Controllers\HighSchool\AssessmentRecord as HighSchoolAssessmentRecord;
 
 use App\Http\Controllers\HsStudent\AssignmentController as HsStudentAssignment;
 use App\Http\Controllers\HsStudent\HomeController as HsStudentHome;
@@ -129,6 +132,13 @@ Route::middleware(['auth:kindergartenteacher', 'role:kindergartenteacher'])->gro
     Route::get('kindergarten/assessment_record', [KindergartenAssessmentRecord::class, 'index'])->name('kindergarten.assessment_record');
     Route::get('kindergarten/assessment_record/create', [KindergartenAssessmentRecord::class, 'create'])->name('kindergarten.assessment_record.create');
     Route::post('kindergarten/assessment_record/store', [KindergartenAssessmentRecord::class, 'store'])->name('kindergarten.assessment_record.store');
+    Route::post('kindergarten/assessment_record/{id}/input', [KindergartenAssessmentRecord::class, 'input'])->name('kindergarten.assessment_record.input');
+    Route::put('kindergarten/assessment_record/input_action', [KindergartenAssessmentRecord::class, 'inputAction'])->name('kindergarten.assessment_record.input_action');
+    Route::post('kindergarten/assessment_record/{id}/report_data', [KindergartenAssessmentRecord::class, 'reportData'])->name('kindergarten.assessment_record.report_data');
+    Route::put('kindergarten/assessment_record/store_report_data', [KindergartenAssessmentRecord::class, 'storeReportData'])->name('kindergarten.assessment_record.store_report_data');
+
+    Route::post('kindergarten/assessment_record/{id}/print_preview', [KindergartenAssessmentRecord::class, 'printPreview'])->name('kindergarten.assessment_record.print_preview');
+    Route::get('kindergarten/assessment_record/{id}/print_preview', [KindergartenAssessmentRecord::class, 'printPreview'])->name('kindergarten.assessment_record.print_preview');
 });
 
 
@@ -227,8 +237,32 @@ Route::middleware(['auth:hsteacher', 'role:hsteacher'])->group(function () {
     Route::get('hs_teacher/academic_calendar', [HsTeacherHome::class, 'academicCalendar'])->name('hs_teacher.academic_calendar');
 });
 
+Route::get('high_school/assessment_record', [HighSchoolAssessmentRecord::class, 'index'])->name('high_school.assessment_record');
+Route::get('high_school/assessment_record/create', [HighSchoolAssessmentRecord::class, 'create'])->name('high_school.assessment_record.create');
+Route::post('high_school/assessment_record/store', [HighSchoolAssessmentRecord::class, 'store'])->name('high_school.assessment_record.store');
+Route::delete('high_school/assessment_record/destroy', [HighSchoolAssessmentRecord::class, 'destroy'])->name('high_school.assessment_record.destroy');
+Route::get('high_school/assessment_record/{id}/detail', [HighSchoolAssessmentRecord::class, 'detail'])->name('high_school.assessment_record.detail');
+Route::post('high_school/assessment_record/{id}/generate', [HighSchoolAssessmentRecord::class, 'generate'])->name('high_school.assessment_record.generate');
+Route::post('high_school/assessment_record/{id}/input', [HighSchoolAssessmentRecord::class, 'input'])->name('high_school.assessment_record.input');
 
-Route::middleware(['auth:hsadmin', 'role:hsadmin'])->group(function () {
+Route::get('kindergarten/home', [KindergartenHome::class, 'index'])->name('kindergarten.home');
+Route::get('kindergarten/report_data', [KindergartenReportData::class, 'index'])->name('kindergarten.report_data');
+Route::get('kindergarten/report_data/create', [KindergartenReportData::class, 'create'])->name('kindergarten.report_data.create');
+Route::post('kindergarten/report_data/store', [KindergartenReportData::class, 'store'])->name('kindergarten.report_data.store');
+Route::delete('kindergarten/report_data/{reportData}/destroy', [KindergartenReportData::class, 'destroy'])->name('kindergarten.report_data.destroy');
+Route::get('kindergarten/report_data/{reportData}/edit', [KindergartenReportData::class, 'edit'])->name('kindergarten.report_data.edit');
+Route::put('kindergarten/report_data/{reportData}/update', [KindergartenReportData::class, 'update'])->name('kindergarten.report_data.update');
+
+Route::get('kindergarten/student_data', [KindergartenStudentData::class, 'index'])->name('kindergarten.student_data');
+Route::get('kindergarten/student_data/create', [KindergartenStudentData::class, 'create'])->name('kindergarten.student_data.create');
+Route::post('kindergarten/student_data/store', [KindergartenStudentData::class, 'store'])->name('kindergarten.student_data.store');
+Route::delete('kindergarten/student_data/{studentData}/destroy', [KindergartenStudentData::class, 'destroy'])->name('kindergarten.student_data.destroy');
+Route::get('kindergarten/student_data/{studentData}/edit', [KindergartenStudentData::class, 'edit'])->name('kindergarten.student_data.edit');
+Route::put('kindergarten/student_data/{studentData}/update', [KindergartenStudentData::class, 'update'])->name('kindergarten.student_data.update');
+Route::post('kindergarten/student_data/import', [KindergartenStudentData::class, 'import'])->name('kindergarten.student_data.import');
+
+
+Route::middleware(['auth:hsadmin', 'role:hsadmin', 'auth:hsteacher', 'role:hsteacher'])->group(function () {
     Route::get('hsadmin/home', [HighSchoolHome::class, 'index'])->name('hs_admin.home');
 
     Route::get('high_school/login_log', [HighSchoolLoginLog::class, 'index'])->name('high_school.login_log');

@@ -73,6 +73,11 @@ return [
             'driver' => 'session',
             'provider' => 'kindergartenteachers', // ini penting
         ],
+
+        'kindergartenadmin' => [
+            'driver' => 'session',
+            'provider' => 'kindergartenadmins', // ini penting
+        ],
     ],
 
     /*
@@ -130,6 +135,10 @@ return [
         'kindergartenteachers' => [
             'driver' => 'eloquent',
             'model' => App\Models\KindergartenTeacher::class,
+        ],
+        'kindergartenadmins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\KindergartenAdmin::class,
         ],
     ],
 

@@ -1,53 +1,42 @@
 <?php
 
-namespace App\Http\Controllers\PrimaryTeacher;
+namespace App\Http\Controllers\HighSchool;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\PrimaryAssesmentRecord;
+use App\Models\HsAssessmentRecord;
+use App\Models\HsAssessmentRecordDetail;
 use App\Models\AcademicYear;
-use App\Models\PrimaryReportSubject;
+use App\Models\HsSubject;
+use App\Models\HsClass;
+use App\Models\HsStudent;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\DB;
-use App\Exports\PrimaryAssesmentRecordExport;
-use App\Exports\PePrimaryAssesmentRecordExport;
-use App\Exports\LangLowerPrimaryAssesmentRecordExport;
-use App\Exports\LangUpperPrimaryAssesmentRecordExport;
-use App\Exports\ArtPrimaryAssesmentRecordExport;
-use App\Exports\MandarinPrimaryAssesmentRecordExport;
-
-use App\Imports\PePrimaryAssesmentRecordImport;
-use App\Imports\MandarinPrimaryAssesmentRecordImport;
-use App\Imports\LangLowerPrimaryAssesmentRecordImport;
-use App\Imports\LangUpperPrimaryAssesmentRecordImport;
-use App\Imports\ArtPrimaryAssesmentRecordImport;
-
-use App\Imports\PrimaryAssesmentRecordImport;
 use App\Models\PrimaryAssesmentRecordDetails;
-use Maatwebsite\Excel\Facades\Excel;
 
-class AssesmentRecord extends Controller
+class AssessmentRecord extends Controller
 {
     public function index()
     {
-        $title = 'Input Assesment Record';
+        $title = 'Input Assessment Record';
         $path = 'Assesment Record';
-        $assesments = DB::table('primary_assesment_records')
+        $assesments = DB::table('hs_assessment_records')
             ->where('teacher', session('name'))
             ->orderBy('id', 'DESC')
             ->get();
         $academicyears = AcademicYear::first();
-        return view('primaryteacher.assesment_record.index', compact('title', 'path', 'assesments', 'academicyears'));
+        return view('high_school.assessment_record.index', compact('title', 'path', 'assesments', 'academicyears'));
     }
 
     public function create(){
         $title = 'New Assesment Record';
         $path = 'Assesment Record';
         $academicyears = AcademicYear::first();
-        $subjects = PrimaryReportSubject::all();
+        $subjects = HsSubject::all();
+        $classes = HsClass::all();
 
-        return view('primaryteacher/assesment_record/create', compact('title', 'path', 'academicyears', 'subjects'));
+        return view('high_school.assessment_record.create', compact('title', 'path', 'academicyears', 'subjects', 'classes'));
     }
 
     public function store(Request $request)
@@ -62,7 +51,7 @@ class AssesmentRecord extends Controller
 
         );
 
-        PrimaryAssesmentRecord::create([
+        HsAssessmentRecord::create([
             'subject' => $request->subject,
             'status' => 0,
             'term' => $request->term,
@@ -71,86 +60,96 @@ class AssesmentRecord extends Controller
             'teacher' => session('name')
         ]);
 
-        return redirect()->route('primary_teacher.assesment_record')->with('success', 'Data has been successfully saved');
+        return redirect()->route('high_school.assessment_record')->with('success', 'Data has been successfully saved');
     }
 
-    public function export($class, $subject)
-    {
-        $grade = substr($class, 0, 2);
-        if($subject == 'HEALTH AND PHYSICAL EDUCATION') {
-            return Excel::download(new PePrimaryAssesmentRecordExport($class, $subject), "Assesment Record - {$subject} - {$class}.xlsx");
-        }elseif($subject == 'ENGLISH' || $subject == 'BAHASA INDONESIA') {
-            if(in_array($grade, ['P1', 'P2', 'P3'])) {
-                return Excel::download(new LangLowerPrimaryAssesmentRecordExport($class, $subject), "Assesment Record - {$subject} - {$class}.xlsx");
-            } else {
-                return Excel::download(new LangUpperPrimaryAssesmentRecordExport($class, $subject), "Assesment Record - {$subject} - {$class}.xlsx");
-            }
-        }elseif($subject == 'ART AND CRAFT') {
-            return Excel::download(new ArtPrimaryAssesmentRecordExport($class, $subject), "Assesment Record - {$subject} - {$class}.xlsx");
-        }elseif($subject == 'MANDARIN') {
-            return Excel::download(new MandarinPrimaryAssesmentRecordExport($class, $subject), "Assesment Record - {$subject} - {$class}.xlsx");
-        }else{
-            return Excel::download(new PrimaryAssesmentRecordExport($class, $subject), "Assesment Record - {$subject} - {$class}.xlsx");
-        }
-
-    }
-
-    public function import(Request $request)
-    {
-        $title = 'Import Assesment Record';
-        $path = 'Assesment Record';
-        $id_assesment = $request->id_assesment;
-        $class = $request->class;
-        $academicyear = $request->academic_year;
-        $subject = $request->subject;
-        $term = $request->term;
-
-        $assesments = DB::table('primary_assesment_records')
-            ->where('teacher', session('name'))
+    public function generate($id) {
+        $title = 'Generate Student Data';
+        $path = 'Assessment Record';
+        $assessment = DB::table('hs_assessment_records')
+            ->where('id', $id)
+            ->first();
+        $class = $assessment->class;
+        $subject = $assessment->subject;
+        $students = DB::table('hs_students')
+            ->where('class', $class)
+            ->orderBy('name', 'ASC')
             ->get();
 
-        $cekAssesment = PrimaryAssesmentRecordDetails::where('id_assesment', $id_assesment)->first();
-
-        if ($cekAssesment) {
-            return redirect()->back()->with('error', 'Data assesment sudah diimport sebelumnya');
-        }
-
-        return view('primaryteacher/assesment_record/import', compact('title', 'path', 'id_assesment', 'class', 'academicyear', 'assesments', 'term', 'subject'));
+        return view('high_school.assessment_record.generate', compact('title', 'path', 'subject', 'class', 'subject', 'students', 'assessment'));
     }
 
-    public function importAction(Request $request)
+    public function generateAction($id)
     {
-        $request->validate([
-            'file' => 'required|mimes:xlsx,xls'
-        ]);
+        $assessment = DB::table('hs_assessment_records')
+            ->where('id', $id)
+            ->first();
+        $class = $assessment->class;
+        $students = DB::table('hs_students')
+            ->where('class', $class)
+            ->orderBy('name', 'ASC')
+            ->get();
 
-        $id_assesment = $request->id_assesment;
-        $subject = $request->subject;
-
-        $grade = substr($request->class, 0, 2);
-
-        if($subject == 'HEALTH AND PHYSICAL EDUCATION') {
-            Excel::import(new PePrimaryAssesmentRecordImport($id_assesment), $request->file('file'));
-        }elseif($subject == 'ENGLISH' || $subject == 'BAHASA INDONESIA') {
-            if(in_array($grade, ['P1', 'P2', 'P3'])) {
-                Excel::import(new LangLowerPrimaryAssesmentRecordImport($id_assesment), $request->file('file'));
-            } else {
-                Excel::import(new LangUpperPrimaryAssesmentRecordImport($id_assesment), $request->file('file'));
-            }
-        }elseif($subject == 'ART AND CRAFT') {
-            Excel::import(new ArtPrimaryAssesmentRecordImport($id_assesment), $request->file('file'));
-        }elseif($subject == 'MANDARIN') {
-            Excel::import(new MandarinPrimaryAssesmentRecordImport($id_assesment), $request->file('file'));
-        }else{
-            Excel::import(new PrimaryAssesmentRecordImport($id_assesment), $request->file('file'));
+        // Cegah proses jika tidak ada siswa, sehingga kita tidak perlu membatalkan transaksi
+        if ($students->isEmpty()) {
+            return redirect()->back()->with('error', 'Tidak ada data siswa di kelas tersebut untuk disimpan.');
         }
 
-        return redirect()->route('primary_teacher.assesment_record')->with('success', 'Assesment record has been successfully saved');
+        // 3. Mulai Database Transaction
+        DB::beginTransaction();
+
+        try {
+            $details = [];
+            foreach ($students as $student) {
+                $details[] = [
+                    'id_assesment' => $id,
+                    'name' => $student->name,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+            }
+
+            // Gunakan insert() untuk bulk insert (lebih cepat dari create di dalam loop)
+            HsAssessmentRecordDetail::insert($details);
+
+            // 6. Commit transaksi jika semuanya sukses
+            DB::commit();
+
+            return redirect()->route('high_school.assessment_record')
+                ->with('success', 'Data assessment berhasil disimpan!');
+        } catch (\Exception $e) {
+            // 7. Rollback jika terjadi error
+            DB::rollBack();
+            return redirect()->route('high_school.assessment_record')
+                ->with('success', 'Data assessment berhasil disimpan!' . $e->getMessage());
+        }
     }
+
+    public function input($id)
+    {
+        $title = 'Generate Student Data';
+        $path = 'Assessment Record';
+        $assessment = DB::table('hs_assessment_records')
+            ->where('id', $id)
+            ->first();
+        $assessments = DB::table('hs_assessment_record_details')
+            ->where('id_assesment', $id)
+            ->get();
+
+        $class = $assessment->class;
+        $subject = $assessment->subject;
+        $students = DB::table('hs_students')
+            ->where('class', $class)
+            ->orderBy('name', 'ASC')
+            ->get();
+
+        return view('high_school.assessment_record.input', compact('title', 'path', 'subject', 'class', 'subject', 'students', 'assessment', 'assessments'));
+    }
+
 
     public function destroy($id)
     {
-        $deleted = DB::table('primary_assesment_record_details')->where('id_assesment', $id)->delete();
+        $deleted = DB::table('primary_assessment_record_details')->where('id_assesment', $id)->delete();
         $assesment = PrimaryAssesmentRecord::findOrFail($id);
         $assesment->delete();
 
@@ -159,9 +158,9 @@ class AssesmentRecord extends Controller
 
     public function detail($id)
     {
-        $assesments = DB::table('primary_assesment_records')
-            ->join('primary_assesment_record_details', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
-            ->where('primary_assesment_records.id', $id)
+        $assesments = DB::table('primary_assessment_records')
+            ->join('primary_assessment_record_details', 'primary_assessment_records.id', '=', 'primary_assessment_record_details.id_assesment')
+            ->where('primary_assessment_records.id', $id)
             ->get();
 
         $subject = PrimaryAssesmentRecord::where('id', $id)->first();
@@ -172,20 +171,20 @@ class AssesmentRecord extends Controller
         $path = 'Assesment Record';
 
         if($subject->subject == 'HEALTH AND PHYSICAL EDUCATION') {
-            return view('primaryteacher/assesment_record/detail_pe', compact('title', 'path', 'assesments', 'subject'));
+            return view('primaryteacher/assessment_record/detail_pe', compact('title', 'path', 'assesments', 'subject'));
         }elseif($subject->subject == 'ENGLISH' || $subject->subject == 'BAHASA INDONESIA') {
             if(in_array($grade, ['P1', 'P2', 'P3'])) {
-                return view('primaryteacher/assesment_record/detail_lang_lower', compact('title', 'path', 'assesments', 'subject'));
+                return view('primaryteacher/assessment_record/detail_lang_lower', compact('title', 'path', 'assesments', 'subject'));
             } else {
-                return view('primaryteacher/assesment_record/detail_lang_upper', compact('title', 'path', 'assesments', 'subject'));
+                return view('primaryteacher/assessment_record/detail_lang_upper', compact('title', 'path', 'assesments', 'subject'));
             }
 
         }elseif($subject->subject == 'ART AND CRAFT') {
-            return view('primaryteacher/assesment_record/detail_art', compact('title', 'path', 'assesments', 'subject'));
+            return view('primaryteacher/assessment_record/detail_art', compact('title', 'path', 'assesments', 'subject'));
         }elseif($subject->subject == 'MANDARIN') {
-            return view('primaryteacher/assesment_record/detail_mandarin', compact('title', 'path', 'assesments', 'subject'));
+            return view('primaryteacher/assessment_record/detail_mandarin', compact('title', 'path', 'assesments', 'subject'));
         } else {
-            return view('primaryteacher/assesment_record/detail', compact('title', 'path', 'assesments', 'subject'));
+            return view('primaryteacher/assessment_record/detail', compact('title', 'path', 'assesments', 'subject'));
         }
 
     }

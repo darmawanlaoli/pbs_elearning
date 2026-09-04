@@ -1,4 +1,4 @@
-@extends('kindergarten.layout')
+@extends('layout.' . strtolower(session('role')))
 
 @section('content')
 
@@ -128,54 +128,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class=" ps-7 pt-7">
-                <div class="border-bottom">
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="position-relative">
-
-                                <a href="{{ route('primary_student.lesson_material') }}"
-                                    class="d-flex align-items-center pb-9 position-relative">
-                                    <div
-                                        class="bg-light rounded-1 me-3 p-6 d-flex align-items-center justify-content-center">
-                                        <img src="../../assets/images/svgs/online-learning.png" alt="" class="img-fluid"
-                                            width="24" height="24">
-                                    </div>
-                                    <div class="d-inline-block">
-                                        <h6 class="mb-1 fw-semibold bg-hover-primary">
-                                            Lesson Matterial</h6>
-                                        <span class="fs-2 d-block text-dark">Manage Lesson Matterial</span>
-                                    </div>
-                                </a>
-
-
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="position-relative">
-
-                                <a data-bs-toggle="modal" data-bs-target="#exampleModal" href=""
-                                    class="d-flex align-items-center pb-9 position-relative    ">
-                                    <div
-                                        class="bg-light rounded-1 me-3 p-6 d-flex align-items-center justify-content-center">
-                                        <img src="../../assets/images/svgs/curriculum.png" alt="" class="img-fluid"
-                                            width="24" height="24">
-                                    </div>
-                                    <div class="d-inline-block">
-                                        <h6 class="mb-1 fw-semibold bg-hover-primary">
-                                            Assignment</h6>
-                                        <span class="fs-2 d-block text-dark">Manage Assignment</span>
-                                    </div>
-                                </a>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
             </div>
         </div>
 

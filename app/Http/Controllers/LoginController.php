@@ -318,6 +318,20 @@ class LoginController extends Controller
                     $request->session()->regenerate();
 
                     return redirect()->route('hs_admin.home');
+
+                case 'kindergartenadmin':
+
+                    Auth::guard('kindergartenadmin')->login($user);
+                    $this->saveLoginLog($request, $user, 'kindergartenadmin');
+                    session([
+                        'role' => 'kindergartenadmin',
+                        'name' => $user->name,
+                        'username' => $user->username,
+                    ]);
+
+                    $request->session()->regenerate();
+
+                    return redirect()->route('kindergarten.home');
             }
         }
 
@@ -342,11 +356,11 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         // Logout dari semua guard yang mungkin aktif
-        foreach (array_keys(config('auth.guards')) as $guard) {
-            if (Auth::guard($guard)->check()) {
-                Auth::guard($guard)->logout();
-            }
-        }
+        // foreach (array_keys(config('auth.guards')) as $guard) {
+        //     if (Auth::guard($guard)->check()) {
+        //         Auth::guard($guard)->logout();
+        //     }
+        // }
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();

@@ -29,7 +29,7 @@
         <div class="card card-custome">
 
             <div class="card-body">
-                <a href="{{ route('primary_teacher.assesment_record.create') }}" class="btn btn-primary mb-2"><i
+                <a href="{{ route('high_school.assessment_record.create') }}" class="btn btn-primary mb-2"><i
                         class="ti ti-plus"></i> New</a>
 
                 <div class="table-responsive">
@@ -37,10 +37,9 @@
                         <thead class="header-item">
                             <th>No.</th>
                             <th>Academic Year</th>
-                            <th>Class</th>
                             <th>Term</th>
+                            <th>Class</th>
                             <th>Subject</th>
-                            <th>Import</th>
                             <th>Action</th>
                         </thead>
                         <tbody>
@@ -48,60 +47,40 @@
                             <tr class="bg-danger">
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $assesment->academic_year }}</td>
-                                <td>{{ $assesment->class }}</td>
                                 <td>{{ $assesment->term }}</td>
+                                <td>{{ $assesment->class }}</td>
                                 <td>{{ $assesment->subject }}</td>
 
                                 @if($academicyears['term'] == $assesment->term)
-                                <td>
-                                    <div class="dropdown">
-                                        <a class="border-0 text-white btn btn-sm btn-primary dropdown-toggle" href="#"
-                                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Import
-                                        </a>
-
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item"
-                                                    href="{{ route('primary_teacher.assesment_record.export', [$assesment->class, $assesment->subject]) }}">Download
-                                                    Format Excel</a></li>
-                                            <li>
-                                                <form method="POST"
-                                                    action="{{ route('primary_teacher.assesment_record.import') }}">
-                                                    @csrf
-                                                    <input type="hidden" name="academic_year"
-                                                        value="{{ $assesment->academic_year }}">
-                                                    <input type="hidden" name="term" value="{{ $assesment->term }}">
-                                                    <input type="hidden" name="subject"
-                                                        value="{{ $assesment->subject }}">
-                                                    <input type="hidden" name="class" value="{{ $assesment->class }}">
-                                                    <input type="hidden" name="id_assesment"
-                                                        value="{{ $assesment->id }}" class="form-control mb-2">
-                                                    <button class="dropdown-item" type="submit">Import
-                                                        Excel</button>
-                                                </form>
-
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </td>
                                 <td class="d-flex">
 
                                     <div class="d-flex justify-content-center gap-1 flex-wrap">
                                      <form id="deleteForm-{{ $assesment->id }}"
-                                         action="{{ route('primary_teacher.assesment_record.destroy', $assesment->id) }}"
-
-
-                                      method="POST">
+                                         action="{{ route('high_school.assessment_record.destroy', $assesment->id) }}" method="POST">
                                            @csrf
                                           @method('DELETE')
                                            <button tabindex="0" data-bs-toggle="tooltip" title="Delete"
-                                                class="m-1 tombol-hapus btn btn-sm btn-danger"><i
+                                                class="btn btn-danger btn-sm m-1"><i
                                                    class="ti ti-trash"></i></button>
                                         </form>
                                     </div>
-                                   <a data-bs-toggle="tooltip" title="Detail"
-                                       href="{{ route('primary_teacher.assesment_record.detail', $assesment->id) }}"
-                                       class="m-1 btn btn-sm btn-primary"><i class="ti ti-eye"></i></a>
+
+                                    <div class="d-flex justify-content-center gap-1 flex-wrap">
+                                        <form action="{{ route('high_school.assessment_record.generate', $assesment->id) }}" method="POST">
+                                            @csrf
+                                            <button tabindex="0" data-bs-toggle="tooltip" title="Generate Students" class="btn btn-sm btn-primary m-1"><i
+                                                    class="ti ti-pencil"></i> Generate</button>
+                                        </form>
+                                    </div>
+
+                                    <div class="d-flex justify-content-center gap-1 flex-wrap">
+                                        <form action="{{ route('high_school.assessment_record.input', $assesment->id) }}" method="POST">
+                                            @csrf
+                                            <button tabindex="0" data-bs-toggle="tooltip" title="Generate Students" class="btn btn-sm btn-success m-1"><i
+                                                    class="ti ti-pencil"></i> Input</button>
+                                        </form>
+                                    </div>
+
                                 </td>
                                 @else
                                 <td class="text-center"><span class="btn btn-sm btn-danger"><i class="ti ti-lock"></i></span></td>
@@ -111,7 +90,7 @@
 
                                 @empty
                             <tr>
-                                <td colspan="4">No data available</td>
+                                <td colspan="6">No data available</td>
                             </tr>
                             @endforelse
 

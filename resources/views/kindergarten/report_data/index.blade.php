@@ -28,52 +28,37 @@
     <div class="card">
 
         <div class="card-body">
-            <a href="{{ route('kindergarten.assessment_record.create') }}" class="btn btn-primary mb-2"><i
+            <a href="{{ route('kindergarten.report_data.create') }}" class="btn btn-primary mb-2"><i
                     class="ti ti-plus"></i> Create</a>
 
             <div class="table-responsive">
                 <table class="table table-bordered search-table align-middle text-nowrap">
                     <thead class="header-item text-center">
                         <th>No.</th>
-                        <th>Class</th>
                         <th>Academic Year - Term</th>
+                        <th>Distribution Date</th>
                         <th>Action</th>
                     </thead>
                     <tbody>
-                        @forelse ($assessments as $assessment)
+                        @forelse ($datas as $data)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $assessment->class }}</td>
-                            <td>{{ $assessment->academic_year . ' - '. $assessment->term }}</td>
+                            <td>{{ $data->academic_year . ' - '. $data->term }}</td>
+                            <td>{{ date('d F Y', strtotime($data->distribution_date)) }}</td>
                             <td class="d-flex">
+                                <a href="{{ route('kindergarten.report_data.edit', $data->id) }}" data-bs-toggle="tooltip" data-bs-placement="top"
+                                    data-bs-title="Edit" class="m-1 btn btn-sm btn-primary"><i class="ti ti-pencil"></i></a>
+
                                 <div class="d-flex justify-content-center gap-1 flex-wrap">
-                                    <form id="deleteForm-{{ $assessment->id }}"
-                                        action="{{ route('hs_teacher.lesson_material.destroy', $assessment->id) }}"
+                                    <form id="deleteForm-{{ $data->id }}"
+                                        action="{{ route('kindergarten.report_data.destroy', $data->id) }}"
                                         method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button tabindex="0" data-bs-toggle="tooltip" title="Hapus"
-                                            class="btn btn-sm btn-danger"><i
+                                            class="m-1 btn btn-sm btn-danger"><i
                                                 class="ti ti-trash"></i></button>
                                     </form>
-
-                                    <form action="{{ route('kindergarten.assessment_record.input', $assessment->id) }}"
-                                        method="POST">
-                                        @csrf
-                                        <button data-bs-toggle="tooltip" title="Input" class="btn btn-sm btn-primary"><i
-                                                class="ti ti-pencil"></i> Assesment Record</button>
-                                    </form>
-
-                                    <form action="{{ route('kindergarten.assessment_record.report_data', $assessment->id) }}" method="POST">
-                                        @csrf
-                                        <button data-bs-toggle="tooltip" title="Report Data" class="btn btn-sm btn-primary"><i class="ti ti-database"></i> Report Data</button>
-                                    </form>
-
-                                    <form action="{{ route('kindergarten.assessment_record.print_preview', $assessment->id) }}" method="POST">
-                                        @csrf
-                                        <button data-bs-toggle="tooltip" title="Print preview" class="btn btn-sm btn-success"><i class="ti ti-printer"></i> Print Preview</button>
-                                    </form>
-
                                 </div>
                             </td>
                         <tr>
