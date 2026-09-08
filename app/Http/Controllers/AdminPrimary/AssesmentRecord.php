@@ -36,6 +36,7 @@ class AssesmentRecord extends Controller
         $title = 'Assesment Record';
         $path = 'Assesment Record';
         $assesments = DB::table('primary_assesment_records')
+            ->where('academic_year', AcademicYear::first()->academic_year)
             ->orderBy('term', 'DESC')
             ->orderBy('class', 'ASC')
             ->get();
@@ -175,14 +176,14 @@ class AssesmentRecord extends Controller
 
         return redirect()->back()->with('success', 'All records updated successfully!');
     }
-    
+
     public function export($id_ass)
     {
-            
+
         $assesments = DB::table('primary_assesment_records')->find($id_ass);
         $class = $assesments->class;
         $subject = $assesments->subject;
-        
+
         $grade = substr($class, 0, 2);
         if($subject == 'HEALTH AND PHYSICAL EDUCATION') {
             return Excel::download(new PePrimaryAssesmentRecordExport($class, $subject), "Assesment Record - {$subject} - {$class}.xlsx");

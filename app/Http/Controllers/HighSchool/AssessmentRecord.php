@@ -173,6 +173,7 @@ class AssessmentRecord extends Controller
             foreach ($students as $assessmentId => $data) {
 
                 HsAssessmentRecordDetail::where('id', $assessmentId)
+
                     ->update([
                         'ku1' => $data['ku1'] ?? null,
                         'ku2' => $data['ku2'] ?? null,
@@ -180,7 +181,7 @@ class AssessmentRecord extends Controller
                         'ku4' => $data['ku4'] ?? null,
 
                         'ku_avg' => $data['ku_avg'] ?? null,
-                        'attendance' => $data['ku_att'] ?? null,
+                        'attendance' => $data['attendance'] ?? null,
                         'ku_total' => $data['ku_total'] ?? null,
 
                         'dk1' => $data['dk1'] ?? null,

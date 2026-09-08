@@ -31,11 +31,12 @@
             <div class="card-body">
 
                 <div class="table-responsive">
-                    <table style="font-size: 14px" class="table search-table align-middle text-nowrap table-bordered">
+                    <table style="font-size: 12px" class="table search-table align-middle text-nowrap table-bordered">
                         <thead class="header-item text-center">
                             <th>No.</th>
                             <th>Action</th>
                             <th>Class</th>
+                            <th>Academic Year</th>
                             <th>Term</th>
                             <th>Subject</th>
                             <th>Teacher</th>
@@ -46,7 +47,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td class="d-flex">
-                                    
+
                                     <a data-bs-toggle="tooltip" title="Download Excel"
                                         href="{{ route('admin_primary.assesment_record.excel',$assesment->id) }}"
                                         class="m-1 btn btn-sm btn-success"><i class="fa-regular fa-file-excel"></i></a>
@@ -55,6 +56,7 @@
                                         class="m-1 btn btn-sm btn-primary"><i class="ti ti-eye"></i></a>
                                 </td>
                                 <td>{{ $assesment->class }}</td>
+                                <td>{{ $assesment->academic_year }}</td>
                                 <td>{{ $assesment->term }}</td>
                                 <td>{{ $assesment->subject }}</td>
                                 <td>{{ $assesment->teacher }}</td>

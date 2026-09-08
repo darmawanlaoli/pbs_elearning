@@ -60,7 +60,7 @@
                                            @csrf
                                           @method('DELETE')
                                            <button tabindex="0" data-bs-toggle="tooltip" title="Delete"
-                                                class="btn btn-danger btn-sm m-1"><i
+                                                class="tombol-hapus btn btn-danger btn-sm m-1"><i
                                                    class="ti ti-trash"></i></button>
                                         </form>
                                     </div>
