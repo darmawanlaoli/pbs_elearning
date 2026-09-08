@@ -208,6 +208,22 @@ class AssessmentRecord extends Controller
                         'imyc_lang' => $data['imyc_lang'] ?? null,
                         'imyc_lang_att' => $data['imyc_lang_att'] ?? null,
                         'imyc_lang_total' => $data['imyc_lang_total'] ?? null,
+
+                        'imyc_geo_management_skill' => $data['imyc_geo_management_skill'] ?? null,
+                        'imyc_geo_active_participation' => $data['imyc_geo_active_participation'] ?? null,
+                        'imyc_geo_social_responsibility' => $data['imyc_geo_social_responsibility'] ?? null,
+                        'imyc_science_management_skill' => $data['imyc_science_management_skill'] ?? null,
+                        'imyc_science_active_participation' => $data['imyc_science_active_participation'] ?? null,
+                        'imyc_science_social_responsibility' => $data['imyc_science_social_responsibility'] ?? null,
+                        'imyc_history_management_skill' => $data['imyc_history_management_skill'] ?? null,
+                        'imyc_history_active_participation' => $data['imyc_history_active_participation'] ?? null,
+                        'imyc_history_social_responsibility' => $data['imyc_history_social_responsibility'] ?? null,
+                        'imyc_tech_management_skill' => $data['imyc_tech_management_skill'] ?? null,
+                        'imyc_tech_active_participation' => $data['imyc_tech_active_participation'] ?? null,
+                        'imyc_tech_social_responsibility' => $data['imyc_tech_social_responsibility'] ?? null,
+                        'imyc_lang_management_skill' => $data['imyc_lang_management_skill'] ?? null,
+                        'imyc_lang_active_participation' => $data['imyc_lang_active_participation'] ?? null,
+                        'imyc_lang_social_responsibility' => $data['imyc_lang_social_responsibility'] ?? null,
                     ]);
             }
         });
