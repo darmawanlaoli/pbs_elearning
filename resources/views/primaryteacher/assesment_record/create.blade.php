@@ -66,6 +66,7 @@
                                 <option value="P2 Rome">P2 Rome</option>
                                 <option value="P3 Cairo">P3 Cairo</option>
                                 <option value="P3 Brasilia">P3 Brasilia</option>
+                                <option value="P3 Lisbon">P3 Lisbon</option>
                                 <option value="P4 Wellington">P4 Wellington</option>
                                 <option value="P4 Washington">P4 Washington</option>
                                 <option value="P5 Ottawa">P5 Ottawa</option>
