@@ -35,6 +35,7 @@ class AssesmentRecord extends Controller
         $path = 'Assesment Record';
         $assesments = DB::table('primary_assesment_records')
             ->where('teacher', session('name'))
+            ->where('academic_year', AcademicYear::first()->academic_year)
             ->orderBy('id', 'DESC')
             ->get();
         $academicyears = AcademicYear::first();
