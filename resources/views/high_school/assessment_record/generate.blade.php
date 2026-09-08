@@ -35,17 +35,19 @@
                         <thead class="header-item">
                             <th>No.</th>
                             <th>Student's Name</th>
+                            <th>Class</th>
                         </thead>
                         <tbody>
                             @forelse ($students as $student)
                             <tr class="bg-danger">
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $student->name }}</td>
-                            <tr>
+                                <td>{{ $student->class }}</td>
+                            </tr>
 
                                 @empty
                             <tr>
-                                <td colspan="2">No data available</td>
+                                <td colspan="3">No data available</td>
                             </tr>
                             @endforelse
 

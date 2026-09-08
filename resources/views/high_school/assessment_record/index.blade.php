@@ -1,4 +1,4 @@
-@extends('primaryteacher.layout')
+@extends('high_school.layout')
 
 @section('content')
 
@@ -74,11 +74,10 @@
                                     </div>
 
                                     <div class="d-flex justify-content-center gap-1 flex-wrap">
-                                        <form action="{{ route('high_school.assessment_record.input', $assesment->id) }}" method="POST">
-                                            @csrf
-                                            <button tabindex="0" data-bs-toggle="tooltip" title="Generate Students" class="btn btn-sm btn-success m-1"><i
-                                                    class="ti ti-pencil"></i> Input</button>
-                                        </form>
+
+                                        <a href="{{ route('high_school.assessment_record.input', $assesment->id) }}" class="btn btn-sm btn-success m-1">
+                                            <i class="ti ti-pencil"></i> Input
+                                        </a>
                                     </div>
 
                                 </td>

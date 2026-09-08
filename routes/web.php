@@ -141,7 +141,6 @@ Route::middleware(['auth:kindergartenteacher', 'role:kindergartenteacher'])->gro
     Route::get('kindergarten/assessment_record/{id}/print_preview', [KindergartenAssessmentRecord::class, 'printPreview'])->name('kindergarten.assessment_record.print_preview');
 });
 
-
 Route::middleware(['auth:primaryteacher', 'role:primaryteacher'])->group(function () {
     Route::get('primary_teacher/home', [PrimaryTeacherHome::class, 'index'])->name('primary_teacher.home');
     Route::get('primary_teacher/lesson_plan', [LessonPlanPrimaryTeacher::class, 'index'])->name('primary_teacher.lesson_plan');
@@ -240,10 +239,12 @@ Route::middleware(['auth:hsteacher', 'role:hsteacher'])->group(function () {
 Route::get('high_school/assessment_record', [HighSchoolAssessmentRecord::class, 'index'])->name('high_school.assessment_record');
 Route::get('high_school/assessment_record/create', [HighSchoolAssessmentRecord::class, 'create'])->name('high_school.assessment_record.create');
 Route::post('high_school/assessment_record/store', [HighSchoolAssessmentRecord::class, 'store'])->name('high_school.assessment_record.store');
-Route::delete('high_school/assessment_record/destroy', [HighSchoolAssessmentRecord::class, 'destroy'])->name('high_school.assessment_record.destroy');
+Route::delete('high_school/assessment_record/{id}/destroy', [HighSchoolAssessmentRecord::class, 'destroy'])->name('high_school.assessment_record.destroy');
 Route::get('high_school/assessment_record/{id}/detail', [HighSchoolAssessmentRecord::class, 'detail'])->name('high_school.assessment_record.detail');
 Route::post('high_school/assessment_record/{id}/generate', [HighSchoolAssessmentRecord::class, 'generate'])->name('high_school.assessment_record.generate');
-Route::post('high_school/assessment_record/{id}/input', [HighSchoolAssessmentRecord::class, 'input'])->name('high_school.assessment_record.input');
+Route::post('high_school/assessment_record/{id}/generate_action', [HighSchoolAssessmentRecord::class, 'generateAction'])->name('high_school.assessment_record.generate_action');
+Route::get('high_school/assessment_record/{id}/input', [HighSchoolAssessmentRecord::class, 'input'])->name('high_school.assessment_record.input');
+Route::put('high_school/assessment_record/input_action', [HighSchoolAssessmentRecord::class, 'inputAction'])->name('high_school.assessment_record.input_action');
 
 Route::get('kindergarten/home', [KindergartenHome::class, 'index'])->name('kindergarten.home');
 Route::get('kindergarten/report_data', [KindergartenReportData::class, 'index'])->name('kindergarten.report_data');

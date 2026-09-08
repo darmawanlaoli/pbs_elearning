@@ -8,10 +8,17 @@
     <title>{{ $title }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css"
+        integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
     <style>
         * {
             box-sizing: border-box;
+        }
+
+        .total {
+            background-color: #f2f2f2;
+            font-weight: bold;
         }
 
         /* Container dengan scroll internal agar sticky berfungsi */
@@ -55,17 +62,97 @@
         .score-input {
             width: 50px;
         }
+
+        /* =========================================
+           PENGATURAN STICKY HEADER (ATAS)
+        ========================================= */
+        /* Baris ke-1 Header (Judul Kolom Utama) */
+        thead tr:nth-child(1) th {
+            position: sticky;
+            top: 0;
+            height: 35px; /* Mengunci tinggi baris pertama */
+            z-index: 10;
+            background-clip: padding-box; /* Mencegah border bocor saat scroll */
+        }
+
+        /* Baris ke-2 Header (Sub-kategori: 1, 2, 3, AVG, dll) */
+        thead tr:nth-child(2) th {
+            position: sticky;
+            top: 35px; /* Harus sama dengan 'height' baris pertama di atas */
+            z-index: 10;
+            background-clip: padding-box;
+        }
+
+        /* =========================================
+           PENGATURAN STICKY COLUMNS (KIRI)
+        ========================================= */
+        /* Kolom 1: No */
+        thead tr:first-child th:nth-child(1),
+        tbody td:nth-child(1) {
+            width: 50px;
+            min-width: 50px;
+            max-width: 50px;
+            position: sticky;
+            left: 0;
+            background-color: #fff;
+            z-index: 5;
+        }
+
+        /* Kolom 2: Student Name */
+        thead tr:first-child th:nth-child(2),
+        tbody td:nth-child(2) {
+            width: 180px;
+            min-width: 180px;
+            position: sticky;
+            left: 50px; /* Offset posisinya sebesar lebar kolom pertama (50px) */
+            background-color: #fff;
+            z-index: 5;
+        }
+
+        /* =========================================
+           INTERSECTION KIRI ATAS (Supaya tidak tertimpa)
+        ========================================= */
+        /* Memastikan judul "No" dan "Student Name" selalu berada di tumpukan paling atas */
+        thead tr:first-child th:nth-child(1),
+        thead tr:first-child th:nth-child(2) {
+            background-color: #0182cd; /* Kembalikan ke warna biru header */
+            z-index: 20; /* Z-index tertinggi */
+        }
     </style>
+
 </head>
 
 <body>
 
     <div class="container-fluid">
-        <form action="{{ route('kindergarten.assessment_record.input_action') }}" method="POST">
+        <form action="{{ route('high_school.assessment_record.input_action') }}" method="POST">
             @csrf
             @method('PUT')
 
-            <button type="submit" class="btn btn-primary m-1">Save</button>
+            <div class="m-2 d-flex align-items-center gap-2">
+                <a href="{{ route('high_school.assessment_record') }}" class="btn btn-secondary">
+                    <i class="fa-solid fa-circle-arrow-left"></i> Back
+                </a>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-regular fa-floppy-disk"></i> Save
+                </button>
+
+                <div class="dropdown">
+                    <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Assessment List
+                    </button>
+                    <ul class="dropdown-menu">
+                        @foreach ($assessmentLists as $list)
+                            <li><a class="dropdown-item" href="{{ route('high_school.assessment_record.input', $list->id) }}">{{ $list->class }} - {{ $list->subject }}</a></li>
+
+                        @endforeach
+                    </ul>
+                </div>
+
+                <!-- Teks ini otomatis terdorong ke paling kanan -->
+                <span class="ms-auto fw-bold text-primary">{{ $assessment->class . ' - ' . $assessment->subject }}</span>
+            </div>
 
             <div class="container-fluid">
                 <small>
@@ -74,91 +161,15 @@
                     Jika Anda ingin menutup halaman ini, pastikan semua data sudah tersimpan.
                 </small>
 
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr class="text-center">
-                                <th rowspan="2" style="min-width: 50px;">No</th>
-                                <th rowspan="2" style="min-width: 180px;">Student Name</th>
-                                <th colspan="7">Knowledge and Understanding</th>
-                                <th colspan="4">Demonstrate Knowledge</th>
-                            </tr>
+                @if($assessment->subject == 'PE' || $assessment->subject == 'PABP' || $assessment->subject == 'Art' || $assessment->subject == 'Visual Art' || $assessment->subject == 'Design and Technology')
+                    @include('high_school.assessment_record.moduls.non_ct')
+                @elseif ($assessment->subject == 'IMYC')
+                    @include('high_school.assessment_record.moduls.imyc')
+                @elseif ($assessment->subject == 'PKN')
+                    @include('high_school.assessment_record.moduls.ct')
+                @endif
 
-                            <tr class="text-center">
-                                {{-- knowledge --}}
-                                <th>1</th>
-                                <th>2</th>
-                                <th>3</th>
-                                <th>4</th>
-                                <th>AVG X 95%</th>
-                                <th>Att 5%</th>
-                                <th>Final <br> Score</th>
 
-                                {{-- demonstrate knowledge --}}
-                                <th>1</th>
-                                <th>AVG X 95%</th>
-                                <th>Att 5%</th>
-                                <th>Final <br> Score</th>
-                            </tr>
-
-                        </thead>
-
-                        <tbody>
-                            @foreach($assessments as $ass)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-
-                                <td>{{ $ass->name }}</td>
-
-                                <td class="text-center">
-                                    <input type="number" class="score-input ku-input" data-column="ku1" name="ku1" min="0" max="100" step="0.01">
-                                </td>
-
-                                <td class="text-center">
-                                    <input type="number" class="score-input ku-input" data-column="ku2" name="ku2" min="0" max="100" step="0.01">
-                                </td>
-
-                                <td class="text-center">
-                                    <input type="number" class="score-input ku-input" data-column="ku3" name="ku3" min="0" max="100" step="0.01">
-                                </td>
-
-                                <td class="text-center">
-                                    <input type="number" class="score-input ku-input" data-column="ku4" name="ku4" min="0" max="100" step="0.01">
-                                </td>
-
-                                <td class="text-center">
-                                    <input type="number" class="score-input avg-input" data-column="avg" name="avg" readonly>
-                                </td>
-
-                                <td class="text-center">
-                                    <input type="number" class="score-input att-input" data-column="att" name="att" min="0" max="5" step="0.01">
-                                </td>
-
-                                <td class="text-center">
-                                    <input type="number" class="score-input final-input" data-column="ku_total" name="ku_total" readonly>
-                                </td>
-
-                                {{-- DK --}}
-                                <td class="text-center">
-                                    <input type="number" class="score-input dk-input" data-column="dk1" name="dk1" min="0" max="100" step="0.01">
-                                </td>
-
-                                <td class="text-center">
-                                    <input type="number" class="score-input dk-avg-input" data-column="dk-avg" name="dk_avg" readonly>
-                                </td>
-
-                                <td class="text-center">
-                                    <input type="number" class="score-input att-input" data-column="att" name="att" min="0" max="5" step="0.01">
-                                </td>
-
-                                <td class="text-center">
-                                    <input type="number" class="score-input final-input" data-column="dk_total" name="dk_total" readonly>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
             </div>
         </form>
     </div>
@@ -250,63 +261,6 @@
     </script>
 
 
-    {{-- <script>
-        document.addEventListener('DOMContentLoaded', function () {
-
-        const rows = document.querySelectorAll('tbody tr');
-
-        rows.forEach(row => {
-
-            const kuInputs = row.querySelectorAll('.ku-input');
-            const avgInput = row.querySelector('.avg-input');
-
-            function calculateAverage() {
-
-                let total = 0;
-                let count = 0;
-
-                kuInputs.forEach(input => {
-
-                    const value = parseFloat(input.value);
-
-                    if (!isNaN(value)) {
-                        total += value;
-                        count++;
-                    }
-
-                });
-
-                // Jika belum semua KU diisi
-                if (count === 0) {
-                    avgInput.value = '';
-                    return;
-                }
-
-                const average = total / count;
-
-                const result = average * 0.95;
-
-                avgInput.value = result.toFixed(2);
-            }
-
-
-            // Jalankan ketika user mengetik
-            kuInputs.forEach(input => {
-
-                input.addEventListener('input', calculateAverage);
-
-            });
-
-
-            // Jalankan perhitungan pertama kali
-            calculateAverage();
-
-        });
-
-    });
-    </script> --}}
-
-
     {{-- cegah maksimal 5 --}}
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -348,52 +302,58 @@
 
         rows.forEach(row => {
 
+            // =================================
+            // ELEMENT KU
+            // =================================
+
             const kuInputs = row.querySelectorAll('.ku-input');
             const avgInput = row.querySelector('.avg-input');
-            const attInput = row.querySelector('.att-input');
-            const finalInput = row.querySelector('.final-input');
+            const kuAttInput = row.querySelector('.ku-att-input');
+            const kuFinalInput = row.querySelector('.ku-final-input');
+
+
+            // =================================
+            // ELEMENT DK
+            // =================================
 
             const dkInputs = row.querySelectorAll('.dk-input');
-            const dkAvg = row.querySelector('.dk-avg');
-            const dkAtt = row.querySelector('.dk-att');
-            const dkFinal = row.querySelector('.dk-final');
+            const dkAvgInput = row.querySelector('.dk-avg-input');
+            const dkAttInput = row.querySelector('.dk-att-input');
+            const dkFinalInput = row.querySelector('.dk-final-input');
 
 
+            // =================================
+            // HITUNG KU
+            // =================================
 
-            function calculateScore() {
+            function calculateKU() {
 
                 let total = 0;
                 let count = 0;
 
-                // =================================
-                // HITUNG KU YANG TERISI
-                // =================================
-
+                // Hitung nilai KU yang terisi
                 kuInputs.forEach(input => {
 
                     const value = parseFloat(input.value);
 
                     if (!isNaN(value)) {
-
                         total += value;
                         count++;
-
                     }
 
                 });
 
 
                 // =================================
-                // HITUNG AVG X 95%
+                // AVG KU × 95%
                 // =================================
 
                 if (count > 0) {
 
                     const average = total / count;
-
                     const avg95 = average * 0.95;
 
-                    avgInput.value = avg95.toFixed(2);
+                    avgInput.value = avg95.toFixed(0);
 
                 } else {
 
@@ -403,47 +363,123 @@
 
 
                 // =================================
-                // VALIDASI ATT
+                // VALIDASI ATT KU
                 // =================================
 
-                let att = parseFloat(attInput.value);
+                let att = parseFloat(kuAttInput.value);
 
                 if (isNaN(att)) {
                     att = 0;
                 }
 
-                // Maksimal 5
                 if (att > 5) {
-
                     att = 5;
-                    attInput.value = 5;
-
+                    kuAttInput.value = 5;
                 }
 
-                // Minimal 0
                 if (att < 0) {
-
                     att = 0;
-                    attInput.value = 0;
-
+                    kuAttInput.value = 0;
                 }
 
 
                 // =================================
-                // HITUNG FINAL SCORE
+                // FINAL SCORE KU
                 // =================================
 
                 if (count > 0) {
 
-                    const avg95 = parseFloat(avgInput.value);
+                    const avg95 = parseFloat(avgInput.value) || 0;
 
                     const finalScore = avg95 + att;
 
-                    finalInput.value = finalScore.toFixed(2);
+                    kuFinalInput.value = finalScore.toFixed(0);
 
                 } else {
 
-                    finalInput.value = '';
+                    kuFinalInput.value = '';
+
+                }
+
+            }
+
+
+            // =================================
+            // HITUNG DK
+            // =================================
+
+            function calculateDK() {
+
+                let total = 0;
+                let count = 0;
+
+                // Hitung nilai DK yang terisi
+                dkInputs.forEach(input => {
+
+                    const value = parseFloat(input.value);
+
+                    if (!isNaN(value)) {
+                        total += value;
+                        count++;
+                    }
+
+                });
+
+
+                // =================================
+                // AVG DK × 95%
+                // =================================
+
+                if (count > 0) {
+
+                    const average = total / count;
+                    const avg95 = average * 0.95;
+
+                    dkAvgInput.value = avg95.toFixed(2);
+
+                } else {
+
+                    dkAvgInput.value = '';
+
+                }
+
+
+                // =================================
+                // VALIDASI ATT DK
+                // =================================
+
+                let att = parseFloat(dkAttInput.value);
+
+                if (isNaN(att)) {
+                    att = 0;
+                }
+
+                if (att > 5) {
+                    att = 5;
+                    dkAttInput.value = 5;
+                }
+
+                if (att < 0) {
+                    att = 0;
+                    dkAttInput.value = 0;
+                }
+
+
+                // =================================
+                // FINAL SCORE DK
+                // =================================
+
+                if (count > 0) {
+
+                    const avg95 = parseFloat(dkAvgInput.value) || 0;
+
+                    const finalScore = avg95 + att;
+
+                    dkFinalInput.value = finalScore.toFixed(2);
+
+                } else {
+
+                    dkFinalInput.value = '';
 
                 }
 
@@ -456,23 +492,32 @@
 
             kuInputs.forEach(input => {
 
-                input.addEventListener('input', calculateScore);
+                input.addEventListener('input', calculateKU);
 
             });
 
+            kuAttInput.addEventListener('input', calculateKU);
+
 
             // =================================
-            // EVENT ATT
+            // EVENT DK
             // =================================
 
-            attInput.addEventListener('input', calculateScore);
+            dkInputs.forEach(input => {
+
+                input.addEventListener('input', calculateDK);
+
+            });
+
+            dkAttInput.addEventListener('input', calculateDK);
 
 
             // =================================
             // INITIAL CALCULATION
             // =================================
 
-            calculateScore();
+            calculateKU();
+            calculateDK();
 
         });
 

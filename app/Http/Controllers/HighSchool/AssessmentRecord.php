@@ -33,7 +33,9 @@ class AssessmentRecord extends Controller
         $title = 'New Assesment Record';
         $path = 'Assesment Record';
         $academicyears = AcademicYear::first();
-        $subjects = HsSubject::all();
+        $subjects = DB::table('hs_report_subjects')
+            ->orderBy('subject', 'ASC')
+            ->get();
         $classes = HsClass::all();
 
         return view('high_school.assessment_record.create', compact('title', 'path', 'academicyears', 'subjects', 'classes'));
@@ -66,6 +68,15 @@ class AssessmentRecord extends Controller
     public function generate($id) {
         $title = 'Generate Student Data';
         $path = 'Assessment Record';
+
+        $assessments = DB::table('hs_assessment_record_details')
+            ->where('id_assesment', $id)
+            ->get();
+
+        if ($assessments && !$assessments->isEmpty()) {
+            return redirect()->back()->with('info', 'Data siswa sudah di-generate, silahkan lanjutkan ke input nilai.');
+        }
+
         $assessment = DB::table('hs_assessment_records')
             ->where('id', $id)
             ->first();
@@ -75,6 +86,7 @@ class AssessmentRecord extends Controller
             ->where('class', $class)
             ->orderBy('name', 'ASC')
             ->get();
+
 
         return view('high_school.assessment_record.generate', compact('title', 'path', 'subject', 'class', 'subject', 'students', 'assessment'));
     }
@@ -132,9 +144,15 @@ class AssessmentRecord extends Controller
         $assessment = DB::table('hs_assessment_records')
             ->where('id', $id)
             ->first();
+        $assessmentLists = DB::table('hs_assessment_records')
+            ->get();
         $assessments = DB::table('hs_assessment_record_details')
             ->where('id_assesment', $id)
             ->get();
+
+        if (!$assessments || $assessments->isEmpty()) {
+            return redirect()->back()->with('info', 'Silahkan generate data siswa terlebih dahulu sebelum menginput nilai.');
+        }
 
         $class = $assessment->class;
         $subject = $assessment->subject;
@@ -143,14 +161,47 @@ class AssessmentRecord extends Controller
             ->orderBy('name', 'ASC')
             ->get();
 
-        return view('high_school.assessment_record.input', compact('title', 'path', 'subject', 'class', 'subject', 'students', 'assessment', 'assessments'));
+        return view('high_school.assessment_record.input', compact('title', 'path', 'subject', 'class', 'subject', 'students', 'assessment', 'assessments', 'assessmentLists'));
+    }
+
+    public function inputAction(Request $request)
+    {
+        $students = $request->input('students', []);
+
+        DB::transaction(function () use ($students) {
+
+            foreach ($students as $assessmentId => $data) {
+
+                HsAssessmentRecordDetail::where('id', $assessmentId)
+                    ->update([
+                        'ku1' => $data['ku1'] ?? null,
+                        'ku2' => $data['ku2'] ?? null,
+                        'ku3' => $data['ku3'] ?? null,
+                        'ku4' => $data['ku4'] ?? null,
+
+                        'ku_avg' => $data['ku_avg'] ?? null,
+                        'attendance' => $data['ku_att'] ?? null,
+                        'ku_total' => $data['ku_total'] ?? null,
+
+                        'dk1' => $data['dk1'] ?? null,
+                        'dk_avg' => $data['dk_avg'] ?? null,
+                        'dk_total' => $data['dk_total'] ?? null,
+
+                        'management_skill' => $data['management_skill'] ?? null,
+                        'active_participation' => $data['active_participation'] ?? null,
+                        'social_responsibility' => $data['social_responsibility'] ?? null,
+                    ]);
+            }
+        });
+
+        return back()->with('success', 'Assessment record berhasil disimpan.');
     }
 
 
     public function destroy($id)
     {
-        $deleted = DB::table('primary_assessment_record_details')->where('id_assesment', $id)->delete();
-        $assesment = PrimaryAssesmentRecord::findOrFail($id);
+        $deleted = DB::table('hs_assessment_record_details')->where('id_assesment', $id)->delete();
+        $assesment = HsAssessmentRecord::findOrFail($id);
         $assesment->delete();
 
         return redirect()->back()->with('success', 'Data has been successfully deleted');
