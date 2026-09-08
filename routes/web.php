@@ -263,7 +263,7 @@ Route::put('kindergarten/student_data/{studentData}/update', [KindergartenStuden
 Route::post('kindergarten/student_data/import', [KindergartenStudentData::class, 'import'])->name('kindergarten.student_data.import');
 
 
-Route::middleware(['auth:hsadmin', 'role:hsadmin', 'auth:hsteacher', 'role:hsteacher'])->group(function () {
+Route::middleware(['auth:hsadmin', 'role:hsadmin'])->group(function () {
     Route::get('hsadmin/home', [HighSchoolHome::class, 'index'])->name('hs_admin.home');
 
     Route::get('high_school/login_log', [HighSchoolLoginLog::class, 'index'])->name('high_school.login_log');

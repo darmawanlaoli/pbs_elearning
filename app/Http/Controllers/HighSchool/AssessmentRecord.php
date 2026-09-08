@@ -191,6 +191,23 @@ class AssessmentRecord extends Controller
                         'management_skill' => $data['management_skill'] ?? null,
                         'active_participation' => $data['active_participation'] ?? null,
                         'social_responsibility' => $data['social_responsibility'] ?? null,
+
+                        // IMYC
+                        'imyc_geo' => $data['imyc_geo'] ?? null,
+                        'imyc_geo_att' => $data['imyc_geo_att'] ?? null,
+                        'imyc_geo_total' => $data['imyc_geo_total'] ?? null,
+                        'imyc_science' => $data['imyc_science'] ?? null,
+                        'imyc_science_att' => $data['imyc_science_att'] ?? null,
+                        'imyc_science_total' => $data['imyc_science_total'] ?? null,
+                        'imyc_history' => $data['imyc_history'] ?? null,
+                        'imyc_history_att' => $data['imyc_history_att'] ?? null,
+                        'imyc_history_total' => $data['imyc_history_total'] ?? null,
+                        'imyc_tech' => $data['imyc_tech'] ?? null,
+                        'imyc_tech_att' => $data['imyc_tech_att'] ?? null,
+                        'imyc_tech_total' => $data['imyc_tech_total'] ?? null,
+                        'imyc_lang' => $data['imyc_lang'] ?? null,
+                        'imyc_lang_att' => $data['imyc_lang_att'] ?? null,
+                        'imyc_lang_total' => $data['imyc_lang_total'] ?? null,
                     ]);
             }
         });
