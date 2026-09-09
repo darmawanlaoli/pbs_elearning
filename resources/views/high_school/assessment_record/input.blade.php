@@ -125,6 +125,16 @@
 <body>
 
     <div class="container-fluid">
+        <!-- 1. FORM SUBMIT DIPINDAH KE ATAS / LUAR (TIDAK TERLIHAT DI LAYOUT) -->
+        @if($assessment->submitted_at == NULL)
+        <form id="form-submit-assessment" action="{{ route('high_school.assessment_record.submit', $assessment->id) }}"
+            method="POST" style="display: none;">
+            @csrf
+            @method('PUT')
+        </form>
+        @endif
+
+        <!-- 2. FORM UTAMA (SAVE) -->
         <form action="{{ route('high_school.assessment_record.input_action') }}" method="POST">
             @csrf
             @method('PUT')
@@ -139,16 +149,27 @@
                 </button>
 
                 <div class="dropdown">
-                    <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
                         Assessment List
                     </button>
                     <ul class="dropdown-menu">
                         @foreach ($assessmentLists as $list)
-                            <li><a class="dropdown-item" href="{{ route('high_school.assessment_record.input', $list->id) }}">{{ $list->class }} - {{ $list->subject }}</a></li>
-
+                        <li><a class="dropdown-item" href="{{ route('high_school.assessment_record.input', $list->id) }}">{{
+                                $list->class }} - {{ $list->subject }}</a></li>
                         @endforeach
                     </ul>
                 </div>
+
+                <!-- TAMPILAN TOMBOL SUBMIT TETAP DI SINI -->
+                @if($assessment->submitted_at == NULL)
+                <!-- Ditambahkan atribut form="form-submit-assessment" -->
+                <button type="submit" form="form-submit-assessment" class="btn btn-success">
+                    <i class="fa-solid fa-circle-arrow-right"></i> Submit
+                </button>
+                @else
+                <i>Sudah submit pada {{ $assessment->submitted_at }}</i>
+                @endif
 
                 <!-- Teks ini otomatis terdorong ke paling kanan -->
                 <span class="ms-auto fw-bold text-primary">{{ $assessment->class . ' - ' . $assessment->subject }}</span>
@@ -161,15 +182,14 @@
                     Jika Anda ingin menutup halaman ini, pastikan semua data sudah tersimpan.
                 </small>
 
-                @if($assessment->subject == 'PE' || $assessment->subject == 'PABP' || $assessment->subject == 'Art' || $assessment->subject == 'Visual Art' || $assessment->subject == 'Design and Technology')
-                    @include('high_school.assessment_record.moduls.non_ct')
+                @if($assessment->subject == 'PE' || $assessment->subject == 'PABP' || $assessment->subject == 'Art' ||
+                $assessment->subject == 'Visual Art' || $assessment->subject == 'Design and Technology')
+                @include('high_school.assessment_record.moduls.non_ct')
                 @elseif ($assessment->subject == 'IMYC')
-                    @include('high_school.assessment_record.moduls.imyc')
+                @include('high_school.assessment_record.moduls.imyc')
                 @elseif ($assessment->subject == 'PKN')
-                    @include('high_school.assessment_record.moduls.ct')
+                @include('high_school.assessment_record.moduls.ct')
                 @endif
-
-
             </div>
         </form>
     </div>

@@ -24,6 +24,7 @@ class HsAssessmentRecord extends Authenticatable
         'subject',
         'status',
         'teacher',
+        'submitted_at'
     ];
 
     /**

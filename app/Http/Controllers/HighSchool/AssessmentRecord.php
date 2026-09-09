@@ -231,6 +231,19 @@ class AssessmentRecord extends Controller
         return back()->with('success', 'Assessment record berhasil disimpan.');
     }
 
+    public function submit(Request $request, $id)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+
+        $assessment = HsAssessmentRecord::findOrFail($id);
+
+        $assessment->update([
+            'submitted_at' => now()
+        ]);
+
+        return redirect()->back()->with('success', 'Assessment berhasil di-submit!');
+    }
+
 
     public function destroy($id)
     {

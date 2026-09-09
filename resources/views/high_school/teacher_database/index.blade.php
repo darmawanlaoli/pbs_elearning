@@ -37,9 +37,9 @@
                 </div>
                 <div
                     class="col-md-8 col-xl-9 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0">
-                    <a href="{{ route('high_school.database.teachers.create') }}" id="btn-add-contact"
+                    <a href="{{ route('high_school.database.students.create') }}" id="btn-add-contact"
                         class="btn btn-info d-flex align-items-center">
-                        <i class="ti ti-users text-white me-1 fs-5"></i> Add Teacher
+                        <i class="ti ti-users text-white me-1 fs-5"></i> Add Student
                     </a>
                 </div>
             </div>
@@ -52,8 +52,8 @@
                     <thead class="header-item">
                         <th>No.</th>
                         <th>Name</th>
-                        <th>Username</th>
-                        <th>Homeroom</th>
+                        <th>Grade</th>
+                        <th>Class</th>
                         <th>Action</th>
                     </thead>
                     <tbody>
@@ -61,7 +61,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $student->name }}</td>
-                            <td>{{ $student->username }}</td>
+                            <td>{{ $student->grade }}</td>
                             <td>{{ $student->class }}</td>
                             <td><form id="deleteForm-{{ $student->id }}"
                                 action="{{ route('high_school.database.students.destroy', $student->id) }}"

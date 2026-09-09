@@ -1,4 +1,4 @@
-@extends('high_school.layout')
+@extends('layout.' . strtolower(session('role')))
 
 @section('content')
 

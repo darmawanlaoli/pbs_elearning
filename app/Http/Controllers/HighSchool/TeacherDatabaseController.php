@@ -4,21 +4,18 @@ namespace App\Http\Controllers\HighSchool;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\HsStudent;
+use App\Models\HsTeacher;
 use Illuminate\Support\Facades\Hash;
 
-class StudentDatabaseController extends Controller
+class TeacherDatabaseController extends Controller
 {
     public function index()
     {
-        $title = 'Student Database';
+        $title = 'Teacher Database';
         $path = 'Master Data';
 
-        $students = HsStudent::
-            orderByRaw('CAST(REPLACE(grade, "Y", "") AS UNSIGNED) ASC')
-            ->orderBy('name', 'ASC')
-            ->get();
-        return view('high_school.teacher_database.index', compact('title', 'path', 'students'));
+        $students = HsTeacher::orderBy('name', 'ASC')->get();
+        return view('high_school.student_database.index', compact('title', 'path', 'students'));
     }
 
     public function create(){
