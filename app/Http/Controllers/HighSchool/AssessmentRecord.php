@@ -29,7 +29,8 @@ class AssessmentRecord extends Controller
         return view('high_school.assessment_record.index', compact('title', 'path', 'assesments', 'academicyears'));
     }
 
-    public function create(){
+    public function create()
+    {
         $title = 'New Assesment Record';
         $path = 'Assesment Record';
         $academicyears = AcademicYear::first();
@@ -65,7 +66,8 @@ class AssessmentRecord extends Controller
         return redirect()->route('high_school.assessment_record')->with('success', 'Data has been successfully saved');
     }
 
-    public function generate($id) {
+    public function generate($id)
+    {
         $title = 'Generate Student Data';
         $path = 'Assessment Record';
 
@@ -268,23 +270,21 @@ class AssessmentRecord extends Controller
         $title = 'Assesment Record Detail';
         $path = 'Assesment Record';
 
-        if($subject->subject == 'HEALTH AND PHYSICAL EDUCATION') {
+        if ($subject->subject == 'HEALTH AND PHYSICAL EDUCATION') {
             return view('primaryteacher/assessment_record/detail_pe', compact('title', 'path', 'assesments', 'subject'));
-        }elseif($subject->subject == 'ENGLISH' || $subject->subject == 'BAHASA INDONESIA') {
-            if(in_array($grade, ['P1', 'P2', 'P3'])) {
+        } elseif ($subject->subject == 'ENGLISH' || $subject->subject == 'BAHASA INDONESIA') {
+            if (in_array($grade, ['P1', 'P2', 'P3'])) {
                 return view('primaryteacher/assessment_record/detail_lang_lower', compact('title', 'path', 'assesments', 'subject'));
             } else {
                 return view('primaryteacher/assessment_record/detail_lang_upper', compact('title', 'path', 'assesments', 'subject'));
             }
-
-        }elseif($subject->subject == 'ART AND CRAFT') {
+        } elseif ($subject->subject == 'ART AND CRAFT') {
             return view('primaryteacher/assessment_record/detail_art', compact('title', 'path', 'assesments', 'subject'));
-        }elseif($subject->subject == 'MANDARIN') {
+        } elseif ($subject->subject == 'MANDARIN') {
             return view('primaryteacher/assessment_record/detail_mandarin', compact('title', 'path', 'assesments', 'subject'));
         } else {
             return view('primaryteacher/assessment_record/detail', compact('title', 'path', 'assesments', 'subject'));
         }
-
     }
 
     public function updateAll(Request $request)
@@ -300,93 +300,91 @@ class AssessmentRecord extends Controller
         // }
 
         foreach ($data as $id => $values) {
-        $updateData = [];
+            $updateData = [];
 
-        if (isset($values['concept'])) {
-            $updateData['concept'] = $values['concept'];
-        }
-        if (isset($values['demonstrate'])) {
-            $updateData['demonstrate'] = $values['demonstrate'];
-        }
+            if (isset($values['concept'])) {
+                $updateData['concept'] = $values['concept'];
+            }
+            if (isset($values['demonstrate'])) {
+                $updateData['demonstrate'] = $values['demonstrate'];
+            }
 
-        // PE
-        if (isset($values['pe_understand_rules'])) {
-            $updateData['pe_understand_rules'] = $values['pe_understand_rules'];
-        }
+            // PE
+            if (isset($values['pe_understand_rules'])) {
+                $updateData['pe_understand_rules'] = $values['pe_understand_rules'];
+            }
 
-        if (isset($values['pe_locomotors_movement'])) {
-            $updateData['pe_locomotors_movement'] = $values['pe_locomotors_movement'];
-        }
+            if (isset($values['pe_locomotors_movement'])) {
+                $updateData['pe_locomotors_movement'] = $values['pe_locomotors_movement'];
+            }
 
-        // ART
-        if (isset($values['art_followed_direction'])) {
-            $updateData['art_followed_direction'] = $values['art_followed_direction'];
-        }
+            // ART
+            if (isset($values['art_followed_direction'])) {
+                $updateData['art_followed_direction'] = $values['art_followed_direction'];
+            }
 
-        if (isset($values['art_displayed_neat'])) {
-            $updateData['art_displayed_neat'] = $values['art_displayed_neat'];
-        }
+            if (isset($values['art_displayed_neat'])) {
+                $updateData['art_displayed_neat'] = $values['art_displayed_neat'];
+            }
 
-        if (isset($values['art_finished_project'])) {
-            $updateData['art_finished_project'] = $values['art_finished_project'];
-        }
+            if (isset($values['art_finished_project'])) {
+                $updateData['art_finished_project'] = $values['art_finished_project'];
+            }
 
-        // LANG
-        if (isset($values['lang_neatness_in_writing'])) {
-            $updateData['lang_neatness_in_writing'] = $values['lang_neatness_in_writing'];
-        }
+            // LANG
+            if (isset($values['lang_neatness_in_writing'])) {
+                $updateData['lang_neatness_in_writing'] = $values['lang_neatness_in_writing'];
+            }
 
-        if (isset($values['lang_writes_with_fluency'])) {
-            $updateData['lang_writes_with_fluency'] = $values['lang_writes_with_fluency'];
-        }
+            if (isset($values['lang_writes_with_fluency'])) {
+                $updateData['lang_writes_with_fluency'] = $values['lang_writes_with_fluency'];
+            }
 
-        if (isset($values['lang_reads_accurately'])) {
-            $updateData['lang_reads_accurately'] = $values['lang_reads_accurately'];
-        }
+            if (isset($values['lang_reads_accurately'])) {
+                $updateData['lang_reads_accurately'] = $values['lang_reads_accurately'];
+            }
 
-        if (isset($values['lang_reads_fluency'])) {
-            $updateData['lang_reads_fluency'] = $values['lang_reads_fluency'];
-        }
+            if (isset($values['lang_reads_fluency'])) {
+                $updateData['lang_reads_fluency'] = $values['lang_reads_fluency'];
+            }
 
-        if (isset($values['lang_listen_with_understanding'])) {
-            $updateData['lang_listen_with_understanding'] = $values['lang_listen_with_understanding'];
-        }
+            if (isset($values['lang_listen_with_understanding'])) {
+                $updateData['lang_listen_with_understanding'] = $values['lang_listen_with_understanding'];
+            }
 
-        if (isset($values['lang_expresses_ideas'])) {
-            $updateData['lang_expresses_ideas'] = $values['lang_expresses_ideas'];
-        }
+            if (isset($values['lang_expresses_ideas'])) {
+                $updateData['lang_expresses_ideas'] = $values['lang_expresses_ideas'];
+            }
 
-        // MANDARIN
-        if (isset($values['mandarin_understands_vocabulary'])) {
-            $updateData['mandarin_understands_vocabulary'] = $values['mandarin_understands_vocabulary'];
-        }
-        if (isset($values['mandarin_writes_characters'])) {
-            $updateData['mandarin_writes_characters'] = $values['mandarin_writes_characters'];
-        }
-        if (isset($values['mandarin_neatness'])) {
-            $updateData['mandarin_neatness'] = $values['mandarin_neatness'];
-        }
-        if (isset($values['mandarin_correct_intonation'])) {
-            $updateData['mandarin_correct_intonation'] = $values['mandarin_correct_intonation'];
-        }
-        if (isset($values['mandarin_reads_fluently'])) {
-            $updateData['mandarin_reads_fluently'] = $values['mandarin_reads_fluently'];
-        }
-        if (isset($values['mandarin_able_to_pronounce'])) {
-            $updateData['mandarin_able_to_pronounce'] = $values['mandarin_able_to_pronounce'];
-        }
-        if (isset($values['mandarin_able_to_transfer_the_words'])) {
-            $updateData['mandarin_able_to_transfer_the_words'] = $values['mandarin_able_to_transfer_the_words'];
-        }
+            // MANDARIN
+            if (isset($values['mandarin_understands_vocabulary'])) {
+                $updateData['mandarin_understands_vocabulary'] = $values['mandarin_understands_vocabulary'];
+            }
+            if (isset($values['mandarin_writes_characters'])) {
+                $updateData['mandarin_writes_characters'] = $values['mandarin_writes_characters'];
+            }
+            if (isset($values['mandarin_neatness'])) {
+                $updateData['mandarin_neatness'] = $values['mandarin_neatness'];
+            }
+            if (isset($values['mandarin_correct_intonation'])) {
+                $updateData['mandarin_correct_intonation'] = $values['mandarin_correct_intonation'];
+            }
+            if (isset($values['mandarin_reads_fluently'])) {
+                $updateData['mandarin_reads_fluently'] = $values['mandarin_reads_fluently'];
+            }
+            if (isset($values['mandarin_able_to_pronounce'])) {
+                $updateData['mandarin_able_to_pronounce'] = $values['mandarin_able_to_pronounce'];
+            }
+            if (isset($values['mandarin_able_to_transfer_the_words'])) {
+                $updateData['mandarin_able_to_transfer_the_words'] = $values['mandarin_able_to_transfer_the_words'];
+            }
 
-        if (!empty($updateData)) {
-            $updateData['updated_at'] = now();
-            \App\Models\PrimaryAssesmentRecordDetails::where('id', $id)->update($updateData);
+            if (!empty($updateData)) {
+                $updateData['updated_at'] = now();
+                \App\Models\PrimaryAssesmentRecordDetails::where('id', $id)->update($updateData);
+            }
         }
-    }
 
         return redirect()->back()->with('success', 'All records updated successfully!');
     }
-
-
 }

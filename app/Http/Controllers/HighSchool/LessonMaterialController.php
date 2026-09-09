@@ -28,27 +28,6 @@ class LessonMaterialController extends Controller
         return view('high_school/lesson_material/index', compact('title', 'path', 'lessonmaterial', 'subjects', 'materialCounts'));
     }
 
-    public function search(Request $request)
-    {
-        $keyword = $request->input('query');
-
-        $lessonplanes = PrimaryLessonPlan::where('nama_cabang', 'LIKE', "%$keyword%")
-            ->orWhere('alamat', 'LIKE', "%$keyword%")
-            ->orWhere('username', 'LIKE', "%$keyword%")
-            ->get();
-
-        return view('superadmin.cabang.partials.search_result', compact('branches'));
-    }
-
-    public function detail($id)
-    {
-        $title = 'Lesson Plan';
-        $path = 'Primary Teacher';
-        $lessonplan = PrimaryLessonPlan::findOrFail($id);
-
-        return view('primaryteacher/lesson_plan/detail', compact('title', 'path', 'academicyears', 'subjects'));
-    }
-
     public function show($subject)
     {
         $title = 'Lesson Material';
@@ -61,6 +40,6 @@ class LessonMaterialController extends Controller
             return redirect()->route('hsstudent.lesson_material')->with('error', 'Lesson material not found.');
         }
 
-        return view('hsstudent/lessonmaterial/show', compact('title', 'path', 'lessonmaterial'));
+        return view('high_school/lesson_material/show', compact('title', 'path', 'lessonmaterial'));
     }
 }

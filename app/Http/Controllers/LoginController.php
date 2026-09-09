@@ -67,7 +67,7 @@ class LoginController extends Controller
                 'model' => User::class,
                 'field' => 'username',
                 'role' => 'hsadmin',
-                'redirect' => 'hs_admin.home',
+                'redirect' => 'high_school.home',
                 'session_data' => ['name' => 'name', 'username' => 'username']
             ],
             'hsteacher' => [
@@ -126,7 +126,7 @@ class LoginController extends Controller
                     session([$sessionKey => $user->$userAttribute]);
                 }
                 return redirect()->route($config['redirect']);
-            }else{
+            } else {
                 echo "You are unauthorized to view these page";
             }
         }
@@ -317,7 +317,7 @@ class LoginController extends Controller
 
                     $request->session()->regenerate();
 
-                    return redirect()->route('hs_admin.home');
+                    return redirect()->route('high_school.home');
 
                 case 'kindergartenadmin':
 

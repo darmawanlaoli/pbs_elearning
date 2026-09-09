@@ -25,44 +25,56 @@
         </div>
         <div class="widget-content searchable-container list">
 
-            <div class="card">
+
+            <div class="card card-custome">
 
                 <div class="card-body">
+                    <a href="{{ route('high_school.assessment_record.create') }}" class="btn btn-primary mb-2"><i
+                            class="ti ti-plus"></i> New</a>
+
                     <div class="table-responsive">
                         <table class="table search-table align-middle text-nowrap">
                             <thead class="header-item">
                                 <th>No.</th>
-                                <th>Subject</th>
                                 <th>Class</th>
-                                <th>Description</th>
-                                <th>File</th>
+                                <th>Homeroom</th>
+                                <th>Action</th>
                             </thead>
                             <tbody>
-                                @forelse ($lessonmaterial as $material)
-                                    <tr>
+                                @forelse ($classes as $class)
+                                    <tr class="bg-danger">
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $material->subject }}</td>
-                                        <td>{{ $material->class }}</td>
-                                        <td>{{ $material->description }}</td>
-                                        <td>
-                                            @if ($material->type === 'upload')
-                                                <a tabindex="0" data-bs-toggle="tooltip" title="Download"
-                                                    class="m-1 badge text-white btn btn-primary"
-                                                    href="{{ '/lesson_material/' . $material->file }}"><i
-                                                        class="ti ti-arrow-down"></i>
-                                                    Download</a>
-                                            @else
-                                                <a tabindex="0" data-bs-toggle="tooltip" title="Link"
-                                                    class="m-1 badge text-white btn btn-primary"
-                                                    href="{{ $material->file }}"><i class="ti ti-link"></i> Link</a>
-                                            @endif
+                                        <td>{{ $class->class }}</td>
+                                        <td>{{ $class->homeroom }}</td>
+
+                                        <td class="d-flex">
+
+                                            <div class="d-flex justify-content-center gap-1 flex-wrap">
+                                                <form
+                                                    action="{{ route('high_school.assessment_record.generate', $class->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    <button tabindex="0" data-bs-toggle="tooltip"
+                                                        title="Generate Students" class="btn btn-sm btn-primary m-1"><i
+                                                            class="ti ti-pencil"></i> Report</button>
+                                                </form>
+                                            </div>
+
+                                            <div class="d-flex justify-content-center gap-1 flex-wrap">
+
+                                                <a href="{{ route('high_school.internal_report.accumulated', $class->class) }}"
+                                                    class="btn btn-sm btn-success m-1">
+                                                    <i class="ti ti-pencil"></i> Assessment Record</a>
+                                                </a>
+                                            </div>
+
                                         </td>
 
                                     <tr>
 
                                     @empty
                                     <tr>
-                                        <td colspan="5">No data available</td>
+                                        <td colspan="6">No data available</td>
                                     </tr>
                                 @endforelse
 

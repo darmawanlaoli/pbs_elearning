@@ -28,41 +28,47 @@
             <div class="card">
 
                 <div class="card-body">
+                    <a href="{{ route('hs_teacher.project_formulation.create') }}" class="btn btn-primary mb-2"><i
+                            class="ti ti-plus"></i> Upload</a>
+
                     <div class="table-responsive">
                         <table class="table search-table align-middle text-nowrap">
                             <thead class="header-item">
                                 <th>No.</th>
-                                <th>Subject</th>
+                                <th>Academic Year</th>
                                 <th>Class</th>
-                                <th>Description</th>
-                                <th>File</th>
+                                <th>Term</th>
+                                <th>Action</th>
                             </thead>
                             <tbody>
-                                @forelse ($lessonmaterial as $material)
+                                @forelse ($lessonplans as $lesson)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $material->subject }}</td>
-                                        <td>{{ $material->class }}</td>
-                                        <td>{{ $material->description }}</td>
-                                        <td>
-                                            @if ($material->type === 'upload')
-                                                <a tabindex="0" data-bs-toggle="tooltip" title="Download"
+                                        <td>{{ $lesson->subject }}</td>
+                                        <td>{{ $lesson->class }}</td>
+                                        <td>{{ $lesson->term }}</td>
+                                        <td class="d-flex">
+                                            <div class="d-flex justify-content-center gap-1 flex-wrap">
+                                                <form id="deleteForm-{{ $lesson->id }}"
+                                                    action="{{ route('hs_teacher.project_formulation.destroy', $lesson->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button tabindex="0" data-bs-toggle="tooltip" title="Hapus"
+                                                        class="m-1 tombol-hapus border-0 badge text-white btn btn-danger"><i
+                                                            class="ti ti-trash"></i></button>
+                                                </form>
+                                                <a tabindex="0" data-bs-toggle="tooltip" title="Detail"
                                                     class="m-1 badge text-white btn btn-primary"
-                                                    href="{{ '/lesson_material/' . $material->file }}"><i
-                                                        class="ti ti-arrow-down"></i>
-                                                    Download</a>
-                                            @else
-                                                <a tabindex="0" data-bs-toggle="tooltip" title="Link"
-                                                    class="m-1 badge text-white btn btn-primary"
-                                                    href="{{ $material->file }}"><i class="ti ti-link"></i> Link</a>
-                                            @endif
+                                                    href="{{ '/project_formulation/' . $lesson->project_formulation }}"><i
+                                                        class="ti ti-eye"></i> Download</a>
+                                            </div>
                                         </td>
-
                                     <tr>
 
                                     @empty
                                     <tr>
-                                        <td colspan="5">No data available</td>
+                                        <td colspan="4">No data available</td>
                                     </tr>
                                 @endforelse
 

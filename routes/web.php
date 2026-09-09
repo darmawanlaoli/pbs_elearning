@@ -18,6 +18,8 @@ use App\Http\Controllers\HighSchool\HomeController as HighSchoolHome;
 use App\Http\Controllers\HighSchool\LoginLogController as HighSchoolLoginLog;
 use App\Http\Controllers\HighSchool\StudentDatabaseController as HighSchoolDatabaseStudents;
 use App\Http\Controllers\HighSchool\TeacherDatabaseController as HighSchoolDatabaseTeachers;
+use App\Http\Controllers\HighSchool\ClassDatabaseController as HighSchoolDatabaseClass;
+use App\Http\Controllers\HighSchool\SubjectDatabaseController as HighSchoolDatabaseSubjects;
 
 use App\Http\Controllers\HighSchool\LogController as HighSchoolActivityLog;
 
@@ -46,6 +48,7 @@ use App\Http\Controllers\HsTeacher\LessonPlanController as LessonPlanHsTeacher;
 use App\Http\Controllers\HighSchool\LessonMaterialController as HighSchoolLessonMaterial;
 use App\Http\Controllers\HighSchool\ProjectFormulationController as HighSchoolProjectFormulation;
 use App\Http\Controllers\HighSchool\AssessmentRecord as HighSchoolAssessmentRecord;
+use App\Http\Controllers\HighSchool\InternalReportController as HighSchoolInternalReport;
 
 use App\Http\Controllers\HsStudent\AssignmentController as HsStudentAssignment;
 use App\Http\Controllers\HsStudent\HomeController as HsStudentHome;
@@ -124,8 +127,6 @@ Route::middleware(['auth:primaryadmin', 'role:primaryadmin'])->group(function ()
     Route::delete('admin_primary/zoom/{id}/destroy', [AdminPrimaryZoom::class, 'destroy'])->name('admin_primary.zoom.destroy');
     Route::get('admin_primary/zoom/{id}/edit', [AdminPrimaryZoom::class, 'edit'])->name('admin_primary.zoom.edit');
     Route::post('admin_primary/zoom/{id}/update', [AdminPrimaryZoom::class, 'update'])->name('admin_primary.zoom.update');
-
-
 });
 
 Route::middleware(['auth:kindergartenteacher', 'role:kindergartenteacher'])->group(function () {
@@ -176,7 +177,7 @@ Route::middleware(['auth:primaryteacher', 'role:primaryteacher'])->group(functio
 
     Route::delete('primary_teacher/assesment_record/{id}/destroy', [AssesmentRecordPrimaryTeacher::class, 'destroy'])->name('primary_teacher.assesment_record.destroy');
 
-        // assesment record routes
+    // assesment record routes
     Route::get('primary_teacher/report', [ReportPrimaryTeacher::class, 'index'])->name('primary_teacher.report');
     Route::post('primary_teacher/report', [ReportPrimaryTeacher::class, 'index'])->name('primary_teacher.report');
 
@@ -278,6 +279,14 @@ Route::middleware(['auth:hsadmin', 'role:hsadmin'])->group(function () {
 
     Route::get('hs_admin/student', [HsStudentControllerAdmin::class, 'index'])->name('hs_admin.student_data');
 
+    // Internal report
+    Route::get('high_school/internal_report', [HighSchoolInternalReport::class, 'index'])->name('high_school.internal_report');
+    Route::get('high_school/internal_report/{class}/accumulated', [HighSchoolInternalReport::class, 'accumulated'])->name('high_school.internal_report.accumulated');
+
+    // Kurmer report
+    Route::get('high_school/kurmer_report', [HighSchoolKurmerReport::class, 'index'])->name('high_school.kurmer_report');
+
+
     // routes database students - high school
     Route::get('high_school/database/students', [HighSchoolDatabaseStudents::class, 'index'])->name('high_school.database.students');
     Route::get('high_school/database/students/create', [HighSchoolDatabaseStudents::class, 'create'])->name('high_school.database.students.create');
@@ -293,11 +302,18 @@ Route::middleware(['auth:hsadmin', 'role:hsadmin'])->group(function () {
     Route::get('high_school/database/teachers/{id}/detail', [HighSchoolDatabaseTeachers::class, 'detail'])->name('high_school.database.teachers.detail');
 
     // routes database class - high school
-    Route::get('high_school/database/class', [HighSchoolDatabaseStudents::class, 'index'])->name('high_school.database.class');
-    Route::get('high_school/database/class/create', [HighSchoolDatabaseStudents::class, 'create'])->name('high_school.database.class.create');
-    Route::post('high_school/database/class/store', [HighSchoolDatabaseStudents::class, 'store'])->name('high_school.database.class.store');
-    Route::delete('high_school/database/class/{id}/destroy', [HighSchoolDatabaseStudents::class, 'destroy'])->name('high_school.database.class.destroy');
-    Route::get('high_school/database/class/{id}/detail', [HighSchoolDatabaseStudents::class, 'detail'])->name('high_school.database.class.detail');
+    Route::get('high_school/database/class', [HighSchoolDatabaseClass::class, 'index'])->name('high_school.database.class');
+    Route::get('high_school/database/class/create', [HighSchoolDatabaseClass::class, 'create'])->name('high_school.database.class.create');
+    Route::post('high_school/database/class/store', [HighSchoolDatabaseClass::class, 'store'])->name('high_school.database.class.store');
+    Route::delete('high_school/database/class/{id}/destroy', [HighSchoolDatabaseClass::class, 'destroy'])->name('high_school.database.class.destroy');
+    Route::get('high_school/database/class/{id}/detail', [HighSchoolDatabaseClass::class, 'detail'])->name('high_school.database.class.detail');
+
+    // routes database teacher - high school
+    Route::get('high_school/database/subject', [HighSchoolDatabaseSubjects::class, 'index'])->name('high_school.database.subject');
+    Route::get('high_school/database/subject/create', [HighSchoolDatabaseSubjects::class, 'create'])->name('high_school.database.subject.create');
+    Route::post('high_school/database/subject/store', [HighSchoolDatabaseSubjects::class, 'store'])->name('high_school.database.subject.store');
+    Route::delete('high_school/database/subject/{id}/destroy', [HighSchoolDatabaseSubjects::class, 'destroy'])->name('high_school.database.subject.destroy');
+    Route::get('high_school/database/subject/{id}/detail', [HighSchoolDatabaseSubjects::class, 'detail'])->name('high_school.database.subject.detail');
 });
 
 Route::middleware(['auth:hsstudent', 'role:hsstudent'])->group(function () {

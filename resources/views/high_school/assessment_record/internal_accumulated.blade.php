@@ -185,10 +185,7 @@
                 </div>
 
                 <!-- Teks ini otomatis terdorong ke paling kanan -->
-                @if (session('role') == 'hsteacher')
-                    <span
-                        class="ms-auto fw-bold text-primary">{{ $assessment->class . ' - ' . $assessment->subject }}</span>
-                @endif
+                <span class="ms-auto fw-bold text-primary">{{ $class }}</span>
             </div>
 
             <div class="container-fluid">
@@ -198,18 +195,42 @@
                     Jika Anda ingin menutup halaman ini, pastikan semua data sudah tersimpan.
                 </small>
 
-                @if (
-                    $assessment->subject == 'PE' ||
-                        $assessment->subject == 'Music' ||
-                        $assessment->subject == 'Art' ||
-                        $assessment->subject == 'Visual Art' ||
-                        $assessment->subject == 'Design and Technology')
-                    @include('high_school.assessment_record.moduls.non_ct')
-                @elseif ($assessment->subject == 'IMYC')
-                    @include('high_school.assessment_record.moduls.imyc')
-                @elseif ($assessment->subject == 'PKN')
-                    @include('high_school.assessment_record.moduls.ct')
-                @endif
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">No</th>
+                                <th rowspan="2">Subject</th>
+                            </tr>
+
+                            <tr>
+                                @foreach ($subjects as $subject)
+                                    <th>{{ $subject }}</th>
+                                @endforeach
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tbody>
+                            @forelse($students as $index => $student)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td class="text-left">{{ $student['name'] }}</td>
+
+                                    @foreach ($subjects as $subject)
+                                        {{-- Cek apakah siswa memiliki nilai untuk mapel ini, jika tidak tampilkan kosong/strip --}}
+                                        <td>{{ $student['scores'][$subject] ?? '-' }}</td>
+                                    @endforeach
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="{{ count($subjects) + 2 }}">Tidak ada data nilai.</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                        </tbody>
+
+                    </table>
+                </div>
             </div>
         </form>
     </div>
