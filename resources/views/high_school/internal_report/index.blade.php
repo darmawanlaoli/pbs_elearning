@@ -48,19 +48,16 @@
                                         <td class="d-flex">
 
                                             <div class="d-flex justify-content-center gap-1 flex-wrap">
-                                                <form
-                                                    action="{{ route('high_school.assessment_record.generate', $class->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    <button tabindex="0" data-bs-toggle="tooltip"
-                                                        title="Print Report" class="btn btn-sm btn-primary m-1"><i
-                                                            class="ti ti-printer"></i> Print Report</button>
-                                                </form>
+                                                <a href="{{ route('high_school.internal_report.print', $class->class) }}"
+                                                    class="btn btn-sm btn-primary m-1">
+                                                    <i class="ti ti-printer"></i> Print Report
+                                                </a>
                                             </div>
 
                                             <div class="d-flex justify-content-center gap-1 flex-wrap">
 
-                                                <a href="{{ route('high_school.assessment_record.create_report_data', $class->class) }}" class="btn btn-sm btn-info m-1">
+                                                <a href="{{ route('high_school.assessment_record.create_report_data', $class->class) }}"
+                                                    class="btn btn-sm btn-info m-1">
                                                     <i class="ti ti-database"></i> Create Report Data</a>
                                                 </a>
                                             </div>

@@ -6,10 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\AcademicYear;
 use App\Models\HsReportData;
 use App\Models\HsStudent;
-use App\Models\PrimaryLessonPlan;
+use App\Models\HsReportDataDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
+
 
 class InternalReportController extends Controller
 {
@@ -18,8 +19,10 @@ class InternalReportController extends Controller
         $title = 'Internal Report';
         $path = 'Report';
         $classes = DB::table('hs_classes')
+            ->where('class', session('homeroom'))
             ->orderBy('class', 'ASC')
             ->get();
+
         return view('high_school/internal_report/index', compact('title', 'path', 'classes'));
     }
 
@@ -68,6 +71,36 @@ class InternalReportController extends Controller
         return view('high_school.assessment_record.internal_accumulated', compact('title', 'path', 'subjects', 'assessmentLists', 'class', 'students'));
     }
 
+    public function print(string $class, Request $request)
+    {
+        $title = 'Internal Report';
+        $path = 'Report';
+        $academic_year = AcademicYear::first();
+        $students = DB::table('hs_students')
+            ->where('class', $class)
+            ->orderBy('name', 'ASC')
+            ->get();
+        $classes = DB::table('hs_classes')
+            ->where('class', session('homeroom'))
+            ->orderBy('class', 'ASC')
+            ->get();
+        $filter = $request->student;
+
+        $assessments = DB::table('hs_assessment_record_details')
+            ->where('name', $filter)
+            ->orderBy('name', 'ASC')
+            ->get();
+
+        $reportData = DB::table('hs_report_data_details')
+            ->where('name', $filter)
+            ->first();
+        $siswa = DB::table('hs_students')
+            ->where('name', $filter)
+            ->first();
+
+        return view('high_school.internal_report.print', compact('title', 'path', 'classes', 'academic_year', 'class', 'students', 'assessments', 'siswa', 'reportData'));
+    }
+
 
     public function createReportData($class)
     {
@@ -84,8 +117,21 @@ class InternalReportController extends Controller
             ->where('class', $class)
             ->orderBy('name', 'ASC')
             ->get();
+        $reportDataDetails = DB::table('hs_report_data_details')
+            ->where('class', $class)
+            ->get();
+        $reportData = DB::table('hs_report_data')
+            ->where('class', $class)
+            ->first();
+        $clubs = DB::table('hs_clubs')
+            ->orderBy('name', 'ASC')
+            ->get();
 
-        return view('high_school.internal_report.create_report_data', compact('title', 'path', 'academic_year', 'subjects', 'class', 'students'));
+        if ($reportDataDetails->isNotEmpty()) {
+            return view('high_school.internal_report.input_report_data', compact('title', 'path', 'academic_year', 'subjects', 'class', 'students', 'reportData', 'reportDataDetails', 'clubs'));
+        } else {
+            return view('high_school.internal_report.create_report_data', compact('title', 'path', 'academic_year', 'subjects', 'class', 'students'));
+        }
     }
 
     public function storeReportData(Request $request)
@@ -120,23 +166,14 @@ class InternalReportController extends Controller
                 'homeroom' => $request->homeroom,
             ]);
 
-            dd($record);
-
             // 5. Siapkan data untuk tabel Detail (kindergarten_assesment_record_details)
             $details = [];
             foreach ($students as $student) {
                 $details[] = [
-                    'id_assesment' => $record->id,
+                    'id_report_data' => $record->id,
                     'name' => $student->name,
-                    'registration_number' => $student->registration_number,
-                    'class' => $student->class,
-                    'gender' => $student->gender,
-                    'date_of_birth' => $student->dob,
-                    'address' => $student->address,
-                    'name_of_parents' => $student->name_of_parents,
-                    'teachers' => $student->teachers,
-                    'distribution_date' => $request->distribution_date,
-                    'first_day_of_school' => $student->first_day_of_school,
+                    'class' => $request->class,
+                    'homeroom' => $request->homeroom,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ];

@@ -45,8 +45,10 @@
             <div>
                 <div class="brand-logo d-flex align-items-center justify-content-between">
                     <a href="./index.html" class="text-nowrap logo-img">
-                        <img src="../../assets/images/logos/dark-logo.svg" class="dark-logo" width="180" alt="" />
-                        <img src="../../assets/images/logos/light-logo.svg" class="light-logo" width="180" alt="" />
+                        <img src="../../assets/images/logos/dark-logo.svg" class="dark-logo" width="180"
+                            alt="" />
+                        <img src="../../assets/images/logos/light-logo.svg" class="light-logo" width="180"
+                            alt="" />
                     </a>
                     <div class="close-btn d-lg-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                         <i class="ti ti-x fs-8 text-muted"></i>
@@ -113,42 +115,43 @@
                         </li>
 
                         @if (session('is_homeroom') == 1)
-                        <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow" href="#" aria-expanded="false">
-                                <span class="d-flex">
-                                    <i class="ti ti-files"></i>
-                                </span>
-                                <span class="hide-menu">Report</span>
-                            </a>
-                            <ul aria-expanded="false" class="collapse first-level">
-                                <li class="sidebar-item">
-                                    <a href="{{ route('primary_teacher.report') }}" class="sidebar-link">
-                                        <div class="round-16 d-flex align-items-center justify-content-center">
-                                            <i class="ti ti-circle"></i>
-                                        </div>
-                                        <span class="hide-menu">Print Report</span>
-                                    </a>
-                                </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow" href="#" aria-expanded="false">
+                                    <span class="d-flex">
+                                        <i class="ti ti-files"></i>
+                                    </span>
+                                    <span class="hide-menu">Report</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('primary_teacher.report') }}" class="sidebar-link">
+                                            <div class="round-16 d-flex align-items-center justify-content-center">
+                                                <i class="ti ti-circle"></i>
+                                            </div>
+                                            <span class="hide-menu">Print Report</span>
+                                        </a>
+                                    </li>
 
-                                <li class="sidebar-item">
-                                    <a href="{{ route('primary_teacher.report_data') }}" class="sidebar-link">
-                                        <div class="round-16 d-flex align-items-center justify-content-center">
-                                            <i class="ti ti-circle"></i>
-                                        </div>
-                                        <span class="hide-menu">Report Data</span>
-                                    </a>
-                                </li>
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('primary_teacher.report_data') }}" class="sidebar-link">
+                                            <div class="round-16 d-flex align-items-center justify-content-center">
+                                                <i class="ti ti-circle"></i>
+                                            </div>
+                                            <span class="hide-menu">Report Data</span>
+                                        </a>
+                                    </li>
 
-                                <li class="sidebar-item">
-                                    <a href="{{ route('primary_teacher.academic_records') }}" class="sidebar-link">
-                                        <div class="round-16 d-flex align-items-center justify-content-center">
-                                            <i class="ti ti-circle"></i>
-                                        </div>
-                                        <span class="hide-menu">Academic Records</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('primary_teacher.academic_records') }}"
+                                            class="sidebar-link">
+                                            <div class="round-16 d-flex align-items-center justify-content-center">
+                                                <i class="ti ti-circle"></i>
+                                            </div>
+                                            <span class="hide-menu">Academic Records</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                         @endif
 
                         <li class="sidebar-item">
@@ -173,7 +176,8 @@
                             <span class="fs-2 text-dark">Designer</span>
                         </div>
                         <button class="border-0 bg-transparent text-primary ms-auto" tabindex="0" type="button"
-                            aria-label="logout" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="logout">
+                            aria-label="logout" data-bs-toggle="tooltip" data-bs-placement="top"
+                            data-bs-title="logout">
                             <i class="ti ti-power fs-6"></i>
                         </button>
                     </div>
@@ -210,8 +214,10 @@
 
                     </ul>
                     <div class="d-block d-lg-none">
-                        <img src="../../assets/images/logos/dark-logo.svg" class="dark-logo" width="180" alt="" />
-                        <img src="../../assets/images/logos/light-logo.svg" class="light-logo" width="180" alt="" />
+                        <img src="../../assets/images/logos/dark-logo.svg" class="dark-logo" width="180"
+                            alt="" />
+                        <img src="../../assets/images/logos/light-logo.svg" class="light-logo" width="180"
+                            alt="" />
                     </div>
                     <button class="navbar-toggler p-0 border-0" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
@@ -321,8 +327,9 @@
                                         data-bs-toggle="dropdown" aria-expanded="false">
                                         <div class="d-flex align-items-center">
                                             <div class="user-profile-img">
-                                                <img src="../../assets/images/profile/user-1.jpg" class="rounded-circle"
-                                                    width="35" height="35" alt="" />
+                                                <img src="../../assets/images/profile/user-1.jpg"
+                                                    class="rounded-circle" width="35" height="35"
+                                                    alt="" />
                                             </div>
                                         </div>
                                     </a>
@@ -333,8 +340,9 @@
                                                 <h5 class="mb-0 fs-5 fw-semibold">User Profile</h5>
                                             </div>
                                             <div class="d-flex align-items-center py-9 mx-7 border-bottom">
-                                                <img src="../../assets/images/profile/user-1.jpg" class="rounded-circle"
-                                                    width="80" height="80" alt="" />
+                                                <img src="../../assets/images/profile/user-1.jpg"
+                                                    class="rounded-circle" width="80" height="80"
+                                                    alt="" />
                                                 <div class="ms-3">
                                                     <h5 class="mb-1 fs-3">{{ session('name') }}</h5>
                                                     <span class="mb-1 d-block text-dark">Teacher</span>
@@ -374,55 +382,52 @@
 
     <script>
         //message with sweetalert
-            @if(session('success'))
+        @if (session('success'))
 
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
                     toast.onmouseenter = Swal.stopTimer;
                     toast.onmouseleave = Swal.resumeTimer;
                 }
-                });
-                    Toast.fire({
-                    icon: "success",
-                    title: "{{ session('success') }}"
-                });
-            @elseif(session('error'))
-                Swal.fire({
-                    icon: "error",
-                    title: "GAGAL!",
-                    text: "{{ session('error') }}",
-                    showConfirmButton: true,
-                    timer: 12000
-                });
-            @endif
-
+            });
+            Toast.fire({
+                icon: "success",
+                title: "{{ session('success') }}"
+            });
+        @elseif (session('error'))
+            Swal.fire({
+                icon: "error",
+                title: "GAGAL!",
+                text: "{{ session('error') }}",
+                showConfirmButton: true,
+                timer: 12000
+            });
+        @endif
     </script>
 
     <script>
         //message with sweetalert
-                @if(session('alert'))
+        @if (session('alert'))
 
-                    Swal.fire({
-                    title: "Info",
-                    text: "{{ session('alert') }}",
-                    icon: "info"
-                    });
-
-                @elseif(session('error'))
-                    Swal.fire({
-                        icon: "error",
-                        title: "GAGAL!",
-                        text: "{{ session('error') }}",
-                        showConfirmButton: true,
-                        timer: 12000
-                    });
-                @endif
-
+            Swal.fire({
+                title: "Info",
+                text: "{{ session('alert') }}",
+                icon: "info"
+            });
+        @elseif (session('error'))
+            Swal.fire({
+                icon: "error",
+                title: "GAGAL!",
+                text: "{{ session('error') }}",
+                showConfirmButton: true,
+                timer: 12000
+            });
+        @endif
     </script>
 
 

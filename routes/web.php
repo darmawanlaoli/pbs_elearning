@@ -280,6 +280,7 @@ Route::post('kindergarten/student_data/import', [KindergartenStudentData::class,
 // Internal report
 Route::get('high_school/internal_report', [HighSchoolInternalReport::class, 'index'])->name('high_school.internal_report');
 Route::get('high_school/internal_report/{class}/accumulated', [HighSchoolInternalReport::class, 'accumulated'])->name('high_school.internal_report.accumulated');
+Route::get('high_school/internal_report/{class}/print', [HighSchoolInternalReport::class, 'print'])->name('high_school.internal_report.print');
 
 
 Route::middleware(['auth:hsadmin', 'role:hsadmin'])->group(function () {
