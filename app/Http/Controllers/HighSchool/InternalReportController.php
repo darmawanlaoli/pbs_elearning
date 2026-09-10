@@ -18,10 +18,16 @@ class InternalReportController extends Controller
     {
         $title = 'Internal Report';
         $path = 'Report';
-        $classes = DB::table('hs_classes')
-            ->where('class', session('homeroom'))
-            ->orderBy('class', 'ASC')
-            ->get();
+        if(session('role') == 'hsadmin') {
+            $classes = DB::table('hs_classes')
+                ->orderBy('class', 'ASC')
+                ->get();
+        }else {
+            $classes = DB::table('hs_classes')
+                ->where('class', session('homeroom'))
+                ->orderBy('class', 'ASC')
+                ->get();
+        }
 
         return view('high_school/internal_report/index', compact('title', 'path', 'classes'));
     }
@@ -47,7 +53,6 @@ class InternalReportController extends Controller
             ->orderBy('detail.name')
             ->get();
 
-
         // 3. Pivot data menggunakan Collection
         $students = $rawData->groupBy('name')->map(function ($items, $studentName) {
             $kuScores = [];
@@ -57,9 +62,6 @@ class InternalReportController extends Controller
                 $kuScores[$item->subject_name] = $item->ku_total;
                 $dkScores[$item->subject_name] = $item->dk_total;
             }
-
-
-
             return [
                 'name' => $studentName,
                 'ku_total' => $kuScores,

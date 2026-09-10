@@ -4,7 +4,7 @@
 
     <style>
         .report-container {
-            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+            font-family: Arial, Helvetica, sans-serif;
         }
 
         table,
@@ -126,36 +126,36 @@
 
                 <div class="card-bodyS report-container">
 
-                    @if ($assessments)
+                    @if ($siswa)
 
                         <?php
                         // religious
                         $religious_concept = $religious->concept ?? 0;
                         $religious_demonstrate = $religious->demonstrate ?? 0;
-                        
+
                         // civic
                         $civic_concept = $civic->concept ?? 0;
                         $civic_demonstrate = $civic->demonstrate ?? 0;
                         $civic_mean = ($civic_concept + $civic_demonstrate) / 2;
-                        
+
                         // ipas
                         $ipas_concept = $ipas->concept ?? 0;
                         $ipas_demonstrate = $ipas->demonstrate ?? 0;
-                        
+
                         // math
                         $math_concept = $math->concept ?? 0;
                         $math_demonstrate = $math->demonstrate ?? 0;
-                        
+
                         // pe
                         $pe_concept = $pe->concept ?? 0;
                         $pe_understand_rules = $pe->pe_understand_rules ?? 0;
                         $pe_locomotors_movement = $pe->pe_locomotors_movement ?? 0;
-                        
+
                         // art
                         $art_followed_direction = $art->art_followed_direction ?? 0;
                         $art_displayed_neat = $art->art_displayed_neat ?? 0;
                         $art_finished_project = $art->art_finished_project ?? 0;
-                        
+
                         // Mandarin
                         $mandarin_understands_vocabulary = $mandarin->mandarin_understands_vocabulary ?? 0;
                         $mandarin_writes_characters = $mandarin->mandarin_writes_characters ?? 0;
@@ -164,15 +164,15 @@
                         $mandarin_reads_fluently = $mandarin->mandarin_reads_fluently ?? 0;
                         $mandarin_able_to_pronounce = $mandarin->mandarin_able_to_pronounce ?? 0;
                         $mandarin_able_to_transfer_the_words = $mandarin->mandarin_able_to_transfer_the_words ?? 0;
-                        
+
                         // ict
                         $ict_concept = $ict->concept ?? 0;
                         $ict_demonstrate = $ict->demonstrate ?? 0;
-                        
+
                         // music
                         $music_concept = $music->concept ?? 0;
                         $music_demonstrate = $music->demonstrate ?? 0;
-                        
+
                         // english
                         $eng_concept = $english->concept ?? 0;
                         $eng_lang_neatness_in_writing = $english->lang_neatness_in_writing ?? 0;
@@ -181,7 +181,7 @@
                         $eng_lang_expresses_ideas = $english->lang_expresses_ideas ?? 0;
                         $eng_lang_reads_fluency = $english->lang_reads_fluency ?? 0;
                         $eng_lang_listen_with_understanding = $english->lang_listen_with_understanding ?? 0;
-                        
+
                         // bahasa indonesia
                         $indo_concept = $indonesia->concept ?? 0;
                         $indo_lang_neatness_in_writing = $indonesia->lang_neatness_in_writing ?? 0;
@@ -250,237 +250,42 @@
 
 
                             {{-- Religious --}}
-                            <table class="mt-2" style="font-weight: bold">
+                            <table class="mt-2" style="font-weight: bold; text-align: center">
                                 <tr>
-                                    <th style="width: 450px" rowspan="2" class="subject header">RELIGIOUS EDUCATION
-                                    </th>
-                                    <th colspan="2" class="header text-uppercase">{{ $academic_year->term }}</th>
-                                </tr>
-
-                                <tr>
-                                    <th class="header">SCORE</th>
-                                    <th class="header">MEAN</th>
+                                    <th>RELIGIOUS EDUCATION</th>
+                                    <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
+                                    <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
                                 </tr>
 
                                 <tr>
-                                    <td rowspan="2">Understands Concept</td>
-                                    <td class="text-center">{{ $religious_concept }}</td>
-                                    <td class="text-center">
-                                        {{ number_format($meanReligious->mean_religious_concept ?? 0, 2) }}
-                                    </td>
-                                </tr>
-
-                                <tr class="text-center">
-                                    <td colspan="2">
-                                        @if ($religious_concept > 80)
-                                            M
-                                        @elseif ($religious_concept > 60)
-                                            D
-                                        @else
-                                            B
-                                        @endif
-                                    </td>
+                                    <th rowspan="2">ACADEMIC ACHIEVEMENT</th>
+                                    <th>SCORE</th>
+                                    <th>MEAN</th>
+                                    <th>SCORE</th>
+                                    <th>MEAN</th>
                                 </tr>
 
                                 <tr>
-                                    <td rowspan="2">Demonstrates the knowledge of subject matter</td>
-                                    <td class="text-center">{{ $religious_demonstrate }}</td>
-                                    <td class="text-center">
-                                        {{ number_format($meanReligious->mean_religious_demonstrate ?? 0, 2) }}
-                                    </td>
-                                </tr>
-
-                                <tr class="text-center">
-                                    <td colspan="2">
-                                        @if ($religious_demonstrate > 80)
-                                            M
-                                        @elseif ($religious_demonstrate > 60)
-                                            D
-                                        @else
-                                            B
-                                        @endif
-                                    </td>
-                                </tr>
-                            </table>
-
-
-                            {{-- CIVIC --}}
-                            <table class="mt-2" style="font-weight: bold">
-                                <tr>
-                                    <th style="width: 450px" rowspan="2" class="subject header">CIVIC</th>
-                                    <th colspan="2" class="header text-uppercase">{{ $academic_year->term }}</th>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
                                 </tr>
 
                                 <tr>
-                                    <th class="header">SCORE</th>
-                                    <th class="header">MEAN</th>
+                                    <td rowspan="3">LEARNING BEHAVIOURS</td>
+                                    <td colspan="3">Personal Management Skill</td>
+                                    <td>AA</td>
                                 </tr>
 
                                 <tr>
-                                    <td rowspan="2">Understands Concept</td>
-                                    <td class="text-center">{{ $civic_concept }}</td>
-                                    <td class="text-center">{{ number_format($meanCivic->mean_civic_concept ?? 0, 2) }}
-                                    </td>
-                                </tr>
-
-                                <tr class="text-center">
-                                    <td colspan="2">
-                                        @if ($civic_concept > 80)
-                                            M
-                                        @elseif ($civic_concept > 60)
-                                            D
-                                        @else
-                                            B
-                                        @endif
-                                    </td>
+                                    <td colspan="3">Active Participation In Learning</td>
+                                    <td>BB</td>
                                 </tr>
 
                                 <tr>
-                                    <td rowspan="2">Demonstrates the knowledge of subject matter</td>
-                                    <td class="text-center">{{ $civic_demonstrate }}</td>
-                                    <td class="text-center">{{ number_format($meanCivic->mean_civic_demonstrate ?? 0, 2) }}
-                                    </td>
-                                </tr>
-
-                                <tr class="text-center">
-                                    <td colspan="2">
-                                        @if ($civic_demonstrate > 80)
-                                            M
-                                        @elseif ($civic_demonstrate > 60)
-                                            D
-                                        @else
-                                            B
-                                        @endif
-                                    </td>
-                                </tr>
-                            </table>
-
-
-                            {{-- MATH --}}
-                            <table class="mt-2" style="font-weight: bold">
-                                <tr>
-                                    <th style="width: 450px" rowspan="2" class="subject header">MATHEMATIC</th>
-                                    <th colspan="2" class="header text-uppercase">{{ $academic_year->term }}</th>
-                                </tr>
-
-                                <tr>
-                                    <th class="header">SCORE</th>
-                                    <th class="header">MEAN</th>
-                                </tr>
-
-                                <tr>
-                                    <td rowspan="2">Understands Concept</td>
-                                    <td class="text-center">{{ $math_concept }}</td>
-                                    <td class="text-center">{{ number_format($meanMath->mean_math_concept ?? 0, 2) }}</td>
-                                </tr>
-
-                                <tr class="text-center">
-                                    <td colspan="2">
-                                        @if ($math_concept > 80)
-                                            M
-                                        @elseif ($math_concept > 60)
-                                            D
-                                        @else
-                                            B
-                                        @endif
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td rowspan="2">Demonstrates the knowledge of subject matter</td>
-                                    <td class="text-center">{{ $math_demonstrate }}</td>
-                                    <td class="text-center">{{ number_format($meanMath->mean_math_demonstrate ?? 0, 2) }}
-                                    </td>
-                                </tr>
-
-                                <tr class="text-center">
-                                    <td colspan="2">
-                                        @if ($math_demonstrate > 80)
-                                            M
-                                        @elseif ($math_demonstrate > 60)
-                                            D
-                                        @else
-                                            B
-                                        @endif
-                                    </td>
-                                </tr>
-                            </table>
-
-
-                            {{-- HE dan PE --}}
-                            <table class="mt-2" style="font-weight: bold">
-                                <tr>
-                                    <th style="width: 450px; padding-top: 8px; padding-bottom: 8px"
-                                        class="subject header">
-                                        HEALTH AND PHYSICAL EDUCATION
-                                    </th>
-                                    <th colspan="2" class="header text-uppercase">{{ $academic_year->term }}</th>
-                                </tr>
-
-                                <tr>
-                                    <th>Health Education</th>
-                                    <th class="text-center">SCORE</th>
-                                    <th class="text-center">MEAN</th>
-                                </tr>
-
-                                <tr>
-                                    <td rowspan="2">● Understands concept</td>
-                                    <td class="text-center">{{ $pe_concept }}</td>
-                                    <td class="text-center">{{ number_format($meanPe->mean_pe_concept ?? 0, 2) }}</td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td colspan="2">
-                                        @if ($pe_concept > 80)
-                                            M
-                                        @elseif ($pe_concept > 60)
-                                            D
-                                        @else
-                                            B
-                                        @endif
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <th>Physical Education</th>
-                                    <th class="text-center">SCORE</th>
-                                    <th class="text-center">MEAN</th>
-                                </tr>
-
-                                <tr>
-                                    <td rowspan="2">● Understands rules</td>
-                                    <td class="text-center">{{ $pe_understand_rules }}</td>
-                                    <td class="text-center">{{ number_format($meanPe->mean_pe_understand_rules ?? 0, 2) }}
-                                    </td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td colspan="2">
-                                        @if ($pe_understand_rules > 80)
-                                            M
-                                        @elseif ($pe_understand_rules > 60)
-                                            D
-                                        @else
-                                            B
-                                        @endif
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td rowspan="2">● Use variety of locomotors movement</td>
-                                    <td class="text-center">{{ $pe_locomotors_movement }}</td>
-                                    <td class="text-center">
-                                        {{ number_format($meanPe->mean_pe_locomotors_movement ?? 0, 2) }}
-                                    </td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td colspan="2">
-                                        @if ($pe_locomotors_movement > 80)
-                                            M
-                                        @elseif ($pe_locomotors_movement > 60)
-                                            D
-                                        @else
-                                            B
-                                        @endif
-                                    </td>
+                                    <td colspan="3">Social Responsibility</td>
+                                    <td>CC</td>
                                 </tr>
                             </table>
 

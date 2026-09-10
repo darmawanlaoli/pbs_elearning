@@ -21,6 +21,7 @@ class HsAssessmentRecordDetail extends Authenticatable
         'id_assesment',
         'name',
         'concept',
+        'attendance',
         'demonstrate',
         'pe_understand_rules',
         'pe_locomotors_movement',

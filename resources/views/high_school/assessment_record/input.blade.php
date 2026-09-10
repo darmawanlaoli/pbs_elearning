@@ -67,21 +67,28 @@
            PENGATURAN STICKY HEADER (ATAS)
         ========================================= */
         /* Baris ke-1 Header (Judul Kolom Utama) */
+        /* Baris ke-1 Header */
         thead tr:nth-child(1) th {
             position: sticky;
             top: 0;
-            height: 35px;
-            /* Mengunci tinggi baris pertama */
+            height: 25px; /* Mengunci tinggi baris pertama */
             z-index: 10;
             background-clip: padding-box;
-            /* Mencegah border bocor saat scroll */
         }
 
-        /* Baris ke-2 Header (Sub-kategori: 1, 2, 3, AVG, dll) */
+        /* Baris ke-2 Header */
         thead tr:nth-child(2) th {
             position: sticky;
-            top: 35px;
-            /* Harus sama dengan 'height' baris pertama di atas */
+            top: 25px; /* Sama dengan tinggi baris ke-1 */
+            height: 25px; /* WAJIB DITAMBAHKAN agar kalkulasi baris ke-3 presisi */
+            z-index: 10;
+            background-clip: padding-box;
+        }
+
+        /* Baris ke-3 Header (Baru) */
+        thead tr:nth-child(3) th {
+            position: sticky;
+            top: 50px; /* Hasil penjumlahan tinggi baris ke-1 (25px) + baris ke-2 (25px) */
             z-index: 10;
             background-clip: padding-box;
         }
@@ -199,9 +206,11 @@
                 @elseif ($assessment->subject == 'PKN' ||
                         $assessment->subject == 'IPA' ||
                         $assessment->subject == 'IPS' ||
-                        $assessment->subject == 'Religious Education'
-                )
+                        $assessment->subject == 'Religious Education')
                     @include('high_school.assessment_record.moduls.ct')
+                @elseif ($assessment->subject == 'English' ||
+                        $assessment->subject == 'English')
+                    @include('high_school.assessment_record.moduls.language')
                 @endif
             </div>
         </form>
