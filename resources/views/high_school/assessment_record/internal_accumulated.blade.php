@@ -131,17 +131,6 @@
 <body>
 
     <div class="container-fluid">
-        <!-- 1. FORM SUBMIT DIPINDAH KE ATAS / LUAR (TIDAK TERLIHAT DI LAYOUT) -->
-        @if (session('role') == 'hsteacher')
-            @if ($assessment->submitted_at == null)
-                <form id="form-submit-assessment"
-                    action="{{ route('high_school.assessment_record.submit', $assessment->id) }}" method="POST"
-                    style="display: none;">
-                    @csrf
-                    @method('PUT')
-                </form>
-            @endif
-        @endif
 
         <!-- 2. FORM UTAMA (SAVE) -->
         <form action="{{ route('high_school.assessment_record.input_action') }}" method="POST">
@@ -149,88 +138,60 @@
             @method('PUT')
 
             <div class="m-2 d-flex align-items-center gap-2">
-                @if (session('role') == 'hsteacher')
-                    <a href="{{ route('high_school.assessment_record') }}" class="btn btn-secondary">
-                        <i class="fa-solid fa-circle-arrow-left"></i> Back
-                    </a>
 
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fa-regular fa-floppy-disk"></i> Save
-                    </button>
+                @include('high_school.assessment_record.moduls.back_btn')
 
-                    <!-- TAMPILAN TOMBOL SUBMIT TETAP DI SINI -->
-                    @if ($assessment->submitted_at == null)
-                        <!-- Ditambahkan atribut form="form-submit-assessment" -->
-                        <button type="submit" form="form-submit-assessment" class="btn btn-success">
-                            <i class="fa-solid fa-circle-arrow-right"></i> Submit
-                        </button>
-                    @else
-                        <i>Sudah submit pada {{ $assessment->submitted_at }}</i>
-                    @endif
-
-                @endif
-
-                <div class="dropdown">
-                    <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Assessment List
-                    </button>
-                    <ul class="dropdown-menu">
-                        @foreach ($assessmentLists as $list)
-                            <li><a class="dropdown-item"
-                                    href="{{ route('high_school.assessment_record.input', $list->id) }}">{{ $list->class }}
-                                    - {{ $list->subject }}</a></li>
-                        @endforeach
-                    </ul>
-                </div>
+                @include('high_school.assessment_record.moduls.assessment_list_btn')
 
                 <!-- Teks ini otomatis terdorong ke paling kanan -->
-                <span class="ms-auto fw-bold text-primary">{{ $class }}</span>
+                <span class="ms-auto fw-bold text-primary">{{ $class . ' - Internal Accumulated' }}</span>
             </div>
 
-            <div class="container-fluid">
-                <small>
-                    Pada saat menginput assessment record, pastikan tombol "Save" diklik secara berkala
-                    agar data tidak hilang.
-                    Jika Anda ingin menutup halaman ini, pastikan semua data sudah tersimpan.
-                </small>
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">No</th>
+                            <th rowspan="2">Student's Name</th>
+                            {{-- Ubah looping header untuk menampilkan initial --}}
+                            @foreach ($subjects as $mapel)
+                            {{-- Tambahkan title agar saat di-hover muncul nama panjangnya --}}
+                            <th colspan="2" title="{{ $mapel->subject }}"
+                                style="background-color: #0182cd; max-width: 50px; white-space: normal; word-wrap: break-word;">
+                                {{ $mapel->initial }}
+                            </th>
+                            @endforeach
+                        </tr>
 
-                <div class="table-container">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th rowspan="2">No</th>
-                                <th rowspan="2">Subject</th>
-                            </tr>
+                        <tr>
+                            {{-- Looping untuk kolom KU dan DK --}}
+                            @foreach ($subjects as $mapel)
+                            <th style="background-color: #0182cd;">KU</th>
+                            <th style="background-color: #0182cd;">DK</th>
+                            @endforeach
+                        </tr>
+                    </thead>
 
-                            <tr>
-                                @foreach ($subjects as $subject)
-                                    <th>{{ $subject }}</th>
-                                @endforeach
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <tbody>
-                            @forelse($students as $index => $student)
-                                <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td class="text-left">{{ $student['name'] }}</td>
+                    <tbody>
+                        @forelse($students as $index => $student)
+                        <tr>
+                            <td class="text-center">{{ $index + 1 }}</td>
+                            <td class="text-left">{{ $student['name'] }}</td>
 
-                                    @foreach ($subjects as $subject)
-                                        {{-- Cek apakah siswa memiliki nilai untuk mapel ini, jika tidak tampilkan kosong/strip --}}
-                                        <td>{{ $student['scores'][$subject] ?? '-' }}</td>
-                                    @endforeach
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="{{ count($subjects) + 2 }}">Tidak ada data nilai.</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                        </tbody>
-
-                    </table>
-                </div>
+                            {{-- Panggil data nilai menggunakan $mapel->subject sebagai key --}}
+                            @foreach ($subjects as $mapel)
+                            <td class="text-center">{{ $student['ku_total'][$mapel->subject] ?? '-' }}</td>
+                            <td class="text-center">{{ $student['dk_total'][$mapel->subject] ?? '-' }}</td>
+                            @endforeach
+                        </tr>
+                        @empty
+                        <tr>
+                            {{-- count($subjects) dikali 2 karena 1 mapel ada 2 kolom (KU & DK) --}}
+                            <td colspan="{{ (count($subjects) * 2) + 2 }}" class="text-center">Tidak ada data nilai.</td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
         </form>
     </div>

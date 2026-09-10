@@ -177,18 +177,25 @@ class AssessmentRecord extends Controller
                 HsAssessmentRecordDetail::where('id', $assessmentId)
 
                     ->update([
+                        'ct' => $data['ct'] ?? null,
+                        'avg_ct' => $data['avg_ct'] ?? null,
+
+                        'hw1' => $data['hw1'] ?? null,
+                        'hw2' => $data['hw2'] ?? null,
+                        'hw3' => $data['hw3'] ?? null,
+
                         'ku1' => $data['ku1'] ?? null,
                         'ku2' => $data['ku2'] ?? null,
                         'ku3' => $data['ku3'] ?? null,
                         'ku4' => $data['ku4'] ?? null,
-
                         'ku_avg' => $data['ku_avg'] ?? null,
-                        'attendance' => $data['attendance'] ?? null,
                         'ku_total' => $data['ku_total'] ?? null,
 
                         'dk1' => $data['dk1'] ?? null,
                         'dk_avg' => $data['dk_avg'] ?? null,
                         'dk_total' => $data['dk_total'] ?? null,
+
+                        'attendance' => $data['attendance'] ?? null,
 
                         'management_skill' => $data['management_skill'] ?? null,
                         'active_participation' => $data['active_participation'] ?? null,

@@ -29,8 +29,6 @@
             <div class="card card-custome">
 
                 <div class="card-body">
-                    <a href="{{ route('high_school.assessment_record.create') }}" class="btn btn-primary mb-2"><i
-                            class="ti ti-plus"></i> New</a>
 
                     <div class="table-responsive">
                         <table class="table search-table align-middle text-nowrap">
@@ -55,9 +53,16 @@
                                                     method="POST">
                                                     @csrf
                                                     <button tabindex="0" data-bs-toggle="tooltip"
-                                                        title="Generate Students" class="btn btn-sm btn-primary m-1"><i
-                                                            class="ti ti-pencil"></i> Report</button>
+                                                        title="Print Report" class="btn btn-sm btn-primary m-1"><i
+                                                            class="ti ti-printer"></i> Print Report</button>
                                                 </form>
+                                            </div>
+
+                                            <div class="d-flex justify-content-center gap-1 flex-wrap">
+
+                                                <a href="{{ route('high_school.assessment_record.create_report_data', $class->class) }}" class="btn btn-sm btn-info m-1">
+                                                    <i class="ti ti-database"></i> Create Report Data</a>
+                                                </a>
                                             </div>
 
                                             <div class="d-flex justify-content-center gap-1 flex-wrap">

@@ -219,6 +219,7 @@ class LoginController extends Controller
                 'role' => 'hsteacher',
                 'name' => $user->name,
                 'username' => $user->username,
+                'homeroom' => $user->homeroom,
             ]);
 
             return redirect()->route('hs_teacher.home');

@@ -1,4 +1,4 @@
-@extends('hsteacher.layout')
+@extends('layout.' . strtolower(session('role')))
 
 @section('content')
 

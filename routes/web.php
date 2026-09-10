@@ -13,7 +13,6 @@ use App\Http\Controllers\AdminPrimary\UtsReportController as AdminPrimaryUtsRepo
 use App\Http\Controllers\AdminPrimary\AssesmentRecord as PrimaryAssesmentRecordAdmin;
 use App\Http\Controllers\AdminPrimary\Report as PrimaryReportAdmin;
 
-
 use App\Http\Controllers\HighSchool\HomeController as HighSchoolHome;
 use App\Http\Controllers\HighSchool\LoginLogController as HighSchoolLoginLog;
 use App\Http\Controllers\HighSchool\StudentDatabaseController as HighSchoolDatabaseStudents;
@@ -249,6 +248,19 @@ Route::get('high_school/assessment_record/{id}/input', [HighSchoolAssessmentReco
 Route::put('high_school/assessment_record/input_action', [HighSchoolAssessmentRecord::class, 'inputAction'])->name('high_school.assessment_record.input_action');
 Route::put('high_school/assessment_record/{id}/submit', [HighSchoolAssessmentRecord::class, 'submit'])->name('high_school.assessment_record.submit');
 
+Route::get('high_school/report_data/{class}/create_report_data', [HighSchoolInternalReport::class, 'createReportData'])->name('high_school.assessment_record.create_report_data');
+Route::post('high_school/report_data/store_report_data', [HighSchoolInternalReport::class, 'storeReportData'])->name('high_school.report_data.store_report_data');
+
+Route::post('high_school/report_data/{class}/generate', [HighSchoolInternalReport::class, 'generate'])->name('high_school.report_data.generate');
+Route::post('high_school/report_data/{class}/generate_action', [HighSchoolInternalReport::class, 'generateAction'])->name('high_school.report_data.generate_action');
+Route::get('high_school/report_data/{class}/input', [HighSchoolInternalReport::class, 'input'])->name('high_school.report_data.input');
+Route::put('high_school/report_data/input_action', [HighSchoolInternalReport::class, 'inputAction'])->name('high_school.report_data.input_action');
+Route::put('high_school/report_data/{class}/submit', [HighSchoolInternalReport::class, 'submit'])->name('high_school.report_data.submit');
+
+
+Route::get('high_school/internal_report/{class}/report_data', [HighSchoolInternalReport::class, 'reportData'])->name('high_school.internal_report.report_data');
+Route::put('high_school/assessment_record/store_report_data', [HighSchoolInternalReport::class, 'storeReportData'])->name('high_school.internal_report.store_report_data');
+
 Route::get('kindergarten/home', [KindergartenHome::class, 'index'])->name('kindergarten.home');
 Route::get('kindergarten/report_data', [KindergartenReportData::class, 'index'])->name('kindergarten.report_data');
 Route::get('kindergarten/report_data/create', [KindergartenReportData::class, 'create'])->name('kindergarten.report_data.create');
@@ -265,6 +277,11 @@ Route::get('kindergarten/student_data/{studentData}/edit', [KindergartenStudentD
 Route::put('kindergarten/student_data/{studentData}/update', [KindergartenStudentData::class, 'update'])->name('kindergarten.student_data.update');
 Route::post('kindergarten/student_data/import', [KindergartenStudentData::class, 'import'])->name('kindergarten.student_data.import');
 
+// Internal report
+Route::get('high_school/internal_report', [HighSchoolInternalReport::class, 'index'])->name('high_school.internal_report');
+Route::get('high_school/internal_report/{class}/accumulated', [HighSchoolInternalReport::class, 'accumulated'])->name('high_school.internal_report.accumulated');
+
+
 Route::middleware(['auth:hsadmin', 'role:hsadmin'])->group(function () {
     Route::get('high_school/home', [HighSchoolHome::class, 'index'])->name('high_school.home');
 
@@ -280,8 +297,8 @@ Route::middleware(['auth:hsadmin', 'role:hsadmin'])->group(function () {
     Route::get('hs_admin/student', [HsStudentControllerAdmin::class, 'index'])->name('hs_admin.student_data');
 
     // Internal report
-    Route::get('high_school/internal_report', [HighSchoolInternalReport::class, 'index'])->name('high_school.internal_report');
-    Route::get('high_school/internal_report/{class}/accumulated', [HighSchoolInternalReport::class, 'accumulated'])->name('high_school.internal_report.accumulated');
+    // Route::get('high_school/internal_report', [HighSchoolInternalReport::class, 'index'])->name('high_school.internal_report');
+    // Route::get('high_school/internal_report/{class}/accumulated', [HighSchoolInternalReport::class, 'accumulated'])->name('high_school.internal_report.accumulated');
 
     // Kurmer report
     Route::get('high_school/kurmer_report', [HighSchoolKurmerReport::class, 'index'])->name('high_school.kurmer_report');

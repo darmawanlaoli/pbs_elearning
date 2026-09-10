@@ -149,14 +149,16 @@
             @method('PUT')
 
             <div class="m-2 d-flex align-items-center gap-2">
-                @if (session('role') == 'hsteacher')
-                    <a href="{{ route('high_school.assessment_record') }}" class="btn btn-secondary">
-                        <i class="fa-solid fa-circle-arrow-left"></i> Back
-                    </a>
+                @include('high_school.assessment_record.moduls.back_btn')
 
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fa-regular fa-floppy-disk"></i> Save
-                    </button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-regular fa-floppy-disk"></i> Save
+                </button>
+
+                @include('high_school.assessment_record.moduls.assessment_list_btn')
+
+                @if (session('role') == 'hsteacher')
+
 
                     <!-- TAMPILAN TOMBOL SUBMIT TETAP DI SINI -->
                     @if ($assessment->submitted_at == null)
@@ -168,27 +170,14 @@
                         <i>Sudah submit pada {{ $assessment->submitted_at }}</i>
                     @endif
 
+                @elseif (session('role') == 'hsadmin')
+                        <i>Disubmit pada {{ $assessment->submitted_at }}</i>
                 @endif
 
-                <div class="dropdown">
-                    <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Assessment List
-                    </button>
-                    <ul class="dropdown-menu">
-                        @foreach ($assessmentLists as $list)
-                            <li><a class="dropdown-item"
-                                    href="{{ route('high_school.assessment_record.input', $list->id) }}">{{ $list->class }}
-                                    - {{ $list->subject }}</a></li>
-                        @endforeach
-                    </ul>
-                </div>
 
                 <!-- Teks ini otomatis terdorong ke paling kanan -->
-                @if (session('role') == 'hsteacher')
                     <span
                         class="ms-auto fw-bold text-primary">{{ $assessment->class . ' - ' . $assessment->subject }}</span>
-                @endif
             </div>
 
             <div class="container-fluid">
@@ -199,7 +188,7 @@
                 </small>
 
                 @if (
-                    $assessment->subject == 'PE' ||
+                    $assessment->subject == 'Physical Education' ||
                         $assessment->subject == 'Music' ||
                         $assessment->subject == 'Art' ||
                         $assessment->subject == 'Visual Art' ||
@@ -207,7 +196,11 @@
                     @include('high_school.assessment_record.moduls.non_ct')
                 @elseif ($assessment->subject == 'IMYC')
                     @include('high_school.assessment_record.moduls.imyc')
-                @elseif ($assessment->subject == 'PKN')
+                @elseif ($assessment->subject == 'PKN' ||
+                        $assessment->subject == 'IPA' ||
+                        $assessment->subject == 'IPS' ||
+                        $assessment->subject == 'Religious Education'
+                )
                     @include('high_school.assessment_record.moduls.ct')
                 @endif
             </div>
