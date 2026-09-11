@@ -9,16 +9,27 @@ use Illuminate\Support\Facades\Hash;
 
 class StudentDatabaseController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Student Database';
         $path = 'Master Data';
 
-        $students = HsStudent::
-            orderByRaw('CAST(REPLACE(grade, "Y", "") AS UNSIGNED) ASC')
-            ->orderBy('name', 'ASC')
-            ->get();
-        return view('high_school.teacher_database.index', compact('title', 'path', 'students'));
+        $filter_religion = $request->filter_religion;
+
+        if($filter_religion == null) {
+            $data = HsStudent::orderBy('class', 'ASC')
+                ->orderBy('name', 'ASC')
+                ->get();
+        }else {
+            $data = HsStudent::orderBy('class', 'ASC')
+                ->where('religion', $filter_religion)
+                ->orderBy('name', 'ASC')
+                ->get();
+        }
+
+        $students = $data;
+
+        return view('high_school.student_database.index', compact('title', 'path', 'students'));
     }
 
     public function create(){

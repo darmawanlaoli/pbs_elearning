@@ -72,13 +72,37 @@
                     <div class="mb-3 position-relative">
                         <label class="control-label col-form-label">Subject</label>
                         <div class="input-group">
-                            <select name="subject" class="form-control @error('subject') is-invalid @enderror">
+                            <select name="subject" id="subjectSelect"
+                                class="form-control @error('subject') is-invalid @enderror">
                                 <option value="" disabled selected>Select Subject</option>
                                 @foreach ($subjects as $subject)
-                                <option value="{{ $subject->subject }}">{{ $subject->subject }}</option>
+                                <option value="{{ $subject->subject }}" {{ old('subject')==$subject->subject ?
+                                    'selected' : '' }}>
+                                    {{ $subject->subject }}
+                                </option>
                                 @endforeach
                             </select>
                             @error('subject')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Religion Dropdown (Tersembunyi secara default) -->
+                    <div class="mb-3 position-relative" id="religionContainer" style="display: none;">
+                        <label class="control-label col-form-label">Religion</label>
+                        <div class="input-group">
+                            <select name="religion" id="religionSelect"
+                                class="form-control @error('religion') is-invalid @enderror">
+                                <option value="">Choose by Religion</option>
+                                <option value="Islam">Islam</option>
+                                <option value="Christian">Christian</option>
+                                <option value="Catholic">Catholic</option>
+                                <option value="Buddha">Buddha</option>
+                                <option value="Hindu">Hindu</option>
+                                <option value="Konghucu">Konghucu</option>
+                            </select>
+                            @error('religion')
                             <div class="invalid-feedback">{{$message}}</div>
                             @enderror
                         </div>
@@ -92,5 +116,28 @@
 
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const subjectSelect = document.getElementById('subjectSelect');
+            const religionContainer = document.getElementById('religionContainer');
+            const religionSelect = document.getElementById('religionSelect');
+
+            function toggleReligionField() {
+                // Sesuaikan string 'Religious Education' dengan value pasti yang ada di database Anda
+                if (subjectSelect.value.trim().toLowerCase() === 'religious education') {
+                    religionContainer.style.display = 'block';
+                } else {
+                    religionContainer.style.display = 'none';
+                    religionSelect.value = ''; // Reset nilai jika disembunyikan
+                }
+            }
+
+            // Jalankan saat pertama kali dimuat (jika ada error validation / form reload)
+            toggleReligionField();
+
+            // Jalankan saat pilihan subject berubah
+            subjectSelect.addEventListener('change', toggleReligionField);
+        });
+    </script>
 
     @endsection

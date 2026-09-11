@@ -408,7 +408,7 @@
 
 
 <!-- Auto-open Script -->
-<script>
+{{-- <script>
     document.addEventListener("DOMContentLoaded", function() {
       // Select the modal element by its ID
       const modalElement = document.getElementById('autoPopupModal');
@@ -419,6 +419,6 @@
       // Force display the popup immediately
       myModal.show();
     });
-</script>
+</script> --}}
 
 @endsection

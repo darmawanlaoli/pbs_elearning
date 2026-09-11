@@ -18,11 +18,11 @@ class InternalReportController extends Controller
     {
         $title = 'Internal Report';
         $path = 'Report';
-        if(session('role') == 'hsadmin') {
+        if (session('role') == 'hsadmin') {
             $classes = DB::table('hs_classes')
                 ->orderBy('class', 'ASC')
                 ->get();
-        }else {
+        } else {
             $classes = DB::table('hs_classes')
                 ->where('class', session('homeroom'))
                 ->orderBy('class', 'ASC')
@@ -50,6 +50,7 @@ class InternalReportController extends Controller
             ->join('hs_assessment_records as record', 'detail.id_assesment', '=', 'record.id')
             ->join('hs_report_subjects as subject', 'record.subject', '=', 'subject.subject')
             ->select('detail.name', 'subject.subject as subject_name', 'subject.initial', 'detail.ku_total', 'detail.dk_total')
+            ->where('record.class', $class)
             ->orderBy('detail.name')
             ->get();
 
@@ -69,7 +70,16 @@ class InternalReportController extends Controller
             ];
         })->values();
 
-        $assessmentLists = DB::table('hs_assessment_records')->get();
+        if (session('role') == 'hsadmin') {
+            $assessmentLists = DB::table('hs_assessment_records')
+                ->where('submitted_at', '!=', null)
+                ->get();
+        } else {
+            $assessmentLists = DB::table('hs_assessment_records')
+                ->where('teacher', session('name'))
+                ->get();
+        }
+
         return view('high_school.assessment_record.internal_accumulated', compact('title', 'path', 'subjects', 'assessmentLists', 'class', 'students'));
     }
 
@@ -138,7 +148,6 @@ class InternalReportController extends Controller
 
     public function storeReportData(Request $request)
     {
-
         // 1. Validasi Input
         $request->validate([
             'academic_year' => 'required',
@@ -282,6 +291,43 @@ class InternalReportController extends Controller
             ->get();
 
         return view('high_school.assessment_record.input', compact('title', 'path', 'subject', 'class', 'subject', 'students', 'assessment', 'assessments', 'assessmentLists'));
+    }
+
+    public function updateReportData(Request $request)
+    {
+        $students = $request->input('students', []);
+
+        DB::transaction(function () use ($students) {
+
+            foreach ($students as $assessmentId => $data) {
+
+                HsReportDataDetail::where('id', $assessmentId)
+
+                    ->update([
+                        'comment' => $data['comment'] ?? null,
+                        'present' => $data['present'] ?? null,
+
+                        'excused' => $data['excused'] ?? null,
+                        'unexcused' => $data['unexcused'] ?? null,
+                        'tardy' => $data['tardy'] ?? null,
+
+                        'club1' => $data['club1'] ?? null,
+                        'grade_club1' => $data['grade_club1'] ?? null,
+
+                        'club2' => $data['club2'] ?? null,
+                        'grade_club2' => $data['grade_club2'] ?? null,
+
+                        'club3' => $data['club3'] ?? null,
+                        'grade_club3' => $data['grade_club3'] ?? null,
+
+                        'club4' => $data['club4'] ?? null,
+                        'grade_club4' => $data['grade_club4'] ?? null,
+
+                    ]);
+            }
+        });
+
+        return back()->with('success', 'Report data berhasil disimpan.');
     }
 
     public function inputAction(Request $request)

@@ -22,6 +22,7 @@ class HsAssessmentRecord extends Authenticatable
         'term',
         'class',
         'subject',
+        'religion',
         'status',
         'teacher',
         'submitted_at'

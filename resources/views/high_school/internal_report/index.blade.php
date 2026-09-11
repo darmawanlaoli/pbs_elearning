@@ -58,7 +58,7 @@
 
                                                 <a href="{{ route('high_school.assessment_record.create_report_data', $class->class) }}"
                                                     class="btn btn-sm btn-info m-1">
-                                                    <i class="ti ti-database"></i> Create Report Data</a>
+                                                    <i class="ti ti-database"></i> Report Data</a>
                                                 </a>
                                             </div>
 

@@ -289,8 +289,88 @@
                                 </tr>
                             </table>
 
+                            {{-- PKN --}}
+                            <table class="mt-5" style="font-weight: bold; text-align: center">
+                                <tr>
+                                    <th>PENDIDIKAN KEWARGANEGARAAN</th>
+                                    <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
+                                    <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
+                                </tr>
+
+                                <tr>
+                                    <th rowspan="2">ACADEMIC ACHIEVEMENT</th>
+                                    <th>SCORE</th>
+                                    <th>MEAN</th>
+                                    <th>SCORE</th>
+                                    <th>MEAN</th>
+                                </tr>
+
+                                <tr>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                </tr>
+
+                                <tr>
+                                    <td rowspan="3">LEARNING BEHAVIOURS</td>
+                                    <td colspan="3">Personal Management Skill</td>
+                                    <td>AA</td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3">Active Participation In Learning</td>
+                                    <td>BB</td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3">Social Responsibility</td>
+                                    <td>CC</td>
+                                </tr>
+                            </table>
+
+                            {{-- B. INDO --}}
+                            <table class="mt-5" style="font-weight: bold; text-align: center">
+                                <tr>
+                                    <th>BAHASA INDONESIA</th>
+                                    <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
+                                    <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
+                                </tr>
+
+                                <tr>
+                                    <th rowspan="2">ACADEMIC ACHIEVEMENT</th>
+                                    <th>SCORE</th>
+                                    <th>MEAN</th>
+                                    <th>SCORE</th>
+                                    <th>MEAN</th>
+                                </tr>
+
+                                <tr>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                </tr>
+
+                                <tr>
+                                    <td rowspan="3">LEARNING BEHAVIOURS</td>
+                                    <td colspan="3">Personal Management Skill</td>
+                                    <td>AA</td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3">Active Participation In Learning</td>
+                                    <td>BB</td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3">Social Responsibility</td>
+                                    <td>CC</td>
+                                </tr>
+                            </table>
+
                             <div class="footer">
-                                <span class="left">{{ '/2025-2026' }}</span>
+                                <span class="left">{{ $siswa->name .'/'.$siswa->class.'/2026-2027' }}</span>
                                 <span class="right">Page 1</span>
                             </div>
                         </div>

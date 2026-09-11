@@ -182,7 +182,7 @@
                     Jika Anda ingin menutup halaman ini, pastikan semua data sudah tersimpan.
                 </small>
 
-                @if($assessment->subject == 'PE' || $assessment->subject == 'PABP' || $assessment->subject == 'Art' ||
+                @if($assessment->subject == 'PE' || $assessment->subject == 'Physical Education' || $assessment->subject == 'Art' ||
                 $assessment->subject == 'Visual Art' || $assessment->subject == 'Design and Technology')
                 @include('high_school.assessment_record.moduls.non_ct')
                 @elseif ($assessment->subject == 'IMYC')

@@ -56,6 +56,7 @@ class AssessmentRecord extends Controller
 
         HsAssessmentRecord::create([
             'subject' => $request->subject,
+            'religion' => $request->religion,
             'status' => 0,
             'term' => $request->term,
             'class' => $request->class,
@@ -81,13 +82,23 @@ class AssessmentRecord extends Controller
 
         $assessment = DB::table('hs_assessment_records')
             ->where('id', $id)
-            ->first();
+                ->first();
+
         $class = $assessment->class;
         $subject = $assessment->subject;
-        $students = DB::table('hs_students')
-            ->where('class', $class)
-            ->orderBy('name', 'ASC')
-            ->get();
+        if($subject == 'Religious Education') {
+            $students = DB::table('hs_students')
+                ->where('class', $class)
+                ->where('religion', $assessment->religion)
+                ->orderBy('name', 'ASC')
+                ->get();
+        }else {
+            $students = DB::table('hs_students')
+                ->where('class', $class)
+                ->orderBy('name', 'ASC')
+                ->get();
+        }
+
 
 
         return view('high_school.assessment_record.generate', compact('title', 'path', 'subject', 'class', 'subject', 'students', 'assessment'));
@@ -99,10 +110,19 @@ class AssessmentRecord extends Controller
             ->where('id', $id)
             ->first();
         $class = $assessment->class;
-        $students = DB::table('hs_students')
-            ->where('class', $class)
-            ->orderBy('name', 'ASC')
-            ->get();
+
+        if ($assessment->subject == 'Religious Education') {
+            $students = DB::table('hs_students')
+                ->where('class', $class)
+                ->where('religion', $assessment->religion)
+                ->orderBy('name', 'ASC')
+                ->get();
+        } else {
+            $students = DB::table('hs_students')
+                ->where('class', $class)
+                ->orderBy('name', 'ASC')
+                ->get();
+        }
 
         // Cegah proses jika tidak ada siswa, sehingga kita tidak perlu membatalkan transaksi
         if ($students->isEmpty()) {
@@ -146,8 +166,17 @@ class AssessmentRecord extends Controller
         $assessment = DB::table('hs_assessment_records')
             ->where('id', $id)
             ->first();
-        $assessmentLists = DB::table('hs_assessment_records')
-            ->get();
+
+        if(session('role') == 'hsadmin') {
+            $assessmentLists = DB::table('hs_assessment_records')
+                ->where('submitted_at', '!=', null)
+                ->get();
+        }else {
+            $assessmentLists = DB::table('hs_assessment_records')
+                ->where('teacher', session('name'))
+                ->get();
+        }
+
         $assessments = DB::table('hs_assessment_record_details')
             ->where('id_assesment', $id)
             ->get();

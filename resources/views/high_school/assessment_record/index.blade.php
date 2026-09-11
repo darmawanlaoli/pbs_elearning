@@ -36,8 +36,8 @@
                     <table class="table search-table align-middle text-nowrap">
                         <thead class="header-item">
                             <th>No.</th>
-                            <th>Academic Year</th>
-                            <th>Term</th>
+                            <th>A.Y/Term</th>
+                            <th>Teacher</th>
                             <th>Class</th>
                             <th>Subject</th>
                             <th>Action</th>
@@ -46,8 +46,8 @@
                             @forelse ($assesments as $assesment)
                             <tr class="bg-danger">
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $assesment->academic_year }}</td>
-                                <td>{{ $assesment->term }}</td>
+                                <td>{{ $assesment->academic_year . ' - ' . $assesment->term }}</td>
+                                <td>{{ $assesment->teacher }}</td>
                                 <td>{{ $assesment->class }}</td>
                                 <td>{{ $assesment->subject }}</td>
 

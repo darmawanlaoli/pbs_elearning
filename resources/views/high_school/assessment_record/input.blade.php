@@ -158,33 +158,36 @@
             <div class="m-2 d-flex align-items-center gap-2">
                 @include('high_school.assessment_record.moduls.back_btn')
 
+                @if ($assessment->submitted_at == null)
                 <button type="submit" class="btn btn-primary">
                     <i class="fa-regular fa-floppy-disk"></i> Save
                 </button>
+                @endif
 
                 @include('high_school.assessment_record.moduls.assessment_list_btn')
 
-                @if (session('role') == 'hsteacher')
+
+                <!-- Teks ini otomatis terdorong ke paling kanan -->
+                    <span class="ms-auto fw-bold text-primary">
+                        {{ $assessment->class . ' - ' . $assessment->subject }}
+
+                        @if (session('role') == 'hsteacher')
 
 
-                    <!-- TAMPILAN TOMBOL SUBMIT TETAP DI SINI -->
-                    @if ($assessment->submitted_at == null)
+                        <!-- TAMPILAN TOMBOL SUBMIT TETAP DI SINI -->
+                        @if ($assessment->submitted_at == null)
                         <!-- Ditambahkan atribut form="form-submit-assessment" -->
                         <button type="submit" form="form-submit-assessment" class="btn btn-success">
                             <i class="fa-solid fa-circle-arrow-right"></i> Submit
                         </button>
-                    @else
+                        @else
                         <i>Sudah submit pada {{ $assessment->submitted_at }}</i>
-                    @endif
+                        @endif
 
-                @elseif (session('role') == 'hsadmin')
+                        @elseif (session('role') == 'hsadmin')
                         <i>Disubmit pada {{ $assessment->submitted_at }}</i>
-                @endif
-
-
-                <!-- Teks ini otomatis terdorong ke paling kanan -->
-                    <span
-                        class="ms-auto fw-bold text-primary">{{ $assessment->class . ' - ' . $assessment->subject }}</span>
+                        @endif
+                    </span>
             </div>
 
             <div class="container-fluid">
@@ -206,15 +209,33 @@
                 @elseif ($assessment->subject == 'PKN' ||
                         $assessment->subject == 'IPA' ||
                         $assessment->subject == 'IPS' ||
-                        $assessment->subject == 'Religious Education')
+                        $assessment->subject == 'Religious Education' ||
+                        $assessment->subject == 'Sosiologi' ||
+                        $assessment->subject == 'Sejarah' ||
+                        $assessment->subject == 'Ekonomi' ||
+                        $assessment->subject == 'Geografi' ||
+                        $assessment->subject == 'Biologi' ||
+                        $assessment->subject == 'Kimia' ||
+                        $assessment->subject == 'Fisika' ||
+                        $assessment->subject == 'Japanese'
+                    )
                     @include('high_school.assessment_record.moduls.ct')
                 @elseif ($assessment->subject == 'English' ||
-                        $assessment->subject == 'English')
+                        $assessment->subject == 'Bahasa Indonesia')
                     @include('high_school.assessment_record.moduls.language')
+                @else
+                <div class="card col-6 mx-auto text-center bg-warning fw-bold mt-5">
+                    <div class="card-body">
+                        Form Assessment Record {{ $assessment->subject }} belum tersedia. <br> Silahkan coba beberapa saat lagi
+                    </div>
+                </div>
                 @endif
             </div>
         </form>
+
     </div>
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">

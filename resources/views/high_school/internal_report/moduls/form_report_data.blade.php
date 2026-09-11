@@ -41,29 +41,27 @@
 
                     <td>{{ $ass->name }}</td>
 
-                    {{-- Chapter Test --}}
                     <td>
                         <textarea style="width: 100%" name="students[{{ $ass->id }}][comment]" class="score-input comment-input"
                             cols="30" rows="5">{{ $ass->comment ?? '' }}</textarea>
                     </td>
                     <td>
-                        <input type="number" value="{{ $ass->comment ?? '' }}" class="score-input ct-input"
-                            name="students[{{ $ass->id }}][comment]" min="0" max="100" step="0.01">
+                        <input type="number" value="{{ $ass->present ?? '' }}" class="score-input ct-input"
+                            name="students[{{ $ass->id }}][present]" min="0" max="100" step="0.01">
                     </td>
                     <td>
-                        <input type="number" value="{{ $ass->ct_avg ?? '' }}" class="score-input ct-avg-input"
-                            name="students[{{ $ass->id }}][ct_avg]" readonly>
-                    </td>
-
-                    {{-- KU --}}
-                    <td>
-                        <input type="number" value="{{ $ass->ku1 ?? '' }}" class="score-input ku-input"
-                            name="students[{{ $ass->id }}][ku1]" min="0" max="100" step="0.01">
+                        <input type="number" value="{{ $ass->excused ?? '' }}" class="score-input ct-avg-input"
+                            name="students[{{ $ass->id }}][excused]">
                     </td>
 
                     <td>
-                        <input type="number" value="{{ $ass->ku2 ?? '' }}" class="score-input ku-input"
-                            name="students[{{ $ass->id }}][ku2]" min="0" max="100" step="0.01">
+                        <input type="number" value="{{ $ass->unexcused ?? '' }}" class="score-input ku-input"
+                            name="students[{{ $ass->id }}][unexcused]" min="0" max="100" step="0.01">
+                    </td>
+
+                    <td>
+                        <input type="number" value="{{ $ass->tardy ?? '' }}" class="score-input ku-input"
+                            name="students[{{ $ass->id }}][tardy]" min="0" max="100" step="0.01">
                     </td>
 
                     <td>
@@ -80,10 +78,10 @@
                     <td>
                         <select name="students[{{ $ass->id }}][grade_club1]" class="score-input">
                             <option value="">Grade</option>
-                            <option value="A" {{ $ass->grade_club1 == 'A' ? 'selected' : '' }}>A</option>
-                            <option value="B" {{ $ass->grade_club1 == 'B' ? 'selected' : '' }}>B</option>
-                            <option value="C" {{ $ass->grade_club1 == 'C' ? 'selected' : '' }}>C</option>
-                            <option value="D" {{ $ass->grade_club1 == 'D' ? 'selected' : '' }}>D</option>
+                            <option value="E" {{ $ass->grade_club1 == 'E' ? 'selected' : '' }}>E</option>
+                            <option value="G" {{ $ass->grade_club1 == 'G' ? 'selected' : '' }}>G</option>
+                            <option value="S" {{ $ass->grade_club1 == 'S' ? 'selected' : '' }}>S</option>
+                            <option value="N" {{ $ass->grade_club1 == 'N' ? 'selected' : '' }}>N</option>
                         </select>
                     </td>
 
@@ -101,10 +99,10 @@
                     <td>
                         <select name="students[{{ $ass->id }}][grade_club2]" class="score-input">
                             <option value="">Grade</option>
-                            <option value="A" {{ $ass->grade_club2 == 'A' ? 'selected' : '' }}>A</option>
-                            <option value="B" {{ $ass->grade_club2 == 'B' ? 'selected' : '' }}>B</option>
-                            <option value="C" {{ $ass->grade_club2 == 'C' ? 'selected' : '' }}>C</option>
-                            <option value="D" {{ $ass->grade_club2 == 'D' ? 'selected' : '' }}>D</option>
+                            <option value="E" {{ $ass->grade_club2 == 'E' ? 'selected' : '' }}>E</option>
+                            <option value="G" {{ $ass->grade_club2 == 'G' ? 'selected' : '' }}>G</option>
+                            <option value="S" {{ $ass->grade_club2 == 'S' ? 'selected' : '' }}>S</option>
+                            <option value="N" {{ $ass->grade_club2 == 'N' ? 'selected' : '' }}>N</option>
                         </select>
                     </td>
 
@@ -122,10 +120,10 @@
                     <td>
                         <select name="students[{{ $ass->id }}][grade_club3]" class="score-input">
                             <option value="">Grade</option>
-                            <option value="A" {{ $ass->grade_club3 == 'A' ? 'selected' : '' }}>A</option>
-                            <option value="B" {{ $ass->grade_club3 == 'B' ? 'selected' : '' }}>B</option>
-                            <option value="C" {{ $ass->grade_club3 == 'C' ? 'selected' : '' }}>C</option>
-                            <option value="D" {{ $ass->grade_club3 == 'D' ? 'selected' : '' }}>D</option>
+                            <option value="E" {{ $ass->grade_club3 == 'E' ? 'selected' : '' }}>E</option>
+                            <option value="G" {{ $ass->grade_club3 == 'G' ? 'selected' : '' }}>G</option>
+                            <option value="S" {{ $ass->grade_club3 == 'S' ? 'selected' : '' }}>S</option>
+                            <option value="N" {{ $ass->grade_club3 == 'N' ? 'selected' : '' }}>N</option>
                         </select>
                     </td>
 
@@ -143,14 +141,12 @@
                     <td>
                         <select name="students[{{ $ass->id }}][grade_club4]" class="score-input">
                             <option value="">Grade</option>
-                            <option value="A" {{ $ass->grade_club4 == 'A' ? 'selected' : '' }}>A</option>
-                            <option value="B" {{ $ass->grade_club4 == 'B' ? 'selected' : '' }}>B</option>
-                            <option value="C" {{ $ass->grade_club4 == 'C' ? 'selected' : '' }}>C</option>
-                            <option value="D" {{ $ass->grade_club4 == 'D' ? 'selected' : '' }}>D</option>
+                            <option value="E" {{ $ass->grade_club4 == 'E' ? 'selected' : '' }}>E</option>
+                            <option value="G" {{ $ass->grade_club4 == 'G' ? 'selected' : '' }}>G</option>
+                            <option value="S" {{ $ass->grade_club4 == 'S' ? 'selected' : '' }}>S</option>
+                            <option value="N" {{ $ass->grade_club4 == 'N' ? 'selected' : '' }}>N</option>
                         </select>
                     </td>
-
-
 
                 </tr>
             @endforeach

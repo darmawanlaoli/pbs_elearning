@@ -254,7 +254,7 @@ Route::post('high_school/report_data/store_report_data', [HighSchoolInternalRepo
 Route::post('high_school/report_data/{class}/generate', [HighSchoolInternalReport::class, 'generate'])->name('high_school.report_data.generate');
 Route::post('high_school/report_data/{class}/generate_action', [HighSchoolInternalReport::class, 'generateAction'])->name('high_school.report_data.generate_action');
 Route::get('high_school/report_data/{class}/input', [HighSchoolInternalReport::class, 'input'])->name('high_school.report_data.input');
-Route::put('high_school/report_data/input_action', [HighSchoolInternalReport::class, 'inputAction'])->name('high_school.report_data.input_action');
+Route::put('high_school/report_data/input_action', [HighSchoolInternalReport::class, 'updateReportData'])->name('high_school.report_data.input_action');
 Route::put('high_school/report_data/{class}/submit', [HighSchoolInternalReport::class, 'submit'])->name('high_school.report_data.submit');
 
 
@@ -282,6 +282,7 @@ Route::get('high_school/internal_report', [HighSchoolInternalReport::class, 'ind
 Route::get('high_school/internal_report/{class}/accumulated', [HighSchoolInternalReport::class, 'accumulated'])->name('high_school.internal_report.accumulated');
 Route::get('high_school/internal_report/{class}/print', [HighSchoolInternalReport::class, 'print'])->name('high_school.internal_report.print');
 
+Route::get('high_school/database/students', [HighSchoolDatabaseStudents::class, 'index'])->name('high_school.database.students');
 
 Route::middleware(['auth:hsadmin', 'role:hsadmin'])->group(function () {
     Route::get('high_school/home', [HighSchoolHome::class, 'index'])->name('high_school.home');
@@ -304,9 +305,8 @@ Route::middleware(['auth:hsadmin', 'role:hsadmin'])->group(function () {
     // Kurmer report
     Route::get('high_school/kurmer_report', [HighSchoolKurmerReport::class, 'index'])->name('high_school.kurmer_report');
 
-
     // routes database students - high school
-    Route::get('high_school/database/students', [HighSchoolDatabaseStudents::class, 'index'])->name('high_school.database.students');
+    // Route::get('high_school/database/students', [HighSchoolDatabaseStudents::class, 'index'])->name('high_school.database.students');
     Route::get('high_school/database/students/create', [HighSchoolDatabaseStudents::class, 'create'])->name('high_school.database.students.create');
     Route::post('high_school/database/students/store', [HighSchoolDatabaseStudents::class, 'store'])->name('high_school.database.students.store');
     Route::delete('high_school/database/students/{id}/destroy', [HighSchoolDatabaseStudents::class, 'destroy'])->name('high_school.database.students.destroy');

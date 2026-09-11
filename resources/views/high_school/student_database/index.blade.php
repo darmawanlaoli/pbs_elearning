@@ -28,20 +28,36 @@
         <div class="card card-body">
             <div class="row">
                 <div class="col-md-4 col-xl-3">
-                    <form class="position-relative">
-                        <input type="text" class="form-control product-search ps-5" id="input-search"
-                            placeholder="Search Teachers..." />
-                        <i
-                            class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
+                    <form class="position-relative" action="" method="GET">
+                        <div class="row">
+
+
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <select name="filter_religion" class="form-control">
+                                <option value="">Filter by Religion</option>
+                                <option value="Islam">Islam</option>
+                                <option value="Christian">Christian</option>
+                                <option value="Catholic">Catholic</option>
+                                <option value="Buddha">Buddha</option>
+                                <option value="Hindu">Hindu</option>
+                                <option value="Konghucu">Konghucu</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary input-group-text">Filter</button>
+                        </div>
                     </form>
                 </div>
+
+                @if(session('role') == 'hsadmin')
                 <div
                     class="col-md-8 col-xl-9 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0">
                     <a href="{{ route('high_school.database.teachers.create') }}" id="btn-add-contact"
                         class="btn btn-info d-flex align-items-center">
-                        <i class="ti ti-users text-white me-1 fs-5"></i> Add Teacher
+                        <i class="ti ti-users text-white me-1 fs-5"></i> Add Student
                     </a>
                 </div>
+                @endif;
             </div>
         </div>
 
@@ -52,8 +68,9 @@
                     <thead class="header-item">
                         <th>No.</th>
                         <th>Name</th>
-                        <th>Username</th>
-                        <th>Homeroom</th>
+                        <th>Religion</th>
+                        <th>Grade</th>
+                        <th>Class</th>
                         <th>Action</th>
                     </thead>
                     <tbody>
@@ -61,9 +78,12 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $student->name }}</td>
-                            <td>{{ $student->username }}</td>
+                            <td>{{ $student->religion }}</td>
+                            <td>{{ $student->grade }}</td>
                             <td>{{ $student->class }}</td>
-                            <td><form id="deleteForm-{{ $student->id }}"
+                            <td>
+                                @if(session('role') == 'hsadmin')
+                                <form id="deleteForm-{{ $student->id }}"
                                 action="{{ route('high_school.database.students.destroy', $student->id) }}"
                                 method="POST">
                                 @csrf
@@ -71,7 +91,9 @@
                                 <button tabindex="0" data-bs-toggle="tooltip" title="Hapus"
                                     class="m-1 tombol-hapus border-0 badge text-white btn btn-danger"><i
                                         class="ti ti-trash"></i></button>
-                            </form></td>
+                                </form>
+                                @endif
+                            </td>
                         <tr>
 
                             @empty

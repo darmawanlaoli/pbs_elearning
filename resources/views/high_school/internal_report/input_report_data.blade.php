@@ -144,7 +144,7 @@
         @endif
 
         <!-- 2. FORM UTAMA (SAVE) -->
-        <form action="{{ route('high_school.assessment_record.input_action') }}" method="POST">
+        <form action="{{ route('high_school.report_data.input_action') }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -154,24 +154,6 @@
                 <button type="submit" class="btn btn-primary">
                     <i class="fa-regular fa-floppy-disk"></i> Save
                 </button>
-
-
-                @if (session('role') == 'hsteacher')
-
-
-                    <!-- TAMPILAN TOMBOL SUBMIT TETAP DI SINI -->
-                    @if ($reportData->submitted_at == null)
-                        <!-- Ditambahkan atribut form="form-submit-assessment" -->
-                        <button type="submit" form="form-submit-assessment" class="btn btn-success">
-                            <i class="fa-solid fa-circle-arrow-right"></i> Submit
-                        </button>
-                    @else
-                        <i>Sudah submit pada {{ $reportData->submitted_at }}</i>
-                    @endif
-                @elseif (session('role') == 'hsadmin')
-                    <i>Disubmit pada {{ $reportData->submitted_at }}</i>
-                @endif
-
 
                 <!-- Teks ini otomatis terdorong ke paling kanan -->
                 <span class="ms-auto fw-bold text-primary">{{ $reportData->class }}</span>
@@ -184,7 +166,7 @@
                     Jika Anda ingin menutup halaman ini, pastikan semua data sudah tersimpan.
                 </small>
 
-                @include('high_school.internal_report.moduls.input_report_data')
+                @include('high_school.internal_report.moduls.form_report_data')
 
 
             </div>
