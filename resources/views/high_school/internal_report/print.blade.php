@@ -1568,9 +1568,9 @@
 
                                 <tr>
 
-                                    <th class="text-center" style="height: 120px;">19 December 2025</th>
+                                    <th class="text-center" style="height: 120px;">{{ date('d F Y') }}</th>
                                     <th style="vertical-align: bottom; text-align: center">({{ session('name') }})</th>
-                                    <th style="vertical-align: bottom; text-align: center">(Agus R. Wibowo)</th>
+                                    <th style="vertical-align: bottom; text-align: center">(Ancilla Dewi Respati, MM)</th>
                                 </tr>
                             </table>
 
