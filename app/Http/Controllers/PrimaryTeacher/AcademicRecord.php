@@ -36,7 +36,7 @@ class AcademicRecord extends Controller
         $academicYear = AcademicYear::first()->academic_year;
         $assesments = DB::table('primary_assesment_records')
             ->where('class', session('homeroom_class'))
-            ->where('academic_year', 'academicYear')
+            ->where('academic_year', $academicYear)
             ->orderBy('term', 'DESC')
             ->orderBy('subject', 'ASC')
             ->get();
