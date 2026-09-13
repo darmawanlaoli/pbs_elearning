@@ -198,7 +198,7 @@
                         src="https://elearning.peachblossomsschool.sch.id/assets/images/logos/logo.png" alt="">
 
                     <h4 class="text-center mt-2 mb-3"><b>PROGRESS REPORT CARD <br> SEMESTER I <br> ACADEMIC YEAR
-                            2025/2026</b>
+                            {{ $academicyears->academic_year }}</b>
                     </h4>
 
 
@@ -406,7 +406,7 @@
                     </table>
 
                     <div class="footer">
-                        <span class="left">{{ $siswa.'/'.session('homeroom_class').'/2025-2026' }}</span>
+                        <span class="left">{{ $siswa.'/'.session('homeroom_class').'/'.$academicyears->academic_year }}</span>
                         <span class="right">Page 1</span>
                     </div>
                 </div>
@@ -791,7 +791,7 @@
                     @endif
 
                     <div class="footer">
-                        <span class="left">{{ $siswa.'/'.session('homeroom_class').'/2025-2026' }}</span>
+                        <span class="left">{{ $siswa.'/'.session('homeroom_class').'/'.$academicyears->academic_year }}</span>
                         <span class="right">Page 2</span>
                     </div>
                 </div>
@@ -1138,7 +1138,7 @@
                     </table>
 
                     <div class="footer">
-                        <span class="left">{{ $siswa.'/'.session('homeroom_class').'/2025-2026' }}</span>
+                        <span class="left">{{ $siswa.'/'.session('homeroom_class').'/'.$academicyears->academic_year }}</span>
                         <span class="right">Page 3</span>
                     </div>
                 </div>
@@ -1300,7 +1300,7 @@
                     </table>
 
                     <div class="footer">
-                        <span class="left">{{ $siswa.'/'.session('homeroom_class').'/2025-2026' }}</span>
+                        <span class="left">{{ $siswa.'/'.session('homeroom_class').'/'.$academicyears->academic_year }}</span>
                         <span class="right">Page 4</span>
                     </div>
 
@@ -1486,7 +1486,7 @@
                     </table>
 
                     <div class="footer">
-                        <span class="left">{{ $siswa.'/'.session('homeroom_class').'/2025-2026' }}</span>
+                        <span class="left">{{ $siswa.'/'.session('homeroom_class').'/'.$academicyears->academic_year }}</span>
                         <span class="right">Page 5</span>
                     </div>
                 </div>

@@ -20,11 +20,12 @@
     <!-- Core Css -->
     <link id="themeColors" rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}" />
     <link id="themeColors" rel="stylesheet" href="{{ asset('assets/css/mystyle.css') }}" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 
     {{-- select2 --}}
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js">
+    </script>
 </head>
 
 <body>
@@ -96,6 +97,15 @@
                             </a>
                             <ul aria-expanded="false" class="collapse first-level">
                                 <li class="sidebar-item">
+                                    <a href="{{ route('kindergarten.teacher_data') }}" class="sidebar-link">
+                                        <div class="round-16 d-flex align-items-center justify-content-center">
+                                            <i class="ti ti-circle"></i>
+                                        </div>
+                                        <span class="hide-menu">Teacher Data</span>
+                                    </a>
+                                </li>
+
+                                <li class="sidebar-item">
                                     <a href="{{ route('kindergarten.student_data') }}" class="sidebar-link">
                                         <div class="round-16 d-flex align-items-center justify-content-center">
                                             <i class="ti ti-circle"></i>
@@ -104,14 +114,14 @@
                                     </a>
                                 </li>
 
-                                {{-- <li class="sidebar-item">
+                                <li class="sidebar-item">
                                     <a href="{{ route('kindergarten.assessment_record') }}" class="sidebar-link">
                                         <div class="round-16 d-flex align-items-center justify-content-center">
                                             <i class="ti ti-circle"></i>
                                         </div>
                                         <span class="hide-menu">Class</span>
                                     </a>
-                                </li> --}}
+                                </li>
                             </ul>
                         </li>
 
@@ -264,6 +274,19 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#class').select2({
+                placeholder: 'Choose Class',
+                allowClear: true,
+                width: '100%'
+            });
+        });
+    </script>
 
     <script>
         //message with sweetalert

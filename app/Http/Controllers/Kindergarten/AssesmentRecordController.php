@@ -24,11 +24,23 @@ class AssesmentRecordController extends Controller
         $title = 'Create Assessment Record';
         $path = 'Report';
         $class = session('homeroom_class');
+        $selectedClasses = $class
+            ? explode(',', $class)
+            : [];
 
         $classes = DB::table('kindergarten_classes')->orderBy('id', 'DESC')->get();
         $academic_year = DB::table('kindergarten_report_data')->first();
         $students = DB::table('kindergarten_students')->orderBy('id', 'DESC')->get();
-        return view('kindergarten/assessment_record/create', compact('title', 'path', 'classes', 'academic_year', 'students'));
+        return view('kindergarten/assessment_record/create', compact('title', 'path', 'classes', 'academic_year', 'students', 'selectedClasses'));
+    }
+
+    public function getStudentsByClass(Request $request)
+    {
+        $className = $request->query('class');
+
+        $students = KindergartenStudent::where('class', $className)->get();
+
+        return response()->json($students);
     }
 
     public function store(Request $request)
@@ -41,6 +53,18 @@ class AssesmentRecordController extends Controller
             'distribution_date' => 'required',
             'is_confirmed' => 'accepted',
         ]);
+
+        $cekData = KindergartenAssesmentRecordDetail::where('class', $request->class)->first();
+
+        $cekData = DB::table('kindergarten_assesment_records')
+            ->join('kindergarten_assesment_record_details', 'kindergarten_assesment_records.id', '=', 'kindergarten_assesment_record_details.id_assesment')
+            ->select('kindergarten_assesment_records.class','kindergarten_assesment_records.id', 'kindergarten_assesment_records.academic_year', 'kindergarten_assesment_record_details.class', 'kindergarten_assesment_records.term')
+            ->where('kindergarten_assesment_records.class', $request->class)
+            ->first();
+
+        if ($cekData != NULL) {
+            return redirect()->back()->with('error', 'Assessment Record untuk kelas tersebut sudah dibuat, silahkan lanjut input atau pilih kelas lain.');
+        }
 
         // 2. CEK DATA SISWA TERLEBIH DAHULU (Sebelum melakukan aksi database apapun)
         $students = KindergartenStudent::where('class', $request->class)->get();

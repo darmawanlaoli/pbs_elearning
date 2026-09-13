@@ -31,7 +31,7 @@ class Report extends Controller
             $class = session('homeroom_class');
             $academicyears = AcademicYear::first();
             $current_term = $academicyears->term;
-            
+
             $assesments = DB::table('primary_assesment_records')
             ->where('teacher', session('name'))
             ->get();
@@ -40,6 +40,7 @@ class Report extends Controller
                 ->join('primary_assesment_records', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
                 ->where('name', $student)
                 ->where('subject', 'RELIGIOUS EDUCATION')
+                ->where('academic_year', $academicyears->academic_year)
                 ->where('term', $current_term)
                 ->first();
 
@@ -47,6 +48,7 @@ class Report extends Controller
                 ->join('primary_assesment_records as r', 'r.id', '=', 'd.id_assesment')
                 ->where('r.class', $class)
                 ->where('r.subject', 'RELIGIOUS EDUCATION')
+                ->where('academic_year', $academicyears->academic_year)
                 ->where('term', $current_term)
                 ->select(
                     'r.subject',
@@ -64,6 +66,7 @@ class Report extends Controller
                 ->join('primary_assesment_records', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
                 ->where('name', $student)
                 ->where('subject', 'CIVIC')
+                ->where('academic_year', $academicyears->academic_year)
                 ->where('term', $current_term)
                 ->first();
 
@@ -71,6 +74,7 @@ class Report extends Controller
                 ->join('primary_assesment_records', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
                 ->where('class', $class) // ambil class dari siswa tsb
                 ->where('subject', 'CIVIC')
+                ->where('academic_year', $academicyears->academic_year)
                 ->where('term', $current_term)
                 ->avg('concept');
 
@@ -78,6 +82,7 @@ class Report extends Controller
                 ->join('primary_assesment_records as r', 'r.id', '=', 'd.id_assesment')
                 ->where('r.class', $class)
                 ->where('r.subject', 'CIVIC')
+                ->where('academic_year', $academicyears->academic_year)
                 ->where('term', $current_term)
                 ->select(
                     'r.subject',
@@ -95,6 +100,7 @@ class Report extends Controller
                 ->join('primary_assesment_records', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
                 ->where('name', $student)
                 ->where('subject', 'MUSIC')
+                ->where('academic_year', $academicyears->academic_year)
                 ->where('term', $current_term)
                 ->first();
 
@@ -102,6 +108,7 @@ class Report extends Controller
                 ->join('primary_assesment_records as r', 'r.id', '=', 'd.id_assesment')
                 ->where('r.class', $class)
                 ->where('r.subject', 'MUSIC')
+                ->where('academic_year', $academicyears->academic_year)
                 ->where('term', $current_term)
                 ->select(
                     'r.subject',
@@ -119,6 +126,7 @@ class Report extends Controller
                 ->join('primary_assesment_records', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
                 ->where('name', $student)
                 ->where('subject', 'SCIENCE AND SOCIAL STUDY')
+                ->where('academic_year', $academicyears->academic_year)
                 ->where('term', $current_term)
                 ->first();
 
@@ -126,6 +134,7 @@ class Report extends Controller
                 ->join('primary_assesment_records as r', 'r.id', '=', 'd.id_assesment')
                 ->where('r.class', $class)
                 ->where('r.subject', 'SCIENCE AND SOCIAL STUDY')
+                ->where('academic_year', $academicyears->academic_year)
                 ->where('term', $current_term)
                 ->select(
                     'r.subject',
@@ -144,6 +153,7 @@ class Report extends Controller
                 ->join('primary_assesment_records', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
                 ->where('name', $student)
                 ->where('subject', 'HEALTH AND PHYSICAL EDUCATION')
+                ->where('academic_year', $academicyears->academic_year)
                 ->where('term', $current_term)
                 ->first();
 
@@ -151,6 +161,7 @@ class Report extends Controller
                 ->join('primary_assesment_records as r', 'r.id', '=', 'd.id_assesment')
                 ->where('r.class', $class)
                 ->where('r.subject', 'HEALTH AND PHYSICAL EDUCATION')
+                ->where('academic_year', $academicyears->academic_year)
                 ->where('term', $current_term)
                 ->select(
                     'r.subject',
@@ -171,6 +182,7 @@ class Report extends Controller
                 ->join('primary_assesment_records', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
                 ->where('name', $student)
                 ->where('subject', 'INFORMATION AND COMMUNICATION TECHNOLOGY')
+                ->where('academic_year', $academicyears->academic_year)
                 ->where('term', $current_term)
                 ->first();
 
@@ -178,6 +190,7 @@ class Report extends Controller
                 ->join('primary_assesment_records as r', 'r.id', '=', 'd.id_assesment')
                 ->where('r.class', $class)
                 ->where('r.subject', 'INFORMATION AND COMMUNICATION TECHNOLOGY')
+                ->where('academic_year', $academicyears->academic_year)
                 ->where('term', $current_term)
                 ->select(
                     'r.subject',
@@ -196,6 +209,7 @@ class Report extends Controller
                 ->join('primary_assesment_records', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
                 ->where('name', $student)
                 ->where('subject', 'MATHEMATIC')
+                ->where('academic_year', $academicyears->academic_year)
                 ->where('term', $current_term)
                 ->first();
 
@@ -203,6 +217,7 @@ class Report extends Controller
                 ->join('primary_assesment_records as r', 'r.id', '=', 'd.id_assesment')
                 ->where('r.class', $class)
                 ->where('r.subject', 'MATHEMATIC')
+                ->where('academic_year', $academicyears->academic_year)
                 ->where('term', $current_term)
                 ->select(
                     'r.subject',
@@ -220,6 +235,7 @@ class Report extends Controller
                 ->join('primary_assesment_records', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
                 ->where('name', $student)
                 ->where('subject', 'Mathematic')
+                ->where('academic_year', $academicyears->academic_year)
                 ->where('term', $current_term)
                 ->first();
 
@@ -227,6 +243,7 @@ class Report extends Controller
                 ->join('primary_assesment_records', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
                 ->where('name', $student)
                 ->where('subject', 'ENGLISH')
+                ->where('academic_year', $academicyears->academic_year)
                 ->where('term', $current_term)
                 ->first();
 
@@ -234,6 +251,7 @@ class Report extends Controller
                 ->join('primary_assesment_records as r', 'r.id', '=', 'd.id_assesment')
                 ->where('r.class', $class)
                 ->where('r.subject', 'ENGLISH')
+                ->where('academic_year', $academicyears->academic_year)
                 ->where('term', $current_term)
                 ->select(
                     'r.subject',
@@ -262,6 +280,7 @@ class Report extends Controller
                 ->join('primary_assesment_records', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
                 ->where('name', $student)
                 ->where('subject', 'ART AND CRAFT')
+                ->where('academic_year', $academicyears->academic_year)
                 ->where('term', $current_term)
                 ->first();
 
@@ -269,6 +288,7 @@ class Report extends Controller
                 ->join('primary_assesment_records as r', 'r.id', '=', 'd.id_assesment')
                 ->where('r.class', $class)
                 ->where('r.subject', 'ART AND CRAFT')
+                ->where('academic_year', $academicyears->academic_year)
                 ->where('term', $current_term)
                 ->select(
                     'r.subject',
@@ -289,6 +309,7 @@ class Report extends Controller
                 ->join('primary_assesment_records', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
                 ->where('name', $student)
                 ->where('subject', 'MANDARIN')
+                ->where('academic_year', $academicyears->academic_year)
                 ->where('term', $current_term)
                 ->first();
 
@@ -296,6 +317,7 @@ class Report extends Controller
                 ->join('primary_assesment_records as r', 'r.id', '=', 'd.id_assesment')
                 ->where('r.class', $class)
                 ->where('r.subject', 'MANDARIN')
+                ->where('academic_year', $academicyears->academic_year)
                 ->where('term', $current_term)
                 ->select(
                     'r.subject',
@@ -325,6 +347,7 @@ class Report extends Controller
                 ->join('primary_assesment_records', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
                 ->where('name', $student)
                 ->where('subject', 'BAHASA INDONESIA')
+                ->where('academic_year', $academicyears->academic_year)
                 ->where('term', $current_term)
                 ->first();
 
@@ -332,6 +355,7 @@ class Report extends Controller
                 ->join('primary_assesment_records as r', 'r.id', '=', 'd.id_assesment')
                 ->where('r.class', $class)
                 ->where('r.subject', 'BAHASA INDONESIA')
+                ->where('academic_year', $academicyears->academic_year)
                 ->where('term', $current_term)
                 ->select(
                     'r.subject',
@@ -359,12 +383,14 @@ class Report extends Controller
                 ->join('primary_report_datas', 'primary_report_datas.id', '=', 'primary_report_data_details.id_report')
                 ->where('name', $student)
                 ->where('teacher', session('name'))
+                ->where('academic_year', $academicyears->academic_year)
                 ->where('term', $current_term)
                 ->first();
 
             $records = DB::table('primary_assesment_record_details as d')
                     ->join('primary_assesment_records as r', 'r.id', '=', 'd.id_assesment')
                     ->where('d.name', $student)
+                    ->where('academic_year', $academicyears->academic_year)
                     ->where('term', $current_term)
                     ->select(
                         'r.subject',

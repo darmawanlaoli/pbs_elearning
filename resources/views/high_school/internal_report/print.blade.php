@@ -3,8 +3,13 @@
 @section('content')
 
     <style>
+        @font-face {
+            font-family: 'FontKustomKu';
+            src: url('/assets/font/arialroundedmtbold.ttf')format('truetype');
+        }
+
         .report-container {
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: 'FontKustomKu';
         }
 
         table,
@@ -13,6 +18,7 @@
             border: 2px solid black;
             padding-left: 10px;
             padding-right: 10px;
+            font-family: 'FontKustomKu';
         }
 
         table {
@@ -47,7 +53,7 @@
             background-repeat: no-repeat;
             background-position: center;
             background-size: 450px;
-            outline: 6px solid rgb(24, 28, 31);
+            outline: 6px solid rgb(247, 134, 3);
             outline-offset: -8mm;
             /* geser ke dalam */
         }

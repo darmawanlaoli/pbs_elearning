@@ -23,6 +23,7 @@ class KindergartenTeacher extends Authenticatable
         'password',
         'is_allow_print_report',
         'role',
+        'homeroom_class'
     ];
 
     /**

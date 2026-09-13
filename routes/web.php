@@ -26,6 +26,7 @@ use App\Http\Controllers\Kindergarten\HomeController as KindergartenHome;
 use App\Http\Controllers\Kindergarten\AssesmentRecordController as KindergartenAssessmentRecord;
 use App\Http\Controllers\Kindergarten\ReportDataController as KindergartenReportData;
 use App\Http\Controllers\Kindergarten\StudentDataController as KindergartenStudentData;
+use App\Http\Controllers\Kindergarten\TeacherDataController as KindergartenTeacherData;
 
 use App\Http\Controllers\AdminHs\StudentController as HsStudentControllerAdmin;
 use App\Http\Controllers\AdminPrimary\WeeklyLessonPlan;
@@ -137,6 +138,8 @@ Route::middleware(['auth:kindergartenteacher', 'role:kindergartenteacher'])->gro
     Route::put('kindergarten/assessment_record/input_action', [KindergartenAssessmentRecord::class, 'inputAction'])->name('kindergarten.assessment_record.input_action');
     Route::post('kindergarten/assessment_record/{id}/report_data', [KindergartenAssessmentRecord::class, 'reportData'])->name('kindergarten.assessment_record.report_data');
     Route::put('kindergarten/assessment_record/store_report_data', [KindergartenAssessmentRecord::class, 'storeReportData'])->name('kindergarten.assessment_record.store_report_data');
+    Route::get('kindergarten/students/by_class', [KindergartenAssessmentRecord::class, 'getStudentsByClass'])->name('kindergarten.students.by_class');
+
 
     Route::post('kindergarten/assessment_record/{id}/print_preview', [KindergartenAssessmentRecord::class, 'printPreview'])->name('kindergarten.assessment_record.print_preview');
     Route::get('kindergarten/assessment_record/{id}/print_preview', [KindergartenAssessmentRecord::class, 'printPreview'])->name('kindergarten.assessment_record.print_preview');
@@ -269,6 +272,7 @@ Route::delete('kindergarten/report_data/{reportData}/destroy', [KindergartenRepo
 Route::get('kindergarten/report_data/{reportData}/edit', [KindergartenReportData::class, 'edit'])->name('kindergarten.report_data.edit');
 Route::put('kindergarten/report_data/{reportData}/update', [KindergartenReportData::class, 'update'])->name('kindergarten.report_data.update');
 
+// Kindergarten student data
 Route::get('kindergarten/student_data', [KindergartenStudentData::class, 'index'])->name('kindergarten.student_data');
 Route::get('kindergarten/student_data/create', [KindergartenStudentData::class, 'create'])->name('kindergarten.student_data.create');
 Route::post('kindergarten/student_data/store', [KindergartenStudentData::class, 'store'])->name('kindergarten.student_data.store');
@@ -276,6 +280,14 @@ Route::delete('kindergarten/student_data/{studentData}/destroy', [KindergartenSt
 Route::get('kindergarten/student_data/{studentData}/edit', [KindergartenStudentData::class, 'edit'])->name('kindergarten.student_data.edit');
 Route::put('kindergarten/student_data/{studentData}/update', [KindergartenStudentData::class, 'update'])->name('kindergarten.student_data.update');
 Route::post('kindergarten/student_data/import', [KindergartenStudentData::class, 'import'])->name('kindergarten.student_data.import');
+
+// Kindergarten teacher data
+Route::get('kindergarten/teacher_data', [KindergartenTeacherData::class, 'index'])->name('kindergarten.teacher_data');
+Route::get('kindergarten/teacher_data/create', [KindergartenTeacherData::class, 'create'])->name('kindergarten.teacher_data.create');
+Route::post('kindergarten/teacher_data/store', [KindergartenTeacherData::class, 'store'])->name('kindergarten.teacher_data.store');
+Route::delete('kindergarten/teacher_data/{teacher}/destroy', [KindergartenTeacherData::class, 'destroy'])->name('kindergarten.teacher_data.destroy');
+Route::get('kindergarten/teacher_data/{teacher}/edit', [KindergartenTeacherData::class, 'edit'])->name('kindergarten.teacher_data.edit');
+Route::put('kindergarten/teacher_data/{teacher}/update', [KindergartenTeacherData::class, 'update'])->name('kindergarten.teacher_data.update');
 
 // Internal report
 Route::get('high_school/internal_report', [HighSchoolInternalReport::class, 'index'])->name('high_school.internal_report');
