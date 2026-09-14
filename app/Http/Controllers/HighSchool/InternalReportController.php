@@ -89,7 +89,12 @@ class InternalReportController extends Controller
         $path = 'Report';
         // 1. Ambil semua mata pelajaran untuk header tabel (sesuai urutan id)
         // GANTI MENJADI INI
-        $unit = 'jhs';
+        if (str_contains($class, 'Y7') || str_contains($class, 'Y8') || str_contains($class, 'Y9')) {
+            $u = 'jhs';
+        }else {
+            $u = 'shs';
+        }
+        $unit = $u;
         $subjects = DB::table('hs_report_subjects')
             ->where('unit', 'all')
             ->orWhere('unit', $unit)
