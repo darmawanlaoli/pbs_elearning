@@ -29,6 +29,11 @@
                 <th rowspan="2" style="background-color: #631919;">Management <br> Skill</th>
                 <th rowspan="2" style="background-color: #631919;">Active <br> Participation</th>
                 <th rowspan="2" style="background-color: #631919;">Social <br> Responsibility</th>
+
+                <th colspan="3" style="background-color: #631919;">Art</th>
+                <th rowspan="2" style="background-color: #631919;">Management <br> Skill</th>
+                <th rowspan="2" style="background-color: #631919;">Active <br> Participation</th>
+                <th rowspan="2" style="background-color: #631919;">Social <br> Responsibility</th>
             </tr>
 
             <tr class="text-center">
@@ -53,6 +58,11 @@
                 <th>Total</th>
 
                 {{-- language arts --}}
+                <th style="background-color: #631919;">Score <br> 95%</th>
+                <th style="background-color: #631919;">Att 5%</th>
+                <th style="background-color: #631919;">Total</th>
+
+                {{-- arts --}}
                 <th style="background-color: #631919;">Score <br> 95%</th>
                 <th style="background-color: #631919;">Att 5%</th>
                 <th style="background-color: #631919;">Total</th>
@@ -271,6 +281,50 @@
                         @endforeach
                     </select>
                 </td>
+
+
+                {{-- IMYC art --}}
+                <td>
+                    <input type="number" value="{{ $ass->imyc_art ?? '' }}" class="score-input imyc_art"
+                        name="students[{{ $ass->id }}][imyc_art]" min="0" max="100" step="0.01">
+                </td>
+                <td>
+                    <input type="number" value="{{ $ass->imyc_art_att ?? '' }}" class="score-input imyc_art_att"
+                        name="students[{{ $ass->id }}][imyc_art_att]" min="0" max="5" step="0.01">
+                </td>
+                <td>
+                    <input type="number" value="{{ $ass->imyc_art_total ?? '' }}" class="score-input imyc_art_total"
+                        name="students[{{ $ass->id }}][imyc_art_total]" step="0.01" readonly>
+                </td>
+                <td>
+                    <select name="students[{{ $ass->id }}][imyc_art_management_skill]" class="score-input">
+                        <option value="">Pilih</option>
+                        @foreach(['A','B','C','D'] as $opt)
+                        <option value="{{ $opt }}" {{ ($ass->imyc_art_management_skill ?? '') == $opt ? 'selected' : ''
+                            }}>{{ $opt }}</option>
+                        @endforeach
+                    </select>
+                </td>
+                <td>
+                    <select name="students[{{ $ass->id }}][imyc_art_active_participation]" class="score-input">
+                        <option value="">Pilih</option>
+                        @foreach(['A','B','C','D'] as $opt)
+                        <option value="{{ $opt }}" {{ ($ass->imyc_art_active_participation ?? '') == $opt ? 'selected'
+                            : '' }}>{{ $opt }}</option>
+                        @endforeach
+                    </select>
+                </td>
+                <td>
+                    <select name="students[{{ $ass->id }}][imyc_art_social_responsibility]" class="score-input">
+                        <input type="text" pattern="[A-D]" title="Hanya diizinkan huruf kapital A, B, C, atau D">
+
+                        <option value="">Pilih</option>
+                        @foreach(['A','B','C','D'] as $opt)
+                        <option value="{{ $opt }}" {{ ($ass->imyc_art_social_responsibility ?? '') == $opt ? 'selected'
+                            : '' }}>{{ $opt }}</option>
+                        @endforeach
+                    </select>
+                </td>
             </tr>
             @endforeach
         </tbody>
@@ -280,7 +334,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
     const rows = document.querySelectorAll('tbody tr');
-    const subjects = ['geo', 'science', 'history', 'tech', 'lang'];
+    const subjects = ['geo', 'science', 'history', 'tech', 'lang', 'art'];
 
     rows.forEach(row => {
         subjects.forEach(subject => {

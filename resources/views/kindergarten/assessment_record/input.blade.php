@@ -88,6 +88,16 @@
         .text-center {
             text-align: center;
         }
+
+        .no-t1 {
+            background-color: #A6A6A6;
+            color: white;
+            pointer-events:none;
+        }
+
+        .no-t1 select {
+            background-color: #A6A6A6;
+        }
     </style>
 </head>
 
