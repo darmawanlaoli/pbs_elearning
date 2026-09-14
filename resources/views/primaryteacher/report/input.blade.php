@@ -187,6 +187,7 @@
                                             <option value="Basketball">Basketball</option>
                                             <option value="Science Club">Science Club</option>
                                             <option value="Board Games">Board Games</option>
+                                            <option value="Drawing">Drawing</option>
                                         </select>
                                     </td>
 
