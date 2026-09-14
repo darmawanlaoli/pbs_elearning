@@ -226,6 +226,8 @@
                 @elseif ($assessment->subject == 'Math' ||
                         $assessment->subject == 'Matematika')
                     @include('high_school.assessment_record.moduls.math')
+                @elseif ($assessment->subject == 'Unit of Inquiry')
+                    @include('high_school.assessment_record.moduls.uoi')
                 @else
                 <div class="card col-6 mx-auto text-center bg-warning fw-bold mt-5">
                     <div class="card-body">

@@ -32,7 +32,7 @@ class InternalReportController extends Controller
         return view('high_school/internal_report/index', compact('title', 'path', 'classes'));
     }
 
-    public function accumulated(string $class)
+    public function accumulated1(string $class)
     {
         $title = 'Internal Accumulated';
         $path = 'Report';
@@ -69,6 +69,77 @@ class InternalReportController extends Controller
                 'dk_total' => $dkScores
             ];
         })->values();
+
+        if (session('role') == 'hsadmin') {
+            $assessmentLists = DB::table('hs_assessment_records')
+                ->where('submitted_at', '!=', null)
+                ->get();
+        } else {
+            $assessmentLists = DB::table('hs_assessment_records')
+                ->where('teacher', session('name'))
+                ->get();
+        }
+
+        return view('high_school.assessment_record.internal_accumulated', compact('title', 'path', 'subjects', 'assessmentLists', 'class', 'students'));
+    }
+
+    public function accumulated(string $class)
+    {
+        $title = 'Internal Accumulated';
+        $path = 'Report';
+        // 1. Ambil semua mata pelajaran untuk header tabel (sesuai urutan id)
+        // GANTI MENJADI INI
+        $unit = 'jhs';
+        $subjects = DB::table('hs_report_subjects')
+            ->where('unit', 'all')
+            ->orWhere('unit', $unit)
+            ->orderBy('sequence')
+            ->get(['id', 'subject', 'initial']);
+
+        // 2. Ambil data nilai dan gabungkan tabel (filter kelas jika perlu, misal: kelas tertentu)
+        $rawData = DB::table('hs_assessment_record_details as detail')
+            ->join('hs_assessment_records as record', 'detail.id_assesment', '=', 'record.id')
+            ->join('hs_report_subjects as subject', 'record.subject', '=', 'subject.subject')
+            ->select('detail.name', 'subject.subject as subject_name', 'subject.initial', 'detail.ku_total', 'detail.dk_total')
+            ->where('record.class', $class)
+            ->orderBy('detail.name')
+            ->get();
+
+        // 3. Pivot data & hitung total nilai menggunakan Collection
+        $students = $rawData->groupBy('name')->map(function ($items, $studentName) {
+            $kuScores = [];
+            $dkScores = [];
+
+            foreach ($items as $item) {
+                $kuScores[$item->subject_name] = $item->ku_total;
+                $dkScores[$item->subject_name] = $item->dk_total;
+            }
+
+            $totalKu = $items->sum('ku_total');
+            $totalDk = $items->sum('dk_total');
+            $grandTotal = $totalKu + $totalDk;
+
+            return [
+                'name'        => $studentName,
+                'ku_total'    => $kuScores,
+                'dk_total'    => $dkScores,
+                'total_ku'    => $totalKu,
+                'total_dk'    => $totalDk,
+                'grand_total' => $grandTotal,
+            ];
+        })->values();
+
+        // 4. Urutkan berdasarkan nilai tertinggi dulu untuk menentukan ranking
+        $rankedStudents = $students->sortByDesc('grand_total')->values();
+
+        // 5. Berikan nomor rank ke setiap siswa
+        $studentsWithRank = $rankedStudents->map(function ($student, $index) {
+            $student['rank'] = $index + 1;
+            return $student;
+        });
+
+        // 6. Kembalikan urutan siswa berdasarkan nama (sesuai abjad A-Z)
+        $students = $studentsWithRank->sortBy('name')->values();
 
         if (session('role') == 'hsadmin') {
             $assessmentLists = DB::table('hs_assessment_records')

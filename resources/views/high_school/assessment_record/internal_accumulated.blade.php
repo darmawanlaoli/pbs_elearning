@@ -118,7 +118,9 @@
         ========================================= */
         /* Memastikan judul "No" dan "Student Name" selalu berada di tumpukan paling atas */
         thead tr:first-child th:nth-child(1),
-        thead tr:first-child th:nth-child(2) {
+        thead tr:first-child th:nth-child(2),
+        thead tr:first-child th:nth-child(3),
+        thead tr:first-child th:nth-child(4) {
             background-color: #0182cd;
             /* Kembalikan ke warna biru header */
             z-index: 20;
@@ -153,6 +155,8 @@
                         <tr>
                             <th rowspan="2">No</th>
                             <th rowspan="2">Student's Name</th>
+                            <th rowspan="2">Rank</th>
+                            <th rowspan="2">Total</th>
                             {{-- Ubah looping header untuk menampilkan initial --}}
                             @foreach ($subjects as $mapel)
                             {{-- Tambahkan title agar saat di-hover muncul nama panjangnya --}}
@@ -177,6 +181,8 @@
                         <tr>
                             <td class="text-center">{{ $index + 1 }}</td>
                             <td class="text-left">{{ $student['name'] }}</td>
+                            <td class="text-center fw-bold bg-success text-white">{{ $student['rank'] }}</td>
+                            <td class="text-center fw-bold bg-success text-white">{{ $student['grand_total'] }}</td>
 
                             {{-- Panggil data nilai menggunakan $mapel->subject sebagai key --}}
                             @foreach ($subjects as $mapel)

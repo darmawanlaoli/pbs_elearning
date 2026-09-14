@@ -246,6 +246,9 @@ class AssessmentRecord extends Controller
                         'imyc_lang' => $data['imyc_lang'] ?? null,
                         'imyc_lang_att' => $data['imyc_lang_att'] ?? null,
                         'imyc_lang_total' => $data['imyc_lang_total'] ?? null,
+                        'imyc_art' => $data['imyc_art'] ?? null,
+                        'imyc_art_att' => $data['imyc_art_att'] ?? null,
+                        'imyc_art_total' => $data['imyc_art_total'] ?? null,
 
                         'imyc_geo_management_skill' => $data['imyc_geo_management_skill'] ?? null,
                         'imyc_geo_active_participation' => $data['imyc_geo_active_participation'] ?? null,
@@ -262,7 +265,23 @@ class AssessmentRecord extends Controller
                         'imyc_lang_management_skill' => $data['imyc_lang_management_skill'] ?? null,
                         'imyc_lang_active_participation' => $data['imyc_lang_active_participation'] ?? null,
                         'imyc_lang_social_responsibility' => $data['imyc_lang_social_responsibility'] ?? null,
-                    ]);
+                        'imyc_art_management_skill' => $data['imyc_art_management_skill'] ?? null,
+                        'imyc_art_active_participation' => $data['imyc_art_active_participation'] ?? null,
+                        'imyc_art_social_responsibility' => $data['imyc_art_social_responsibility'] ?? null,
+
+                        // uoi
+                        'uoi_ips' => $data['uoi_ips'] ?? null,
+                        'total_uoi_ips' => $data['total_uoi_ips'] ?? null,
+                        'uoi_ips_personal_management' => $data['uoi_ips_personal_management'] ?? null,
+                        'uoi_ips_active_participation' => $data['uoi_ips_active_participation'] ?? null,
+                        'uoi_ips_social_responsibility' => $data['uoi_ips_social_responsibility'] ?? null,
+                        'uoi_ipa' => $data['uoi_ipa'] ?? null,
+                        'total_uoi_ipa' => $data['total_uoi_ipa'] ?? null,
+                        'uoi_ipa_personal_management' => $data['uoi_ipa_personal_management'] ?? null,
+                        'uoi_ipa_active_participation' => $data['uoi_ipa_active_participation'] ?? null,
+                        'uoi_ipa_social_responsibility' => $data['uoi_ipa_social_responsibility'] ?? null,
+
+                ]);
             }
         });
 
