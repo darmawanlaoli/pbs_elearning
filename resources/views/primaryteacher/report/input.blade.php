@@ -1,6 +1,5 @@
-@extends('primaryteacher.layout')
-
-@section('content')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 <style>
     .table-responsive {
@@ -9,33 +8,14 @@
 </style>
 
 <div class="container-fluid">
-    <div class="card bg-light-info shadow-none position-relative overflow-hidden">
-        <div class="card-body px-4 py-3">
-            <div class="row align-items-center">
-                <div class="col-9">
-                    <h4 class="fw-semibold mb-8">{{ $title }}</h4>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a class="text-muted " href="./index.html">{{ $path }}</a></li>
-                            <li class="breadcrumb-item" aria-current="page">{{ $title }}</li>
-                        </ol>
-                    </nav>
-                </div>
-                <div class="col-3">
-                    <div class="text-center mb-n5">
-                        <img src="../../dist/images/breadcrumb/ChatBc.png" alt="" class="img-fluid mb-n4">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <div class="widget-content searchable-container list">
 
         <div class="card">
 
             <div class="card-body">
 
-                <table class="mb-5" style="width:100%">
+                <table class="mb-2" style="width:100%">
                     <tr>
                         <th>Homeroom</th>
                         <th>: {{ session('name') }}</th>
@@ -58,6 +38,8 @@
                 <form action="{{ route('primary_teacher.report_data.update_all') }}" method="POST">
                     @csrf
                     @method('PUT')
+
+                    <a class="btn btn-secondary mb-2" href="{{ route('primary_teacher.report_data') }}">Back</a>
 
                     <button type="submit" class="btn btn-primary mb-2"><i class="ti ti-pencil"></i> Update</button>
 
@@ -264,6 +246,88 @@
 </div>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const inputs = document.querySelectorAll('.form-control');
+
+        inputs.forEach(input => {
+
+            input.addEventListener('paste', function (e) {
+
+                e.preventDefault();
+
+                const clipboardData = e.clipboardData || window.clipboardData;
+                const text = clipboardData.getData('text');
+
+                // Ambil data dari clipboard
+                const values = text
+                    .split(/\r?\n/)
+                    .map(value => value.trim())
+                    .filter(value => value !== '');
+
+                // Cari posisi input yang sedang aktif
+                const currentRow = this.closest('tr');
+
+                if (!currentRow) {
+                    return;
+                }
+
+                // Cari index kolom input
+                const currentInput = this;
+
+                // Ambil semua row
+                const rows = Array.from(
+                    document.querySelectorAll('tbody tr')
+                );
+
+                // Posisi row saat ini
+                let rowIndex = rows.indexOf(currentRow);
+
+                // Untuk setiap value dari clipboard
+                values.forEach(value => {
+
+                    if (rowIndex >= rows.length) {
+                        return;
+                    }
+
+                    // Cari input dengan posisi kolom yang sama
+                    const targetRow = rows[rowIndex];
+
+                    const inputsInRow = Array.from(
+                        targetRow.querySelectorAll('.form-control')
+                    );
+
+                    const inputsInCurrentRow = Array.from(
+                        currentRow.querySelectorAll('.form-control')
+                    );
+
+                    const columnIndex = inputsInCurrentRow.indexOf(currentInput);
+
+                    if (
+                        columnIndex !== -1 &&
+                        inputsInRow[columnIndex]
+                    ) {
+                        inputsInRow[columnIndex].value = value;
+
+                        // Trigger event input
+                        inputsInRow[columnIndex].dispatchEvent(
+                            new Event('input', {
+                                bubbles: true
+                            })
+                        );
+                    }
+
+                    rowIndex++;
+                });
+
+            });
+
+        });
+
+    });
+</script>
+
+<script>
     document.addEventListener("DOMContentLoaded", function() {
     const table = document.getElementById("table");
 
@@ -284,5 +348,3 @@
     });
 });
 </script>
-
-@endsection
