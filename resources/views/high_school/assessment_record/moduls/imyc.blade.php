@@ -89,31 +89,16 @@
                         name="students[{{ $ass->id }}][imyc_geo_total]" step="0.01" readonly>
                 </td>
                 <td>
-                    <select name="students[{{ $ass->id }}][imyc_geo_management_skill]" class="score-input">
-                        <option value="">Pilih</option>
-                        @foreach(['A','B','C','D'] as $opt)
-                        <option value="{{ $opt }}" {{ ($ass->imyc_geo_management_skill ?? '') == $opt ? 'selected' : ''
-                            }}>{{ $opt }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" value="{{ $ass->imyc_geo_management_skill ?? '' }}" class="score-input letter-input"
+                        name="students[{{ $ass->id }}][imyc_geo_management_skill]" pattern="[A-Da-d]" maxlength="1">
                 </td>
                 <td>
-                    <select name="students[{{ $ass->id }}][imyc_geo_active_participation]" class="score-input">
-                        <option value="">Pilih</option>
-                        @foreach(['A','B','C','D'] as $opt)
-                        <option value="{{ $opt }}" {{ ($ass->imyc_geo_active_participation ?? '') == $opt ? 'selected' :
-                            '' }}>{{ $opt }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" value="{{ $ass->imyc_geo_active_participation ?? '' }}" class="score-input letter-input"
+                        name="students[{{ $ass->id }}][imyc_geo_active_participation]" pattern="[A-Da-d]" maxlength="1">
                 </td>
                 <td>
-                    <select name="students[{{ $ass->id }}][imyc_geo_social_responsibility]" class="score-input">
-                        <option value="">Pilih</option>
-                        @foreach(['A','B','C','D'] as $opt)
-                        <option value="{{ $opt }}" {{ ($ass->imyc_geo_social_responsibility ?? '') == $opt ? 'selected'
-                            : '' }}>{{ $opt }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" value="{{ $ass->imyc_geo_social_responsibility ?? '' }}" class="score-input letter-input"
+                        name="students[{{ $ass->id }}][imyc_geo_social_responsibility]" pattern="[A-Da-d]" maxlength="1">
                 </td>
 
                 {{-- Science --}}
@@ -131,31 +116,16 @@
                         step="0.01" readonly>
                 </td>
                 <td>
-                    <select name="students[{{ $ass->id }}][imyc_science_management_skill]" class="score-input">
-                        <option value="">Pilih</option>
-                        @foreach(['A','B','C','D'] as $opt)
-                        <option value="{{ $opt }}" {{ ($ass->imyc_science_management_skill ?? '') == $opt ? 'selected' :
-                            '' }}>{{ $opt }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" value="{{ $ass->imyc_science_management_skill ?? '' }}" class="score-input letter-input"
+                        name="students[{{ $ass->id }}][imyc_science_management_skill]" pattern="[A-Da-d]" maxlength="1">
                 </td>
                 <td>
-                    <select name="students[{{ $ass->id }}][imyc_science_active_participation]" class="score-input">
-                        <option value="">Pilih</option>
-                        @foreach(['A','B','C','D'] as $opt)
-                        <option value="{{ $opt }}" {{ ($ass->imyc_science_active_participation ?? '') == $opt ?
-                            'selected' : '' }}>{{ $opt }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" value="{{ $ass->imyc_science_active_participation ?? '' }}" class="score-input letter-input"
+                        name="students[{{ $ass->id }}][imyc_science_active_participation]" pattern="[A-Da-d]" maxlength="1">
                 </td>
                 <td>
-                    <select name="students[{{ $ass->id }}][imyc_science_social_responsibility]" class="score-input">
-                        <option value="">Pilih</option>
-                        @foreach(['A','B','C','D'] as $opt)
-                        <option value="{{ $opt }}" {{ ($ass->imyc_science_social_responsibility ?? '') == $opt ?
-                            'selected' : '' }}>{{ $opt }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" value="{{ $ass->imyc_science_social_responsibility ?? '' }}" class="score-input letter-input"
+                        name="students[{{ $ass->id }}][imyc_science_social_responsibility]" pattern="[A-Da-d]" maxlength="1">
                 </td>
 
                 {{-- History --}}
@@ -173,31 +143,16 @@
                         step="0.01" readonly>
                 </td>
                 <td>
-                    <select name="students[{{ $ass->id }}][imyc_history_management_skill]" class="score-input">
-                        <option value="">Pilih</option>
-                        @foreach(['A','B','C','D'] as $opt)
-                        <option value="{{ $opt }}" {{ ($ass->imyc_history_management_skill ?? '') == $opt ? 'selected' :
-                            '' }}>{{ $opt }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" value="{{ $ass->imyc_history_management_skill ?? '' }}" class="score-input letter-input"
+                        name="students[{{ $ass->id }}][imyc_history_management_skill]" pattern="[A-Da-d]" maxlength="1">
                 </td>
                 <td>
-                    <select name="students[{{ $ass->id }}][imyc_history_active_participation]" class="score-input">
-                        <option value="">Pilih</option>
-                        @foreach(['A','B','C','D'] as $opt)
-                        <option value="{{ $opt }}" {{ ($ass->imyc_history_active_participation ?? '') == $opt ?
-                            'selected' : '' }}>{{ $opt }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" value="{{ $ass->imyc_history_active_participation ?? '' }}" class="score-input letter-input"
+                        name="students[{{ $ass->id }}][imyc_history_active_participation]" pattern="[A-Da-d]" maxlength="1">
                 </td>
                 <td>
-                    <select name="students[{{ $ass->id }}][imyc_history_social_responsibility]" class="score-input">
-                        <option value="">Pilih</option>
-                        @foreach(['A','B','C','D'] as $opt)
-                        <option value="{{ $opt }}" {{ ($ass->imyc_history_social_responsibility ?? '') == $opt ?
-                            'selected' : '' }}>{{ $opt }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" value="{{ $ass->imyc_history_social_responsibility ?? '' }}" class="score-input letter-input"
+                        name="students[{{ $ass->id }}][imyc_history_social_responsibility]" pattern="[A-Da-d]" maxlength="1">
                 </td>
 
                 {{-- Technology --}}
@@ -214,31 +169,16 @@
                         name="students[{{ $ass->id }}][imyc_tech_total]" step="0.01" readonly>
                 </td>
                 <td>
-                    <select name="students[{{ $ass->id }}][imyc_tech_management_skill]" class="score-input">
-                        <option value="">Pilih</option>
-                        @foreach(['A','B','C','D'] as $opt)
-                        <option value="{{ $opt }}" {{ ($ass->imyc_tech_management_skill ?? '') == $opt ? 'selected' : ''
-                            }}>{{ $opt }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" value="{{ $ass->imyc_tech_management_skill ?? '' }}" class="score-input letter-input"
+                        name="students[{{ $ass->id }}][imyc_tech_management_skill]" pattern="[A-Da-d]" maxlength="1">
                 </td>
                 <td>
-                    <select name="students[{{ $ass->id }}][imyc_tech_active_participation]" class="score-input">
-                        <option value="">Pilih</option>
-                        @foreach(['A','B','C','D'] as $opt)
-                        <option value="{{ $opt }}" {{ ($ass->imyc_tech_active_participation ?? '') == $opt ? 'selected'
-                            : '' }}>{{ $opt }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" value="{{ $ass->imyc_tech_active_participation ?? '' }}" class="score-input letter-input"
+                        name="students[{{ $ass->id }}][imyc_tech_active_participation]" pattern="[A-Da-d]" maxlength="1">
                 </td>
                 <td>
-                    <select name="students[{{ $ass->id }}][imyc_tech_social_responsibility]" class="score-input">
-                        <option value="">Pilih</option>
-                        @foreach(['A','B','C','D'] as $opt)
-                        <option value="{{ $opt }}" {{ ($ass->imyc_tech_social_responsibility ?? '') == $opt ? 'selected'
-                            : '' }}>{{ $opt }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" value="{{ $ass->imyc_tech_social_responsibility ?? '' }}" class="score-input letter-input"
+                        name="students[{{ $ass->id }}][imyc_tech_social_responsibility]" pattern="[A-Da-d]" maxlength="1">
                 </td>
 
                 {{-- Language Arts --}}
@@ -255,31 +195,16 @@
                         name="students[{{ $ass->id }}][imyc_lang_total]" step="0.01" readonly>
                 </td>
                 <td>
-                    <select name="students[{{ $ass->id }}][imyc_lang_management_skill]" class="score-input">
-                        <option value="">Pilih</option>
-                        @foreach(['A','B','C','D'] as $opt)
-                        <option value="{{ $opt }}" {{ ($ass->imyc_lang_management_skill ?? '') == $opt ? 'selected' : ''
-                            }}>{{ $opt }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" value="{{ $ass->imyc_lang_management_skill ?? '' }}" class="score-input letter-input"
+                        name="students[{{ $ass->id }}][imyc_lang_management_skill]" pattern="[A-Da-d]" maxlength="1">
                 </td>
                 <td>
-                    <select name="students[{{ $ass->id }}][imyc_lang_active_participation]" class="score-input">
-                        <option value="">Pilih</option>
-                        @foreach(['A','B','C','D'] as $opt)
-                        <option value="{{ $opt }}" {{ ($ass->imyc_lang_active_participation ?? '') == $opt ? 'selected'
-                            : '' }}>{{ $opt }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" value="{{ $ass->imyc_lang_active_participation ?? '' }}" class="score-input letter-input"
+                        name="students[{{ $ass->id }}][imyc_lang_active_participation]" pattern="[A-Da-d]" maxlength="1">
                 </td>
                 <td>
-                    <select name="students[{{ $ass->id }}][imyc_lang_social_responsibility]" class="score-input">
-                        <option value="">Pilih</option>
-                        @foreach(['A','B','C','D'] as $opt)
-                        <option value="{{ $opt }}" {{ ($ass->imyc_lang_social_responsibility ?? '') == $opt ? 'selected'
-                            : '' }}>{{ $opt }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" value="{{ $ass->imyc_lang_social_responsibility ?? '' }}" class="score-input letter-input"
+                        name="students[{{ $ass->id }}][imyc_lang_social_responsibility]" pattern="[A-Da-d]" maxlength="1">
                 </td>
 
 
@@ -296,34 +221,18 @@
                     <input type="number" value="{{ $ass->imyc_art_total ?? '' }}" class="score-input imyc_art_total"
                         name="students[{{ $ass->id }}][imyc_art_total]" step="0.01" readonly>
                 </td>
-                <td>
-                    <select name="students[{{ $ass->id }}][imyc_art_management_skill]" class="score-input">
-                        <option value="">Pilih</option>
-                        @foreach(['A','B','C','D'] as $opt)
-                        <option value="{{ $opt }}" {{ ($ass->imyc_art_management_skill ?? '') == $opt ? 'selected' : ''
-                            }}>{{ $opt }}</option>
-                        @endforeach
-                    </select>
-                </td>
-                <td>
-                    <select name="students[{{ $ass->id }}][imyc_art_active_participation]" class="score-input">
-                        <option value="">Pilih</option>
-                        @foreach(['A','B','C','D'] as $opt)
-                        <option value="{{ $opt }}" {{ ($ass->imyc_art_active_participation ?? '') == $opt ? 'selected'
-                            : '' }}>{{ $opt }}</option>
-                        @endforeach
-                    </select>
-                </td>
-                <td>
-                    <select name="students[{{ $ass->id }}][imyc_art_social_responsibility]" class="score-input">
-                        <input type="text" pattern="[A-D]" title="Hanya diizinkan huruf kapital A, B, C, atau D">
 
-                        <option value="">Pilih</option>
-                        @foreach(['A','B','C','D'] as $opt)
-                        <option value="{{ $opt }}" {{ ($ass->imyc_art_social_responsibility ?? '') == $opt ? 'selected'
-                            : '' }}>{{ $opt }}</option>
-                        @endforeach
-                    </select>
+                <td>
+                    <input type="text" value="{{ $ass->imyc_art_management_skill ?? '' }}" class="score-input letter-input"
+                        name="students[{{ $ass->id }}][imyc_art_management_skill]" pattern="[A-Da-d]" maxlength="1">
+                </td>
+                <td>
+                    <input type="text" value="{{ $ass->imyc_art_active_participation ?? '' }}" class="score-input letter-input"
+                        name="students[{{ $ass->id }}][imyc_art_active_participation]" pattern="[A-Da-d]" maxlength="1">
+                </td>
+                <td>
+                    <input type="text" value="{{ $ass->imyc_art_social_responsibility ?? '' }}" class="score-input letter-input"
+                        name="students[{{ $ass->id }}][imyc_art_social_responsibility]" pattern="[A-Da-d]" maxlength="1">
                 </td>
             </tr>
             @endforeach
@@ -380,4 +289,5 @@
         });
     });
 });
+
 </script>

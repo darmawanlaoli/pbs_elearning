@@ -7,7 +7,6 @@
                 <th colspan="11">Understanding Concept</th>
                 <th style="background-color: #EF2278" colspan="19">Comprehension</th>
                 <th colspan="19">Communication</th>
-
                 <th style="background-color: #EF2278" colspan="4">Demonstrate Knowledge</th>
                 <th rowspan="3">Management <br> Skill</th>
                 <th rowspan="3">Active <br> Participation</th>
@@ -47,27 +46,23 @@
                 <th style="background-color: #EF2278" rowspan="2">AVG 95%</th>
                 <th style="background-color: #EF2278" rowspan="2">Att 5%</th>
                 <th style="background-color: #EF2278" rowspan="2">Total</th>
-
             </tr>
 
-
             <tr class="text-center">
-                {{-- chapter test --}}
+                {{-- Understanding Concept --}}
                 <th>CT</th>
                 <th>AVG X 60%</th>
-                {{-- knowledge --}}
                 <th>Exercise 1</th>
                 <th>Exercise 2</th>
                 <th>Exercise 3</th>
                 <th>AVG X 25%</th>
-                {{-- homework --}}
                 <th>HW 1</th>
                 <th>HW 2</th>
                 <th>AVG X 10%</th>
 
                 {{-- Comprehension - Reading--}}
                 <th style="background-color: #EF2278">CT</th>
-                <th style="background-color: #EF2278">AVG X 95%</th>
+                <th style="background-color: #EF2278">AVG X 60%</th>
                 <th style="background-color: #EF2278">Exercise 1</th>
                 <th style="background-color: #EF2278">Exercise 2</th>
                 <th style="background-color: #EF2278">Exercise 3</th>
@@ -78,16 +73,15 @@
 
                 {{-- Comprehension - Listening--}}
                 <th style="background-color: #EF2278">CT</th>
-                <th style="background-color: #EF2278">AVG X 95%</th>
+                <th style="background-color: #EF2278">AVG X 70%</th>
                 <th style="background-color: #EF2278">Exercise 1</th>
                 <th style="background-color: #EF2278">Exercise 2</th>
                 <th style="background-color: #EF2278">Exercise 3</th>
                 <th style="background-color: #EF2278">AVG X 25%</th>
 
-
-                {{-- Comprehension - Writing--}}
+                {{-- Communication - Writing--}}
                 <th>CT</th>
-                <th>AVG X 95%</th>
+                <th>AVG X 60%</th>
                 <th>Exercise 1</th>
                 <th>Exercise 2</th>
                 <th>Exercise 3</th>
@@ -96,9 +90,9 @@
                 <th>HW 2</th>
                 <th>AVG X 10%</th>
 
-                {{-- Comprehension - Writing--}}
+                {{-- Communication - Speaking--}}
                 <th>CT</th>
-                <th>AVG X 95%</th>
+                <th>AVG X 70%</th>
                 <th>Exercise 1</th>
                 <th>Exercise 2</th>
                 <th>Exercise 3</th>
@@ -111,292 +105,137 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $ass->name }}</td>
 
-                {{-- Chapter Test --}}
-                <td>
-                    <input type="number" value="{{ $ass->ct ?? '' }}" class="score-input ct-input"
-                        name="students[{{ $ass->id }}][ct]" min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->avg_ct ?? '' }}" class="score-input ct-avg-input"
-                        name="students[{{ $ass->id }}][avg_ct]" readonly>
+                {{-- ================= UNDERSTANDING CONCEPT ================= --}}
+                <td><input type="number" value="{{ $ass->ct ?? '' }}" class="score-input uc-ct"
+                        name="students[{{ $ass->id }}][ct]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->avg_ct ?? '' }}" class="score-input uc-ct-avg"
+                        name="students[{{ $ass->id }}][avg_ct]" readonly></td>
+                <td><input type="number" value="{{ $ass->ku1 ?? '' }}" class="score-input uc-ex"
+                        name="students[{{ $ass->id }}][ku1]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->ku2 ?? '' }}" class="score-input uc-ex"
+                        name="students[{{ $ass->id }}][ku2]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->ku3 ?? '' }}" class="score-input uc-ex"
+                        name="students[{{ $ass->id }}][ku3]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->ku_avg ?? '' }}" class="score-input uc-ex-avg"
+                        name="students[{{ $ass->id }}][ku_avg]" readonly></td>
+                <td><input type="number" value="{{ $ass->hw1 ?? '' }}" class="score-input uc-hw"
+                        name="students[{{ $ass->id }}][hw1]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->hw2 ?? '' }}" class="score-input uc-hw"
+                        name="students[{{ $ass->id }}][hw2]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->hw_avg ?? '' }}" class="score-input uc-hw-avg"
+                        name="students[{{ $ass->id }}][hw_avg]" readonly></td>
+                <td><input type="number" value="{{ $ass->attendance ?? '' }}" class="score-input"
+                        name="students[{{ $ass->id }}][attendance]" min="0" max="5" step="0.01"></td>
+                <td class="total"><input type="number" value="{{ $ass->ku_total ?? '' }}" class="score-input uc-total"
+                        name="students[{{ $ass->id }}][ku_total]" readonly></td>
+
+                {{-- ================= READING ================= --}}
+                <td><input type="number" value="{{ $ass->lang_reading_ct ?? '' }}" class="score-input read-ct"
+                        name="students[{{ $ass->id }}][lang_reading_ct]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->lang_reading_avg_ct ?? '' }}" class="score-input read-ct-avg"
+                        name="students[{{ $ass->id }}][lang_reading_avg_ct]" readonly></td>
+                <td><input type="number" value="{{ $ass->lang_reading_exer1 ?? '' }}" class="score-input read-ex"
+                        name="students[{{ $ass->id }}][lang_reading_exer1]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->lang_reading_exer2 ?? '' }}" class="score-input read-ex"
+                        name="students[{{ $ass->id }}][lang_reading_exer2]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->lang_reading_exer3 ?? '' }}" class="score-input read-ex"
+                        name="students[{{ $ass->id }}][lang_reading_exer3]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->lang_reading_exer_avg ?? '' }}" class="score-input read-ex-avg"
+                        name="students[{{ $ass->id }}][lang_reading_exer_avg]" readonly></td>
+                <td><input type="number" value="{{ $ass->lang_reading_hw1 ?? '' }}" class="score-input read-hw"
+                        name="students[{{ $ass->id }}][lang_reading_hw1]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->lang_reading_hw2 ?? '' }}" class="score-input read-hw"
+                        name="students[{{ $ass->id }}][lang_reading_hw2]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->lang_reading_hw_avg ?? '' }}" class="score-input read-hw-avg"
+                        name="students[{{ $ass->id }}][lang_reading_hw_avg]" readonly></td>
+                <td><input type="number" value="{{ $ass->attendance ?? '' }}" class="score-input"
+                        name="students[{{ $ass->id }}][attendance]" min="0" max="5" step="0.01"></td>
+                <td class="total"><input type="number" value="{{ $ass->lang_reading_total ?? '' }}"
+                        class="score-input read-total" name="students[{{ $ass->id }}][lang_reading_total]" readonly>
                 </td>
 
-                {{-- KU (Knowledge & Understanding) --}}
-                <td>
-                    <input type="number" value="{{ $ass->ku1 ?? '' }}" class="score-input ku-input"
-                        name="students[{{ $ass->id }}][ku1]" min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->ku2 ?? '' }}" class="score-input ku-input"
-                        name="students[{{ $ass->id }}][ku2]" min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->ku3 ?? '' }}" class="score-input ku-input"
-                        name="students[{{ $ass->id }}][ku3]" min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <!-- Class diubah menjadi ku-avg-input -->
-                    <input type="number" value="{{ $ass->ku_avg ?? '' }}" class="score-input ku-avg-input"
-                        name="students[{{ $ass->id }}][ku_avg]" readonly>
-                </td>
-
-                {{-- HW (Homework) --}}
-                <td>
-                    <!-- Class diubah menjadi hw-input -->
-                    <input type="number" value="{{ $ass->hw1 ?? '' }}" class="score-input hw-input"
-                        name="students[{{ $ass->id }}][hw1]" min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <!-- Class diubah menjadi hw-input -->
-                    <input type="number" value="{{ $ass->hw2 ?? '' }}" class="score-input hw-input"
-                        name="students[{{ $ass->id }}][hw2]" min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <!-- Class diubah menjadi hw-avg-input -->
-                    <input type="number" value="{{ $ass->hw_avg ?? '' }}" class="score-input hw-avg-input"
-                        name="students[{{ $ass->id }}][hw_avg]" readonly>
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->attendance ?? '' }}" class="score-input ku-att-input"
-                        name="students[{{ $ass->id }}][attendance]" min="0" max="5" step="0.01">
+                {{-- ================= LISTENING ================= --}}
+                <td><input type="number" value="{{ $ass->lang_listening_ct ?? '' }}" class="score-input list-ct"
+                        name="students[{{ $ass->id }}][lang_listening_ct]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->lang_listening_avg_ct ?? '' }}" class="score-input list-ct-avg"
+                        name="students[{{ $ass->id }}][lang_listening_avg_ct]" readonly></td>
+                <td><input type="number" value="{{ $ass->lang_listening_exer1 ?? '' }}" class="score-input list-ex"
+                        name="students[{{ $ass->id }}][lang_listening_exer1]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->lang_listening_exer2 ?? '' }}" class="score-input list-ex"
+                        name="students[{{ $ass->id }}][lang_listening_exer2]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->lang_listening_exer3 ?? '' }}" class="score-input list-ex"
+                        name="students[{{ $ass->id }}][lang_listening_exer3]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->lang_listening_exer_avg ?? '' }}"
+                        class="score-input list-ex-avg" name="students[{{ $ass->id }}][lang_listening_exer_avg]"
+                        readonly></td>
+                <td><input type="number" value="{{ $ass->attendance ?? '' }}" class="score-input"
+                        name="students[{{ $ass->id }}][attendance]" min="0" max="5" step="0.01"></td>
+                <td class="total"><input type="number" value="{{ $ass->lang_listening_total ?? '' }}"
+                        class="score-input list-total" name="students[{{ $ass->id }}][lang_listening_total]" readonly>
                 </td>
 
-                {{-- Penjumlahan: avg_ct + ku_avg + hw_avg + att --}}
-                <td class="total">
-                    <input type="number" value="{{ $ass->ku_total ?? '' }}" class="score-input ku-final-input"
-                        name="students[{{ $ass->id }}][ku_total]" readonly>
+                {{-- ================= WRITING ================= --}}
+                <td><input type="number" value="{{ $ass->lang_writing_ct ?? '' }}" class="score-input writ-ct"
+                        name="students[{{ $ass->id }}][lang_writing_ct]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->lang_writing_avg_ct ?? '' }}" class="score-input writ-ct-avg"
+                        name="students[{{ $ass->id }}][lang_writing_avg_ct]" readonly></td>
+                <td><input type="number" value="{{ $ass->lang_writing_exer1 ?? '' }}" class="score-input writ-ex"
+                        name="students[{{ $ass->id }}][lang_writing_exer1]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->lang_writing_exer2 ?? '' }}" class="score-input writ-ex"
+                        name="students[{{ $ass->id }}][lang_writing_exer2]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->lang_writing_exer3 ?? '' }}" class="score-input writ-ex"
+                        name="students[{{ $ass->id }}][lang_writing_exer3]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->lang_writing_exer_avg ?? '' }}" class="score-input writ-ex-avg"
+                        name="students[{{ $ass->id }}][lang_writing_exer_avg]" readonly></td>
+                <td><input type="number" value="{{ $ass->lang_writing_hw1 ?? '' }}" class="score-input writ-hw"
+                        name="students[{{ $ass->id }}][lang_writing_hw1]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->lang_writing_hw2 ?? '' }}" class="score-input writ-hw"
+                        name="students[{{ $ass->id }}][lang_writing_hw2]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->lang_writing_hw_avg ?? '' }}" class="score-input writ-hw-avg"
+                        name="students[{{ $ass->id }}][lang_writing_hw_avg]" readonly></td>
+                <td><input type="number" value="{{ $ass->attendance ?? '' }}" class="score-input"
+                        name="students[{{ $ass->id }}][attendance]" min="0" max="5" step="0.01"></td>
+                <td class="total"><input type="number" value="{{ $ass->lang_writing_total ?? '' }}"
+                        class="score-input writ-total" name="students[{{ $ass->id }}][lang_writing_total]" readonly>
                 </td>
 
-                {{-- Reading --}}
-                {{-- Reading Chapter Test --}}
-                <td>
-                    <input type="number" value="{{ $ass->lang_reading_ct ?? '' }}" class="score-input lang_reading_ct-input" name="students[{{ $ass->id }}][lang_reading_ct]"
-                        min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->lang_reading_avg_ct ?? '' }}" class="score-input lang-reading-ct-avg-input"
-                        name="students[{{ $ass->id }}][lang_reading_avg_ct]" readonly>
-                </td>
-
-                {{-- Reading Exercise --}}
-                <td>
-                    <input type="number" value="{{ $ass->lang_reading_exer1 ?? '' }}" class="score-input ku-input" name="students[{{ $ass->id }}][lang_reading_exer1]"
-                        min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->lang_reading_exer2 ?? '' }}" class="score-input ku-input" name="students[{{ $ass->id }}][lang_reading_exer2]"
-                        min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->lang_reading_exer3 ?? '' }}" class="score-input ku-input" name="students[{{ $ass->id }}][lang_reading_exer3]"
-                        min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->lang_reading_exer_avg ?? '' }}" class="score-input ku-avg-input"
-                        name="students[{{ $ass->id }}][lang_reading_exer_avg]" readonly>
+                {{-- ================= SPEAKING ================= --}}
+                <td><input type="number" value="{{ $ass->lang_speaking_ct ?? '' }}" class="score-input speak-ct"
+                        name="students[{{ $ass->id }}][lang_speaking_ct]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->lang_speaking_avg_ct ?? '' }}" class="score-input speak-ct-avg"
+                        name="students[{{ $ass->id }}][lang_speaking_avg_ct]" readonly></td>
+                <td><input type="number" value="{{ $ass->lang_speaking_exer1 ?? '' }}" class="score-input speak-ex"
+                        name="students[{{ $ass->id }}][lang_speaking_exer1]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->lang_speaking_exer2 ?? '' }}" class="score-input speak-ex"
+                        name="students[{{ $ass->id }}][lang_speaking_exer2]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->lang_speaking_exer3 ?? '' }}" class="score-input speak-ex"
+                        name="students[{{ $ass->id }}][lang_speaking_exer3]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->lang_speaking_exer_avg ?? '' }}"
+                        class="score-input speak-ex-avg" name="students[{{ $ass->id }}][lang_speaking_exer_avg]"
+                        readonly></td>
+                <td><input type="number" value="{{ $ass->attendance ?? '' }}" class="score-input"
+                        name="students[{{ $ass->id }}][attendance]" min="0" max="5" step="0.01"></td>
+                <td class="total"><input type="number" value="{{ $ass->lang_speaking_total ?? '' }}"
+                        class="score-input speak-total" name="students[{{ $ass->id }}][lang_speaking_total]" readonly>
                 </td>
 
-                {{-- Reading Homework --}}
-                <td>
-                    <input type="number" value="{{ $ass->lang_reading_hw1 ?? '' }}" class="score-input hw-input" name="students[{{ $ass->id }}][lang_reading_hw1]"
-                        min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->lang_reading_hw2 ?? '' }}" class="score-input hw-input" name="students[{{ $ass->id }}][lang_reading_hw2]"
-                        min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->lang_reading_hw_avg ?? '' }}" class="score-input hw-avg-input"
-                        name="students[{{ $ass->id }}][lang_reading_hw_avg]" readonly>
-                </td>
+                {{-- ================= DEMONSTRATE KNOWLEDGE ================= --}}
+                <td><input type="number" value="{{ $ass->dk1 ?? '' }}" class="score-input dk-proj"
+                        name="students[{{ $ass->id }}][dk1]" min="0" max="100" step="0.01"></td>
+                <td><input type="number" value="{{ $ass->dk_avg ?? '' }}" class="score-input dk-proj-avg"
+                        name="students[{{ $ass->id }}][dk_avg]" readonly></td>
+                <td><input type="number" value="{{ $ass->attendance ?? '' }}" class="score-input"
+                        name="students[{{ $ass->id }}][attendance]" min="0" max="5" step="0.01"></td>
+                <td class="total"><input type="number" value="{{ $ass->dk_total ?? '' }}" class="score-input dk-total"
+                        name="students[{{ $ass->id }}][dk_total]" readonly></td>
 
-                <td>
-                    <input type="number" value="{{ $ass->attendance ?? '' }}" class="score-input ku-att-input"
-                        name="students[{{ $ass->id }}][attendance]" min="0" max="5" step="0.01">
-                </td>
-
-                <td class="total">
-                    <input type="number" value="{{ $ass->lang_reading_total ?? '' }}" class="score-input ku-final-input"
-                        name="students[{{ $ass->id }}][lang_reading_total]" readonly>
-                </td>
-
-                {{-- Listening Section --}}
-                {{-- Listening Chapter Test --}}
-                <td>
-                    <input type="number" value="{{ $ass->lang_listening_ct ?? '' }}" class="score-input ct-input" name="students[{{ $ass->id }}][lang_listening_ct]"
-                        min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->lang_listening_avg_ct ?? '' }}" class="score-input ct-avg-input"
-                        name="students[{{ $ass->id }}][lang_listening_avg_ct]" readonly>
-                </td>
-
-                {{-- Listening Exercise --}}
-                <td>
-                    <input type="number" value="{{ $ass->lang_listening_exer1 ?? '' }}" class="score-input ku-input"
-                        name="students[{{ $ass->id }}][lang_listening_exer1]" min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->lang_listening_exer2 ?? '' }}" class="score-input ku-input"
-                        name="students[{{ $ass->id }}][lang_listening_exer2]" min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->lang_listening_exer3 ?? '' }}" class="score-input ku-input"
-                        name="students[{{ $ass->id }}][lang_listening_exer3]" min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->lang_listening_exer_avg ?? '' }}" class="score-input ku-avg-input"
-                        name="students[{{ $ass->id }}][lang_listening_exer_avg]" readonly>
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->attendance ?? '' }}" class="score-input ku-att-input"
-                        name="students[{{ $ass->id }}][attendance]" min="0" max="5" step="0.01">
-                </td>
-
-                <td class="total">
-                    <input type="number" value="{{ $ass->lang_listening_total ?? '' }}" class="score-input ku-final-input"
-                        name="students[{{ $ass->id }}][lang_listening_total]" readonly>
-                </td>
-
-                {{-- Writing Section --}}
-                {{-- Writing Chapter Test --}}
-                <td>
-                    <input type="number" value="{{ $ass->lang_writing_ct ?? '' }}" class="score-input lang_writing_ct-input"
-                        name="students[{{ $ass->id }}][lang_writing_ct]" min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->lang_writing_avg_ct ?? '' }}" class="score-input lang-reading-ct-avg-input"
-                        name="students[{{ $ass->id }}][lang_writing_avg_ct]" readonly>
-                </td>
-
-                {{-- Writing Exercise --}}
-                <td>
-                    <input type="number" value="{{ $ass->lang_writing_exer1 ?? '' }}" class="score-input ku-input"
-                        name="students[{{ $ass->id }}][lang_writing_exer1]" min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->lang_writing_exer2 ?? '' }}" class="score-input ku-input"
-                        name="students[{{ $ass->id }}][lang_writing_exer2]" min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->lang_writing_exer3 ?? '' }}" class="score-input ku-input"
-                        name="students[{{ $ass->id }}][lang_writing_exer3]" min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->lang_writing_exer_avg ?? '' }}" class="score-input ku-avg-input"
-                        name="students[{{ $ass->id }}][lang_writing_exer_avg]" readonly>
-                </td>
-
-                {{-- Writing Homework --}}
-                <td>
-                    <input type="number" value="{{ $ass->lang_writing_hw1 ?? '' }}" class="score-input hw-input"
-                        name="students[{{ $ass->id }}][lang_writing_hw1]" min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->lang_writing_hw2 ?? '' }}" class="score-input hw-input"
-                        name="students[{{ $ass->id }}][lang_writing_hw2]" min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->lang_writing_hw_avg ?? '' }}" class="score-input hw-avg-input"
-                        name="students[{{ $ass->id }}][lang_writing_hw_avg]" readonly>
-                </td>
-
-                <td>
-                    <input type="number" value="{{ $ass->attendance ?? '' }}" class="score-input ku-att-input"
-                        name="students[{{ $ass->id }}][attendance]" min="0" max="5" step="0.01">
-                </td>
-
-                <td class="total">
-                    <input type="number" value="{{ $ass->lang_writing_total ?? '' }}" class="score-input ku-final-input"
-                        name="students[{{ $ass->id }}][lang_writing_total]" readonly>
-                </td>
-
-
-                {{-- Speaking Section --}}
-                {{-- Speaking Chapter Test --}}
-                <td>
-                    <input type="number" value="{{ $ass->lang_speaking_ct ?? '' }}" class="score-input ct-input"
-                        name="students[{{ $ass->id }}][lang_speaking_ct]" min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->lang_speaking_avg_ct ?? '' }}" class="score-input ct-avg-input"
-                        name="students[{{ $ass->id }}][lang_speaking_avg_ct]" readonly>
-                </td>
-
-                {{-- Speaking Exercise --}}
-                <td>
-                    <input type="number" value="{{ $ass->lang_speaking_exer1 ?? '' }}" class="score-input ku-input"
-                        name="students[{{ $ass->id }}][lang_speaking_exer1]" min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->lang_speaking_exer2 ?? '' }}" class="score-input ku-input"
-                        name="students[{{ $ass->id }}][lang_speaking_exer2]" min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->lang_speaking_exer3 ?? '' }}" class="score-input ku-input"
-                        name="students[{{ $ass->id }}][lang_speaking_exer3]" min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->lang_speaking_exer_avg ?? '' }}" class="score-input ku-avg-input"
-                        name="students[{{ $ass->id }}][lang_speaking_exer_avg]" readonly>
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->attendance ?? '' }}" class="score-input ku-att-input"
-                        name="students[{{ $ass->id }}][attendance]" min="0" max="5" step="0.01">
-                </td>
-
-                <td class="total">
-                    <input type="number" value="{{ $ass->lang_speaking_total ?? '' }}" class="score-input ku-final-input"
-                        name="students[{{ $ass->id }}][lang_speaking_total]" readonly>
-                </td>
-
-
-                {{-- DK (Demonstrate Knowledge) --}}
-                <td>
-                    <input type="number" value="{{ $ass->dk1 ?? '' }}" class="score-input dk-input"
-                        name="students[{{ $ass->id }}][dk1]" min="0" max="100" step="0.01">
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->dk_avg ?? '' }}" class="score-input dk-avg-input"
-                        name="students[{{ $ass->id }}][dk_avg]" readonly>
-                </td>
-                <td>
-                    <input type="number" value="{{ $ass->attendance ?? '' }}" class="score-input dk-att-input"
-                        name="students[{{ $ass->id }}][attendance]" min="0" max="5" step="0.01">
-                </td>
-                <td class="total">
-                    <input type="number" value="{{ $ass->dk_total ?? '' }}" class="score-input dk-final-input"
-                        name="students[{{ $ass->id }}][dk_total]" readonly>
-                </td>
-
-                {{-- Others --}}
-                <td>
-                    <select name="students[{{ $ass->id }}][management_skill]" class="score-input">
-                        <option value="">Pilih</option>
-                        <option value="A" {{ $ass->management_skill == 'A' ? 'selected' : '' }}>A</option>
-                        <option value="B" {{ $ass->management_skill == 'B' ? 'selected' : '' }}>B</option>
-                        <option value="C" {{ $ass->management_skill == 'C' ? 'selected' : '' }}>C</option>
-                        <option value="D" {{ $ass->management_skill == 'D' ? 'selected' : '' }}>D</option>
-                    </select>
-                </td>
-                <td>
-                    <select name="students[{{ $ass->id }}][active_participation]" class="score-input">
-                        <option value="">Pilih</option>
-                        <option value="A" {{ $ass->active_participation == 'A' ? 'selected' : '' }}>A</option>
-                        <option value="B" {{ $ass->active_participation == 'B' ? 'selected' : '' }}>B</option>
-                        <option value="C" {{ $ass->active_participation == 'C' ? 'selected' : '' }}>C</option>
-                        <option value="D" {{ $ass->active_participation == 'D' ? 'selected' : '' }}>D</option>
-                    </select>
-                </td>
-                <td>
-                    <select name="students[{{ $ass->id }}][social_responsibility]" class="score-input">
-                        <option value="">Pilih</option>
-                        <option value="A" {{ $ass->social_responsibility == 'A' ? 'selected' : '' }}>A</option>
-                        <option value="B" {{ $ass->social_responsibility == 'B' ? 'selected' : '' }}>B</option>
-                        <option value="C" {{ $ass->social_responsibility == 'C' ? 'selected' : '' }}>C</option>
-                        <option value="D" {{ $ass->social_responsibility == 'D' ? 'selected' : '' }}>D</option>
-                    </select>
-                </td>
+                {{-- ================= LETTER INPUTS ================= --}}
+                <td><input type="text" value="{{ $ass->management_skill ?? '' }}" class="score-input letter-input"
+                        name="students[{{ $ass->id }}][management_skill]" pattern="[A-Da-d]" maxlength="1"></td>
+                <td><input type="text" value="{{ $ass->active_participation ?? '' }}" class="score-input letter-input"
+                        name="students[{{ $ass->id }}][active_participation]" pattern="[A-Da-d]" maxlength="1"></td>
+                <td><input type="text" value="{{ $ass->social_responsibility ?? '' }}" class="score-input letter-input"
+                        name="students[{{ $ass->id }}][social_responsibility]" pattern="[A-Da-d]" maxlength="1"></td>
             </tr>
             @endforeach
         </tbody>
@@ -408,122 +247,187 @@
         const rows = document.querySelectorAll('tbody tr');
 
         rows.forEach(row => {
-            // === Element Definitions ===
-            const ctInput = row.querySelector('.ct-input');
-            const ctAvgInput = row.querySelector('.ct-avg-input');
+            // Semua input attendance di dalam baris ini
+            const attInputs = Array.from(row.querySelectorAll('input[name*="[attendance]"]'));
 
-            const kuInputs = row.querySelectorAll('.ku-input');
-            const kuAvgInput = row.querySelector('.ku-avg-input');
+            // Definisi Seksi untuk Kalkulasi Dinamis
+            const sections = [
+                {
+                    // 0: Understanding Concept (CT 60%, Ex 25%, HW 10%, Att)
+                    ct: row.querySelector('.uc-ct'), ctAvg: row.querySelector('.uc-ct-avg'),
+                    ex: row.querySelectorAll('.uc-ex'), exAvg: row.querySelector('.uc-ex-avg'),
+                    hw: row.querySelectorAll('.uc-hw'), hwAvg: row.querySelector('.uc-hw-avg'),
+                    total: row.querySelector('.uc-total'), att: attInputs[0],
+                    weights: { ct: 0.60, ex: 0.25, hw: 0.10 }
+                },
+                {
+                    // 1: Reading (CT 60%, Ex 25%, HW 10%, Att)
+                    ct: row.querySelector('.read-ct'), ctAvg: row.querySelector('.read-ct-avg'),
+                    ex: row.querySelectorAll('.read-ex'), exAvg: row.querySelector('.read-ex-avg'),
+                    hw: row.querySelectorAll('.read-hw'), hwAvg: row.querySelector('.read-hw-avg'),
+                    total: row.querySelector('.read-total'), att: attInputs[1],
+                    weights: { ct: 0.60, ex: 0.25, hw: 0.10 }
+                },
+                {
+                    // 2: Listening (CT 70%, Ex 25%, Att)
+                    ct: row.querySelector('.list-ct'), ctAvg: row.querySelector('.list-ct-avg'),
+                    ex: row.querySelectorAll('.list-ex'), exAvg: row.querySelector('.list-ex-avg'),
+                    total: row.querySelector('.list-total'), att: attInputs[2],
+                    weights: { ct: 0.70, ex: 0.25 }
+                },
+                {
+                    // 3: Writing (CT 60%, Ex 25%, HW 10%, Att)
+                    ct: row.querySelector('.writ-ct'), ctAvg: row.querySelector('.writ-ct-avg'),
+                    ex: row.querySelectorAll('.writ-ex'), exAvg: row.querySelector('.writ-ex-avg'),
+                    hw: row.querySelectorAll('.writ-hw'), hwAvg: row.querySelector('.writ-hw-avg'),
+                    total: row.querySelector('.writ-total'), att: attInputs[3],
+                    weights: { ct: 0.60, ex: 0.25, hw: 0.10 }
+                },
+                {
+                    // 4: Speaking (CT 70%, Ex 25%, Att)
+                    ct: row.querySelector('.speak-ct'), ctAvg: row.querySelector('.speak-ct-avg'),
+                    ex: row.querySelectorAll('.speak-ex'), exAvg: row.querySelector('.speak-ex-avg'),
+                    total: row.querySelector('.speak-total'), att: attInputs[4],
+                    weights: { ct: 0.70, ex: 0.25 }
+                },
+                {
+                    // 5: Demonstrate Knowledge (Project 95%, Att)
+                    ex: row.querySelectorAll('.dk-proj'), exAvg: row.querySelector('.dk-proj-avg'),
+                    total: row.querySelector('.dk-total'), att: attInputs[5],
+                    weights: { ex: 0.95 }
+                }
+            ];
 
-            const hwInputs = row.querySelectorAll('.hw-input');
-            const hwAvgInput = row.querySelector('.hw-avg-input');
+            // Fungsi Kalkulasi Per-Seksi
+            function calculateSection(sec) {
+                let totalScore = 0;
+                let hasInput = false;
 
-            const kuAttInput = row.querySelector('.ku-att-input');
-            const kuFinalInput = row.querySelector('.ku-final-input');
-
-            const dkInputs = row.querySelectorAll('.dk-input');
-            const dkAvgInput = row.querySelector('.dk-avg-input');
-            const dkAttInput = row.querySelector('.dk-att-input');
-            const dkFinalInput = row.querySelector('.dk-final-input');
-
-            // === Hitung Knowledge & Understanding (CT + KU + HW + Att) ===
-            function calculateKUSection() {
-                // 1. Chapter Test (60%)
-                let ctVal = parseFloat(ctInput.value);
-                let ctAvg = 0;
-                if (!isNaN(ctVal)) {
-                    ctAvg = ctVal * 0.60;
-                    ctAvgInput.value = ctAvg.toFixed(0);
-                } else {
-                    ctAvgInput.value = '';
+                // Chapter Test
+                if (sec.ct) {
+                    let val = parseFloat(sec.ct.value);
+                    if (!isNaN(val)) {
+                        let avg = val * sec.weights.ct;
+                        if(sec.ctAvg) sec.ctAvg.value = avg.toFixed(0);
+                        totalScore += avg;
+                        hasInput = true;
+                    } else {
+                        if(sec.ctAvg) sec.ctAvg.value = '';
+                    }
                 }
 
-                // 2. Exercise / KU (25%)
-                let kuTotal = 0, kuCount = 0;
-                kuInputs.forEach(input => {
-                    const value = parseFloat(input.value);
-                    if (!isNaN(value)) { kuTotal += value; kuCount++; }
-                });
-                let kuAvg = 0;
-                if (kuCount > 0) {
-                    kuAvg = (kuTotal / kuCount) * 0.25;
-                    kuAvgInput.value = kuAvg.toFixed(0);
-                } else {
-                    kuAvgInput.value = '';
+                // Exercises & Project
+                if (sec.ex && sec.ex.length > 0) {
+                    let exTot = 0, count = 0;
+                    sec.ex.forEach(inp => {
+                        let val = parseFloat(inp.value);
+                        if (!isNaN(val)) { exTot += val; count++; }
+                    });
+                    if (count > 0) {
+                        let avg = (exTot / count) * sec.weights.ex;
+                        if(sec.exAvg) sec.exAvg.value = avg.toFixed(0);
+                        totalScore += avg;
+                        hasInput = true;
+                    } else {
+                        if(sec.exAvg) sec.exAvg.value = '';
+                    }
                 }
 
-                // 3. Homework / HW (10%)
-                let hwTotal = 0, hwCount = 0;
-                hwInputs.forEach(input => {
-                    const value = parseFloat(input.value);
-                    if (!isNaN(value)) { hwTotal += value; hwCount++; }
-                });
-                let hwAvg = 0;
-                if (hwCount > 0) {
-                    hwAvg = (hwTotal / hwCount) * 0.10;
-                    hwAvgInput.value = hwAvg.toFixed(0);
-                } else {
-                    hwAvgInput.value = '';
+                // Homework
+                if (sec.hw && sec.hw.length > 0) {
+                    let hwTot = 0, count = 0;
+                    sec.hw.forEach(inp => {
+                        let val = parseFloat(inp.value);
+                        if (!isNaN(val)) { hwTot += val; count++; }
+                    });
+                    if (count > 0) {
+                        let avg = (hwTot / count) * sec.weights.hw;
+                        if(sec.hwAvg) sec.hwAvg.value = avg.toFixed(0);
+                        totalScore += avg;
+                        hasInput = true;
+                    } else {
+                        if(sec.hwAvg) sec.hwAvg.value = '';
+                    }
                 }
 
-                // 4. Validasi Attendance KU
-                let att = parseFloat(kuAttInput.value);
-                if (isNaN(att)) att = 0;
-                if (att > 5) { att = 5; kuAttInput.value = 5; }
-                if (att < 0) { att = 0; kuAttInput.value = 0; }
+                // Attendance
+                if (sec.att) {
+                    let val = parseFloat(sec.att.value);
+                    if (!isNaN(val)) {
+                        totalScore += val;
+                        hasInput = true;
+                    }
+                }
 
-                // 5. Final Score (CT 60% + KU 25% + HW 10% + Att)
-                if (!isNaN(ctVal) || kuCount > 0 || hwCount > 0 || kuAttInput.value !== '') {
-                    const finalScore = ctAvg + kuAvg + hwAvg + att;
-                    kuFinalInput.value = finalScore.toFixed(0);
-                } else {
-                    kuFinalInput.value = '';
+                // Final Total Input
+                if (sec.total) {
+                    sec.total.value = hasInput ? totalScore.toFixed(0) : '';
                 }
             }
 
-            // === Hitung Demonstrate Knowledge ===
-            function calculateDK() {
-                let dkTotal = 0, dkCount = 0;
-                dkInputs.forEach(input => {
-                    const value = parseFloat(input.value);
-                    if (!isNaN(value)) { dkTotal += value; dkCount++; }
+            // Bind Event Listeners Untuk Setiap Nilai di Masing-masing Seksi
+            sections.forEach(sec => {
+                const triggerCalc = () => calculateSection(sec);
+                if (sec.ct) sec.ct.addEventListener('input', triggerCalc);
+                if (sec.ex) sec.ex.forEach(inp => inp.addEventListener('input', triggerCalc));
+                if (sec.hw) sec.hw.forEach(inp => inp.addEventListener('input', triggerCalc));
+                if (sec.att) sec.att.addEventListener('input', triggerCalc);
+
+                // Initial kalkulasi saat web direfresh
+                triggerCalc();
+            });
+
+            // ================= SINKRONISASI ATTENDANCE =================
+            if (attInputs.length > 0) {
+                const mainAtt = attInputs[0]; // Att di kolom Understanding Concept
+
+                mainAtt.addEventListener('input', function() {
+                    let val = this.value;
+                    if (val !== '') {
+                        let numVal = parseFloat(val);
+                        if (numVal > 5) val = 5;
+                        if (numVal < 0) val = 0;
+                        this.value = val;
+                    }
+
+                    // Sinkronisasi otomatis ke Att lain dalam baris ini
+                    attInputs.forEach((att, idx) => {
+                        if (idx !== 0) {
+                            att.value = this.value;
+                        }
+                    });
+
+                    // Trigger perbaruan total di seluruh seksi
+                    sections.forEach(sec => calculateSection(sec));
                 });
 
-                let dkAvg = 0;
-                if (dkCount > 0) {
-                    dkAvg = (dkTotal / dkCount) * 0.95;
-                    dkAvgInput.value = dkAvg.toFixed(0);
-                } else {
-                    dkAvgInput.value = '';
-                }
-
-                // Validasi Attendance DK
-                let att = parseFloat(dkAttInput.value);
-                if (isNaN(att)) att = 0;
-                if (att > 5) { att = 5; dkAttInput.value = 5; }
-                if (att < 0) { att = 0; dkAttInput.value = 0; }
-
-                // Final Score DK
-                if (dkCount > 0 || dkAttInput.value !== '') {
-                    const finalScore = dkAvg + att;
-                    dkFinalInput.value = finalScore.toFixed(0);
-                } else {
-                    dkFinalInput.value = '';
-                }
+                // Validasi max=5 min=0 jika Att lain diisi manual
+                attInputs.forEach(att => {
+                    att.addEventListener('input', function() {
+                        let numVal = parseFloat(this.value);
+                        if (!isNaN(numVal)) {
+                            if (numVal > 5) this.value = 5;
+                            if (numVal < 0) this.value = 0;
+                        }
+                    });
+                });
             }
 
-            // === Event Listeners ===
-            ctInput.addEventListener('input', calculateKUSection);
-            kuInputs.forEach(input => input.addEventListener('input', calculateKUSection));
-            hwInputs.forEach(input => input.addEventListener('input', calculateKUSection));
-            kuAttInput.addEventListener('input', calculateKUSection);
+            // ================= VALIDASI LETTER INPUT (A, B, C, D) =================
+            const letterInputs = row.querySelectorAll('.letter-input');
+            letterInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    // Ambil huruf pertama, ubah ke Kapital
+                    let val = this.value.charAt(0).toUpperCase();
 
-            dkInputs.forEach(input => input.addEventListener('input', calculateDK));
-            dkAttInput.addEventListener('input', calculateDK);
-
-            // === Initial Calculation Saat Halaman Dimuat ===
-            calculateKUSection();
-            calculateDK();
+                    // Cek ketersediaan di array A, B, C, D
+                    if (val && !['A', 'B', 'C', 'D'].includes(val)) {
+                        this.value = ''; // Hapus otomatis
+                    } else {
+                        this.value = val; // Set otomatis ke uppercase
+                    }
+                });
+            });
         });
     });
 </script>
