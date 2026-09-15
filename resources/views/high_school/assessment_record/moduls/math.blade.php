@@ -42,7 +42,7 @@
                 <th>Exercise 1</th>
                 <th>Exercise 2</th>
                 <th>Exercise 3</th>
-                <th>AVG X 25%</th>
+                <th>AVG X 15%</th>
                 <th>HW 1</th>
                 <th>HW 2</th>
                 <th>AVG X 10%</th>
@@ -170,7 +170,7 @@
                     ex: row.querySelectorAll('.ps-ex'), exAvg: row.querySelector('.ps-ex-avg'),
                     hw: row.querySelectorAll('.ps-hw'), hwAvg: row.querySelector('.ps-hw-avg'),
                     total: row.querySelector('.ps-total'), att: attInputs[1],
-                    weights: { ct: 0.40, proj: 0.30, ex: 0.25, hw: 0.10 }
+                    weights: { ct: 0.40, proj: 0.30, ex: 0.15, hw: 0.10 }
                 },
                 {
                     // 2: Demonstrate Knowledge (Project 95%, Att)
