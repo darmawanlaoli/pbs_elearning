@@ -42,7 +42,7 @@
                 <th>Exercise 1</th>
                 <th>Exercise 2</th>
                 <th>Exercise 3</th>
-                <th>AVG X 15%</th>
+                <th>AVG X 25%</th>
                 <th>HW 1</th>
                 <th>HW 2</th>
                 <th>AVG X 10%</th>
@@ -55,7 +55,7 @@
                 <th style="background-color: #EF2278">Exercise 1</th>
                 <th style="background-color: #EF2278">Exercise 2</th>
                 <th style="background-color: #EF2278">Exercise 3</th>
-                <th style="background-color: #EF2278">AVG X 25%</th>
+                <th style="background-color: #EF2278">AVG X 15%</th>
                 <th style="background-color: #EF2278">HW 1</th>
                 <th style="background-color: #EF2278">HW 2</th>
                 <th style="background-color: #EF2278">AVG X 10%</th>

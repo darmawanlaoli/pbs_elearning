@@ -230,8 +230,51 @@ class AssessmentRecord extends Controller
                         'active_participation' => $data['active_participation'] ?? null,
                         'social_responsibility' => $data['social_responsibility'] ?? null,
 
-                        // IMYC
-                        'imyc_geo' => $data['imyc_geo'] ?? null,
+                        //lang reading
+                        'lang_reading_ct' => $data['lang_reading_ct'] ?? null,
+                        'lang_reading_avg_ct' => $data['lang_reading_avg_ct'] ?? null,
+                        'lang_reading_exer1' => $data['lang_reading_exer1'] ?? null,
+                        'lang_reading_exer2' => $data['lang_reading_exer2'] ?? null,
+                        'lang_reading_exer3' => $data['lang_reading_exer3'] ?? null,
+                        'lang_reading_exer_avg' => $data['lang_reading_exer_avg'] ?? null,
+                        'lang_reading_hw1' => $data['lang_reading_hw1'] ?? null,
+                        'lang_reading_hw2' => $data['lang_reading_hw2'] ?? null,
+                        'lang_reading_hw_avg' => $data['lang_reading_hw_avg'] ?? null,
+                        'lang_reading_total' => $data['lang_reading_total'] ?? null,
+
+                        //lang listening
+                        'lang_listening_ct' => $data['lang_listening_ct'] ?? null,
+                        'lang_listening_avg_ct' => $data['lang_listening_avg_ct'] ?? null,
+                        'lang_listening_exer1' => $data['lang_listening_exer1'] ?? null,
+                        'lang_listening_exer2' => $data['lang_listening_exer2'] ?? null,
+                        'lang_listening_exer3' => $data['lang_listening_exer3'] ?? null,
+                        'lang_listening_exer_avg' => $data['lang_listening_exer_avg'] ?? null,
+                        'lang_listening_total' => $data['lang_listening_total'] ?? null,
+
+                        //lang writing
+                        'lang_writing_ct' => $data['lang_writing_ct'] ?? null,
+                        'lang_writing_avg_ct' => $data['lang_writing_avg_ct'] ?? null,
+                        'lang_writing_exer1' => $data['lang_writing_exer1'] ?? null,
+                        'lang_writing_exer2' => $data['lang_writing_exer2'] ?? null,
+                        'lang_writing_exer3' => $data['lang_writing_exer3'] ?? null,
+                        'lang_writing_exer_avg' => $data['lang_writing_exer_avg'] ?? null,
+                        'lang_writing_hw1' => $data['lang_writing_hw1'] ?? null,
+                        'lang_writing_hw2' => $data['lang_writing_hw2'] ?? null,
+                        'lang_writing_hw_avg' => $data['lang_writing_hw_avg'] ?? null,
+                        'lang_writing_total' => $data['lang_writing_total'] ?? null,
+
+                        //lang speaking
+                        'lang_speaking_ct' => $data['lang_speaking_ct'] ?? null,
+                        'lang_speaking_avg_ct' => $data['lang_speaking_avg_ct'] ?? null,
+                        'lang_speaking_exer1' => $data['lang_speaking_exer1'] ?? null,
+                        'lang_speaking_exer2' => $data['lang_speaking_exer2'] ?? null,
+                        'lang_speaking_exer3' => $data['lang_speaking_exer3'] ?? null,
+                        'lang_speaking_exer_avg' => $data['lang_speaking_exer_avg'] ?? null,
+                        'lang_speaking_total' => $data['lang_speaking_total'] ?? null,
+
+
+                    // IMYC
+                    'imyc_geo' => $data['imyc_geo'] ?? null,
                         'imyc_geo_att' => $data['imyc_geo_att'] ?? null,
                         'imyc_geo_total' => $data['imyc_geo_total'] ?? null,
                         'imyc_science' => $data['imyc_science'] ?? null,
