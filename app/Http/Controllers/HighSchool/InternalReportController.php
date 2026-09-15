@@ -105,32 +105,45 @@ class InternalReportController extends Controller
         $rawData = DB::table('hs_assessment_record_details as detail')
             ->join('hs_assessment_records as record', 'detail.id_assesment', '=', 'record.id')
             ->join('hs_report_subjects as subject', 'record.subject', '=', 'subject.subject')
-            ->select('detail.name', 'subject.subject as subject_name', 'subject.initial', 'detail.ku_total', 'detail.dk_total')
+            ->select('detail.name', 'subject.subject as subject_name', 'subject.initial', 'detail.ku_total', 'detail.dk_total', 'detail.lang_total_ku', 'detail.lang_total_dk')
             ->where('record.class', $class)
             ->orderBy('detail.name')
             ->get();
 
-        // 3. Pivot data & hitung total nilai menggunakan Collection
+        // 3. Pivot data & hitung total nilai
         $students = $rawData->groupBy('name')->map(function ($items, $studentName) {
             $kuScores = [];
             $dkScores = [];
+            $langKuScores = [];
+            $langDkScores = [];
+
+            // Daftar subject bahasa
+            $languageSubjects = ['Bahasa Indonesia', 'English'];
 
             foreach ($items as $item) {
-                $kuScores[$item->subject_name] = $item->ku_total;
-                $dkScores[$item->subject_name] = $item->dk_total;
+                if (in_array($item->subject_name, $languageSubjects)) {
+                    // Simpan ke array khusus bahasa
+                    $langKuScores[$item->subject_name] = $item->lang_total_ku;
+                    $langDkScores[$item->subject_name] = $item->lang_total_dk;
+                } else {
+                    // Simpan ke array reguler
+                    $kuScores[$item->subject_name] = $item->ku_total;
+                    $dkScores[$item->subject_name] = $item->dk_total;
+                }
             }
 
             $totalKu = $items->sum('ku_total');
             $totalDk = $items->sum('dk_total');
-            $grandTotal = $totalKu + $totalDk;
 
             return [
-                'name'        => $studentName,
-                'ku_total'    => $kuScores,
-                'dk_total'    => $dkScores,
-                'total_ku'    => $totalKu,
-                'total_dk'    => $totalDk,
-                'grand_total' => $grandTotal,
+                'name'          => $studentName,
+                'ku_total'      => $kuScores,
+                'dk_total'      => $dkScores,
+                'lang_total_ku' => $langKuScores,
+                'lang_total_dk' => $langDkScores,
+                'total_ku'      => $totalKu,
+                'total_dk'      => $totalDk,
+                'grand_total'   => $totalKu + $totalDk,
             ];
         })->values();
 

@@ -169,6 +169,7 @@
 
                         <tr>
                             {{-- Looping untuk kolom KU dan DK --}}
+
                             @foreach ($subjects as $mapel)
                             <th style="background-color: #0182cd;">KU</th>
                             <th style="background-color: #0182cd;">DK</th>
@@ -184,16 +185,19 @@
                             <td class="text-center fw-bold bg-success text-white">{{ $student['rank'] }}</td>
                             <td class="text-center fw-bold bg-success text-white">{{ $student['grand_total'] }}</td>
 
-                            {{-- Panggil data nilai menggunakan $mapel->subject sebagai key --}}
                             @foreach ($subjects as $mapel)
+                            @if(in_array($mapel->subject, ['Bahasa Indonesia', 'English']))
+                            <td class="text-center">{{ $student['lang_total_ku'][$mapel->subject] ?? '-' }}</td>
+                            <td class="text-center">{{ $student['lang_total_dk'][$mapel->subject] ?? '-' }}</td>
+                            @else
                             <td class="text-center">{{ $student['ku_total'][$mapel->subject] ?? '-' }}</td>
                             <td class="text-center">{{ $student['dk_total'][$mapel->subject] ?? '-' }}</td>
+                            @endif
                             @endforeach
                         </tr>
                         @empty
                         <tr>
-                            {{-- count($subjects) dikali 2 karena 1 mapel ada 2 kolom (KU & DK) --}}
-                            <td colspan="{{ (count($subjects) * 2) + 2 }}" class="text-center">Tidak ada data nilai.</td>
+                            <td colspan="{{ (count($subjects) * 2) + 4 }}" class="text-center">Tidak ada data nilai.</td>
                         </tr>
                         @endforelse
                     </tbody>
