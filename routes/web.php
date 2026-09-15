@@ -323,7 +323,8 @@ Route::middleware(['auth:hsadmin', 'role:hsadmin'])->group(function () {
     Route::post('high_school/database/students/store', [HighSchoolDatabaseStudents::class, 'store'])->name('high_school.database.students.store');
     Route::delete('high_school/database/students/{id}/destroy', [HighSchoolDatabaseStudents::class, 'destroy'])->name('high_school.database.students.destroy');
     Route::get('high_school/database/students/{id}/detail', [HighSchoolDatabaseStudents::class, 'detail'])->name('high_school.database.students.detail');
-
+    Route::get('high_school/database/students/edit', [HighSchoolDatabaseStudents::class, 'edit'])->name('high_school.database.students.edit');
+    Route::put('high_school/database/students/bulk-update', [HighSchoolDatabaseStudents::class, 'bulkUpdate'])->name('high_school.database.students.bulk-update');
     // routes database teacher - high school
     Route::get('high_school/database/teachers', [HighSchoolDatabaseTeachers::class, 'index'])->name('high_school.database.teachers');
     Route::get('high_school/database/teachers/create', [HighSchoolDatabaseTeachers::class, 'create'])->name('high_school.database.teachers.create');

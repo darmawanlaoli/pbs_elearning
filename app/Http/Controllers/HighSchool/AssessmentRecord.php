@@ -272,9 +272,13 @@ class AssessmentRecord extends Controller
                         'lang_speaking_exer_avg' => $data['lang_speaking_exer_avg'] ?? null,
                         'lang_speaking_total' => $data['lang_speaking_total'] ?? null,
 
+                        'lang_total_ku' => $data['lang_total_ku'] ?? null,
+                        'lang_total_dk' => $data['lang_total_dk'] ?? null,
 
-                    // IMYC
-                    'imyc_geo' => $data['imyc_geo'] ?? null,
+
+
+                        // IMYC
+                        'imyc_geo' => $data['imyc_geo'] ?? null,
                         'imyc_geo_att' => $data['imyc_geo_att'] ?? null,
                         'imyc_geo_total' => $data['imyc_geo_total'] ?? null,
                         'imyc_science' => $data['imyc_science'] ?? null,

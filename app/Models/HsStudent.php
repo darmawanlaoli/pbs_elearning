@@ -18,6 +18,7 @@ class HsStudent extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'reg_number',
         'name',
         'username',
         'password',

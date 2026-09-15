@@ -31,7 +31,6 @@
                     <form class="position-relative" action="" method="GET">
                         <div class="row">
 
-
                         </div>
 
                         <div class="input-group mb-3">
@@ -52,10 +51,16 @@
                 @if(session('role') == 'hsadmin')
                 <div
                     class="col-md-8 col-xl-9 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0">
-                    <a href="{{ route('high_school.database.teachers.create') }}" id="btn-add-contact"
-                        class="btn btn-info d-flex align-items-center">
+                    <a href="{{ route('high_school.database.students.create') }}" id="btn-add-contact"
+                        class="btn btn-info d-flex align-items-center m-1">
                         <i class="ti ti-users text-white me-1 fs-5"></i> Add Student
                     </a>
+
+                    <a href="{{ route('high_school.database.students.edit') }}" id="btn-add-contact"
+                        class="btn btn-info d-flex align-items-center m-1">
+                        <i class="ti ti-pencil text-white me-1 fs-5 p-2"></i> Edit
+                    </a>
+
                 </div>
                 @endif;
             </div>

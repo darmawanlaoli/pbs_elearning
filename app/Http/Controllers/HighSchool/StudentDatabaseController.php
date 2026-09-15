@@ -5,7 +5,9 @@ namespace App\Http\Controllers\HighSchool;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\HsStudent;
+use App\Models\HsClass;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class StudentDatabaseController extends Controller
 {
@@ -61,12 +63,40 @@ class StudentDatabaseController extends Controller
         return redirect()->route('high_school.database.students')->with('success', 'Data siswa berhasil tersimpan!');
     }
 
-    public function edit(string $id): View
+    public function edit()
     {
-        $title = 'Edit Cabang';
-        $path = 'Master Data';
-        $branch = Branch::findOrFail($id);
-        return view('superadmin.cabang.edit', compact('title', 'path', 'branch'));
+        $title = 'Edit Student Data';
+        $path = 'Student Data';
+        $students = HsStudent::all();
+        $classes = HsClass::all();
+        return view('high_school.student_database.edit', compact('title', 'path', 'students', 'classes'));
+    }
+
+    public function bulkUpdate(Request $request)
+    {
+        // Validasi array input
+        // $request->validate([
+        //     'students' => 'required|array',
+        //     'students.*.reg_number' => 'nullable|string',
+        //     'students.*.name'       => 'required|string',
+        //     'students.*.religion'   => 'nullable|string',
+        //     'students.*.grade'      => 'nullable|string',
+        //     'students.*.class'      => 'nullable|string',
+        // ]);
+
+        DB::transaction(function () use ($request) {
+            foreach ($request->students as $id => $data) {
+                HsStudent::where('id', $id)->update([
+                    'reg_number' => $data['reg_number'],
+                    'name'       => $data['name'],
+                    'religion'   => $data['religion'],
+                    'grade'      => $data['grade'],
+                    'class'      => $data['class'],
+                ]);
+            }
+        });
+
+        return redirect()->back()->with('success', 'Data siswa berhasil diperbarui!');
     }
 
     public function update(Request $request, $id){

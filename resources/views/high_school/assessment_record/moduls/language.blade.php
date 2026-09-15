@@ -8,6 +8,7 @@
                 <th style="background-color: #EF2278" colspan="19">Comprehension</th>
                 <th colspan="19">Communication</th>
                 <th style="background-color: #EF2278" colspan="4">Demonstrate Knowledge</th>
+                <th style="background-color: #00a226" colspan="2">Final Score</th>
                 <th rowspan="3">Management <br> Skill</th>
                 <th rowspan="3">Active <br> Participation</th>
                 <th rowspan="3">Social <br> Responsibility</th>
@@ -46,6 +47,10 @@
                 <th style="background-color: #EF2278" rowspan="2">AVG 95%</th>
                 <th style="background-color: #EF2278" rowspan="2">Att 5%</th>
                 <th style="background-color: #EF2278" rowspan="2">Total</th>
+
+                {{-- final score --}}
+                <th style="background-color: #00a226" rowspan="2">KU</th>
+                <th style="background-color: #00a226" rowspan="2">DK</th>
             </tr>
 
             <tr class="text-center">
@@ -229,6 +234,18 @@
                 <td class="total"><input type="number" value="{{ $ass->dk_total ?? '' }}" class="score-input dk-total"
                         name="students[{{ $ass->id }}][dk_total]" readonly></td>
 
+                {{-- Ganti baris input Final Score Anda menjadi seperti ini --}}
+                <td>
+                    <input type="number" readonly class="score-input lang-total-ku" name="students[{{ $ass->id }}][lang_total_ku]"
+                        value="{{ $ass->lang_total_ku ?? '' }}">
+                </td>
+
+                <td>
+                    <input type="number" readonly class="score-input lang-total-dk" name="students[{{ $ass->id }}][lang_total_dk]"
+                        value="{{ $ass->lang_total_dk ?? '' }}">
+                </td>
+
+
                 {{-- ================= LETTER INPUTS ================= --}}
                 <td><input type="text" value="{{ $ass->management_skill ?? '' }}" class="score-input letter-input"
                         name="students[{{ $ass->id }}][management_skill]" pattern="[A-Da-d]" maxlength="1"></td>
@@ -244,190 +261,212 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const rows = document.querySelectorAll('tbody tr');
+    const rows = document.querySelectorAll('tbody tr');
 
-        rows.forEach(row => {
-            // Semua input attendance di dalam baris ini
-            const attInputs = Array.from(row.querySelectorAll('input[name*="[attendance]"]'));
+    rows.forEach(row => {
+        // Semua input attendance di dalam baris ini
+        const attInputs = Array.from(row.querySelectorAll('input[name*="[attendance]"]'));
 
-            // Definisi Seksi untuk Kalkulasi Dinamis
-            const sections = [
-                {
-                    // 0: Understanding Concept (CT 60%, Ex 25%, HW 10%, Att)
-                    ct: row.querySelector('.uc-ct'), ctAvg: row.querySelector('.uc-ct-avg'),
-                    ex: row.querySelectorAll('.uc-ex'), exAvg: row.querySelector('.uc-ex-avg'),
-                    hw: row.querySelectorAll('.uc-hw'), hwAvg: row.querySelector('.uc-hw-avg'),
-                    total: row.querySelector('.uc-total'), att: attInputs[0],
-                    weights: { ct: 0.60, ex: 0.25, hw: 0.10 }
-                },
-                {
-                    // 1: Reading (CT 60%, Ex 25%, HW 10%, Att)
-                    ct: row.querySelector('.read-ct'), ctAvg: row.querySelector('.read-ct-avg'),
-                    ex: row.querySelectorAll('.read-ex'), exAvg: row.querySelector('.read-ex-avg'),
-                    hw: row.querySelectorAll('.read-hw'), hwAvg: row.querySelector('.read-hw-avg'),
-                    total: row.querySelector('.read-total'), att: attInputs[1],
-                    weights: { ct: 0.60, ex: 0.25, hw: 0.10 }
-                },
-                {
-                    // 2: Listening (CT 70%, Ex 25%, Att)
-                    ct: row.querySelector('.list-ct'), ctAvg: row.querySelector('.list-ct-avg'),
-                    ex: row.querySelectorAll('.list-ex'), exAvg: row.querySelector('.list-ex-avg'),
-                    total: row.querySelector('.list-total'), att: attInputs[2],
-                    weights: { ct: 0.70, ex: 0.25 }
-                },
-                {
-                    // 3: Writing (CT 60%, Ex 25%, HW 10%, Att)
-                    ct: row.querySelector('.writ-ct'), ctAvg: row.querySelector('.writ-ct-avg'),
-                    ex: row.querySelectorAll('.writ-ex'), exAvg: row.querySelector('.writ-ex-avg'),
-                    hw: row.querySelectorAll('.writ-hw'), hwAvg: row.querySelector('.writ-hw-avg'),
-                    total: row.querySelector('.writ-total'), att: attInputs[3],
-                    weights: { ct: 0.60, ex: 0.25, hw: 0.10 }
-                },
-                {
-                    // 4: Speaking (CT 70%, Ex 25%, Att)
-                    ct: row.querySelector('.speak-ct'), ctAvg: row.querySelector('.speak-ct-avg'),
-                    ex: row.querySelectorAll('.speak-ex'), exAvg: row.querySelector('.speak-ex-avg'),
-                    total: row.querySelector('.speak-total'), att: attInputs[4],
-                    weights: { ct: 0.70, ex: 0.25 }
-                },
-                {
-                    // 5: Demonstrate Knowledge (Project 95%, Att)
-                    ex: row.querySelectorAll('.dk-proj'), exAvg: row.querySelector('.dk-proj-avg'),
-                    total: row.querySelector('.dk-total'), att: attInputs[5],
-                    weights: { ex: 0.95 }
-                }
-            ];
+        // Input Final Score Target
+        const inputKuTotal = row.querySelector('.lang-total-ku');
+        const inputDkTotal = row.querySelector('.lang-total-dk');
 
-            // Fungsi Kalkulasi Per-Seksi
-            function calculateSection(sec) {
-                let totalScore = 0;
-                let hasInput = false;
+        // Definisi Seksi untuk Kalkulasi Dinamis
+        const sections = [
+            {
+                // 0: Understanding Concept (CT 60%, Ex 25%, HW 10%, Att)
+                ct: row.querySelector('.uc-ct'), ctAvg: row.querySelector('.uc-ct-avg'),
+                ex: row.querySelectorAll('.uc-ex'), exAvg: row.querySelector('.uc-ex-avg'),
+                hw: row.querySelectorAll('.uc-hw'), hwAvg: row.querySelector('.uc-hw-avg'),
+                total: row.querySelector('.uc-total'), att: attInputs[0],
+                weights: { ct: 0.60, ex: 0.25, hw: 0.10 }
+            },
+            {
+                // 1: Reading (CT 60%, Ex 25%, HW 10%, Att)
+                ct: row.querySelector('.read-ct'), ctAvg: row.querySelector('.read-ct-avg'),
+                ex: row.querySelectorAll('.read-ex'), exAvg: row.querySelector('.read-ex-avg'),
+                hw: row.querySelectorAll('.read-hw'), hwAvg: row.querySelector('.read-hw-avg'),
+                total: row.querySelector('.read-total'), att: attInputs[1],
+                weights: { ct: 0.60, ex: 0.25, hw: 0.10 }
+            },
+            {
+                // 2: Listening (CT 70%, Ex 25%, Att)
+                ct: row.querySelector('.list-ct'), ctAvg: row.querySelector('.list-ct-avg'),
+                ex: row.querySelectorAll('.list-ex'), exAvg: row.querySelector('.list-ex-avg'),
+                total: row.querySelector('.list-total'), att: attInputs[2],
+                weights: { ct: 0.70, ex: 0.25 }
+            },
+            {
+                // 3: Writing (CT 60%, Ex 25%, HW 10%, Att)
+                ct: row.querySelector('.writ-ct'), ctAvg: row.querySelector('.writ-ct-avg'),
+                ex: row.querySelectorAll('.writ-ex'), exAvg: row.querySelector('.writ-ex-avg'),
+                hw: row.querySelectorAll('.writ-hw'), hwAvg: row.querySelector('.writ-hw-avg'),
+                total: row.querySelector('.writ-total'), att: attInputs[3],
+                weights: { ct: 0.60, ex: 0.25, hw: 0.10 }
+            },
+            {
+                // 4: Speaking (CT 70%, Ex 25%, Att)
+                ct: row.querySelector('.speak-ct'), ctAvg: row.querySelector('.speak-ct-avg'),
+                ex: row.querySelectorAll('.speak-ex'), exAvg: row.querySelector('.speak-ex-avg'),
+                total: row.querySelector('.speak-total'), att: attInputs[4],
+                weights: { ct: 0.70, ex: 0.25 }
+            },
+            {
+                // 5: Demonstrate Knowledge (Project 95%, Att)
+                ex: row.querySelectorAll('.dk-proj'), exAvg: row.querySelector('.dk-proj-avg'),
+                total: row.querySelector('.dk-total'), att: attInputs[5],
+                weights: { ex: 0.95 }
+            }
+        ];
 
-                // Chapter Test
-                if (sec.ct) {
-                    let val = parseFloat(sec.ct.value);
-                    if (!isNaN(val)) {
-                        let avg = val * sec.weights.ct;
-                        if(sec.ctAvg) sec.ctAvg.value = avg.toFixed(0);
-                        totalScore += avg;
-                        hasInput = true;
-                    } else {
-                        if(sec.ctAvg) sec.ctAvg.value = '';
-                    }
-                }
+        // Fungsi Kalkulasi Per-Seksi
+        function calculateSection(sec) {
+            let totalScore = 0;
+            let hasInput = false;
 
-                // Exercises & Project
-                if (sec.ex && sec.ex.length > 0) {
-                    let exTot = 0, count = 0;
-                    sec.ex.forEach(inp => {
-                        let val = parseFloat(inp.value);
-                        if (!isNaN(val)) { exTot += val; count++; }
-                    });
-                    if (count > 0) {
-                        let avg = (exTot / count) * sec.weights.ex;
-                        if(sec.exAvg) sec.exAvg.value = avg.toFixed(0);
-                        totalScore += avg;
-                        hasInput = true;
-                    } else {
-                        if(sec.exAvg) sec.exAvg.value = '';
-                    }
-                }
-
-                // Homework
-                if (sec.hw && sec.hw.length > 0) {
-                    let hwTot = 0, count = 0;
-                    sec.hw.forEach(inp => {
-                        let val = parseFloat(inp.value);
-                        if (!isNaN(val)) { hwTot += val; count++; }
-                    });
-                    if (count > 0) {
-                        let avg = (hwTot / count) * sec.weights.hw;
-                        if(sec.hwAvg) sec.hwAvg.value = avg.toFixed(0);
-                        totalScore += avg;
-                        hasInput = true;
-                    } else {
-                        if(sec.hwAvg) sec.hwAvg.value = '';
-                    }
-                }
-
-                // Attendance
-                if (sec.att) {
-                    let val = parseFloat(sec.att.value);
-                    if (!isNaN(val)) {
-                        totalScore += val;
-                        hasInput = true;
-                    }
-                }
-
-                // Final Total Input
-                if (sec.total) {
-                    sec.total.value = hasInput ? totalScore.toFixed(0) : '';
+            // Chapter Test
+            if (sec.ct) {
+                let val = parseFloat(sec.ct.value);
+                if (!isNaN(val)) {
+                    let avg = val * sec.weights.ct;
+                    if(sec.ctAvg) sec.ctAvg.value = avg.toFixed(0);
+                    totalScore += avg;
+                    hasInput = true;
+                } else {
+                    if(sec.ctAvg) sec.ctAvg.value = '';
                 }
             }
 
-            // Bind Event Listeners Untuk Setiap Nilai di Masing-masing Seksi
-            sections.forEach(sec => {
-                const triggerCalc = () => calculateSection(sec);
-                if (sec.ct) sec.ct.addEventListener('input', triggerCalc);
-                if (sec.ex) sec.ex.forEach(inp => inp.addEventListener('input', triggerCalc));
-                if (sec.hw) sec.hw.forEach(inp => inp.addEventListener('input', triggerCalc));
-                if (sec.att) sec.att.addEventListener('input', triggerCalc);
+            // Exercises & Project
+            if (sec.ex && sec.ex.length > 0) {
+                let exTot = 0, count = 0;
+                sec.ex.forEach(inp => {
+                    let val = parseFloat(inp.value);
+                    if (!isNaN(val)) { exTot += val; count++; }
+                });
+                if (count > 0) {
+                    let avg = (exTot / count) * sec.weights.ex;
+                    if(sec.exAvg) sec.exAvg.value = avg.toFixed(0);
+                    totalScore += avg;
+                    hasInput = true;
+                } else {
+                    if(sec.exAvg) sec.exAvg.value = '';
+                }
+            }
 
-                // Initial kalkulasi saat web direfresh
-                triggerCalc();
+            // Homework
+            if (sec.hw && sec.hw.length > 0) {
+                let hwTot = 0, count = 0;
+                sec.hw.forEach(inp => {
+                    let val = parseFloat(inp.value);
+                    if (!isNaN(val)) { hwTot += val; count++; }
+                });
+                if (count > 0) {
+                    let avg = (hwTot / count) * sec.weights.hw;
+                    if(sec.hwAvg) sec.hwAvg.value = avg.toFixed(0);
+                    totalScore += avg;
+                    hasInput = true;
+                } else {
+                    if(sec.hwAvg) sec.hwAvg.value = '';
+                }
+            }
+
+            // Attendance
+            if (sec.att) {
+                let val = parseFloat(sec.att.value);
+                if (!isNaN(val)) {
+                    totalScore += val;
+                    hasInput = true;
+                }
+            }
+
+            // Final Total Input per Seksi
+            if (sec.total) {
+                sec.total.value = hasInput ? totalScore.toFixed(0) : '';
+            }
+
+            // Update Total KU dan DK setiap kali kalkulasi seksi selesai
+            updateFinalScores();
+        }
+
+        // Fungsi untuk kalkulasi Final Score (KU & DK)
+        function updateFinalScores() {
+            // KU: Penjumlahan dari seksi index 0 sampai 4 (UC, Reading, Listening, Writing, Speaking)
+            let sumKu = 0;
+            let countKu = 0;
+
+            for (let i = 0; i <= 4; i++) { let val=parseFloat(sections[i].total.value); if (!isNaN(val)) { sumKu +=val; countKu++; }
+                } if (inputKuTotal) { let avgKu=countKu> 0 ? (sumKu / countKu) : 0;
+                inputKuTotal.value = countKu > 0 ? avgKu.toFixed(0) : '';
+                }
+
+            // DK: Ambil total dari seksi index 5 (Demonstrate Knowledge)
+            let valDk = parseFloat(sections[5].total.value);
+            if (inputDkTotal) {
+                inputDkTotal.value = !isNaN(valDk) ? valDk.toFixed(0) : '';
+            }
+        }
+
+        // Bind Event Listeners Untuk Setiap Nilai di Masing-masing Seksi
+        sections.forEach(sec => {
+            const triggerCalc = () => calculateSection(sec);
+            if (sec.ct) sec.ct.addEventListener('input', triggerCalc);
+            if (sec.ex) sec.ex.forEach(inp => inp.addEventListener('input', triggerCalc));
+            if (sec.hw) sec.hw.forEach(inp => inp.addEventListener('input', triggerCalc));
+            if (sec.att) sec.att.addEventListener('input', triggerCalc);
+        });
+
+        // ================= SINKRONISASI ATTENDANCE =================
+        if (attInputs.length > 0) {
+            const mainAtt = attInputs[0]; // Att di kolom Understanding Concept
+
+            mainAtt.addEventListener('input', function() {
+                let val = this.value;
+                if (val !== '') {
+                    let numVal = parseFloat(val);
+                    if (numVal > 5) val = 5;
+                    if (numVal < 0) val = 0;
+                    this.value = val;
+                }
+
+                // Sinkronisasi otomatis ke Att lain dalam baris ini
+                attInputs.forEach((att, idx) => {
+                    if (idx !== 0) {
+                        att.value = this.value;
+                    }
+                });
+
+                // Trigger perbaruan total di seluruh seksi
+                sections.forEach(sec => calculateSection(sec));
             });
 
-            // ================= SINKRONISASI ATTENDANCE =================
-            if (attInputs.length > 0) {
-                const mainAtt = attInputs[0]; // Att di kolom Understanding Concept
-
-                mainAtt.addEventListener('input', function() {
-                    let val = this.value;
-                    if (val !== '') {
-                        let numVal = parseFloat(val);
-                        if (numVal > 5) val = 5;
-                        if (numVal < 0) val = 0;
-                        this.value = val;
-                    }
-
-                    // Sinkronisasi otomatis ke Att lain dalam baris ini
-                    attInputs.forEach((att, idx) => {
-                        if (idx !== 0) {
-                            att.value = this.value;
-                        }
-                    });
-
-                    // Trigger perbaruan total di seluruh seksi
-                    sections.forEach(sec => calculateSection(sec));
-                });
-
-                // Validasi max=5 min=0 jika Att lain diisi manual
-                attInputs.forEach(att => {
-                    att.addEventListener('input', function() {
-                        let numVal = parseFloat(this.value);
-                        if (!isNaN(numVal)) {
-                            if (numVal > 5) this.value = 5;
-                            if (numVal < 0) this.value = 0;
-                        }
-                    });
-                });
-            }
-
-            // ================= VALIDASI LETTER INPUT (A, B, C, D) =================
-            const letterInputs = row.querySelectorAll('.letter-input');
-            letterInputs.forEach(input => {
-                input.addEventListener('input', function() {
-                    // Ambil huruf pertama, ubah ke Kapital
-                    let val = this.value.charAt(0).toUpperCase();
-
-                    // Cek ketersediaan di array A, B, C, D
-                    if (val && !['A', 'B', 'C', 'D'].includes(val)) {
-                        this.value = ''; // Hapus otomatis
-                    } else {
-                        this.value = val; // Set otomatis ke uppercase
+            // Validasi max=5 min=0 jika Att lain diisi manual
+            attInputs.forEach(att => {
+                att.addEventListener('input', function() {
+                    let numVal = parseFloat(this.value);
+                    if (!isNaN(numVal)) {
+                        if (numVal > 5) this.value = 5;
+                        if (numVal < 0) this.value = 0;
                     }
                 });
+            });
+        }
+
+        // ================= VALIDASI LETTER INPUT (A, B, C, D) =================
+        const letterInputs = row.querySelectorAll('.letter-input');
+        letterInputs.forEach(input => {
+            input.addEventListener('input', function() {
+                let val = this.value.charAt(0).toUpperCase();
+                if (val && !['A', 'B', 'C', 'D'].includes(val)) {
+                    this.value = '';
+                } else {
+                    this.value = val;
+                }
             });
         });
+
+        // Inisialisasi Kalkulasi Awal saat halaman dimuat
+        sections.forEach(sec => calculateSection(sec));
     });
+});
 </script>
