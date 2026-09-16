@@ -47,15 +47,6 @@
                             <td>{{ $assessment->academic_year . ' - '. $assessment->term }}</td>
                             <td class="d-flex">
                                 <div class="d-flex justify-content-center gap-1 flex-wrap">
-                                    <form id="deleteForm-{{ $assessment->id }}"
-                                        action="{{ route('hs_teacher.lesson_material.destroy', $assessment->id) }}"
-                                        method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button tabindex="0" data-bs-toggle="tooltip" title="Hapus"
-                                            class="btn btn-sm btn-danger"><i
-                                                class="ti ti-trash"></i></button>
-                                    </form>
 
                                     <form action="{{ route('kindergarten.assessment_record.input', $assessment->id) }}"
                                         method="GET">
