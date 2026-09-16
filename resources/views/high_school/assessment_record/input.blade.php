@@ -200,6 +200,8 @@
                 @if (
                     $assessment->subject == 'Physical Education' ||
                         $assessment->subject == 'Music' ||
+                        $assessment->subject == 'Performing Arts' ||
+                        $assessment->subject == 'Digital Marketing' ||
                         $assessment->subject == 'Art' ||
                         $assessment->subject == 'Visual Art' ||
                         $assessment->subject == 'Design and Technology')
