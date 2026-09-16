@@ -220,6 +220,7 @@ class InternalReportController extends Controller
             ->get();
         $reportDataDetails = DB::table('hs_report_data_details')
             ->where('class', $class)
+            ->orderBy('name', 'ASC')
             ->get();
         $reportData = DB::table('hs_report_data')
             ->where('class', $class)
@@ -382,7 +383,7 @@ class InternalReportController extends Controller
         return view('high_school.assessment_record.input', compact('title', 'path', 'subject', 'class', 'subject', 'students', 'assessment', 'assessments', 'assessmentLists'));
     }
 
-    public function updateReportData(Request $request)
+    public function updateReportDaata(Request $request)
     {
         $students = $request->input('students', []);
 
