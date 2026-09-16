@@ -201,8 +201,8 @@
                     <img style="margin: auto; display: block; width: 100px; margin-top: 30px; margin-bottom: 15px"
                         src="https://elearning.peachblossomsschool.sch.id/assets/images/logos/logo.png" alt="">
 
-                    <h4 class="text-center mt-2 mb-4"><b>PROGRESS REPORT CARD <br> SEMESTER II <br> ACADEMIC YEAR
-                            2025/2026</b>
+                    <h4 class="text-center mt-2 mb-4"><b>PROGRESS REPORT CARD <br> SEMESTER I <br> ACADEMIC YEAR
+                            2026/2027</b>
                     </h4>
 
 

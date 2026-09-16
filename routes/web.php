@@ -134,7 +134,7 @@ Route::middleware(['auth:kindergartenteacher', 'role:kindergartenteacher'])->gro
     Route::get('kindergarten/assessment_record', [KindergartenAssessmentRecord::class, 'index'])->name('kindergarten.assessment_record');
     Route::get('kindergarten/assessment_record/create', [KindergartenAssessmentRecord::class, 'create'])->name('kindergarten.assessment_record.create');
     Route::post('kindergarten/assessment_record/store', [KindergartenAssessmentRecord::class, 'store'])->name('kindergarten.assessment_record.store');
-    Route::post('kindergarten/assessment_record/{id}/input', [KindergartenAssessmentRecord::class, 'input'])->name('kindergarten.assessment_record.input');
+    Route::get('kindergarten/assessment_record/{id}/input', [KindergartenAssessmentRecord::class, 'input'])->name('kindergarten.assessment_record.input');
     Route::put('kindergarten/assessment_record/input_action', [KindergartenAssessmentRecord::class, 'inputAction'])->name('kindergarten.assessment_record.input_action');
     Route::post('kindergarten/assessment_record/{id}/report_data', [KindergartenAssessmentRecord::class, 'reportData'])->name('kindergarten.assessment_record.report_data');
     Route::put('kindergarten/assessment_record/store_report_data', [KindergartenAssessmentRecord::class, 'storeReportData'])->name('kindergarten.assessment_record.store_report_data');

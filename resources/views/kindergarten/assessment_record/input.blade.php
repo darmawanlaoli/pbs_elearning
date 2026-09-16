@@ -120,6 +120,8 @@
         @include('kindergarten.assessment_record.moduls.k1')
         @elseif($assessments->contains(fn($item) => str_contains($item->class, 'K2')))
         @include('kindergarten.assessment_record.moduls.k2')
+        @elseif($assessments->contains(fn($item) => str_contains($item->class, 'Pre-K')))
+        @include('kindergarten.assessment_record.moduls.prek')
         @else
         <div class="alert alert-info mt-5">
             Form untuk kelas yang Anda pilih belum tersedia, silahkan coba beberapa saat lagi.

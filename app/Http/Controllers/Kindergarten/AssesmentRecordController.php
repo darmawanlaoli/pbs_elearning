@@ -15,7 +15,25 @@ class AssesmentRecordController extends Controller
     {
         $title = 'Assessment Record';
         $path = 'Report';
-        $assessments = DB::table('kindergarten_assesment_records')->orderBy('id', 'DESC')->get();
+        $class = session('homeroom_class');
+
+        // Ubah string terpisah koma menjadi array, pastikan tidak ada whitespace
+        $selectedClasses = $class
+            ? array_map('trim', explode(',', $class))
+            : [];
+
+        $query = DB::table('kindergarten_assesment_records');
+
+        // Gunakan whereIn jika ada kelas yang terpilih
+        if (!empty($selectedClasses)) {
+            $query->whereIn('class', $selectedClasses);
+        } else {
+            // Opsional: Jika tidak ada sesi kelas, kembalikan hasil kosong
+            $query->whereRaw('1 = 0');
+        }
+
+        $assessments = $query->orderBy('id', 'DESC')->get();
+
         return view('kindergarten/assessment_record/index', compact('title', 'path', 'assessments'));
     }
 
@@ -149,8 +167,7 @@ class AssesmentRecordController extends Controller
                 }
             });
 
-            return redirect()->route('kindergarten.assessment_record')
-                ->with('success', 'Data assessment berhasil diperbarui!');
+            return redirect()->back()->with('success', 'Data assessment berhasil diperbarui!');
 
             // 3. Kembalikan ke halaman sebelumnya dengan pesan sukses
         } catch (\Exception $e) {

@@ -58,7 +58,7 @@
                                     </form>
 
                                     <form action="{{ route('kindergarten.assessment_record.input', $assessment->id) }}"
-                                        method="POST">
+                                        method="GET">
                                         @csrf
                                         <button data-bs-toggle="tooltip" title="Input" class="btn btn-sm btn-primary"><i
                                                 class="ti ti-pencil"></i> Assesment Record</button>
