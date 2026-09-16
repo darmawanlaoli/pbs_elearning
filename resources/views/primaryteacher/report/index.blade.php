@@ -1479,7 +1479,7 @@
 
                         <tr>
 
-                            <th class="text-center" style="height: 120px;">19 December 2025</th>
+                            <th class="text-center" style="height: 120px;">25 September 2026</th>
                             <th style="vertical-align: bottom; text-align: center">({{ session('name') }})</th>
                             <th style="vertical-align: bottom; text-align: center">(Agus R. Wibowo)</th>
                         </tr>

@@ -411,9 +411,9 @@
 
                     <div class="footer">
                         @if(session('role') == 'primaryadmin')
-                        <span class="left">{{ $siswa.'/'.$class_admin.'/2025-2026' }}</span>
+                        <span class="left">{{ $siswa.'/'.$class_admin.'/2026-2027' }}</span>
                         @else
-                        <span class="left">{{ $siswa.'/'.session('homeroom_class').'/2025-2026' }}</span>
+                        <span class="left">{{ $siswa.'/'.session('homeroom_class').'/2026-2027' }}</span>
                         @endif
                         <span class="right">Page 1</span>
                     </div>
@@ -800,9 +800,9 @@
 
                     <div class="footer">
                         @if(session('role') == 'primaryadmin')
-                        <span class="left">{{ $siswa.'/'.$class_admin.'/2025-2026' }}</span>
+                        <span class="left">{{ $siswa.'/'.$class_admin.'/2026-2027' }}</span>
                         @else
-                        <span class="left">{{ $siswa.'/'.session('homeroom_class').'/2025-2026' }}</span>
+                        <span class="left">{{ $siswa.'/'.session('homeroom_class').'/2026-2027' }}</span>
                         @endif
                         <span class="right">Page 2</span>
                     </div>
@@ -1151,9 +1151,9 @@
 
                     <div class="footer">
                         @if(session('role') == 'primaryadmin')
-                        <span class="left">{{ $siswa.'/'.$class_admin.'/2025-2026' }}</span>
+                        <span class="left">{{ $siswa.'/'.$class_admin.'/2026-2027' }}</span>
                         @else
-                        <span class="left">{{ $siswa.'/'.session('homeroom_class').'/2025-2026' }}</span>
+                        <span class="left">{{ $siswa.'/'.session('homeroom_class').'/2026-2027' }}</span>
                         @endif
                         <span class="right">Page 3</span>
                     </div>
@@ -1174,7 +1174,7 @@
                         {{-- RESPONSIBILITY --}}
                         <tr class="text-center" style="font-weight: bolder;">
                             <td rowspan="2">RESPONSIBILITY</td>
-                            <td>TERM 3</td>
+                            <td>TERM 1</td>
                         </tr>
 
                         <tr class="text-center" style="font-weight: bolder;">
@@ -1197,7 +1197,7 @@
                         {{-- ORGANIZATION --}}
                         <tr class="text-center" style="font-weight: bolder;">
                             <td rowspan="2">ORGANIZATION</td>
-                            <td>TERM 3</td>
+                            <td>TERM 1</td>
                         </tr>
 
                         <tr class="text-center" style="font-weight: bolder;">
@@ -1220,7 +1220,7 @@
                         {{-- INDEPENDENT WORK --}}
                         <tr class="text-center" style="font-weight: bolder;">
                             <td rowspan="2">INDEPENDENT WORK</td>
-                            <td>TERM 3</td>
+                            <td>TERM 1</td>
                         </tr>
 
                         <tr class="text-center" style="font-weight: bolder;">
@@ -1242,7 +1242,7 @@
                         {{-- COLLABORATION --}}
                         <tr class="text-center" style="font-weight: bolder;">
                             <td rowspan="2">COLLABORATION</td>
-                            <td>TERM 3</td>
+                            <td>TERM 1</td>
                         </tr>
 
                         <tr class="text-center" style="font-weight: bolder;">
@@ -1272,7 +1272,7 @@
                         {{-- INITIATIVE --}}
                         <tr class="text-center" style="font-weight: bolder;">
                             <td rowspan="2">INITIATIVE</td>
-                            <td>TERM 3</td>
+                            <td>TERM 1</td>
                         </tr>
 
                         <tr class="text-center" style="font-weight: bolder;">
@@ -1295,7 +1295,7 @@
                         {{-- SELF-REGULATION --}}
                         <tr class="text-center" style="font-weight: bolder;">
                             <td rowspan="2">SELF-REGULATION</td>
-                            <td>TERM 3</td>
+                            <td>TERM 1</td>
                         </tr>
 
                         <tr class="text-center" style="font-weight: bolder;">
@@ -1317,9 +1317,9 @@
 
                     <div class="footer">
                         @if(session('role') == 'primaryadmin')
-                        <span class="left">{{ $siswa.'/'.$class_admin.'/2025-2026' }}</span>
+                        <span class="left">{{ $siswa.'/'.$class_admin.'/2026-2027' }}</span>
                         @else
-                        <span class="left">{{ $siswa.'/'.session('homeroom_class').'/2025-2026' }}</span>
+                        <span class="left">{{ $siswa.'/'.session('homeroom_class').'/2026-2027' }}</span>
                         @endif
                         <span class="right">Page 4</span>
                     </div>
@@ -1492,7 +1492,7 @@
                                     justify-content: center;
                                     height: 100%;
                                 ">
-                                    Term 3
+                                    Term 1
                                 </div>
                             </th>
                             <th style="width: 160px">DATE</th>
@@ -1503,7 +1503,7 @@
 
                         <tr style="font-size: 15px">
 
-                            <th style="height: 140px; text-align: center; width: 170px">11 April 2026</th>
+                            <th style="height: 140px; text-align: center; width: 170px">25 September 2026</th>
                             @if(session('role') == 'primaryadmin')
                             <th style="vertical-align: bottom; text-align: center">({{ $homeroom->name }})</th>
                             @else
@@ -1518,9 +1518,9 @@
 
                     <div class="footer">
                         @if(session('role') == 'primaryadmin')
-                        <span class="left">{{ $siswa.'/'.$class_admin.'/2025-2026' }}</span>
+                        <span class="left">{{ $siswa.'/'.$class_admin.'/2026-2027' }}</span>
                         @else
-                        <span class="left">{{ $siswa.'/'.session('homeroom_class').'/2025-2026' }}</span>
+                        <span class="left">{{ $siswa.'/'.session('homeroom_class').'/2026-2027' }}</span>
                         @endif
                         <span class="right">Page 5</span>
                     </div>
