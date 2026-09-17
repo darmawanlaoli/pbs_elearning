@@ -28,8 +28,10 @@
     <div class="card">
 
         <div class="card-body">
+            @if(session('role') == 'kindergartenteacher')
             <a href="{{ route('kindergarten.assessment_record.create') }}" class="btn btn-primary mb-2"><i
                     class="ti ti-plus"></i> Create</a>
+            @endif;
 
             <div class="table-responsive">
                 <table class="table table-bordered search-table align-middle text-nowrap">

@@ -24,12 +24,15 @@ class AssesmentRecordController extends Controller
 
         $query = DB::table('kindergarten_assesment_records');
 
-        // Gunakan whereIn jika ada kelas yang terpilih
-        if (!empty($selectedClasses)) {
-            $query->whereIn('class', $selectedClasses);
-        } else {
-            // Opsional: Jika tidak ada sesi kelas, kembalikan hasil kosong
-            $query->whereRaw('1 = 0');
+        if(session('role') == 'kindergartenteacher') {
+
+            // Gunakan whereIn jika ada kelas yang terpilih
+            if (!empty($selectedClasses)) {
+                $query->whereIn('class', $selectedClasses);
+            } else {
+                // Opsional: Jika tidak ada sesi kelas, kembalikan hasil kosong
+                $query->whereRaw('1 = 0');
+            }
         }
 
         $assessments = $query->orderBy('id', 'DESC')->get();

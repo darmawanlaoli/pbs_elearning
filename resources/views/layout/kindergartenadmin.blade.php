@@ -85,6 +85,15 @@
                                         <span class="hide-menu">Report Data</span>
                                     </a>
                                 </li>
+
+                                <li class="sidebar-item">
+                                    <a href="{{ route('kindergarten.assessment_record') }}" class="sidebar-link">
+                                        <div class="round-16 d-flex align-items-center justify-content-center">
+                                            <i class="ti ti-circle"></i>
+                                        </div>
+                                        <span class="hide-menu">Assessment Record</span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 
