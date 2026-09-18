@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AcademicYear;
 use App\Models\HsReportData;
 use App\Models\HsStudent;
+use App\Models\HsClass;
 use App\Models\HsReportDataDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -89,6 +90,7 @@ class InternalReportController extends Controller
     {
         $title = 'Internal Accumulated';
         $path = 'Report';
+        $classes = HsClass::get();
         // 1. Ambil semua mata pelajaran untuk header tabel (sesuai urutan id)
         // GANTI MENJADI INI
         if (str_contains($class, 'Y7') || str_contains($class, 'Y8') || str_contains($class, 'Y9')) {
@@ -101,13 +103,13 @@ class InternalReportController extends Controller
             ->where('unit', 'all')
             ->orWhere('unit', $unit)
             ->orderBy('sequence')
-            ->get(['id', 'subject', 'initial']);
+            ->get(['id', 'subject', 'initial', 'kkm']);
 
         // 2. Ambil data nilai dan gabungkan tabel (filter kelas jika perlu, misal: kelas tertentu)
         $rawData = DB::table('hs_assessment_record_details as detail')
             ->join('hs_assessment_records as record', 'detail.id_assesment', '=', 'record.id')
             ->join('hs_report_subjects as subject', 'record.subject', '=', 'subject.subject')
-            ->select('detail.name', 'subject.subject as subject_name', 'subject.initial', 'detail.ku_total', 'detail.dk_total', 'detail.lang_total_ku', 'detail.lang_total_dk')
+            ->select('detail.name', 'subject.subject as subject_name', 'subject.initial', 'subject.kkm', 'detail.ku_total', 'detail.dk_total', 'detail.lang_total_ku', 'detail.lang_total_dk')
             ->where('record.class', $class)
             ->orderBy('detail.name')
             ->get();
@@ -136,8 +138,6 @@ class InternalReportController extends Controller
 
             $totalKu = $items->sum('ku_total');
             $totalDk = $items->sum('dk_total');
-
-
 
             return [
                 'name'          => $studentName,
@@ -173,7 +173,7 @@ class InternalReportController extends Controller
                 ->get();
         }
 
-        return view('high_school.assessment_record.internal_accumulated', compact('title', 'path', 'subjects', 'assessmentLists', 'class', 'students'));
+        return view('high_school.assessment_record.internal_accumulated', compact('title', 'path', 'subjects', 'assessmentLists', 'class', 'students', 'classes'));
     }
 
     public function print1(string $class, Request $request)

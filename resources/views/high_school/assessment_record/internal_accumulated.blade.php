@@ -145,6 +145,8 @@
 
                 @include('high_school.assessment_record.moduls.assessment_list_btn')
 
+                @include('high_school.assessment_record.moduls.accumulated_list_btn')
+
                 <!-- Teks ini otomatis terdorong ke paling kanan -->
                 <span class="ms-auto fw-bold text-primary">{{ $class . ' - Internal Accumulated' }}</span>
             </div>
@@ -186,14 +188,31 @@
                             <td class="text-center fw-bold bg-success text-white">{{ $student['grand_total'] }}</td>
 
                             @foreach ($subjects as $mapel)
-                            @if(in_array($mapel->subject, ['Bahasa Indonesia', 'English']))
-                            <td class="text-center">{{ $student['lang_total_ku'][$mapel->subject] ?? '-' }}</td>
-                            <td class="text-center">{{ $student['lang_total_dk'][$mapel->subject] ?? '-' }}</td>
-                            @else
-                            <td class="text-center">{{ $student['ku_total'][$mapel->subject] ?? '-' }}</td>
-                            <td class="text-center">{{ $student['dk_total'][$mapel->subject] ?? '-' }}</td>
-                            @endif
-                            @endforeach
+                            @php
+                            // Ambil nilai KU & DK sesuai jenis mata pelajaran (bahasa atau reguler)
+                            if (in_array($mapel->subject, ['Bahasa Indonesia', 'English'])) {
+                            $valKu = $student['lang_total_ku'][$mapel->subject] ?? null;
+                            $valDk = $student['lang_total_dk'][$mapel->subject] ?? null;
+                            } else {
+                            $valKu = $student['ku_total'][$mapel->subject] ?? null;
+                            $valDk = $student['dk_total'][$mapel->subject] ?? null;
+                            }
+
+                            // Ambil KKM untuk mapel ini (default null / 0 jika tidak diset)
+                            $kkm = $mapel->kkm ?? null;
+
+                            // Cek apakah nilai di bawah KKM (hanya jika nilai dan KKM valid/numerik)
+                            $isKuBelowKkm = (!is_null($valKu) && !is_null($kkm) && is_numeric($valKu) && $valKu < $kkm);
+                                $isDkBelowKkm=(!is_null($valDk) && !is_null($kkm) && is_numeric($valDk) && $valDk < $kkm); @endphp <!-- Kolom KU -->
+                                <td class="text-center {{ $isKuBelowKkm ? 'bg-danger text-white fw-bold' : '' }}">
+                                    {{ $valKu ?? '-' }}
+                                </td>
+
+                                <!-- Kolom DK -->
+                                <td class="text-center {{ $isDkBelowKkm ? 'bg-danger text-white fw-bold' : '' }}">
+                                    {{ $valDk ?? '-' }}
+                                </td>
+                                @endforeach
                         </tr>
                         @empty
                         <tr>
