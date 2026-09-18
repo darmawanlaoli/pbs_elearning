@@ -10,6 +10,8 @@ use App\Models\HsReportDataDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 
 class InternalReportController extends Controller
@@ -975,5 +977,19 @@ class InternalReportController extends Controller
         });
 
         return back()->with('success', 'Assessment record berhasil disimpan.');
+    }
+
+    public function download_format_absen(): StreamedResponse
+    {
+        $filename = 'format_absen.xlsx';
+        $path = "{$filename}";
+
+        // Periksa apakah file eksis di storage
+        if (!Storage::exists($path)) {
+            abort(404, 'File tidak ditemukan.');
+        }
+
+        // Download file dengan nama asli atau kustom
+        return Storage::download($path, "Download-{$filename}");
     }
 }

@@ -30,7 +30,7 @@
 
             <div class="card-body">
 
-                <b>Formula untuk menghitung attendance <a href="http://elearning.peachblossomsschool.sch.id/Formula%20Attendance.xlsx">Download</b></p>
+                <b>Formula untuk menghitung attendance <a href="{{ route('download_format_absen') }}">Download</b></p>
                 <a href="{{ route('high_school.assessment_record.create') }}" class="btn btn-primary mb-2"><i
                         class="ti ti-plus"></i> New</a>
 

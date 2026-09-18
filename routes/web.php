@@ -139,8 +139,6 @@ Route::post('kindergarten/assessment_record/{id}/report_data', [KindergartenAsse
 Route::put('kindergarten/assessment_record/store_report_data', [KindergartenAssessmentRecord::class, 'storeReportData'])->name('kindergarten.assessment_record.store_report_data');
 Route::get('kindergarten/students/by_class', [KindergartenAssessmentRecord::class, 'getStudentsByClass'])->name('kindergarten.students.by_class');
 
-
-
 Route::middleware(['auth:kindergartenteacher', 'role:kindergartenteacher'])->group(function () {
 
     Route::post('kindergarten/assessment_record/{id}/print_preview', [KindergartenAssessmentRecord::class, 'printPreview'])->name('kindergarten.assessment_record.print_preview');
@@ -261,6 +259,8 @@ Route::post('high_school/report_data/{class}/generate_action', [HighSchoolIntern
 Route::get('high_school/report_data/{class}/input', [HighSchoolInternalReport::class, 'input'])->name('high_school.report_data.input');
 Route::put('high_school/report_data/input_action', [HighSchoolInternalReport::class, 'updateReportData'])->name('high_school.report_data.input_action');
 Route::put('high_school/report_data/{class}/submit', [HighSchoolInternalReport::class, 'submit'])->name('high_school.report_data.submit');
+
+Route::get('/download_format_absen', [HighSchoolInternalReport::class, 'download_format_absen'])->name('download_format_absen');
 
 
 Route::get('high_school/internal_report/{class}/report_data', [HighSchoolInternalReport::class, 'reportData'])->name('high_school.internal_report.report_data');
