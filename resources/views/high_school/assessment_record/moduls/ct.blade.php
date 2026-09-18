@@ -114,33 +114,13 @@
                 </td>
 
                 {{-- Others --}}
-                <td>
-                    <select name="students[{{ $ass->id }}][management_skill]" class="score-input">
-                        <option value="">Pilih</option>
-                        <option value="A" {{ $ass->management_skill == 'A' ? 'selected' : '' }}>A</option>
-                        <option value="B" {{ $ass->management_skill == 'B' ? 'selected' : '' }}>B</option>
-                        <option value="C" {{ $ass->management_skill == 'C' ? 'selected' : '' }}>C</option>
-                        <option value="D" {{ $ass->management_skill == 'D' ? 'selected' : '' }}>D</option>
-                    </select>
-                </td>
-                <td>
-                    <select name="students[{{ $ass->id }}][active_participation]" class="score-input">
-                        <option value="">Pilih</option>
-                        <option value="A" {{ $ass->active_participation == 'A' ? 'selected' : '' }}>A</option>
-                        <option value="B" {{ $ass->active_participation == 'B' ? 'selected' : '' }}>B</option>
-                        <option value="C" {{ $ass->active_participation == 'C' ? 'selected' : '' }}>C</option>
-                        <option value="D" {{ $ass->active_participation == 'D' ? 'selected' : '' }}>D</option>
-                    </select>
-                </td>
-                <td>
-                    <select name="students[{{ $ass->id }}][social_responsibility]" class="score-input">
-                        <option value="">Pilih</option>
-                        <option value="A" {{ $ass->social_responsibility == 'A' ? 'selected' : '' }}>A</option>
-                        <option value="B" {{ $ass->social_responsibility == 'B' ? 'selected' : '' }}>B</option>
-                        <option value="C" {{ $ass->social_responsibility == 'C' ? 'selected' : '' }}>C</option>
-                        <option value="D" {{ $ass->social_responsibility == 'D' ? 'selected' : '' }}>D</option>
-                    </select>
-                </td>
+                {{-- ================= LETTER INPUTS ================= --}}
+                <td><input type="text" value="{{ $ass->management_skill ?? '' }}" class="score-input letter-input"
+                        name="students[{{ $ass->id }}][management_skill]" pattern="[A-Da-d]" maxlength="1"></td>
+                <td><input type="text" value="{{ $ass->active_participation ?? '' }}" class="score-input letter-input"
+                        name="students[{{ $ass->id }}][active_participation]" pattern="[A-Da-d]" maxlength="1"></td>
+                <td><input type="text" value="{{ $ass->social_responsibility ?? '' }}" class="score-input letter-input"
+                        name="students[{{ $ass->id }}][social_responsibility]" pattern="[A-Da-d]" maxlength="1"></td>
             </tr>
             @endforeach
         </tbody>
