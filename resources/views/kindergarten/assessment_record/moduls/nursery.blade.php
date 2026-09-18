@@ -109,6 +109,17 @@
                 </td>
 
                 <td class="text-center">
+                    <select name="assessments[{{ $assesment->id }}][state_willingness]">
+                        @foreach(['', 'I', 'G', 'S', 'E'] as $option)
+                        <option value="{{ $option }}" @selected(old("assessments.{$assesment->id}.state_willingness",
+                            $assesment->state_willingness ?? '') == $option)>
+                            {{ $option }}
+                        </option>
+                        @endforeach
+                    </select>
+                </td>
+
+                <td class="text-center">
                     <select name="assessments[{{ $assesment->id }}][report_word]">
                         @foreach(['', 'I', 'G', 'S', 'E'] as $option)
                         <option value="{{ $option }}" @selected(old("assessments.{$assesment->id}.report_word",
@@ -153,7 +164,7 @@
                     </select>
                 </td>
 
-                <td class="text-center">
+                <td class="text-center no-t1">
                     <select name="assessments[{{ $assesment->id }}][inform_gender]">
                         @foreach(['', 'I', 'G', 'S', 'E'] as $option)
                         <option value="{{ $option }}" @selected(old("assessments.{$assesment->id}.inform_gender",
@@ -164,7 +175,7 @@
                     </select>
                 </td>
 
-                <td class="text-center">
+                <td class="text-center no-t1">
                     <select name="assessments[{{ $assesment->id }}][inform_age]">
                         @foreach(['', 'I', 'G', 'S', 'E'] as $option)
                         <option value="{{ $option }}" @selected(old("assessments.{$assesment->id}.inform_age",
@@ -175,7 +186,7 @@
                     </select>
                 </td>
 
-                <td class="text-center">
+                <td class="text-center no-t1">
                     <select name="assessments[{{ $assesment->id }}][mention_day_date_month_year]">
                         @foreach(['', 'I', 'G', 'S', 'E'] as $option)
                         <option value="{{ $option }}" @selected(old("assessments.{$assesment->id}.mention_day_date_month_year",
@@ -186,7 +197,7 @@
                     </select>
                 </td>
 
-                <td class="text-center">
+                <td class="text-center no-t1">
                     <select name="assessments[{{ $assesment->id }}][name_body_parts]">
                         @foreach(['', 'I', 'G', 'S', 'E'] as $option)
                         <option value="{{ $option }}" @selected(old("assessments.{$assesment->id}.name_body_parts",
@@ -452,7 +463,7 @@
                     </select>
                 </td>
 
-                <td class="text-center">
+                <td class="text-center no-t1">
                     <select name="assessments[{{ $assesment->id }}][stroke_pencil]">
                         @foreach(['', 'I', 'G', 'S', 'E'] as $option)
                         <option value="{{ $option }}" @selected(old("assessments.{$assesment->id}.stroke_pencil",
@@ -554,6 +565,17 @@
                 </td>
 
                 <td class="text-center">
+                    <select name="assessments[{{ $assesment->id }}][able_to_balance_on_plank]">
+                        @foreach(['', 'I', 'G', 'S', 'E'] as $option)
+                        <option value="{{ $option }}" @selected(old("assessments.{$assesment->id}.able_to_balance_on_plank",
+                            $assesment->able_to_balance_on_plank ?? '') == $option)>
+                            {{ $option }}
+                        </option>
+                        @endforeach
+                    </select>
+                </td>
+
+                <td class="text-center">
                     <select name="assessments[{{ $assesment->id }}][able_to_follow_movements]">
                         @foreach(['', 'I', 'G', 'S', 'E'] as $option)
                         <option value="{{ $option }}" @selected(old("assessments.{$assesment->id}.able_to_follow_movements",
@@ -586,7 +608,7 @@
                     </select>
                 </td>
 
-                <td class="text-center">
+                <td class="text-center no-t1">
                     <select name="assessments[{{ $assesment->id }}][trace_horizontal_lines]">
                         @foreach(['', 'I', 'G', 'S', 'E'] as $option)
                         <option value="{{ $option }}" @selected(old("assessments.{$assesment->id}.trace_horizontal_lines",
@@ -598,7 +620,7 @@
                 </td>
 
                 {{-- test --}}
-                <td class="text-center">
+                <td class="text-center no-t1">
                     <select name="assessments[{{ $assesment->id }}][recognize_sound_of_i_l_t]">
                         @foreach(['', 'I', 'G', 'S', 'E'] as $option)
                         <option value="{{ $option }}" @selected(old("assessments.{$assesment->id}.recognize_sound_of_i_l_t",
@@ -609,11 +631,21 @@
                     </select>
                 </td>
 
-                <td class="text-center">
+                <td class="text-center no-t1">
                 </td>
 
-                <td class="text-center">
+                <td class="text-center no-t1">
                 </td>
+
+                <td class="text-center no-t1 no-t1">
+                </td>
+
+                <td class="text-center no-t1 no-t1">
+                </td>
+
+                <td class="text-center no-t1">
+                </td>
+
 
                 <td class="text-center no-t1">
                 </td>
@@ -624,7 +656,6 @@
                 <td class="text-center no-t1">
                 </td>
 
-
                 <td class="text-center no-t1">
                 </td>
 
@@ -632,30 +663,29 @@
                 </td>
 
                 <td class="text-center no-t1">
-                </td>
-
-                <td class="text-center no-t1">
-                </td>
-
-                <td class="text-center no-t1">
-                </td>
-
-                <td class="text-center no-t1">
-                </td>
-
-                <td class="text-center">
+                    12
                 </td>
 
                 <td class="text-center">
+                    <select name="assessments[{{ $assesment->id }}][able_to_match_object]">
+                        @foreach(['', 'I', 'G', 'S', 'E'] as $option)
+                        <option value="{{ $option }}" @selected(old("assessments.{$assesment->id}.able_to_match_object",
+                            $assesment->able_to_match_object ?? '') == $option)>
+                            {{ $option }}
+                        </option>
+                        @endforeach
+                    </select>
                 </td>
 
                 <td class="text-center">
-                </td>
-
-                <td class="text-center">
-                </td>
-
-                <td class="text-center no-t1">
+                    <select name="assessments[{{ $assesment->id }}][recognize_colors_red_yellow_blue]">
+                        @foreach(['', 'I', 'G', 'S', 'E'] as $option)
+                        <option value="{{ $option }}" @selected(old("assessments.{$assesment->id}.recognize_colors_red_yellow_blue",
+                            $assesment->recognize_colors_red_yellow_blue ?? '') == $option)>
+                            {{ $option }}
+                        </option>
+                        @endforeach
+                    </select>
                 </td>
 
                 <td class="text-center no-t1">
