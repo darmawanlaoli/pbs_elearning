@@ -208,7 +208,7 @@ class InternalReportController extends Controller
     {
         $title = 'Report';
         $path = 'Report Data';
-        $students = DB::table('hs_students')->where('class', session('homeroom_class'))->orderBy('name', 'ASC')->get();
+        $students = DB::table('hs_students')->where('class', session('homeroom'))->orderBy('name', 'ASC')->get();
         $academicyears = AcademicYear::first();
         $current_term = $academicyears->term;
 
