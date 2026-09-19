@@ -1,10 +1,25 @@
 <div class="table-container">
     <table>
         <thead>
+            <tr>
+                <th rowspan="2" class="frozen-col-1" style="min-width: 50px;">No</th>
+                <th rowspan="2" class="frozen-col-2" style="min-width: 180px;">Student Name</th>
+                <th rowspan="2">Teacher</th>
+                <th colspan="14">LANGUAGE SKILL</th>
+                <th colspan="7">MANNERS AND COURTESY</th>
+                <th colspan="12">DAILY PERFORMANCE</th>
+                <th colspan="14">MOTOR SKILL</th>
+                <th colspan="12">LITERACY</th>
+                <th colspan="14">MATHEMATICS</th>
+                <th colspan="7">BAHASA INDONESIA</th>
+                <th colspan="5">MANDARIN</th>
+                <th rowspan="2">Audio Reading</th>
+                <th rowspan="2">Spelling</th>
+                <th rowspan="2">Computer</th>
+                <th rowspan="2">Science</th>
+            </tr>
             <tr class="text-center">
-                <th style="min-width: 50px;">No</th>
-                <th style="min-width: 180px;">Student Name</th>
-                <th>Teacher</th>
+
                 <th>1.Introduce Name</th>
                 <th>2.Greet teacher and friend</th>
                 <th>3.Answer questions</th>
@@ -92,17 +107,13 @@
                 <th>听力 Listening</th>
                 <th>说话 Speaking</th>
                 <th>测验 Test</th>
-                <th>Audio Reading</th>
-                <th>Spelling</th>
-                <th>Computer</th>
-                <th>Science</th>
             </tr>
         </thead>
         <tbody>
             @foreach($assessments as $assesment)
             <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $assesment->name }}</td>
+                <td class="frozen-col-1">{{ $loop->iteration }}</td>
+                <td class="frozen-col-2">{{ $assesment->name }}</td>
                 <td>{{ $assesment->teachers }}</td>
 
                 <!-- Contoh Penulisan Tag Select & Attribute Name yang Benar untuk Form Submit -->

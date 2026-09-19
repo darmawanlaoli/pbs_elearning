@@ -237,9 +237,7 @@ $isDisabledT1 = $assessment->term === 'Term 1' ? 'disabled' : '';
                 @if($assessments->contains(fn($item) => str_contains($item->class, 'K1')))
                 @include('kindergarten.assessment_record.report_moduls.k1')
                 @elseif($assessments->contains(fn($item) => str_contains($item->class, 'K2')))
-                <div class="col-6 mx-auto alert alert-info mt-5">
-                    Rapor untuk kelas yang Anda pilih belum tersedia, silahkan coba beberapa saat lagi.
-                </div>
+                @include('kindergarten.assessment_record.report_moduls.k2')
                 @elseif($assessments->contains(fn($item) => str_contains($item->class, 'Pre-K')))
                 <div class="col-6 mx-auto alert alert-info mt-5">
                     Rapor untuk kelas yang Anda pilih belum tersedia, silahkan coba beberapa saat lagi.

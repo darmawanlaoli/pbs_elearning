@@ -42,47 +42,44 @@
             background-color: #fff;
         }
 
-        /* 1. Freeze Header (Arah Vertikal / Top) */
+        /* 1. Freeze Header Vertikal (Top) */
         thead th {
-            position: sticky;
-            top: 0;
-            background-color: #f2f2f2;
-            z-index: 10;
-            white-space: normal;
-            word-wrap: break-word;
-            text-align: center;
-            /* Sesuaikan lebar agar teks punya ruang untuk turun ke bawah */
-            min-width: 90px;
+        position: sticky;
+        top: 0;
+        background-color: #f2f2f2;
+        z-index: 10;
+        white-space: normal;
+        word-wrap: break-word;
+        text-align: center;
+        min-width: 90px;
         }
 
-        /* 2. Freeze Kolom ID & Student Name (Arah Horizontal / Left) */
+        /* Biar baris header kedua tetap sticky di bawah baris header pertama */
+        thead tr:nth-child(2) th {
+            top: 34.5px; /* Sesuaikan angka ini dengan tinggi baris header pertama */
+        }
 
-        /* Kolom 1 (ID) */
-        th:nth-child(1),
-        td:nth-child(1) {
-            position: sticky;
-            left: 0;
-            z-index: 20;
+        /* 2. Freeze Kolom ID & Student Name (Gunakan Class khusus) */
+        .frozen-col-1 {
+            position: sticky !important;
+            left: 0 !important;
+            z-index: 20 !important;
             background-color: #f9f9f9;
         }
 
-        /* Kolom 2 (Student Name) - Geser sejauh lebar Kolom 1 (~50px) */
-        th:nth-child(2),
-        td:nth-child(2) {
-            position: sticky;
-            left: 50px;
-            /* Adjust sesuai lebar riil kolom ID */
-            z-index: 20;
+        .frozen-col-2 {
+            position: sticky !important;
+            left: 50px !important; /* Sesuaikan dengan lebar kolom No */
+            z-index: 20 !important;
             background-color: #f9f9f9;
-            border-right: 2px solid #bbb;
-            /* Memberi pembatas visual tegas */
+            border-right: 2px solid #bbb !important;
         }
 
-        /* Sudut kiri atas (Pertemuan Header + Frozen Column) butuh z-index lebih tinggi */
-        thead th:nth-child(1),
-        thead th:nth-child(2) {
-            z-index: 30;
-            background-color: #e2e2e2;
+        /* Perpotongan Header Top + Frozen Column (Sudut Kiri Atas) */
+        thead th.frozen-col-1,
+        thead th.frozen-col-2 {
+            z-index: 30 !important;
+            background-color: #e2e2e2 !important;
         }
 
         .text-center {
