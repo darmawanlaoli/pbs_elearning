@@ -240,63 +240,72 @@ Route::middleware(['auth:hsteacher', 'role:hsteacher'])->group(function () {
     Route::get('hs_teacher/academic_calendar', [HsTeacherHome::class, 'academicCalendar'])->name('hs_teacher.academic_calendar');
 });
 
-Route::get('high_school/assessment_record', [HighSchoolAssessmentRecord::class, 'index'])->name('high_school.assessment_record');
-Route::get('high_school/assessment_record/create', [HighSchoolAssessmentRecord::class, 'create'])->name('high_school.assessment_record.create');
-Route::post('high_school/assessment_record/store', [HighSchoolAssessmentRecord::class, 'store'])->name('high_school.assessment_record.store');
-Route::delete('high_school/assessment_record/{id}/destroy', [HighSchoolAssessmentRecord::class, 'destroy'])->name('high_school.assessment_record.destroy');
-Route::get('high_school/assessment_record/{id}/detail', [HighSchoolAssessmentRecord::class, 'detail'])->name('high_school.assessment_record.detail');
-Route::post('high_school/assessment_record/{id}/generate', [HighSchoolAssessmentRecord::class, 'generate'])->name('high_school.assessment_record.generate');
-Route::post('high_school/assessment_record/{id}/generate_action', [HighSchoolAssessmentRecord::class, 'generateAction'])->name('high_school.assessment_record.generate_action');
-Route::get('high_school/assessment_record/{id}/input', [HighSchoolAssessmentRecord::class, 'input'])->name('high_school.assessment_record.input');
-Route::put('high_school/assessment_record/input_action', [HighSchoolAssessmentRecord::class, 'inputAction'])->name('high_school.assessment_record.input_action');
-Route::put('high_school/assessment_record/{id}/submit', [HighSchoolAssessmentRecord::class, 'submit'])->name('high_school.assessment_record.submit');
-
-Route::get('high_school/report_data/{class}/create_report_data', [HighSchoolInternalReport::class, 'createReportData'])->name('high_school.assessment_record.create_report_data');
-Route::post('high_school/report_data/store_report_data', [HighSchoolInternalReport::class, 'storeReportData'])->name('high_school.report_data.store_report_data');
-
-Route::post('high_school/report_data/{class}/generate', [HighSchoolInternalReport::class, 'generate'])->name('high_school.report_data.generate');
-Route::post('high_school/report_data/{class}/generate_action', [HighSchoolInternalReport::class, 'generateAction'])->name('high_school.report_data.generate_action');
-Route::get('high_school/report_data/{class}/input', [HighSchoolInternalReport::class, 'input'])->name('high_school.report_data.input');
-Route::put('high_school/report_data/input_action', [HighSchoolInternalReport::class, 'updateReportData'])->name('high_school.report_data.input_action');
-Route::put('high_school/report_data/{class}/submit', [HighSchoolInternalReport::class, 'submit'])->name('high_school.report_data.submit');
-
 Route::get('/download_format_absen', [HighSchoolInternalReport::class, 'download_format_absen'])->name('download_format_absen');
 
+// Akses untuk Hs Admin dan HS Teacher
+Route::middleware(['multi.role:hsadmin,hsteacher'])->group(function () {
+    Route::get('high_school/internal_report/{class}/report_data', [HighSchoolInternalReport::class, 'reportData'])->name('high_school.internal_report.report_data');
+    Route::put('high_school/assessment_record/store_report_data', [HighSchoolInternalReport::class, 'storeReportData'])->name('high_school.internal_report.store_report_data');
+    // Internal report
+    Route::get('high_school/internal_report', [HighSchoolInternalReport::class, 'index'])->name('high_school.internal_report');
+    Route::get('high_school/internal_report/{class}/accumulated', [HighSchoolInternalReport::class, 'accumulated'])->name('high_school.internal_report.accumulated');
+    Route::get('high_school/internal_report/{class}/print', [HighSchoolInternalReport::class, 'print'])->name('high_school.internal_report.print');
 
-Route::get('high_school/internal_report/{class}/report_data', [HighSchoolInternalReport::class, 'reportData'])->name('high_school.internal_report.report_data');
-Route::put('high_school/assessment_record/store_report_data', [HighSchoolInternalReport::class, 'storeReportData'])->name('high_school.internal_report.store_report_data');
+    Route::get('high_school/assessment_record', [HighSchoolAssessmentRecord::class, 'index'])->name('high_school.assessment_record');
+    Route::get('high_school/assessment_record/create', [HighSchoolAssessmentRecord::class, 'create'])->name('high_school.assessment_record.create');
+    Route::post('high_school/assessment_record/store', [HighSchoolAssessmentRecord::class, 'store'])->name('high_school.assessment_record.store');
+    Route::delete('high_school/assessment_record/{id}/destroy', [HighSchoolAssessmentRecord::class, 'destroy'])->name('high_school.assessment_record.destroy');
+    Route::get('high_school/assessment_record/{id}/detail', [HighSchoolAssessmentRecord::class, 'detail'])->name('high_school.assessment_record.detail');
+    Route::post('high_school/assessment_record/{id}/generate', [HighSchoolAssessmentRecord::class, 'generate'])->name('high_school.assessment_record.generate');
+    Route::post('high_school/assessment_record/{id}/generate_action', [HighSchoolAssessmentRecord::class, 'generateAction'])->name('high_school.assessment_record.generate_action');
+    Route::get('high_school/assessment_record/{id}/input', [HighSchoolAssessmentRecord::class, 'input'])->name('high_school.assessment_record.input');
+    Route::put('high_school/assessment_record/input_action', [HighSchoolAssessmentRecord::class, 'inputAction'])->name('high_school.assessment_record.input_action');
+    Route::put('high_school/assessment_record/{id}/submit', [HighSchoolAssessmentRecord::class, 'submit'])->name('high_school.assessment_record.submit');
 
-Route::get('kindergarten/home', [KindergartenHome::class, 'index'])->name('kindergarten.home');
-Route::get('kindergarten/report_data', [KindergartenReportData::class, 'index'])->name('kindergarten.report_data');
-Route::get('kindergarten/report_data/create', [KindergartenReportData::class, 'create'])->name('kindergarten.report_data.create');
-Route::post('kindergarten/report_data/store', [KindergartenReportData::class, 'store'])->name('kindergarten.report_data.store');
-Route::delete('kindergarten/report_data/{reportData}/destroy', [KindergartenReportData::class, 'destroy'])->name('kindergarten.report_data.destroy');
-Route::get('kindergarten/report_data/{reportData}/edit', [KindergartenReportData::class, 'edit'])->name('kindergarten.report_data.edit');
-Route::put('kindergarten/report_data/{reportData}/update', [KindergartenReportData::class, 'update'])->name('kindergarten.report_data.update');
+    Route::get('high_school/report_data/{class}/create_report_data', [HighSchoolInternalReport::class, 'createReportData'])->name('high_school.assessment_record.create_report_data');
+    Route::post('high_school/report_data/store_report_data', [HighSchoolInternalReport::class, 'storeReportData'])->name('high_school.report_data.store_report_data');
 
-// Kindergarten student data
-Route::get('kindergarten/student_data', [KindergartenStudentData::class, 'index'])->name('kindergarten.student_data');
-Route::get('kindergarten/student_data/create', [KindergartenStudentData::class, 'create'])->name('kindergarten.student_data.create');
-Route::post('kindergarten/student_data/store', [KindergartenStudentData::class, 'store'])->name('kindergarten.student_data.store');
-Route::delete('kindergarten/student_data/{studentData}/destroy', [KindergartenStudentData::class, 'destroy'])->name('kindergarten.student_data.destroy');
-Route::get('kindergarten/student_data/{studentData}/edit', [KindergartenStudentData::class, 'edit'])->name('kindergarten.student_data.edit');
-Route::put('kindergarten/student_data/{studentData}/update', [KindergartenStudentData::class, 'update'])->name('kindergarten.student_data.update');
-Route::post('kindergarten/student_data/import', [KindergartenStudentData::class, 'import'])->name('kindergarten.student_data.import');
+    Route::post('high_school/report_data/{class}/generate', [HighSchoolInternalReport::class, 'generate'])->name('high_school.report_data.generate');
+    Route::post('high_school/report_data/{class}/generate_action', [HighSchoolInternalReport::class, 'generateAction'])->name('high_school.report_data.generate_action');
+    Route::get('high_school/report_data/{class}/input', [HighSchoolInternalReport::class, 'input'])->name('high_school.report_data.input');
+    Route::put('high_school/report_data/input_action', [HighSchoolInternalReport::class, 'updateReportData'])->name('high_school.report_data.input_action');
+    Route::put('high_school/report_data/{class}/submit', [HighSchoolInternalReport::class, 'submit'])->name('high_school.report_data.submit');
 
-// Kindergarten teacher data
-Route::get('kindergarten/teacher_data', [KindergartenTeacherData::class, 'index'])->name('kindergarten.teacher_data');
-Route::get('kindergarten/teacher_data/create', [KindergartenTeacherData::class, 'create'])->name('kindergarten.teacher_data.create');
-Route::post('kindergarten/teacher_data/store', [KindergartenTeacherData::class, 'store'])->name('kindergarten.teacher_data.store');
-Route::delete('kindergarten/teacher_data/{teacher}/destroy', [KindergartenTeacherData::class, 'destroy'])->name('kindergarten.teacher_data.destroy');
-Route::get('kindergarten/teacher_data/{teacher}/edit', [KindergartenTeacherData::class, 'edit'])->name('kindergarten.teacher_data.edit');
-Route::put('kindergarten/teacher_data/{teacher}/update', [KindergartenTeacherData::class, 'update'])->name('kindergarten.teacher_data.update');
+    // database student
+    Route::get('high_school/database/students', [HighSchoolDatabaseStudents::class, 'index'])->name('high_school.database.students');
+});
 
-// Internal report
-Route::get('high_school/internal_report', [HighSchoolInternalReport::class, 'index'])->name('high_school.internal_report');
-Route::get('high_school/internal_report/{class}/accumulated', [HighSchoolInternalReport::class, 'accumulated'])->name('high_school.internal_report.accumulated');
-Route::get('high_school/internal_report/{class}/print', [HighSchoolInternalReport::class, 'print'])->name('high_school.internal_report.print');
+// Akses untuk Hs Admin dan HS Teacher
+Route::middleware(['multi.role:kindergartenadmin,kindergartenteacher'])->group(
+    function () {
 
-Route::get('high_school/database/students', [HighSchoolDatabaseStudents::class, 'index'])->name('high_school.database.students');
+    Route::get('kindergarten/home', [KindergartenHome::class, 'index'])->name('kindergarten.home');
+    Route::get('kindergarten/report_data', [KindergartenReportData::class, 'index'])->name('kindergarten.report_data');
+    Route::get('kindergarten/report_data/create', [KindergartenReportData::class, 'create'])->name('kindergarten.report_data.create');
+    Route::post('kindergarten/report_data/store', [KindergartenReportData::class, 'store'])->name('kindergarten.report_data.store');
+    Route::delete('kindergarten/report_data/{reportData}/destroy', [KindergartenReportData::class, 'destroy'])->name('kindergarten.report_data.destroy');
+    Route::get('kindergarten/report_data/{reportData}/edit', [KindergartenReportData::class, 'edit'])->name('kindergarten.report_data.edit');
+    Route::put('kindergarten/report_data/{reportData}/update', [KindergartenReportData::class, 'update'])->name('kindergarten.report_data.update');
+
+    // Kindergarten student data
+    Route::get('kindergarten/student_data', [KindergartenStudentData::class, 'index'])->name('kindergarten.student_data');
+    Route::get('kindergarten/student_data/create', [KindergartenStudentData::class, 'create'])->name('kindergarten.student_data.create');
+    Route::post('kindergarten/student_data/store', [KindergartenStudentData::class, 'store'])->name('kindergarten.student_data.store');
+    Route::delete('kindergarten/student_data/{studentData}/destroy', [KindergartenStudentData::class, 'destroy'])->name('kindergarten.student_data.destroy');
+    Route::get('kindergarten/student_data/{studentData}/edit', [KindergartenStudentData::class, 'edit'])->name('kindergarten.student_data.edit');
+    Route::put('kindergarten/student_data/{studentData}/update', [KindergartenStudentData::class, 'update'])->name('kindergarten.student_data.update');
+    Route::post('kindergarten/student_data/import', [KindergartenStudentData::class, 'import'])->name('kindergarten.student_data.import');
+
+    // Kindergarten teacher data
+    Route::get('kindergarten/teacher_data', [KindergartenTeacherData::class, 'index'])->name('kindergarten.teacher_data');
+    Route::get('kindergarten/teacher_data/create', [KindergartenTeacherData::class, 'create'])->name('kindergarten.teacher_data.create');
+    Route::post('kindergarten/teacher_data/store', [KindergartenTeacherData::class, 'store'])->name('kindergarten.teacher_data.store');
+    Route::delete('kindergarten/teacher_data/{teacher}/destroy', [KindergartenTeacherData::class, 'destroy'])->name('kindergarten.teacher_data.destroy');
+    Route::get('kindergarten/teacher_data/{teacher}/edit', [KindergartenTeacherData::class, 'edit'])->name('kindergarten.teacher_data.edit');
+    Route::put('kindergarten/teacher_data/{teacher}/update', [KindergartenTeacherData::class, 'update'])->name('kindergarten.teacher_data.update');
+    }
+);
+
 
 Route::middleware(['auth:hsadmin', 'role:hsadmin'])->group(function () {
     Route::get('high_school/home', [HighSchoolHome::class, 'index'])->name('high_school.home');
