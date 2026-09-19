@@ -85,7 +85,7 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $assesment->name }}</td>
-                <td>{{ $assesment->teacher }}</td>
+                <td>{{ $assesment->teachers }}</td>
 
                 <!-- Contoh Penulisan Tag Select & Attribute Name yang Benar untuk Form Submit -->
                 <td class="text-center">
