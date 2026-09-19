@@ -741,15 +741,6 @@
             </tr>
 
             <tr>
-                <td>● Enjoy doing art works</td>
-                @foreach(['I', 'G', 'S', 'E'] as $code)
-                <td class="text-center {{ $isDisabledT1 }}">
-                    {{ $report->enjoy_doing_art_works == $code ? 'X' : '' }}
-                </td>
-                @endforeach
-            </tr>
-
-            <tr>
                 <td>● Read 3 letters word phrase</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center {{ $isDisabledT1 }}">
