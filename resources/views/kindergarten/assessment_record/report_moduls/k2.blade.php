@@ -944,7 +944,7 @@
                 <td class="th-desc">● Writing properly in the line</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center">
-                    {{ $report->trace_alphabets == $code ? 'X' : '' }}
+                    {{ $report->indo_writing_properly_in_the_line == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
@@ -953,7 +953,7 @@
                 <td>● Recognizing letters</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center">
-                    {{ $report->copy_alphabets == $code ? 'X' : '' }}
+                    {{ $report->indo_recognizing_letters == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
@@ -962,7 +962,7 @@
                 <td>● Recognizing syllables</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center">
-                    {{ $report->copy_words == $code ? 'X' : '' }}
+                    {{ $report->indo_recognizing_syllables == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
@@ -971,7 +971,7 @@
                 <td>● Reading words</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center">
-                    {{ $report->recognize_sound_of_the_alphabets == $code ? 'X' : '' }}
+                    {{ $report->indo_reading_words == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
@@ -980,7 +980,7 @@
                 <td>● Reading phrase</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center {{ $isDisabledT1 }}">
-                    {{ $report->recognize_shapes_of_the_alphabets == $code ? 'X' : '' }}
+                    {{ $report->indo_reading_phrase == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
@@ -989,7 +989,7 @@
                 <td>● Reading sentence</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center {{ $isDisabledT1 }}">
-                    {{ $report->recognize_shapes_of_the_alphabets == $code ? 'X' : '' }}
+                    {{ $report->indo_reading_sentence == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
@@ -998,7 +998,7 @@
                 <td>● Reading comprehension story</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center {{ $isDisabledT1 }}">
-                    {{ $report->recognize_shapes_of_the_alphabets == $code ? 'X' : '' }}
+                    {{ $report->indo_reading_comprehension_story == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
@@ -1011,7 +1011,7 @@
                 <td class="th-desc">● 阅读(Reading)</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center">
-                    {{ $report->trace_alphabets == $code ? 'X' : '' }}
+                    {{ $report->mandarin_reading == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
@@ -1020,7 +1020,7 @@
                 <td>● 书写(Writing)</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center">
-                    {{ $report->copy_alphabets == $code ? 'X' : '' }}
+                    {{ $report->mandarin_writing == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
@@ -1029,7 +1029,7 @@
                 <td>● 听力(Listening)</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center">
-                    {{ $report->copy_words == $code ? 'X' : '' }}
+                    {{ $report->mandarin_listening == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
@@ -1038,7 +1038,7 @@
                 <td>● 说话(Speaking)</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center">
-                    {{ $report->recognize_sound_of_the_alphabets == $code ? 'X' : '' }}
+                    {{ $report->mandarin_speaking == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
@@ -1047,7 +1047,7 @@
                 <td>● 测验(Test)</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center">
-                    {{ $report->recognize_shapes_of_the_alphabets == $code ? 'X' : '' }}
+                    {{ $report->mandarin_test == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
