@@ -147,7 +147,7 @@ class AssesmentRecordController extends Controller
     {
         $title = 'Assessment Record';
         $path = 'Report';
-        $assessments = DB::table('kindergarten_assesment_record_details')->where('id_assesment', $id)->orderBy('name', 'ASC')->get();
+        $assessments = DB::table('kindergarten_assesment_record_details')->where('id_assesment', $id)->orderBy('teachers', 'ASC')->orderBy('name', 'ASC')->get();
         return view('kindergarten/assessment_record/input', compact('title', 'path', 'assessments'));
     }
 
@@ -219,19 +219,22 @@ class AssesmentRecordController extends Controller
     public function printPreview(Request $request, $id){
         $title = 'Assessment Record';
         $path = 'Report';
-        if($request->student_name == null) {
+        $request = $request->student_name;
+        if($request == null) {
             $student = null;
             $assessments = DB::table('kindergarten_assesment_record_details')->where('id_assesment', $id)->orderBy('name', 'ASC')->get();
             $assessment = DB::table('kindergarten_assesment_records')->where('id', $id)->first();
             $report = [];
         }else{
-            $student = $request->student_name;
+            $student = $request;
             $assessments = DB::table('kindergarten_assesment_record_details')->where('id_assesment', $id)->orderBy('name', 'ASC')->get();
             $assessment = DB::table('kindergarten_assesment_records')->where('id', $id)->first();
             $report = DB::table('kindergarten_assesment_record_details')->where('name', $student)->orderBy('name', 'ASC')->first();
         }
 
-        return view('kindergarten/assessment_record/print_preview', compact('title', 'path', 'assessments', 'assessment', 'student', 'report'));
+
+
+        return view('kindergarten/assessment_record/print_preview', compact('title', 'path', 'assessments', 'assessment', 'student', 'report', 'request'));
     }
 }
 

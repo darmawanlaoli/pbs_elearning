@@ -4,6 +4,7 @@
             <tr class="text-center">
                 <th style="min-width: 50px;">No</th>
                 <th style="min-width: 180px;">Student Name</th>
+                <th>Teacher</th>
                 <th>1.Introduce Name</th>
                 <th>2.Greet teacher and friend</th>
                 <th>3.Answer questions</th>
@@ -77,8 +78,9 @@
         <tbody>
             @foreach($assessments as $assesment)
             <tr>
-                <td>{{ $assesment->id }}</td>
+                <td>{{ $loop->iteration }}</td>
                 <td>{{ $assesment->name }}</td>
+                <td>{{ $assesment->teachers }}</td>
 
                 <!-- Contoh Penulisan Tag Select & Attribute Name yang Benar untuk Form Submit -->
                 <td class="text-center">
