@@ -77,7 +77,7 @@
                             </a>
                             <ul aria-expanded="false" class="collapse first-level">
                                 <li class="sidebar-item">
-                                    <a href="{{ route('kindergarten.assessment_record') }}" class="sidebar-link">
+                                    <a href="" onclick="alert('Fitur Assessment Record sedang dalam perbaikan, silahkan coba beberapa saat lagi')" class="sidebar-link">
                                         <div class="round-16 d-flex align-items-center justify-content-center">
                                             <i class="ti ti-circle"></i>
                                         </div>

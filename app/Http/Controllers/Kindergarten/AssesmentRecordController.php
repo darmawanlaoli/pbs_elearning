@@ -161,22 +161,21 @@ class AssesmentRecordController extends Controller
         ]);
 
         try {
-            // 2. Gunakan DB Transaction
-            DB::transaction(function () use ($validated) {
-                foreach ($validated['assessments'] as $id => $data) {
-                    // Keamanan Tambahan: Hanya izinkan field yang relevan untuk di-update (Opsional/Disarankan)
-                    // KindergartenAssesmentRecordDetail::where('id', $id)->update($data);
-
-                    $record = KindergartenAssesmentRecordDetail::find($id);
-                    if ($record) {
-                        $record->update($data); // Menggunakan Eloquent update yang aman dengan $fillable
-                    }
+            // 2. Gunakan DB Transaction agar aman
+            DB::transaction(function () use ($request) {
+                // Loop data dari request
+                foreach ($request->assessments as $id => $data) {
+                    // Update masing-masing record berdasarkan ID
+                    // Data otomatis berupa array associative seperti: ['introduce_name' => 'I', 'greet_teacher' => 'S']
+                    KindergartenAssesmentRecordDetail::where('id', $id)->update($data);
                 }
             });
 
             return redirect()->back()->with('success', 'Data assessment berhasil diperbarui!');
+
+            // 3. Kembalikan ke halaman sebelumnya dengan pesan sukses
         } catch (\Exception $e) {
-            return redirect()->back()
+            return redirect()->route('kindergarten.assessment_record')
                 ->with('error', 'Gagal menyimpan data assessment. ' . $e->getMessage());
         }
     }
