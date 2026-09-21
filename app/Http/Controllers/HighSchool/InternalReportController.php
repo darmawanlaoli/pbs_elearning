@@ -287,6 +287,30 @@ class InternalReportController extends Controller
                     'mean_ku' => 0,
                     'mean_dk' => 0,
                 ];
+            // bahasa Indonesia
+            $indonesia = DB::table('hs_assessment_record_details')
+                ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
+                ->where('name', $student)
+                ->where('term', $current_term)
+                ->where('subject', 'Bahasa Indonesia')
+                ->first();
+
+            $meanIndonesia = DB::table('hs_assessment_record_details as d')
+                ->join('hs_assessment_records as r', 'r.id', '=', 'd.id_assesment')
+                ->where('r.class', $class)
+                ->where('r.subject', 'Bahasa Indonesia')
+                ->where('term', $current_term)
+                ->select(
+                    'r.subject',
+                    DB::raw('AVG(d.lang_total_ku) as mean_lang_ku'),
+                    DB::raw('AVG(d.lang_total_dk) as mean_lang_dk'),
+                )
+                ->groupBy('r.subject')
+                ->first() ?? (object)[
+                    'subject' => 'PKN',
+                    'mean_lang_ku' => 0,
+                    'mean_lang_dk' => 0,
+                ];
 
             $music = DB::table('primary_assesment_record_details')
                 ->join('primary_assesment_records', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
@@ -517,40 +541,7 @@ class InternalReportController extends Controller
 
                 ];
 
-            // BAHASA INDONESIA
-            $indonesia = DB::table('primary_assesment_record_details')
-                ->join('primary_assesment_records', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
-                ->where('name', $student)
-                ->where('subject', 'BAHASA INDONESIA')
-                ->where('term', $current_term)
-                ->first();
 
-            $meanIndonesia = DB::table('primary_assesment_record_details as d')
-                ->join('primary_assesment_records as r', 'r.id', '=', 'd.id_assesment')
-                ->where('r.class', $class)
-                ->where('r.subject', 'BAHASA INDONESIA')
-                ->where('term', $current_term)
-                ->select(
-                    'r.subject',
-                    DB::raw('AVG(d.concept) as mean_indo_concept'),
-                    DB::raw('AVG(d.lang_neatness_in_writing) as mean_indo_neatness_in_writing'),
-                    DB::raw('AVG(d.lang_writes_with_fluency) as mean_indo_lang_writes_with_fluency'),
-                    DB::raw('AVG(d.lang_reads_accurately) as mean_indo_reads_accurately'),
-                    DB::raw('AVG(d.lang_expresses_ideas) as mean_indo_expresses_ideas'),
-                    DB::raw('AVG(d.lang_reads_fluency) as mean_indo_reads_fluency'),
-                    DB::raw('AVG(d.lang_listen_with_understanding) as mean_indo_listen_with_understanding'),
-                )
-                ->groupBy('r.subject')
-                ->first() ?? (object)[
-                    'subject' => 'BAHASA INDONESIA',
-                    'mean_indo_concept' => 0,
-                    'mean_indo_neatness_in_writing' => 0,
-                    'mean_indo_writes_with_fluency' => 0,
-                    'mean_indo_reads_accurately' => 0,
-                    'mean_indo_expresses_ideas' => 0,
-                    'mean_indo_reads_fluency' => 0,
-                    'mean_indo_listen_with_understanding' => 0,
-                ];
 
             $reportData = DB::table('primary_report_data_details')
                 ->join('primary_report_datas', 'primary_report_datas.id', '=', 'primary_report_data_details.id_report')

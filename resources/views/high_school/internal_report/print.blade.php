@@ -289,26 +289,157 @@
                                 </tr>
 
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ $indonesia->lang_total_ku ?? '' }}</td>
+                                    <td>{{ round($meanIndonesia->mean_lang_ku) }}</td>
+                                    <td>{{ $indonesia->lang_total_dk ?? '' }}</td>
+                                    <td>{{ round($meanIndonesia->mean_lang_dk) }}</td>
                                 </tr>
 
                                 <tr>
                                     <td rowspan="3">LEARNING BEHAVIOURS</td>
                                     <td colspan="3">Personal Management Skill</td>
-                                    <td></td>
+                                    <td>{{ $indonesia->management_skill ?? 0 }}</td>
                                 </tr>
 
                                 <tr>
                                     <td colspan="3">Active Participation In Learning</td>
-                                    <td></td>
+                                    <td>{{ $indonesia->management_skill ?? 0 }}</td>
                                 </tr>
 
                                 <tr>
                                     <td colspan="3">Social Responsibility</td>
-                                    <td></td>
+                                    <td>{{ $indonesia->management_skill ?? 0 }}</td>
+                                </tr>
+                            </table>
+
+                            <div class="footer">
+                                <span class="left">{{ $murid->name .'/'.$murid->class.'/2026-2027' }}</span>
+                                <span class="right">Page 1</span>
+                            </div>
+                        </div>
+
+
+                        {{-- halaman 2 --}}
+                        <div class="page">
+
+                            {{-- Religious --}}
+                            <table class="mt-2" style="font-weight: bold; text-align: center">
+                                <tr>
+                                    <th>RELIGIOUS EDUCATION</th>
+                                    <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
+                                    <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
+                                </tr>
+
+                                <tr>
+                                    <th rowspan="2">ACADEMIC ACHIEVEMENT</th>
+                                    <th>SCORE</th>
+                                    <th>MEAN</th>
+                                    <th>SCORE</th>
+                                    <th>MEAN</th>
+                                </tr>
+
+                                <tr>
+                                    <td>{{ $religious->ku_total ?? 0 }}</td>
+                                    <td>{{ round($meanReligious->mean_religious_ku) }}</td>
+                                    <td>{{ $religious->dk_total ?? 0 }}</td>
+                                    <td>{{ round($meanReligious->mean_religious_dk) }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td rowspan="3">LEARNING BEHAVIOURS</td>
+                                    <td colspan="3">Personal Management Skill</td>
+                                    <td>{{ $religious->management_skill ?? 0 }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3">Active Participation In Learning</td>
+                                    <td>{{ $religious->active_participation ?? 0 }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3">Social Responsibility</td>
+                                    <td>{{ $religious->social_responsibility ?? 0 }}</td>
+                                </tr>
+                            </table>
+
+                            {{-- PKN --}}
+                            <table class="mt-5" style="font-weight: bold; text-align: center">
+                                <tr>
+                                    <th>PENDIDIKAN KEWARGANEGARAAN</th>
+                                    <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
+                                    <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
+                                </tr>
+
+                                <tr>
+                                    <th rowspan="2">ACADEMIC ACHIEVEMENT</th>
+                                    <th>SCORE</th>
+                                    <th>MEAN</th>
+                                    <th>SCORE</th>
+                                    <th>MEAN</th>
+                                </tr>
+
+                                <tr>
+                                    <td>{{ $pkn->ku_total ?? '' }}</td>
+                                    <td>{{ round($meanPKn->mean_ku) }}</td>
+                                    <td>{{ $pkn->dk_total ?? '' }}</td>
+                                    <td>{{ round($meanPKn->mean_dk) }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td rowspan="3">LEARNING BEHAVIOURS</td>
+                                    <td colspan="3">Personal Management Skill</td>
+                                    <td>{{ $pkn->management_skill ?? 0 }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3">Active Participation In Learning</td>
+                                    <td>{{ $pkn->active_participation ?? 0 }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3">Social Responsibility</td>
+                                    <td>{{ $pkn->social_responsibility ?? 0 }}</td>
+                                </tr>
+                            </table>
+
+
+                            {{-- B. INDO --}}
+                            <table class="mt-5" style="font-weight: bold; text-align: center">
+                                <tr>
+                                    <th>BAHASA INDONESIA</th>
+                                    <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
+                                    <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
+                                </tr>
+
+                                <tr>
+                                    <th rowspan="2">ACADEMIC ACHIEVEMENT</th>
+                                    <th>SCORE</th>
+                                    <th>MEAN</th>
+                                    <th>SCORE</th>
+                                    <th>MEAN</th>
+                                </tr>
+
+                                <tr>
+                                    <td>{{ $indonesia->lang_total_ku ?? '' }}</td>
+                                    <td>{{ round($meanIndonesia->mean_lang_ku) }}</td>
+                                    <td>{{ $indonesia->lang_total_dk ?? '' }}</td>
+                                    <td>{{ round($meanIndonesia->mean_lang_dk) }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td rowspan="3">LEARNING BEHAVIOURS</td>
+                                    <td colspan="3">Personal Management Skill</td>
+                                    <td>{{ $indonesia->management_skill ?? 0 }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3">Active Participation In Learning</td>
+                                    <td>{{ $indonesia->management_skill ?? 0 }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3">Social Responsibility</td>
+                                    <td>{{ $indonesia->management_skill ?? 0 }}</td>
                                 </tr>
                             </table>
 

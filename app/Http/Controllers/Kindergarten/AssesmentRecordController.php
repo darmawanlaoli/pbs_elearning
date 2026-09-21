@@ -153,11 +153,12 @@ class AssesmentRecordController extends Controller
 
     public function inputAction(Request $request)
     {
-        // 1. Validasi Data (Opsional tapi disarankan)
-        // $request->validate([
-        //     'assessments'   => 'required|array',
-        //     'assessments.*' => 'array',
-        // ]);
+        $validated = $request->validate([
+            'assessments' => 'required|array',
+            'assessments.*' => 'array',
+            // Opsional: Validasi opsi yang diizinkan (hanya '', 'I', 'G', 'S', 'E')
+            'assessments.*.*' => 'nullable|string|in:,I,G,S,E',
+        ]);
 
         try {
             // 2. Gunakan DB Transaction agar aman
