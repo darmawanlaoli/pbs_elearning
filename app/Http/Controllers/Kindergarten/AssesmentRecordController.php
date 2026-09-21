@@ -147,7 +147,11 @@ class AssesmentRecordController extends Controller
     {
         $title = 'Assessment Record';
         $path = 'Report';
-        $assessments = DB::table('kindergarten_assesment_record_details')->where('id_assesment', $id)->orderBy('teachers', 'ASC')->orderBy('name', 'ASC')->get();
+        $teacher = session('name');
+
+        // $assessments = DB::table('kindergarten_assesment_record_details')->where('id_assesment', $id)->where('teachers', $teacher)->orderBy('teachers', 'ASC')->orderBy('name', 'ASC')->get();
+
+        $assessments = DB::table('kindergarten_assesment_record_details')->where('id_assesment', $id)->where('teachers', $teacher)->orderBy('teachers', 'ASC')->orderBy('name', 'ASC')->get();
         return view('kindergarten/assessment_record/input', compact('title', 'path', 'assessments'));
     }
 
@@ -163,7 +167,7 @@ class AssesmentRecordController extends Controller
         try {
             // 2. Gunakan DB Transaction agar aman
             DB::transaction(function () use ($request) {
-                // Loop data dari request
+
                 foreach ($request->assessments as $id => $data) {
                     // Update masing-masing record berdasarkan ID
                     // Data otomatis berupa array associative seperti: ['introduce_name' => 'I', 'greet_teacher' => 'S']

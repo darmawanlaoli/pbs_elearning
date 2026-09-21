@@ -123,7 +123,7 @@
         @include('kindergarten.assessment_record.moduls.nursery')
         @else
         <div class="alert alert-info mt-5">
-            Form untuk kelas yang Anda pilih belum tersedia, silahkan coba beberapa saat lagi.
+            {{ session('name') }}
         </div>
         @endif
 

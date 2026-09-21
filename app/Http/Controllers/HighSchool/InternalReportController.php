@@ -859,7 +859,7 @@ class InternalReportController extends Controller
         return view('high_school.assessment_record.input', compact('title', 'path', 'subject', 'class', 'subject', 'students', 'assessment', 'assessments', 'assessmentLists'));
     }
 
-    public function updateReportDaata(Request $request)
+    public function updateReportData(Request $request)
     {
         $students = $request->input('students', []);
 
