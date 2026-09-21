@@ -129,7 +129,7 @@
                 <td>● Repeat word</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center">
-                    {{ $report->involve_in_conversation == $code ? 'X' : '' }}
+                    {{ $report->report_word == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
@@ -138,7 +138,7 @@
                 <td>● Repeat day, date, month, year</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center">
-                    {{ $report->pronounce_word == $code ? 'X' : '' }}
+                    {{ $report->repeat_day_date_month_year == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
@@ -147,7 +147,7 @@
                 <td>● Sing songs</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center">
-                    {{ $report->inform_calendar == $code ? 'X' : '' }}
+                    {{ $report->sing_songs == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
@@ -165,7 +165,7 @@
                 <td>● Inform gender</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center {{ $isDisabledT1 }}">
-                    {{ $report->recite_rhymes == $code ? 'X' : '' }}
+                    {{ $report->inform_gender == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
@@ -174,7 +174,7 @@
                 <td>● Inform age</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center {{ $isDisabledT1 }}">
-                    {{ $report->recite_rhymes == $code ? 'X' : '' }}
+                    {{ $report->inform_age == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
@@ -183,7 +183,7 @@
                 <td>● Mention day, date, month, year</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center {{ $isDisabledT1 }}">
-                    {{ $report->recite_rhymes == $code ? 'X' : '' }}
+                    {{ $report->mention_day_date_month_year == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
@@ -192,7 +192,7 @@
                 <td>● Name body parts</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center {{ $isDisabledT1 }}">
-                    {{ $report->recite_rhymes == $code ? 'X' : '' }}
+                    {{ $report->name_body_parts == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
@@ -212,15 +212,6 @@
 
             <tr>
                 <td>● Follow instruction</td>
-                @foreach(['I', 'G', 'S', 'E'] as $code)
-                <td class="text-center">
-                    {{ $report->follow_instruction == $code ? 'X' : '' }}
-                </td>
-                @endforeach
-            </tr>
-
-            <tr>
-                <td>● Respond to questions</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center">
                     {{ $report->follow_instruction == $code ? 'X' : '' }}
@@ -376,7 +367,7 @@
                 <td>● Do given task independently</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center">
-                    {{ $report->finish_task_as_order == $code ? 'X' : '' }}
+                    {{ $report->do_given_task_independently == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
@@ -385,7 +376,7 @@
                 <td>● Finish task as order</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center">
-                    {{ $report->willing_to_perform == $code ? 'X' : '' }}
+                    {{ $report->finish_task_as_order == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
@@ -457,7 +448,7 @@
                 <td>● Able to eat independently</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center">
-                    {{ $report->able_to_eat_using_utensils == $code ? 'X' : '' }}
+                    {{ $report->able_to_eat_independetly == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
