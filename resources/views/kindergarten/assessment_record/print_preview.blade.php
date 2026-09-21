@@ -2,6 +2,10 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <style>
+    @page {
+        size: A4 portrait;
+        margin: 0; /* Menghilangkan margin bawaan browser saat cetak */
+    }
     .report-container {
         font-family: calibri, Cochin, Georgia, Times, 'Times New Roman', serif
     }
@@ -110,7 +114,7 @@
         margin-top: 10px;
     }
 
-    .table .th-desc {
+    table .th-desc {
         width: 370px;
     }
 
@@ -168,10 +172,26 @@
     }
 
     @media print {
-        body {
-            background: white;
-            padding: 0;
+
+        html, body {
+            width: 210mm;
+            height: 297mm;
+            background: white !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
+
+        .page {
+            width: 210mm !important;
+            height: 297mm !important;
+            margin: 0 !important;
+            box-shadow: none !important;
+            border: none !important;
+            background-color: white !important; /* Hapus background red yang sebelumnya ada */
+            page-break-after: always; /* Memastikan setiap .page menjadi 1 halaman utuh */
+            page-break-inside: avoid;
+        }
+
         .page {
             box-shadow: none;
             margin: 0;
@@ -220,7 +240,7 @@ $isDisabledT1 = $assessment->term === 'Term 1' ? 'disabled' : '';
                         <button type="submit" class="btn btn-secondary" type="button" id="button-addon2"><i
                                 class="ti ti-eye"></i>
                             Show</button>
-                        <button type="submit" name="print" class="btn btn-primary" type="button" id="button-addon2"><i
+                        <button type="submit" onclick="window.print()" name="print" class="btn btn-primary" type="button" id="button-addon2"><i
                                 class="ti ti-printer"></i>
                             Print</button>
                     </div>
@@ -239,13 +259,9 @@ $isDisabledT1 = $assessment->term === 'Term 1' ? 'disabled' : '';
                 @elseif($assessments->contains(fn($item) => str_contains($item->class, 'K2')))
                 @include('kindergarten.assessment_record.report_moduls.k2')
                 @elseif($assessments->contains(fn($item) => str_contains($item->class, 'Pre-K')))
-                <div class="col-6 mx-auto alert alert-info mt-5">
-                    Rapor untuk kelas yang Anda pilih belum tersedia, silahkan coba beberapa saat lagi.
-                </div>
+                @include('kindergarten.assessment_record.report_moduls.pre-k')
                 @elseif($assessments->contains(fn($item) => str_contains($item->class, 'Nursery')))
-                <div class="col-6 mx-auto alert alert-info mt-5">
-                    Rapor untuk kelas yang Anda pilih belum tersedia, silahkan coba beberapa saat lagi.
-                </div>
+                @include('kindergarten.assessment_record.report_moduls.nursery')
                 @else
                 <div class="col-6 mx-auto alert alert-info mt-5">
                     Rapor untuk kelas yang Anda pilih belum tersedia, silahkan coba beberapa saat lagi.
@@ -259,6 +275,7 @@ $isDisabledT1 = $assessment->term === 'Term 1' ? 'disabled' : '';
         </div>
     </div>
 </div>
+
 
 <script>
     function info(){
