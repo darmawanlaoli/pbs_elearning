@@ -155,30 +155,74 @@ class AssesmentRecordController extends Controller
         return view('kindergarten/assessment_record/input', compact('title', 'path', 'assessments'));
     }
 
+    // public function inputAction(Request $request)
+    // {
+    //     $validated = $request->validate([
+    //         'assessments' => 'required|array',
+    //         'assessments.*' => 'array',
+    //         // Opsional: Validasi opsi yang diizinkan (hanya '', 'I', 'G', 'S', 'E')
+    //         'assessments.*.*' => 'nullable|string|in:,I,G,S,E',
+    //     ]);
+
+    //     try {
+    //         // 2. Gunakan DB Transaction agar aman
+    //         DB::transaction(function () use ($request) {
+
+    //             foreach ($request->assessments as $id => $data) {
+    //                 // Update masing-masing record berdasarkan ID
+    //                 // Data otomatis berupa array associative seperti: ['introduce_name' => 'I', 'greet_teacher' => 'S']
+    //                 KindergartenAssesmentRecordDetail::where('id', $id)->update($data);
+    //             }
+    //         });
+
+    //         return redirect()->back()->with('success', 'Data assessment berhasil diperbarui!');
+
+    //         // 3. Kembalikan ke halaman sebelumnya dengan pesan sukses
+    //     } catch (\Exception $e) {
+    //         return redirect()->route('kindergarten.assessment_record')
+    //             ->with('error', 'Gagal menyimpan data assessment. ' . $e->getMessage());
+    //     }
+    // }
+
     public function inputAction(Request $request)
     {
-        $validated = $request->validate([
-            'assessments' => 'required|array',
-            'assessments.*' => 'array',
-            // Opsional: Validasi opsi yang diizinkan (hanya '', 'I', 'G', 'S', 'E')
-            'assessments.*.*' => 'nullable|string|in:,I,G,S,E',
-        ]);
-
         try {
-            // 2. Gunakan DB Transaction agar aman
             DB::transaction(function () use ($request) {
 
                 foreach ($request->assessments as $id => $data) {
-                    // Update masing-masing record berdasarkan ID
-                    // Data otomatis berupa array associative seperti: ['introduce_name' => 'I', 'greet_teacher' => 'S']
-                    KindergartenAssesmentRecordDetail::where('id', $id)->update($data);
+
+                    $assessment = KindergartenAssesmentRecordDetail::find($id);
+
+                    if (!$assessment) {
+                        continue;
+                    }
+
+                    $updateData = [];
+
+                    foreach ($data as $field => $value) {
+
+                        // Jika input baru kosong/null
+                        if ($value === null || $value === '') {
+
+                            // Jangan replace nilai yang sudah ada
+                            if ($assessment->{$field} !== null && $assessment->{$field} !== '') {
+                                continue;
+                            }
+                        }
+
+                        $updateData[$field] = $value;
+                    }
+
+                    if (!empty($updateData)) {
+                        $assessment->update($updateData);
+                    }
                 }
             });
 
-            return redirect()->back()->with('success', 'Data assessment berhasil diperbarui!');
-
-            // 3. Kembalikan ke halaman sebelumnya dengan pesan sukses
+            return redirect()->back()
+                ->with('success', 'Data assessment berhasil diperbarui!');
         } catch (\Exception $e) {
+
             return redirect()->route('kindergarten.assessment_record')
                 ->with('error', 'Gagal menyimpan data assessment. ' . $e->getMessage());
         }

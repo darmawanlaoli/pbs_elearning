@@ -208,6 +208,8 @@
                     @include('high_school.assessment_record.moduls.non_ct')
                 @elseif ($assessment->subject == 'IMYC')
                     @include('high_school.assessment_record.moduls.imyc')
+                @elseif ($assessment->subject == 'Entrepreneurship')
+                    @include('high_school.assessment_record.moduls.entrepreneurship')
                 @elseif ($assessment->subject == 'PKN' ||
                         $assessment->subject == 'IPA' ||
                         $assessment->subject == 'IPS' ||

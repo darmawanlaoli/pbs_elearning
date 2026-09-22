@@ -517,13 +517,6 @@ class InternalReportController extends Controller
                     'mean_dk' => 0,
                 ];
 
-                $reportData = DB::table('primary_report_data_details')
-                ->join('primary_report_datas', 'primary_report_datas.id', '=', 'primary_report_data_details.id_report')
-                ->where('name', $student)
-                ->where('class', $class)
-                ->where('term', $current_term)
-                ->first();
-
             $imyc = DB::table('hs_assessment_record_details')
                 ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
                 ->where('name', $student)
@@ -537,6 +530,15 @@ class InternalReportController extends Controller
                 ->where('academic_year', $current_year)
                 ->where('class', $grade)
                 ->first();
+
+            $reportData = DB::table('hs_report_data_details')
+                ->join('hs_report_data', 'hs_report_data.id', '=', 'hs_report_data_details.id_report')
+                ->where('name', $student)
+                ->where('class', $class)
+                ->where('term', $current_term)
+                ->first();
+
+            dd($reportData);
 
             $records = DB::table('primary_assesment_record_details as d')
                 ->join('primary_assesment_records as r', 'r.id', '=', 'd.id_assesment')

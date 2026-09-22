@@ -188,11 +188,8 @@
                                 </tr>
                             </table>
 
-
-
-
                             {{-- Religious --}}
-                            <table class="mt-2" style="font-weight: bold; text-align: center">
+                            <table class="mt-5" style="font-weight: bold; text-align: center">
                                 <tr>
                                     <th>RELIGIOUS EDUCATION</th>
                                     <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
