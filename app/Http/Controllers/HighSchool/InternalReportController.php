@@ -538,8 +538,6 @@ class InternalReportController extends Controller
                 ->where('term', $current_term)
                 ->first();
 
-            dd($reportData);
-
             $records = DB::table('primary_assesment_record_details as d')
                 ->join('primary_assesment_records as r', 'r.id', '=', 'd.id_assesment')
                 ->where('d.name', $student)
