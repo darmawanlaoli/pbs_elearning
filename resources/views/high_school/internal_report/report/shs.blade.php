@@ -224,10 +224,11 @@
     </table>
     @endif
 
-    {{-- IPS --}}
+    {{-- KIMIA --}}
+    @if($kimia->ku_total != null)
     <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
-            <th>ILMU PENGETAHUAN SOSIAL</th>
+            <th>KIMIA</th>
             <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
             <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
         </tr>
@@ -241,34 +242,35 @@
         </tr>
 
         <tr>
-            <td>{{ $ips->ku_total ?? '' }}</td>
-            <td>{{ round($meanIPS->mean_ku) }}</td>
-            <td>{{ $ips->dk_total ?? '' }}</td>
-            <td>{{ round($meanIPS->mean_dk) }}</td>
+            <td>{{ $kimia->ku_total ?? 0 }}</td>
+            <td>{{ round($meanKimia->mean_ku) }}</td>
+            <td>{{ $kimia->dk_total ?? 0 }}</td>
+            <td>{{ round($meanKimia->mean_dk) }}</td>
         </tr>
 
         <tr>
             <td rowspan="3">LEARNING BEHAVIOURS</td>
             <td colspan="3">Personal Management Skill</td>
-            <td>{{ $ips->management_skill ?? 0 }}</td>
+            <td>{{ $kimia->management_skill ?? 0 }}</td>
         </tr>
 
         <tr>
             <td colspan="3">Active Participation In Learning</td>
-            <td>{{ $ips->active_participation ?? 0 }}</td>
+            <td>{{ $kimia->active_participation ?? 0 }}</td>
         </tr>
 
         <tr>
             <td colspan="3">Social Responsibility</td>
-            <td>{{ $ips->social_responsibility ?? 0 }}</td>
+            <td>{{ $kimia->social_responsibility ?? 0 }}</td>
         </tr>
     </table>
+    @endif
 
-
-    {{-- Math --}}
+    {{-- BIOLOGI --}}
+    @if($biologi->ku_total != null)
     <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
-            <th>MATHEMATIC</th>
+            <th>BIOLOGI</th>
             <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
             <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
         </tr>
@@ -282,28 +284,86 @@
         </tr>
 
         <tr>
-            <td>{{ $ips->ku_total ?? '' }}</td>
-            <td>{{ round($meanIPS->mean_ku) }}</td>
-            <td>{{ $ips->dk_total ?? '' }}</td>
-            <td>{{ round($meanIPS->mean_dk) }}</td>
+            <td>{{ $biologi->ku_total ?? 0 }}</td>
+            <td>{{ round($meanBiologi->mean_ku) }}</td>
+            <td>{{ $biologi->dk_total ?? 0 }}</td>
+            <td>{{ round($meanBiologi->mean_dk) }}</td>
         </tr>
 
         <tr>
             <td rowspan="3">LEARNING BEHAVIOURS</td>
             <td colspan="3">Personal Management Skill</td>
-            <td>{{ $ips->management_skill ?? 0 }}</td>
+            <td>{{ $biologi->management_skill ?? 0 }}</td>
         </tr>
 
         <tr>
             <td colspan="3">Active Participation In Learning</td>
-            <td>{{ $ips->active_participation ?? 0 }}</td>
+            <td>{{ $biologi->active_participation ?? 0 }}</td>
         </tr>
 
         <tr>
             <td colspan="3">Social Responsibility</td>
-            <td>{{ $ips->social_responsibility ?? 0 }}</td>
+            <td>{{ $biologi->social_responsibility ?? 0 }}</td>
         </tr>
     </table>
+    @endif
+
+    {{-- EKONOMI --}}
+    <table class="mt-5" style="font-weight: bold; text-align: center">
+        <tr>
+            <th>EKONOMI</th>
+            <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
+            <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
+        </tr>
+
+        <tr>
+            <th rowspan="2">ACADEMIC ACHIEVEMENT</th>
+            <th>SCORE</th>
+            <th>MEAN</th>
+            <th>SCORE</th>
+            <th>MEAN</th>
+        </tr>
+
+        <tr>
+            <td>{{ $ekonomi->ku_total ?? '' }}</td>
+            <td>{{ round($meanEkonomi->mean_ku) }}</td>
+            <td>{{ $ekonomi->dk_total ?? '' }}</td>
+            <td>{{ round($meanEkonomi->mean_dk) }}</td>
+        </tr>
+
+        <tr>
+            <td rowspan="3">LEARNING BEHAVIOURS</td>
+            <td colspan="3">Personal Management Skill</td>
+            <td>{{ $ekonomi->management_skill ?? 0 }}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">Active Participation In Learning</td>
+            <td>{{ $ekonomi->active_participation ?? 0 }}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">Social Responsibility</td>
+            <td>{{ $ekonomi->social_responsibility ?? 0 }}</td>
+        </tr>
+    </table>
+
+
+
+
+
+
+
+
+    <div class="footer">
+        <span class="left">{{ $murid->name .'/'.$murid->class.'/2026-2027' }}</span>
+        <span class="right">Page 2</span>
+    </div>
+</div>
+
+
+{{-- halaman 3 --}}
+<div class="page">
 
     {{-- B. INDO --}}
     <table class="mt-5" style="font-weight: bold; text-align: center">
@@ -344,18 +404,6 @@
             <td>{{ $english->management_skill ?? 0 }}</td>
         </tr>
     </table>
-
-
-
-    <div class="footer">
-        <span class="left">{{ $murid->name .'/'.$murid->class.'/2026-2027' }}</span>
-        <span class="right">Page 2</span>
-    </div>
-</div>
-
-
-{{-- halaman 3 --}}
-<div class="page">
 
     {{-- DT --}}
     <table class="mt-2" style="font-weight: bold; text-align: center">
