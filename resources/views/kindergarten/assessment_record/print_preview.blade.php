@@ -240,7 +240,7 @@ $isDisabledT1 = $assessment->term === 'Term 1' ? 'disabled' : '';
                         <button type="submit" class="btn btn-secondary" type="button" id="button-addon2"><i
                                 class="ti ti-eye"></i>
                             Show</button>
-                        <button type="submit" onclick="alert('Print rapor masih belum bisa ya, karena masih dalam proses pengecekan. Nanti kalau sudah bisa print akan diinfo di grup WA')" name="print" class="btn btn-primary" type="button" id="button-addon2"><i
+                        <button type="submit" onclick="window.print()" name="print" class="btn btn-primary" type="button" id="button-addon2"><i
                                 class="ti ti-printer"></i>
                             Print</button>
                     </div>
