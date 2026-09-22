@@ -189,7 +189,7 @@ class AssesmentRecordController extends Controller
         try {
             DB::transaction(function () use ($request) {
 
-                foreach ($request->assessments as $id => $data) {
+                foreach ($request->input('assessments', []) as $id => $data) {
 
                     $assessment = KindergartenAssesmentRecordDetail::find($id);
 
@@ -201,15 +201,17 @@ class AssesmentRecordController extends Controller
 
                     foreach ($data as $field => $value) {
 
-                        // Jika input baru kosong/null
-                        if ($value === null || $value === '') {
-
-                            // Jangan replace nilai yang sudah ada
-                            if ($assessment->{$field} !== null && $assessment->{$field} !== '') {
-                                continue;
-                            }
+                        // Jika nilai baru kosong, jangan timpa
+                        // nilai lama yang sudah terisi
+                        if (($value === null || $value === '') &&
+                            ($assessment->{$field} !== null && $assessment->{$field} !== '')
+                        ) {
+                            continue;
                         }
 
+                        // Jika nilai baru tidak kosong,
+                        // atau nilai lama memang masih kosong,
+                        // izinkan update
                         $updateData[$field] = $value;
                     }
 
@@ -227,6 +229,20 @@ class AssesmentRecordController extends Controller
                 ->with('error', 'Gagal menyimpan data assessment. ' . $e->getMessage());
         }
     }
+
+    // public function inputAction(Request $request)
+    // {
+    //     dd($request->input('assessments.22'));
+    //     dd([
+    //         'max_input_vars' => ini_get('max_input_vars'),
+    //         'assessment_count' => count($request->input('assessments', [])),
+    //         'total_variables' => count(
+    //             $request->input('assessments', []),
+    //             COUNT_RECURSIVE
+    //         ),
+    //         'assessments' => $request->input('assessments', []),
+    //     ]);
+    // }
 
     public function reportData($id)
     {
