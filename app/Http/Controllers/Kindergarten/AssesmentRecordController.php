@@ -148,8 +148,23 @@ class AssesmentRecordController extends Controller
         $title = 'Edit Assessment Record';
         $path = 'Assessment Record';
         $assessment = KindergartenAssesmentRecordDetail::findOrFail($id);
-        $class = strtolower(substr($assessment->class, 0, 2));
-        return view("kindergarten.assessment_record.edit_moduls.{$class}", compact('title', 'path', 'assessment'));
+        $class = $assessment->class;
+
+        if (str_contains($class, 'K2')) {
+            $file = 'k2';
+        } elseif (str_contains($class, 'K1')) {
+            $file = 'k1';
+        } elseif (str_contains($class, 'Pre-K')) {
+            $file = 'pre-k';
+        } elseif (str_contains($class, 'Nursery')) {
+            $file = 'nursery';
+        } else {
+            $file = null;
+        }
+
+
+
+        return view("kindergarten.assessment_record.edit_moduls.{$file}", compact('title', 'path', 'assessment'));
     }
 
     public function update(Request $request, $id)
