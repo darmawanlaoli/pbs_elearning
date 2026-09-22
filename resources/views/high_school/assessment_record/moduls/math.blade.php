@@ -6,7 +6,7 @@
                 <th rowspan="3" style="min-width: 180px;">Student Name</th>
                 <th colspan="11">Number Sense and Operations</th>
                 <th style="background-color: #EF2278" colspan="13">Problem Solving</th>
-                <th style="background-color: #EF2278" colspan="4">Demonstrate Knowledge</th>
+                {{-- <th style="background-color: #EF2278" colspan="4">Demonstrate Knowledge</th> --}}
                 <th rowspan="3">Management <br> Skill</th>
                 <th rowspan="3">Active <br> Participation</th>
                 <th rowspan="3">Social <br> Responsibility</th>
@@ -29,10 +29,10 @@
                 <th style="background-color: #EF2278" rowspan="2">Total</th>
 
                 {{-- Demonstrate Knowledge --}}
-                <th style="background-color: #EF2278" rowspan="2">Project</th>
+                {{-- <th style="background-color: #EF2278" rowspan="2">Project</th>
                 <th style="background-color: #EF2278" rowspan="2">AVG 95%</th>
                 <th style="background-color: #EF2278" rowspan="2">Att 5%</th>
-                <th style="background-color: #EF2278" rowspan="2">Total</th>
+                <th style="background-color: #EF2278" rowspan="2">Total</th> --}}
             </tr>
 
             <tr class="text-center">
@@ -123,14 +123,14 @@
                         class="score-input ps-total" name="students[{{ $ass->id }}][lang_reading_total]" readonly></td>
 
                 {{-- ================= DEMONSTRATE KNOWLEDGE ================= --}}
-                <td><input type="number" value="{{ $ass->dk1 ?? '' }}" class="score-input dk-proj"
+                {{-- <td><input type="number" value="{{ $ass->dk1 ?? '' }}" class="score-input dk-proj"
                         name="students[{{ $ass->id }}][dk1]" min="0" max="100" step="0.01"></td>
                 <td><input type="number" value="{{ $ass->dk_avg ?? '' }}" class="score-input dk-proj-avg"
                         name="students[{{ $ass->id }}][dk_avg]" readonly></td>
                 <td><input type="number" value="{{ $ass->attendance ?? '' }}" class="score-input"
                         name="students[{{ $ass->id }}][attendance]" min="0" max="5" step="0.01"></td>
                 <td class="total"><input type="number" value="{{ $ass->dk_total ?? '' }}" class="score-input dk-total"
-                        name="students[{{ $ass->id }}][dk_total]" readonly></td>
+                        name="students[{{ $ass->id }}][dk_total]" readonly></td> --}}
 
                 {{-- ================= LETTER INPUTS ================= --}}
                 <td><input type="text" value="{{ $ass->management_skill ?? '' }}" class="score-input letter-input"

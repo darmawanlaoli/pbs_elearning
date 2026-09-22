@@ -219,6 +219,8 @@ class AssessmentRecord extends Controller
                         'ku4' => $data['ku4'] ?? null,
                         'ku_avg' => $data['ku_avg'] ?? null,
                         'ku_total' => $data['ku_total'] ?? null,
+                        'ps_proj' => $data['ps_proj'] ?? null,
+                        'ps_proj_avg' => $data['ps_proj_avg'] ?? null,
 
                         'dk1' => $data['dk1'] ?? null,
                         'dk_avg' => $data['dk_avg'] ?? null,
