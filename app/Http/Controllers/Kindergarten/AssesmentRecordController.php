@@ -148,7 +148,8 @@ class AssesmentRecordController extends Controller
         $title = 'Edit Assessment Record';
         $path = 'Assessment Record';
         $assessment = KindergartenAssesmentRecordDetail::findOrFail($id);
-        return view('kindergarten.assessment_record.edit', compact('title', 'path', 'assessment'));
+        $class = substr($assessment->class, 0, 2);
+        return view("kindergarten.assessment_record.edit_moduls.{$class}", compact('title', 'path', 'assessment'));
     }
 
     public function update(Request $request, $id)
