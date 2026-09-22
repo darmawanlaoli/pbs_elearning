@@ -148,7 +148,7 @@ class AssesmentRecordController extends Controller
         $title = 'Edit Assessment Record';
         $path = 'Assessment Record';
         $assessment = KindergartenAssesmentRecordDetail::findOrFail($id);
-        $class = substr($assessment->class, 0, 2);
+        $class = strtolower(substr($assessment->class, 0, 2));
         return view("kindergarten.assessment_record.edit_moduls.{$class}", compact('title', 'path', 'assessment'));
     }
 
