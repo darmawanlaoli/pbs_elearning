@@ -188,7 +188,8 @@ class AssesmentRecordController extends Controller
     {
         $title = 'Report Data';
         $path = 'Report';
-        $assessments = DB::table('kindergarten_assesment_record_details')->where('id_assesment', $id)->orderBy('name', 'ASC')->get();
+        $teacher = session('name');
+        $assessments = DB::table('kindergarten_assesment_record_details')->where('id_assesment', $id)->where('teachers', $teacher)->orderBy('name', 'ASC')->get();
         return view('kindergarten/assessment_record/report_data', compact('title', 'path', 'assessments'));
     }
 

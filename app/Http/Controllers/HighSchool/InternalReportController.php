@@ -233,6 +233,7 @@ class InternalReportController extends Controller
         if ($student) {
             $academicyears = AcademicYear::first();
             $current_term = $academicyears->term;
+            $current_year = $academicyears->academic_year;
 
             $class = $class_admin;
 
@@ -287,7 +288,8 @@ class InternalReportController extends Controller
                     'mean_ku' => 0,
                     'mean_dk' => 0,
                 ];
-            // bahasa Indonesia
+
+                // bahasa Indonesia
             $indonesia = DB::table('hs_assessment_record_details')
                 ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
                 ->where('name', $student)
@@ -307,111 +309,84 @@ class InternalReportController extends Controller
                 )
                 ->groupBy('r.subject')
                 ->first() ?? (object)[
-                    'subject' => 'PKN',
+                    'subject' => 'Bahasa Indonesia',
                     'mean_lang_ku' => 0,
                     'mean_lang_dk' => 0,
                 ];
 
-            $music = DB::table('primary_assesment_record_details')
-                ->join('primary_assesment_records', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
+            // english
+            $english = DB::table('hs_assessment_record_details')
+                ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
                 ->where('name', $student)
-                ->where('subject', 'MUSIC')
                 ->where('term', $current_term)
+                ->where('subject', 'English')
                 ->first();
 
-            $meanMusic = DB::table('primary_assesment_record_details as d')
-                ->join('primary_assesment_records as r', 'r.id', '=', 'd.id_assesment')
+            $meanEnglish = DB::table('hs_assessment_record_details as d')
+                ->join('hs_assessment_records as r', 'r.id', '=', 'd.id_assesment')
                 ->where('r.class', $class)
-                ->where('r.subject', 'MUSIC')
+                ->where('r.subject', 'English')
                 ->where('term', $current_term)
                 ->select(
                     'r.subject',
-                    DB::raw('AVG(d.concept) as mean_music_concept'),
-                    DB::raw('AVG(d.demonstrate) as mean_music_demonstrate'),
+                    DB::raw('AVG(d.lang_total_ku) as mean_lang_ku'),
+                    DB::raw('AVG(d.lang_total_dk) as mean_lang_dk'),
                 )
                 ->groupBy('r.subject')
                 ->first() ?? (object)[
-                    'subject' => 'MUSIC',
-                    'mean_music_concept' => 0,
-                    'mean_music_demonstrate' => 0,
+                    'subject' => 'English',
+                    'mean_lang_ku' => 0,
+                    'mean_lang_dk' => 0,
                 ];
 
-            $ipas = DB::table('primary_assesment_record_details')
-                ->join('primary_assesment_records', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
+            $ipa = DB::table('hs_assessment_record_details')
+                ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
                 ->where('name', $student)
                 ->where('term', $current_term)
-                ->where('subject', 'SCIENCE AND SOCIAL STUDY')
+                ->where('subject', 'IPA')
                 ->first();
 
-            $meanIpas = DB::table('primary_assesment_record_details as d')
-                ->join('primary_assesment_records as r', 'r.id', '=', 'd.id_assesment')
+            $meanIPA = DB::table('hs_assessment_record_details as d')
+                ->join('hs_assessment_records as r', 'r.id', '=', 'd.id_assesment')
                 ->where('r.class', $class)
-                ->where('r.subject', 'SCIENCE AND SOCIAL STUDY')
+                ->where('r.subject', 'IPA')
                 ->where('term', $current_term)
                 ->select(
                     'r.subject',
-                    DB::raw('AVG(d.concept) as mean_ipas_concept'),
-                    DB::raw('AVG(d.demonstrate) as mean_ipas_demonstrate'),
+                    DB::raw('AVG(d.ku_total) as mean_ku'),
+                    DB::raw('AVG(d.dk_total) as mean_dk'),
                 )
                 ->groupBy('r.subject')
                 ->first() ?? (object)[
-                    'subject' => 'SCIENCE AND SOCIAL STUDY',
-                    'mean_ipas_concept' => 0,
-                    'mean_ipas_demonstrate' => 0,
+                    'subject' => 'IPA',
+                    'mean_ku' => 0,
+                    'mean_dk' => 0,
                 ];
 
-            // PE
-            $pe = DB::table('primary_assesment_record_details')
-                ->join('primary_assesment_records', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
+            // IPS
+            $ips = DB::table('hs_assessment_record_details')
+                ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
                 ->where('name', $student)
-                ->where('subject', 'HEALTH AND PHYSICAL EDUCATION')
                 ->where('term', $current_term)
+                ->where('subject', 'IPS')
                 ->first();
 
-            $meanPe = DB::table('primary_assesment_record_details as d')
-                ->join('primary_assesment_records as r', 'r.id', '=', 'd.id_assesment')
+            $meanIPS = DB::table('hs_assessment_record_details as d')
+                ->join('hs_assessment_records as r', 'r.id', '=', 'd.id_assesment')
                 ->where('r.class', $class)
-                ->where('r.subject', 'HEALTH AND PHYSICAL EDUCATION')
+                ->where('r.subject', 'IPS')
                 ->where('term', $current_term)
                 ->select(
                     'r.subject',
-                    DB::raw('AVG(d.concept) as mean_pe_concept'),
-                    DB::raw('AVG(d.pe_understand_rules) as mean_pe_understand_rules'),
-                    DB::raw('AVG(d.pe_locomotors_movement) as mean_pe_locomotors_movement'),
+                    DB::raw('AVG(d.ku_total) as mean_ku'),
+                    DB::raw('AVG(d.dk_total) as mean_dk'),
                 )
                 ->groupBy('r.subject')
                 ->first() ?? (object)[
-                    'subject' => 'HEALTH AND PHYSICAL EDUCATION',
-                    'mean_pe_concept' => 0,
-                    'mean_pe_understand_rules' => 0,
-                    'mean_pe_locomotors_movement' => 0,
+                    'subject' => 'IPS',
+                    'mean_ku' => 0,
+                    'mean_dk' => 0,
                 ];
-
-            // ICT
-            $ict = DB::table('primary_assesment_record_details')
-                ->join('primary_assesment_records', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
-                ->where('name', $student)
-                ->where('subject', 'INFORMATION AND COMMUNICATION TECHNOLOGY')
-                ->where('term', $current_term)
-                ->first();
-
-            $meanIct = DB::table('primary_assesment_record_details as d')
-                ->join('primary_assesment_records as r', 'r.id', '=', 'd.id_assesment')
-                ->where('r.class', $class)
-                ->where('r.subject', 'INFORMATION AND COMMUNICATION TECHNOLOGY')
-                ->where('term', $current_term)
-                ->select(
-                    'r.subject',
-                    DB::raw('AVG(d.concept) as mean_ict_concept'),
-                    DB::raw('AVG(d.demonstrate) as mean_ict_demonstrate'),
-                )
-                ->groupBy('r.subject')
-                ->first() ?? (object)[
-                    'subject' => 'INFORMATION AND COMMUNICATION TECHNOLOGY',
-                    'mean_ict_concept' => 0,
-                    'mean_ict_demonstrate' => 0,
-                ];
-
 
             $math = DB::table('primary_assesment_record_details')
                 ->join('primary_assesment_records', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
@@ -444,110 +419,123 @@ class InternalReportController extends Controller
                 ->where('term', $current_term)
                 ->first();
 
-            $english = DB::table('primary_assesment_record_details')
-                ->join('primary_assesment_records', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
+            // IPS
+            $dt = DB::table('hs_assessment_record_details')
+                ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
                 ->where('name', $student)
-                ->where('subject', 'ENGLISH')
                 ->where('term', $current_term)
+                ->where('subject', 'Design and Technology')
                 ->first();
 
-            $meanEnglish = DB::table('primary_assesment_record_details as d')
-                ->join('primary_assesment_records as r', 'r.id', '=', 'd.id_assesment')
+            $meanDT = DB::table('hs_assessment_record_details as d')
+                ->join('hs_assessment_records as r', 'r.id', '=', 'd.id_assesment')
                 ->where('r.class', $class)
-                ->where('r.subject', 'ENGLISH')
+                ->where('r.subject', 'Design and Technology')
                 ->where('term', $current_term)
                 ->select(
                     'r.subject',
-                    DB::raw('AVG(d.concept) as mean_english_concept'),
-                    DB::raw('AVG(d.lang_neatness_in_writing) as mean_lang_neatness_in_writing'),
-                    DB::raw('AVG(d.lang_neatness_in_writing) as mean_lang_neatness_in_writing'),
-                    DB::raw('AVG(d.lang_writes_with_fluency) as mean_lang_writes_with_fluency'),
-                    DB::raw('AVG(d.lang_reads_accurately) as mean_lang_reads_accurately'),
-                    DB::raw('AVG(d.lang_expresses_ideas) as mean_lang_expresses_ideas'),
-                    DB::raw('AVG(d.lang_reads_fluency) as mean_lang_reads_fluency'),
-                    DB::raw('AVG(d.lang_listen_with_understanding) as mean_lang_listen_with_understanding'),
+                    DB::raw('AVG(d.ku_total) as mean_ku'),
+                    DB::raw('AVG(d.dk_total) as mean_dk'),
                 )
                 ->groupBy('r.subject')
                 ->first() ?? (object)[
-                    'subject' => 'ENGLISH',
-                    'mean_lang_neatness_in_writing' => 0,
-                    'mean_lang_writes_with_fluency' => 0,
-                    'mean_lang_reads_accurately' => 0,
-                    'mean_lang_expresses_ideas' => 0,
-                    'mean_lang_reads_fluency' => 0,
-                    'mean_lang_listen_with_understanding' => 0,
+                    'subject' => 'Design and Technology',
+                    'mean_ku' => 0,
+                    'mean_dk' => 0,
                 ];
 
-            // Art and Craft
-            $art = DB::table('primary_assesment_record_details')
-                ->join('primary_assesment_records', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
+
+            $visualArt = DB::table('hs_assessment_record_details')
+                ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
                 ->where('name', $student)
-                ->where('subject', 'ART AND CRAFT')
                 ->where('term', $current_term)
+                ->where('subject', 'Visual Art')
                 ->first();
 
-            $meanArt = DB::table('primary_assesment_record_details as d')
-                ->join('primary_assesment_records as r', 'r.id', '=', 'd.id_assesment')
+            $meanVisualArt = DB::table('hs_assessment_record_details as d')
+                ->join('hs_assessment_records as r', 'r.id', '=', 'd.id_assesment')
                 ->where('r.class', $class)
-                ->where('r.subject', 'ART AND CRAFT')
+                ->where('r.subject', 'Visual Art')
                 ->where('term', $current_term)
                 ->select(
                     'r.subject',
-                    DB::raw('AVG(d.art_followed_direction) as mean_art_followed_direction'),
-                    DB::raw('AVG(d.art_displayed_neat) as mean_art_displayed_neat'),
-                    DB::raw('AVG(d.art_finished_project) as mean_art_finished_project'),
+                    DB::raw('AVG(d.ku_total) as mean_ku'),
+                    DB::raw('AVG(d.dk_total) as mean_dk'),
                 )
                 ->groupBy('r.subject')
                 ->first() ?? (object)[
-                    'subject' => 'ART AND CRAFT',
-                    'mean_art_followed_direction' => 0,
-                    'mean_art_displayed_neat' => 0,
-                    'mean_art_finished_project' => 0,
+                    'subject' => 'Visual Art',
+                    'mean_ku' => 0,
+                    'mean_dk' => 0,
                 ];
 
-            // MANDARIN
-            $mandarin = DB::table('primary_assesment_record_details')
-                ->join('primary_assesment_records', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
+            $pe = DB::table('hs_assessment_record_details')
+                ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
                 ->where('name', $student)
-                ->where('subject', 'MANDARIN')
                 ->where('term', $current_term)
+                ->where('subject', 'Physical Education')
                 ->first();
 
-            $meanMandarin = DB::table('primary_assesment_record_details as d')
-                ->join('primary_assesment_records as r', 'r.id', '=', 'd.id_assesment')
+            $meanPE = DB::table('hs_assessment_record_details as d')
+                ->join('hs_assessment_records as r', 'r.id', '=', 'd.id_assesment')
                 ->where('r.class', $class)
-                ->where('r.subject', 'MANDARIN')
+                ->where('r.subject', 'Physical Education')
                 ->where('term', $current_term)
                 ->select(
                     'r.subject',
-                    DB::raw('AVG(d.mandarin_understands_vocabulary) as mean_mandarin_understands_vocabulary'),
-                    DB::raw('AVG(d.mandarin_writes_characters) as mean_mandarin_writes_characters'),
-                    DB::raw('AVG(d.mandarin_neatness) as mean_mandarin_neatness'),
-                    DB::raw('AVG(d.	mandarin_correct_intonation) as mean_mandarin_correct_intonation'),
-                    DB::raw('AVG(d.mandarin_reads_fluently) as mean_mandarin_reads_fluently'),
-                    DB::raw('AVG(d.mandarin_able_to_pronounce) as mean_mandarin_able_to_pronounce'),
-                    DB::raw('AVG(d.mandarin_able_to_transfer_the_words) as mean_mandarin_able_to_transfer_the_words'),
+                    DB::raw('AVG(d.ku_total) as mean_ku'),
+                    DB::raw('AVG(d.dk_total) as mean_dk'),
                 )
                 ->groupBy('r.subject')
                 ->first() ?? (object)[
-                    'subject' => 'MANDARIN',
-                    'mean_mandarin_understands_vocabulary' => 0,
-                    'mean_mandarin_writes_characters' => 0,
-                    'mean_mandarin_neatness' => 0,
-                    'mean_mandarin_correct_intonation' => 0,
-                    'mean_mandarin_reads_fluently' => 0,
-                    'mean_mandarin_able_to_pronounce' => 0,
-                    'mean_mandarin_able_to_transfer_the_words' => 0,
-
+                    'subject' => 'Physical Education',
+                    'mean_ku' => 0,
+                    'mean_dk' => 0,
                 ];
 
+            $art = DB::table('hs_assessment_record_details')
+                ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
+                ->where('name', $student)
+                ->where('term', $current_term)
+                ->where('subject', 'Art')
+                ->first();
 
+            $meanArt = DB::table('hs_assessment_record_details as d')
+                ->join('hs_assessment_records as r', 'r.id', '=', 'd.id_assesment')
+                ->where('r.class', $class)
+                ->where('r.subject', 'Art')
+                ->where('term', $current_term)
+                ->select(
+                    'r.subject',
+                    DB::raw('AVG(d.ku_total) as mean_ku'),
+                    DB::raw('AVG(d.dk_total) as mean_dk'),
+                )
+                ->groupBy('r.subject')
+                ->first() ?? (object)[
+                    'subject' => 'Art',
+                    'mean_ku' => 0,
+                    'mean_dk' => 0,
+                ];
 
-            $reportData = DB::table('primary_report_data_details')
+                $reportData = DB::table('primary_report_data_details')
                 ->join('primary_report_datas', 'primary_report_datas.id', '=', 'primary_report_data_details.id_report')
                 ->where('name', $student)
                 ->where('class', $class)
                 ->where('term', $current_term)
+                ->first();
+
+            $imyc = DB::table('hs_assessment_record_details')
+                ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
+                ->where('name', $student)
+                ->where('term', $current_term)
+                ->where('subject', 'IMYC')
+                ->first();
+
+            $grade = substr($class, 0, 2);
+            $imyc_stage = DB::table('hs_imyc_stages')
+                ->where('term', $current_term)
+                ->where('academic_year', $current_year)
+                ->where('class', $grade)
                 ->first();
 
             $records = DB::table('primary_assesment_record_details as d')
@@ -604,25 +592,25 @@ class InternalReportController extends Controller
             $meanReligious = [];
             $pkn = null;
             $meanPKn = [];
-            $music = null;
-            $meanMusic = [];
-            $ipas = null;
-            $meanIpas = [];
+            $ipa = null;
+            $meanIPA = [];
+            $ips = null;
+            $meanIPS = [];
             $pe = null;
-            $meanPe = [];
+            $meanPE = [];
             $math = null;
             $meanMath = [];
-            $ict = null;
-            $meanIct = [];
-            $mandarin = null;
-            $meanMandarin = [];
             $art = null;
             $meanArt = [];
             $indonesia = null;
             $meanIndonesia = [];
             $english = null;
             $meanEnglish = [];
+            $dt = null;
+            $meanDT = [];
             $mathematic = null;
+            $imyc = null;
+            $imyc_stage = null;
             $records = [];
             $subjects = [];
             $means = [];
@@ -638,24 +626,24 @@ class InternalReportController extends Controller
             'meanReligious',
             'pkn',
             'meanPKn',
-            'music',
-            'meanMusic',
-            'mandarin',
-            'meanMandarin',
             'pe',
-            'meanPe',
+            'meanPE',
             'math',
             'meanMath',
-            'ipas',
-            'meanIpas',
+            'ipa',
+            'meanIPA',
+            'ips',
+            'meanIPS',
+            'dt',
+            'meanDT',
             'art',
             'meanArt',
-            'ict',
-            'meanIct',
             'indonesia',
             'meanIndonesia',
             'english',
             'meanEnglish',
+            'imyc',
+            'imyc_stage',
             'records',
             'subjects',
             'means',
