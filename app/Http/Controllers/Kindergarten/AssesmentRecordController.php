@@ -143,6 +143,64 @@ class AssesmentRecordController extends Controller
         }
     }
 
+    public function edit(string $id)
+    {
+        $title = 'Edit Assessment Record';
+        $path = 'Assessment Record';
+        $assessment = KindergartenAssesmentRecordDetail::findOrFail($id);
+        return view('kindergarten.assessment_record.edit', compact('title', 'path', 'assessment'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $assessment = KindergartenAssesmentRecordDetail::findOrFail($id);
+
+        $data = $request->except(['_token', '_method']);
+
+        foreach ($data as $key => $value) {
+            $data[$key] = $value === '' ? null : $value;
+        }
+
+        $assessment->update($data);
+
+        return redirect()->route('kindergarten.assessment_record.input', $assessment->id_assesment)
+            ->with('success', 'Data assessment berhasil disimpan!');
+    }
+
+    // public function update(Request $request, $id)
+    // {
+
+    //     $request->validate(
+    //         [
+    //             'nama_cabang' => 'required|string',
+    //             'username' => 'required|string|max:255',
+    //             'password' => 'required|string|min:8|confirmed',
+    //             'alamat' => 'required|string',
+    //         ],
+    //         [
+    //             'nama_cabang.required' => 'Nama cabang wajib diisi',
+    //             'alamat.required' => 'Alamat wajib diisi',
+    //             'password.required' => 'Password wajib diisi',
+    //             'username.required' => 'Username wajib diisi',
+    //             'password.confirmed' => 'Konfirmasi password tidak sesuai',
+    //             'password.min' => 'Password minimal 8 karakter',
+    //         ]
+
+    //     );
+
+    //     $beanch = Branch::findOrFail($id);
+
+    //     $beanch->update([
+    //         'nama_cabang' => $request->nama_cabang,
+    //         'alamat' => $request->alamat,
+    //         'username' => $request->username,
+    //         'pass' => $request->password,
+    //         'password' => Hash::make($request->password),
+    //     ]);
+
+    //     return redirect()->route('superadmin.data_cabang')->with(['success' => 'Data cabang berhasil diubah!']);
+    // }
+
     public function input($id)
     {
         $title = 'Assessment Record';
@@ -184,51 +242,51 @@ class AssesmentRecordController extends Controller
     //     }
     // }
 
-    public function inputAction(Request $request)
-    {
-        try {
-            DB::transaction(function () use ($request) {
+    // public function inputAction(Request $request)
+    // {
+    //     try {
+    //         DB::transaction(function () use ($request) {
 
-                foreach ($request->input('assessments', []) as $id => $data) {
+    //             foreach ($request->input('assessments', []) as $id => $data) {
 
-                    $assessment = KindergartenAssesmentRecordDetail::find($id);
+    //                 $assessment = KindergartenAssesmentRecordDetail::find($id);
 
-                    if (!$assessment) {
-                        continue;
-                    }
+    //                 if (!$assessment) {
+    //                     continue;
+    //                 }
 
-                    $updateData = [];
+    //                 $updateData = [];
 
-                    foreach ($data as $field => $value) {
+    //                 foreach ($data as $field => $value) {
 
-                        // Jika nilai baru kosong, jangan timpa
-                        // nilai lama yang sudah terisi
-                        if (($value === null || $value === '') &&
-                            ($assessment->{$field} !== null && $assessment->{$field} !== '')
-                        ) {
-                            continue;
-                        }
+    //                     // Jika nilai baru kosong, jangan timpa
+    //                     // nilai lama yang sudah terisi
+    //                     if (($value === null || $value === '') &&
+    //                         ($assessment->{$field} !== null && $assessment->{$field} !== '')
+    //                     ) {
+    //                         continue;
+    //                     }
 
-                        // Jika nilai baru tidak kosong,
-                        // atau nilai lama memang masih kosong,
-                        // izinkan update
-                        $updateData[$field] = $value;
-                    }
+    //                     // Jika nilai baru tidak kosong,
+    //                     // atau nilai lama memang masih kosong,
+    //                     // izinkan update
+    //                     $updateData[$field] = $value;
+    //                 }
 
-                    if (!empty($updateData)) {
-                        $assessment->update($updateData);
-                    }
-                }
-            });
+    //                 if (!empty($updateData)) {
+    //                     $assessment->update($updateData);
+    //                 }
+    //             }
+    //         });
 
-            return redirect()->back()
-                ->with('success', 'Data assessment berhasil diperbarui!');
-        } catch (\Exception $e) {
+    //         return redirect()->back()
+    //             ->with('success', 'Data assessment berhasil diperbarui!');
+    //     } catch (\Exception $e) {
 
-            return redirect()->route('kindergarten.assessment_record')
-                ->with('error', 'Gagal menyimpan data assessment. ' . $e->getMessage());
-        }
-    }
+    //         return redirect()->route('kindergarten.assessment_record')
+    //             ->with('error', 'Gagal menyimpan data assessment. ' . $e->getMessage());
+    //     }
+    // }
 
     // public function inputAction(Request $request)
     // {

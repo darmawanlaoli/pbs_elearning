@@ -139,6 +139,12 @@ Route::post('kindergarten/assessment_record/{id}/report_data', [KindergartenAsse
 Route::put('kindergarten/assessment_record/store_report_data', [KindergartenAssessmentRecord::class, 'storeReportData'])->name('kindergarten.assessment_record.store_report_data');
 Route::get('kindergarten/students/by_class', [KindergartenAssessmentRecord::class, 'getStudentsByClass'])->name('kindergarten.students.by_class');
 
+Route::get('kindergarten/assessment_record_details/{id}/edit', [KindergartenAssessmentRecord::class, 'edit'])->name('kindergarten.assessment_record_details.edit');
+Route::put(
+    '/kindergarten/assessment-record-details/{id}',
+    [KindergartenAssessmentRecord::class, 'update']
+)->name('kindergarten.assessment_record_details.update');
+
 Route::middleware(['auth:kindergartenteacher', 'role:kindergartenteacher'])->group(function () {
 
     Route::post('kindergarten/assessment_record/{id}/print_preview', [KindergartenAssessmentRecord::class, 'printPreview'])->name('kindergarten.assessment_record.print_preview');
