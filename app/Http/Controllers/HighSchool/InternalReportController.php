@@ -532,9 +532,10 @@ class InternalReportController extends Controller
                 ->first();
 
             $reportData = DB::table('hs_report_data_details')
-                ->join('hs_report_data', 'hs_report_data.id', '=', 'hs_report_data_details.id_report')
+                ->join('hs_report_data', 'hs_report_data.id', '=', 'hs_report_data_details.id_report_data')
                 ->where('name', $student)
                 ->where('hs_report_data.class', $class)
+                ->where('hs_report_data.academic_year', $current_year)
                 ->where('term', $current_term)
                 ->first();
 

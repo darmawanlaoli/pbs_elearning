@@ -169,7 +169,7 @@
 
                                 <tr>
                                     <td>STUDENT NUMBER</td>
-                                    <td></td>
+                                    <td>{{ $murid->reg_number }}</td>
                                 </tr>
 
                                 <tr>
@@ -818,14 +818,24 @@
                                             <th>GRADE LEVEL</th>
                                         </tr>
                                         <tr>
-                                            <th>0</th>
-                                            <th>0</th>
+                                            <th>{{ $reportData->club1 ?? '-' }}</th>
+                                            <th>{{ $reportData->grade_club1 ?? '-' }}</th>
+                                        </tr>
+
+                                        <tr>
+                                            <th>{{ $reportData->club2 ?? '-' }}</th>
+                                            <th>{{ $reportData->grade_club2 ?? '-' }}</th>
+                                        </tr>
+
+                                        <tr>
+                                            <th>{{ $reportData->club3 ?? '-' }}</th>
+                                            <th>{{ $reportData->grade_club3 ?? '-' }}</th>
                                         </tr>
                                     </table>
                                 </div>
 
                                 <div class="col-4">
-                                    <table class="mt-2" style="font-weight: bold; text-align: center">
+                                    <table class="mt-3" style="font-weight: bold; text-align: center">
                                         <tr>
                                             <th>SCALE:</th>
                                         </tr>
@@ -845,7 +855,7 @@
                                 </div>
                             </div>
 
-                            <table class="mt-2" style="font-weight: bold; text-align: center">
+                            <table class="mt-3" style="font-weight: bold; text-align: center">
                                 <tr>
                                     <th rowspan="2">ATTENDANCE</th>
                                     <th>PRESENT</th>
@@ -854,20 +864,26 @@
                                     <th>TARDY</th>
                                 </tr>
                                 <tr>
-                                    <th>0</th>
-                                    <th>0</th>
-                                    <th>0</th>
-                                    <th>0</th>
+                                    <th>{{ $reportData->present ?? '0' }}</th>
+                                    <th>{{ $reportData->excused ?? '0' }}</th>
+                                    <th>{{ $reportData->unexcused ?? '0' }}</th>
+                                    <th>{{ $reportData->tardy ?? '0' }}</th>
                                 </tr>
                             </table>
 
-                            <table class="mt-2" style="font-weight: bold; text-align: center">
+                            <table class="mt-3" style="font-weight: bold; text-align: center">
                                 <tr>
                                     <th style="text-align: left">COMMENT</th>
                                 </tr>
 
                                 <tr>
-                                    <th style="text-align: justify">COMMENT</th>
+                                    <th style="text-align: justify">
+                                        @if($reportData->comment == null)
+                                        {{ 'Comment belum diinput' }}
+                                        @else
+                                        {{ $reportData->comment }}
+                                        @endif
+                                    </th>
                                 </tr>
                             </table>
 
@@ -882,7 +898,7 @@
 
                                 <tr>
                                     <th style="height: 130px;">25-Sep-2026</th>
-                                    <th></th>
+                                    <th style="vertical-align: bottom">{{ session('name') }}</th>
                                     <th style="vertical-align: bottom">Ancilla Dewi Respati</th>
                                     <th></th>
                                 </tr>
