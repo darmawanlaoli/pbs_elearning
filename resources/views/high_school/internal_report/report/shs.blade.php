@@ -350,11 +350,6 @@
 
 
 
-
-
-
-
-
     <div class="footer">
         <span class="left">{{ $murid->name .'/'.$murid->class.'/2026-2027' }}</span>
         <span class="right">Page 2</span>
@@ -365,8 +360,183 @@
 {{-- halaman 3 --}}
 <div class="page">
 
-    {{-- B. INDO --}}
+    {{-- SOSIOLOGI --}}
+    @if($fisika->ku_total != null)
+    <table class="mt-2" style="font-weight: bold; text-align: center">
+        <tr>
+            <th>SOSIOLOGI</th>
+            <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
+            <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
+        </tr>
+
+        <tr>
+            <th rowspan="2">ACADEMIC ACHIEVEMENT</th>
+            <th>SCORE</th>
+            <th>MEAN</th>
+            <th>SCORE</th>
+            <th>MEAN</th>
+        </tr>
+
+        <tr>
+            <td style="padding: 8px">{{ $sosiologi->ku_total ?? 0 }}</td>
+            <td>{{ round($meanSosiologi->mean_ku) }}</td>
+            <td>{{ $sosiologi->dk_total ?? 0 }}</td>
+            <td>{{ round($meanSosiologi->mean_dk) }}</td>
+        </tr>
+
+        <tr>
+            <td rowspan="3">LEARNING BEHAVIOURS</td>
+            <td colspan="3">Personal Management Skill</td>
+            <td>{{ $sosiologi->management_skill ?? 0 }}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">Active Participation In Learning</td>
+            <td>{{ $sosiologi->active_participation ?? 0 }}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">Social Responsibility</td>
+            <td>{{ $sosiologi->social_responsibility ?? 0 }}</td>
+        </tr>
+    </table>
+    @endif
+
+
+    {{-- GEOGRAFI --}}
+    @if($fisika->ku_total != null)
     <table class="mt-5" style="font-weight: bold; text-align: center">
+        <tr>
+            <th>GEOGRAFI</th>
+            <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
+            <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
+        </tr>
+
+        <tr>
+            <th rowspan="2">ACADEMIC ACHIEVEMENT</th>
+            <th>SCORE</th>
+            <th>MEAN</th>
+            <th>SCORE</th>
+            <th>MEAN</th>
+        </tr>
+
+        <tr>
+            <td style="padding: 8px">{{ $geografi->ku_total ?? 0 }}</td>
+            <td>{{ round($meanSosiologi->mean_ku) }}</td>
+            <td>{{ $geografi->dk_total ?? 0 }}</td>
+            <td>{{ round($meanSosiologi->mean_dk) }}</td>
+        </tr>
+
+        <tr>
+            <td rowspan="3">LEARNING BEHAVIOURS</td>
+            <td colspan="3">Personal Management Skill</td>
+            <td>{{ $geografi->management_skill ?? 0 }}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">Active Participation In Learning</td>
+            <td>{{ $geografi->active_participation ?? 0 }}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">Social Responsibility</td>
+            <td>{{ $geografi->social_responsibility ?? 0 }}</td>
+        </tr>
+    </table>
+    @endif
+
+
+    {{-- SEJARAH --}}
+    @if($fisika->ku_total != null)
+    <table class="mt-5" style="font-weight: bold; text-align: center">
+        <tr>
+            <th>SEJARAH</th>
+            <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
+            <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
+        </tr>
+
+        <tr>
+            <th rowspan="2">ACADEMIC ACHIEVEMENT</th>
+            <th>SCORE</th>
+            <th>MEAN</th>
+            <th>SCORE</th>
+            <th>MEAN</th>
+        </tr>
+
+        <tr>
+            <td style="padding: 8px">{{ $sejarah->ku_total ?? 0 }}</td>
+            <td>{{ round($meanSejarah->mean_ku) }}</td>
+            <td>{{ $sejarah->dk_total ?? 0 }}</td>
+            <td>{{ round($meanSejarah->mean_dk) }}</td>
+        </tr>
+
+        <tr>
+            <td rowspan="3">LEARNING BEHAVIOURS</td>
+            <td colspan="3">Personal Management Skill</td>
+            <td>{{ $sejarah->management_skill ?? 0 }}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">Active Participation In Learning</td>
+            <td>{{ $sejarah->active_participation ?? 0 }}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">Social Responsibility</td>
+            <td>{{ $sejarah->social_responsibility ?? 0 }}</td>
+        </tr>
+    </table>
+    @endif
+
+
+    {{-- MATEMATIKA --}}
+    @if($fisika->ku_total != null)
+    <table class="mt-5" style="font-weight: bold; text-align: center">
+        <tr>
+            <th>MATHEMATIC</th>
+            <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
+            <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
+        </tr>
+
+        <tr>
+            <th rowspan="2">ACADEMIC ACHIEVEMENT</th>
+            <th>SCORE</th>
+            <th>MEAN</th>
+            <th>SCORE</th>
+            <th>MEAN</th>
+        </tr>
+
+        <tr>
+            <td style="padding: 8px">{{ $sejarah->ku_total ?? 0 }}</td>
+            <td>{{ round($meanSejarah->mean_ku) }}</td>
+            <td>{{ $sejarah->dk_total ?? 0 }}</td>
+            <td>{{ round($meanSejarah->mean_dk) }}</td>
+        </tr>
+
+        <tr>
+            <td rowspan="3">LEARNING BEHAVIOURS</td>
+            <td colspan="3">Personal Management Skill</td>
+            <td>{{ $sejarah->management_skill ?? 0 }}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">Active Participation In Learning</td>
+            <td>{{ $sejarah->active_participation ?? 0 }}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">Social Responsibility</td>
+            <td>{{ $sejarah->social_responsibility ?? 0 }}</td>
+        </tr>
+    </table>
+    @endif
+
+</div>
+
+<div class="page">
+
+    {{-- ENGLISH --}}
+    <table class="mt-2" style="font-weight: bold; text-align: center">
         <tr>
             <th>ENGLISH</th>
             <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
@@ -405,10 +575,10 @@
         </tr>
     </table>
 
-    {{-- DT --}}
-    <table class="mt-2" style="font-weight: bold; text-align: center">
+    {{-- DM --}}
+    <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
-            <th>DESIGN AND TECHNOLOGY</th>
+            <th>DIGITAL MARKETING</th>
             <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
             <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
         </tr>
@@ -445,10 +615,12 @@
         </tr>
     </table>
 
-    {{-- Visual Art --}}
+
+    {{-- ART --}}
+    @if($fisika->ku_total != null)
     <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
-            <th>VISUAL ART</th>
+            <th>ART</th>
             <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
             <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
         </tr>
@@ -462,33 +634,120 @@
         </tr>
 
         <tr>
-            <td>{{ $art->ku_total ?? '' }}</td>
-            <td>{{ round($meanArt->mean_ku) }}</td>
-            <td>{{ $art->dk_total ?? '' }}</td>
-            <td>{{ round($meanArt->mean_dk) }}</td>
+            <td style="padding: 8px">{{ $sejarah->ku_total ?? 0 }}</td>
+            <td>{{ round($meanSejarah->mean_ku) }}</td>
+            <td>{{ $sejarah->dk_total ?? 0 }}</td>
+            <td>{{ round($meanSejarah->mean_dk) }}</td>
         </tr>
 
         <tr>
             <td rowspan="3">LEARNING BEHAVIOURS</td>
             <td colspan="3">Personal Management Skill</td>
-            <td>{{ $art->management_skill ?? 0 }}</td>
+            <td>{{ $sejarah->management_skill ?? 0 }}</td>
         </tr>
 
         <tr>
             <td colspan="3">Active Participation In Learning</td>
-            <td>{{ $art->active_participation ?? 0 }}</td>
+            <td>{{ $sejarah->active_participation ?? 0 }}</td>
         </tr>
 
         <tr>
             <td colspan="3">Social Responsibility</td>
-            <td>{{ $art->social_responsibility ?? 0 }}</td>
+            <td>{{ $sejarah->social_responsibility ?? 0 }}</td>
         </tr>
     </table>
+    @endif
+
+    {{-- PERFORMING ARTS --}}
+    @if($fisika->ku_total != null)
+    <table class="mt-5" style="font-weight: bold; text-align: center">
+        <tr>
+            <th>PERFORMING ARTS</th>
+            <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
+            <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
+        </tr>
+
+        <tr>
+            <th rowspan="2">ACADEMIC ACHIEVEMENT</th>
+            <th>SCORE</th>
+            <th>MEAN</th>
+            <th>SCORE</th>
+            <th>MEAN</th>
+        </tr>
+
+        <tr>
+            <td style="padding: 8px">{{ $sejarah->ku_total ?? 0 }}</td>
+            <td>{{ round($meanSejarah->mean_ku) }}</td>
+            <td>{{ $sejarah->dk_total ?? 0 }}</td>
+            <td>{{ round($meanSejarah->mean_dk) }}</td>
+        </tr>
+
+        <tr>
+            <td rowspan="3">LEARNING BEHAVIOURS</td>
+            <td colspan="3">Personal Management Skill</td>
+            <td>{{ $sejarah->management_skill ?? 0 }}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">Active Participation In Learning</td>
+            <td>{{ $sejarah->active_participation ?? 0 }}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">Social Responsibility</td>
+            <td>{{ $sejarah->social_responsibility ?? 0 }}</td>
+        </tr>
+    </table>
+    @endif
 
     {{-- PE --}}
     <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
             <th>PHYSICAL EDUCATION</th>
+            <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
+            <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
+        </tr>
+
+        <tr>
+            <th rowspan="2">ACADEMIC ACHIEVEMENT</th>
+            <th>SCORE</th>
+            <th>MEAN</th>
+            <th>SCORE</th>
+            <th>MEAN</th>
+        </tr>
+
+        <tr>
+            <td>{{ $dt->ku_total ?? 0 }}</td>
+            <td>{{ round($meanDT->mean_ku) }}</td>
+            <td>{{ $dt->dk_total ?? 0 }}</td>
+            <td>{{ round($meanDT->mean_dk) }}</td>
+        </tr>
+
+        <tr>
+            <td rowspan="3">LEARNING BEHAVIOURS</td>
+            <td colspan="3">Personal Management Skill</td>
+            <td>{{ $dt->management_skill ?? 0 }}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">Active Participation In Learning</td>
+            <td>{{ $dt->active_participation ?? 0 }}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">Social Responsibility</td>
+            <td>{{ $dt->social_responsibility ?? 0 }}</td>
+        </tr>
+    </table>
+
+</div>
+
+<div class="page">
+
+    {{-- JEPANG --}}
+    <table class="mt-2" style="font-weight: bold; text-align: center">
+        <tr>
+            <th>JAPANESE</th>
             <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
             <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
         </tr>
@@ -523,6 +782,115 @@
             <td colspan="3">Social Responsibility</td>
             <td>{{ $pe->social_responsibility ?? 0 }}</td>
         </tr>
+    </table>
+
+    {{-- UOI --}}
+    <table class="mt-5" style="font-weight: bold; text-align: center">
+        <tr>
+            <th colspan="6">INQUIRY LEARNING</th>
+        </tr>
+
+        <tr>
+            <th style="width: 100px" rowspan="2">SUBJECT AND LEARNING GOAL</th>
+            <th rowspan="2">STAGE</th>
+            <th style="width: 12px" rowspan="2">SCORE</th>
+            <th colspan="3">LEARNING BEHAVIOURS</th>
+        </tr>
+
+        <tr>
+            <th style="width: 15px">Personal Management Skill</th>
+            <th style="width: 15px">Active Participation In Learning</th>
+            <th style="width: 15px">Social Responsibility</th>
+        </tr>
+
+        <tr>
+            <th>ILMU PENGETAHUAN SOSIAL</th>
+            <th></th>
+            <th></th>
+            <td>{{ $pe->management_skill ?? 0 }}</td>
+            <td>{{ $pe->active_participation ?? 0 }}</td>
+            <td>{{ $pe->social_responsibility ?? 0 }}</td>
+        </tr>
+        <tr>
+            <th>ILMU PENGETAHUAN ALAM</th>
+            <th></th>
+            <th></th>
+            <td>{{ $pe->management_skill ?? 0 }}</td>
+            <td>{{ $pe->active_participation ?? 0 }}</td>
+            <td>{{ $pe->social_responsibility ?? 0 }}</td>
+        </tr>
+
+    </table>
+
+
+    <div class="footer">
+        <span class="left">{{ $murid->name .'/'.$murid->class.'/2026-2027' }}</span>
+        <span class="right">Page 2</span>
+    </div>
+</div>
+
+
+<div class="page">
+
+    {{-- UOI --}}
+    <table class="mt-2" style="font-weight: bold; text-align: center">
+        <tr>
+            <th colspan="6">ENTREPRENEURSHIP ASSESSMENT FOR LEARNING</th>
+        </tr>
+
+        <tr>
+            <th style="width: 150px" rowspan="2">CRITERIA</th>
+            <th rowspan="2">STAGE</th>
+            <th style="width: 12px" rowspan="2">SCORE</th>
+            <th colspan="3">LEARNING BEHAVIOURS</th>
+        </tr>
+
+        <tr>
+            <th style="width: 15px">Personal Management Skill</th>
+            <th style="width: 15px">Active Participation In Learning</th>
+            <th style="width: 15px">Social Responsibility</th>
+        </tr>
+
+        <tr>
+            <th>Knowledge and Understanding (Subject-specific content acquired in each grade (knowledge), and the comprehension of its
+            meaning and significance (understanding)).</th>
+            <th></th>
+            <th></th>
+            <td>{{ $pe->management_skill ?? 0 }}</td>
+            <td>{{ $pe->active_participation ?? 0 }}</td>
+            <td>{{ $pe->social_responsibility ?? 0 }}</td>
+        </tr>
+
+        <tr>
+            <th>Thinking
+            (The use of critical and creative thinking skills and/or processes).</th>
+            <th></th>
+            <th></th>
+            <td>{{ $pe->management_skill ?? 0 }}</td>
+            <td>{{ $pe->active_participation ?? 0 }}</td>
+            <td>{{ $pe->social_responsibility ?? 0 }}</td>
+        </tr>
+
+        <tr>
+            <th>Communication
+            (The conveying of meaning through various forms).</th>
+            <th></th>
+            <th></th>
+            <td>{{ $pe->management_skill ?? 0 }}</td>
+            <td>{{ $pe->active_participation ?? 0 }}</td>
+            <td>{{ $pe->social_responsibility ?? 0 }}</td>
+        </tr>
+
+        <tr>
+            <th>Application
+            (The use of knowledge and skills to make connections within and between various contexts).</th>
+            <th></th>
+            <th></th>
+            <td>{{ $pe->management_skill ?? 0 }}</td>
+            <td>{{ $pe->active_participation ?? 0 }}</td>
+            <td>{{ $pe->social_responsibility ?? 0 }}</td>
+        </tr>
+
     </table>
 
 

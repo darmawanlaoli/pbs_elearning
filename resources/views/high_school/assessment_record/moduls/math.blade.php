@@ -119,8 +119,8 @@
                         name="students[{{ $ass->id }}][lang_reading_hw_avg]" readonly></td>
                 <td><input type="number" value="{{ $ass->attendance ?? '' }}" class="score-input"
                         name="students[{{ $ass->id }}][attendance]" min="0" max="5" step="0.01"></td>
-                <td class="total"><input type="number" value="{{ $ass->lang_reading_total ?? '' }}"
-                        class="score-input ps-total" name="students[{{ $ass->id }}][lang_reading_total]" readonly></td>
+                <td class="total"><input type="number" value="{{ $ass->dk_total ?? '' }}"
+                        class="score-input ps-total" name="students[{{ $ass->id }}][dk_total]" readonly></td>
 
                 {{-- ================= DEMONSTRATE KNOWLEDGE ================= --}}
                 {{-- <td><input type="number" value="{{ $ass->dk1 ?? '' }}" class="score-input dk-proj"
