@@ -67,7 +67,7 @@
         </tr>
 
         <tr>
-            <td>{{ $religious->ku_total ?? 0 }}</td>
+            <td style="padding: 8px">{{ $religious->ku_total ?? 0 }}</td>
             <td>{{ round($meanReligious->mean_religious_ku) }}</td>
             <td>{{ $religious->dk_total ?? 0 }}</td>
             <td>{{ round($meanReligious->mean_religious_dk) }}</td>
@@ -93,7 +93,7 @@
     {{-- PKN --}}
     <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
-            <th>PENDIDIKAN KEWARGANEGARAAN</th>
+            <th style="padding: 8px">PENDIDIKAN KEWARGANEGARAAN</th>
             <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
             <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
         </tr>
@@ -107,7 +107,7 @@
         </tr>
 
         <tr>
-            <td>{{ $pkn->ku_total ?? '' }}</td>
+            <td style="padding: 8px">{{ $pkn->ku_total ?? '' }}</td>
             <td>{{ round($meanPKn->mean_ku) }}</td>
             <td>{{ $pkn->dk_total ?? '' }}</td>
             <td>{{ round($meanPKn->mean_dk) }}</td>
@@ -148,7 +148,7 @@
         </tr>
 
         <tr>
-            <td>{{ $indonesia->lang_total_ku ?? '' }}</td>
+            <td style="padding: 8px">{{ $indonesia->lang_total_ku ?? '' }}</td>
             <td>{{ round($meanIndonesia->mean_lang_ku) }}</td>
             <td>{{ $indonesia->lang_total_dk ?? '' }}</td>
             <td>{{ round($meanIndonesia->mean_lang_dk) }}</td>
@@ -200,7 +200,7 @@
         </tr>
 
         <tr>
-            <td>{{ $fisika->ku_total ?? 0 }}</td>
+            <td style="padding: 8px">{{ $fisika->ku_total ?? 0 }}</td>
             <td>{{ round($meanFisika->mean_ku) }}</td>
             <td>{{ $fisika->dk_total ?? 0 }}</td>
             <td>{{ round($meanFisika->mean_dk) }}</td>
@@ -242,7 +242,7 @@
         </tr>
 
         <tr>
-            <td>{{ $kimia->ku_total ?? 0 }}</td>
+            <td style="padding: 8px">{{ $kimia->ku_total ?? 0 }}</td>
             <td>{{ round($meanKimia->mean_ku) }}</td>
             <td>{{ $kimia->dk_total ?? 0 }}</td>
             <td>{{ round($meanKimia->mean_dk) }}</td>
@@ -284,7 +284,7 @@
         </tr>
 
         <tr>
-            <td>{{ $biologi->ku_total ?? 0 }}</td>
+            <td style="padding: 8px">{{ $biologi->ku_total ?? 0 }}</td>
             <td>{{ round($meanBiologi->mean_ku) }}</td>
             <td>{{ $biologi->dk_total ?? 0 }}</td>
             <td>{{ round($meanBiologi->mean_dk) }}</td>
@@ -325,7 +325,7 @@
         </tr>
 
         <tr>
-            <td>{{ $ekonomi->ku_total ?? '' }}</td>
+            <td class="nilai">{{ $ekonomi->ku_total ?? '' }}</td>
             <td>{{ round($meanEkonomi->mean_ku) }}</td>
             <td>{{ $ekonomi->dk_total ?? '' }}</td>
             <td>{{ round($meanEkonomi->mean_dk) }}</td>

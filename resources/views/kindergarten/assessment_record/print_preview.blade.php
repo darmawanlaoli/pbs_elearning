@@ -93,6 +93,10 @@
         width: 120px;
     }
 
+    .cover-table {
+        font-size: 20px;
+    }
+
     .cover-table tr {
         border: none;
         padding-top: 10px;
@@ -101,8 +105,14 @@
 
     .cover-table td {
         border: none;
-        padding-top: 10px;
-        padding-bottom: 10px;
+        padding-top: 13px;
+        padding-bottom: 13px;
+    }
+
+    .kotak-foto {
+        width: 3cm;
+        height: 4cm;
+        border: 2px solid black;
     }
 
 

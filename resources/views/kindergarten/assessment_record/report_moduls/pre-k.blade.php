@@ -5,7 +5,7 @@
 
         <h1 class="text-center fw-bold"> <img class="logo"
                 src="https://elearning.peachblossomsschool.sch.id/assets/images/logos/logo.png" alt="">
-            Student Data</h1>
+            STUDENT DATA</h1>
     </div>
 
     <table class="cover-table">
@@ -48,7 +48,11 @@
         </thead>
     </table>
 
-    <table class="cover-table" style="margin-top: 100px; width: 100%; text-align: center;">
+    <div class="kotak-foto">
+        Ini adalah isi di dalam kotak.
+    </div>
+
+    <table class="cover-table bg-danger" style="margin-top: 100px; width: 100%; text-align: center;">
         <thead>
             <tr>
                 <td style="width: 50%"></td>

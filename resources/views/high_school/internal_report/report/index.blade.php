@@ -12,6 +12,12 @@
             font-family: 'FontKustomKu';
         }
 
+        tr td .nilai {
+            padding-top: 13px;
+            padding-bottom: 13px;
+            background-color: red !important;
+        }
+
         table,
         td,
         th {

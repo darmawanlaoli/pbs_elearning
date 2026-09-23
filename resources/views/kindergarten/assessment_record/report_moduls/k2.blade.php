@@ -6,7 +6,7 @@
 
         <h1 class="text-center fw-bold"> <img class="logo"
                 src="https://elearning.peachblossomsschool.sch.id/assets/images/logos/logo.png" alt="">
-            Student Data</h1>
+            STUDENT DATA</h1>
     </div>
 
     <table class="cover-table">
@@ -49,19 +49,31 @@
         </thead>
     </table>
 
-    <table class="cover-table" style="margin-top: 100px; width: 100%; text-align: center;">
-        <thead>
-            <tr>
-                <td style="width: 50%"></td>
-                <td style="width: 50%">
-                    <p style="margin-bottom: 100px;">Bekasi, {{ date('d F Y',
-                        strtotime($report->first_day_of_school)) }}</p>
-                    <b>Ambar Noviyanti, S.Pd</b>
-                    <p>Principal</p>
-                </td>
-            </tr>
-        </thead>
-    </table>
+    <div class="row" style="margin-top: 150px">
+        <div class="col-md-6">
+            <div class="kotak-foto mx-auto mt-3" style="text-align: center; vertical-align: middle">
+                Passphoto
+            </div>
+        </div>
+
+        <div class="col-6" style="font-size: 14px">
+            <table class="cover-table" style="text-align: center;">
+                <thead>
+                    <tr>
+                        <td>
+                            <p style="margin-bottom: 100px;">Bekasi, {{ date('d F Y',
+                                strtotime($report->first_day_of_school)) }}</p>
+                            <b>Ambar Noviyanti, S.Pd</b>
+                            <p>Principal</p>
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+
+    </div>
+
 </div>
 
 {{-- halaman 1 --}}

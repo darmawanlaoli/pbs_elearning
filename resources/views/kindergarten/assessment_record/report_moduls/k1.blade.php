@@ -6,7 +6,7 @@
 
         <h1 class="text-center fw-bold"> <img class="logo"
                 src="https://elearning.peachblossomsschool.sch.id/assets/images/logos/logo.png" alt="">
-            Student Data</h1>
+            STUDENT DATA</h1>
     </div>
 
     <table class="cover-table">
