@@ -181,7 +181,7 @@
 
     <div class="footer">
         <span class="left">{{ $murid->name .'/'.$murid->class.'/2026-2027' }}</span>
-        <span class="right">Page {{ $page }}</span>
+        <span class="right"></span>
     </div>
 </div>
 
@@ -360,7 +360,7 @@
 
     <div class="footer">
         <span class="left">{{ $murid->name .'/'.$murid->class.'/2026-2027' }}</span>
-        <span class="right">Page {{ $page }}</span>
+        <span class="right"></span>
     </div>
 </div>
 
@@ -544,7 +544,7 @@
 
     <div class="footer">
         <span class="left">{{ $murid->name .'/'.$murid->class.'/2026-2027' }}</span>
-        <span class="right">Page {{ $page }}</span>
+        <span class="right"></span>
     </div>
     @endif
 
@@ -632,7 +632,7 @@
         </tr>
     </table>
 
-    @if(str_contains($murid->class, "Y10") || str_contains($murid->class, "Y11"))
+    @if(str_contains($murid->class, "Y10"))
 
     {{-- ART --}}
     @if($fisika->ku_total != null)
@@ -675,6 +675,10 @@
         </tr>
     </table>
     @endif
+
+    @endif
+
+    @if(str_contains($murid->class, "Y11"))
 
     {{-- PERFORMING ARTS --}}
     @if($fisika->ku_total != null)
@@ -800,8 +804,12 @@
             <td>{{ $pe->social_responsibility ?? 0 }}</td>
         </tr>
     </table>
-
     @endif
+
+    <div class="footer">
+        <span class="left">{{ $murid->name .'/'.$murid->class.'/2026-2027' }}</span>
+        <span class="right"></span>
+    </div>
 
 </div>
 
@@ -908,7 +916,7 @@
 
     <div class="footer">
         <span class="left">{{ $murid->name .'/'.$murid->class.'/2026-2027' }}</span>
-        <span class="right">Page 2</span>
+        <span class="right"></span>
     </div>
 </div>
 
@@ -1015,7 +1023,7 @@
 
     <div class="footer">
         <span class="left">{{ $murid->name .'/'.$murid->class.'/2026-2027' }}</span>
-        <span class="right">Page 2</span>
+        <span class="right"></span>
     </div>
 </div>
 
@@ -1169,10 +1177,6 @@
 
     <div class="footer">
         <span class="left">{{ $murid->name .'/'.$murid->class.'/2026-2027' }}</span>
-        <span class="right">Page 5</span>
+        <span class="right"></span>
     </div>
-
-    @php
-    $page++
-    @endphp
 </div>

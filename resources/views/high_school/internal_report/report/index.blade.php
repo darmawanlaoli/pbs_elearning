@@ -10,6 +10,7 @@
 
         .report-container {
             font-family: 'FontKustomKu';
+            counter-reset: page-counter;
         }
 
         tr td .nilai {
@@ -62,6 +63,11 @@
             outline: 6px solid rgb(247, 134, 3);
             outline-offset: -8mm;
             /* geser ke dalam */
+            counter-increment: page-counter;
+        }
+
+        .footer .right::after {
+            content: "Page " counter(page-counter);
         }
 
         body {
