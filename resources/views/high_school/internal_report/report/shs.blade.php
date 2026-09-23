@@ -811,36 +811,36 @@
         <tr>
             <th style="padding: 30px">ILMU PENGETAHUAN SOSIAL</th>
            <?php
-                if($uoi->uoi_ips >= 81) {
-                    $entrepreneur_ku_level = 'MASTERING';
-                }elseif($uoi->uoi_ips >= 61) {
-                    $entrepreneur_ku_level = 'DEVELOPING';
+                if($uoiIPS->total_uoi_ips >= 81) {
+                    $uoi_ips_level = 'MASTERING';
+                }elseif($uoiIPS->total_uoi_ips >= 61) {
+                    $uoi_ips_level = 'DEVELOPING';
                 }else {
-                    $entrepreneur_ku_level = 'BEGINNING';
+                    $uoi_ips_level = 'BEGINNING';
                 }
             ?>
-            <th>{{ $entrepreneur_ku_level }}</th>
-            <td>{{ $uoi->uoi_ips ?? 0 }}</td>
-            <td>{{ $pe->management_skill ?? 0 }}</td>
-            <td>{{ $pe->active_participation ?? 0 }}</td>
-            <td>{{ $pe->social_responsibility ?? 0 }}</td>
+            <th>{{ $uoi_ips_level }}</th>
+            <td>{{ $uoiIPS->total_uoi_ips ?? 0 }}</td>
+            <td>{{ $uoiIPS->uoi_ips_personal_management ?? 0 }}</td>
+            <td>{{ $uoiIPS->uoi_ips_active_participation ?? 0 }}</td>
+            <td>{{ $uoiIPS->uoi_ips_social_responsibility ?? 0 }}</td>
         </tr>
         <tr>
             <th style="padding: 30px">ILMU PENGETAHUAN ALAM</th>
             <?php
-                if($uoi->uoi_ipa >= 81) {
-                    $entrepreneur_ku_level = 'MASTERING';
-                }elseif($uoi->uoi_ipa >= 61) {
-                    $entrepreneur_ku_level = 'DEVELOPING';
+                if($uoiIPA->total_uoi_ipa >= 81) {
+                    $uoi_ipa_level = 'MASTERING';
+                }elseif($uoiIPA->total_uoi_ipa >= 61) {
+                    $uoi_ipa_level = 'DEVELOPING';
                 }else {
-                    $entrepreneur_ku_level = 'BEGINNING';
+                    $uoi_ipa_level = 'BEGINNING';
                 }
             ?>
-            <th>{{ $entrepreneur_ku_level }}</th>
-            <td>{{ $uoi->uoi_ipa ?? 0 }}</td>
-            <td>{{ $pe->management_skill ?? 0 }}</td>
-            <td>{{ $pe->active_participation ?? 0 }}</td>
-            <td>{{ $pe->social_responsibility ?? 0 }}</td>
+            <th>{{ $uoi_ipa_level }}</th>
+            <td>{{ $uoiIPA->total_uoi_ipa ?? 0 }}</td>
+            <td>{{ $uoiIPA->uoi_ipa_personal_management ?? 0 }}</td>
+            <td>{{ $uoiIPA->uoi_ipa_active_participation ?? 0 }}</td>
+            <td>{{ $uoiIPA->uoi_ipa_social_responsibility ?? 0 }}</td>
         </tr>
 
     </table>

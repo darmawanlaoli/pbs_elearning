@@ -513,7 +513,7 @@ class Report extends Controller
         //     return view('primaryteacher.report.index', $data);
         // }
 
-        return view('primaryteacher.report.index', $data);
+        return view('primaryteacher.report.print', $data);
 
 
     }

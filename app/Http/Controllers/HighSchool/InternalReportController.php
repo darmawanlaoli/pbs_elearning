@@ -765,11 +765,20 @@ class InternalReportController extends Controller
                     'mean_dk' => 0,
                 ];
 
-            $uoi = DB::table('hs_assessment_record_details')
+            $uoiIPA = DB::table('hs_assessment_record_details')
                 ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
                 ->where('name', $student)
                 ->where('term', $current_term)
                 ->where('subject', 'Unit of Inquiry')
+                ->where('total_uoi_ipa', '!=', null)
+                ->first();
+
+            $uoiIPS = DB::table('hs_assessment_record_details')
+                ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
+                ->where('name', $student)
+                ->where('term', $current_term)
+                ->where('subject', 'Unit of Inquiry')
+                ->where('total_uoi_ips', '!=', null)
                 ->first();
 
             $entrepreneurship = DB::table('hs_assessment_record_details')
@@ -917,7 +926,8 @@ class InternalReportController extends Controller
             $meanPerformingArts = [];
             $japanese = null;
             $meanJapanese = [];
-            $uoi = null;
+            $uoiIPA = null;
+            $uoiIPS = null;
             $entrepreneurship = null;
 
             $indonesia = null;
@@ -950,7 +960,8 @@ class InternalReportController extends Controller
             'meanPerformingArts',
             'japanese',
             'meanJapanese',
-            'uoi',
+            'uoiIPA',
+            'uoiIPS',
             'entrepreneurship',
             'dm',
             'meanDM',
