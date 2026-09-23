@@ -166,11 +166,9 @@
                     </button>
                     @endif
                 @else
-                    @if ($assessment->submitted_at == null)
                     <button type="submit" class="btn btn-primary">
                         <i class="fa-regular fa-floppy-disk"></i> Save
                     </button>
-                    @endif
                 @endif
 
 
