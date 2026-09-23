@@ -48,23 +48,30 @@
         </thead>
     </table>
 
-    <div class="kotak-foto">
-        Ini adalah isi di dalam kotak.
-    </div>
+    <div class="row" style="margin-top: 150px">
+        <div class="col-md-6">
+            <div class="kotak-foto mx-auto mt-3" style="text-align: center; vertical-align: middle">
+                Passphoto
+            </div>
+        </div>
 
-    <table class="cover-table bg-danger" style="margin-top: 100px; width: 100%; text-align: center;">
-        <thead>
-            <tr>
-                <td style="width: 50%"></td>
-                <td style="width: 50%">
-                    <p style="margin-bottom: 100px;">Bekasi, {{ date('d F Y',
-                        strtotime($report->first_day_of_school)) }}</p>
-                    <b>Ambar Noviyanti, S.Pd</b>
-                    <p>Principal</p>
-                </td>
-            </tr>
-        </thead>
-    </table>
+        <div class="col-6" style="font-size: 14px">
+            <table class="cover-table" style="text-align: center;">
+                <thead>
+                    <tr>
+                        <td>
+                            <p style="margin-bottom: 100px;">Bekasi, {{ date('d F Y',
+                                strtotime($report->first_day_of_school)) }}</p>
+                            <b>Ambar Noviyanti, S.Pd</b>
+                            <p>Principal</p>
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+
+    </div>
 </div>
 
 {{-- halaman 1 --}}
