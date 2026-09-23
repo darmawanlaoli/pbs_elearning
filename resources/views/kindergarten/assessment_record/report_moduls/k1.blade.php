@@ -947,7 +947,7 @@
                 <td class="th-desc">● 阅读(Reading)</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center">
-                    {{ $report->trace_alphabets == $code ? 'X' : '' }}
+                    {{ $report->mandarin_reading == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
@@ -956,7 +956,7 @@
                 <td>● 书写(Writing)</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center">
-                    {{ $report->copy_alphabets == $code ? 'X' : '' }}
+                    {{ $report->mandarin_writing == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
@@ -965,7 +965,7 @@
                 <td>● 听力(Listening)</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center">
-                    {{ $report->copy_words == $code ? 'X' : '' }}
+                    {{ $report->mandarin_listening == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
@@ -974,7 +974,7 @@
                 <td>● 说话(Speaking)</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center">
-                    {{ $report->recognize_sound_of_the_alphabets == $code ? 'X' : '' }}
+                    {{ $report->mandarin_speaking == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
@@ -983,7 +983,7 @@
                 <td>● 测验(Test)</td>
                 @foreach(['I', 'G', 'S', 'E'] as $code)
                 <td class="text-center">
-                    {{ $report->recognize_shapes_of_the_alphabets == $code ? 'X' : '' }}
+                    {{ $report->mandarin_test == $code ? 'X' : '' }}
                 </td>
                 @endforeach
             </tr>
