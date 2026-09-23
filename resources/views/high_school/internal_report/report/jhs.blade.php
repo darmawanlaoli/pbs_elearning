@@ -288,7 +288,7 @@
         <tr>
             <td style="padding: 8px">{{ round($mathKu) ?? '' }}</td>
             <td>{{ round($meanMath->mean_ku) }}</td>
-            <td>{{ $math->dk_total ?? '' }}</td>
+            <td>{{ round($mathDk) ?? '' }}</td>
             <td>{{ round($meanMath->mean_dk) }}</td>
         </tr>
 
@@ -401,6 +401,8 @@
         </tr>
     </table>
 
+    {{-- Visual Art, Music,  --}}
+    @if(str_contains($murid->class, "Y7"))
     {{-- Visual Art --}}
     <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
@@ -418,28 +420,72 @@
         </tr>
 
         <tr>
-            <td>{{ $art->ku_total ?? '' }}</td>
-            <td>{{ round($meanArt->mean_ku) }}</td>
-            <td>{{ $art->dk_total ?? '' }}</td>
-            <td>{{ round($meanArt->mean_dk) }}</td>
+            <td>{{ $visualArt->ku_total ?? '' }}</td>
+            <td>{{ round($meanVisualArt->mean_ku) }}</td>
+            <td>{{ $visualArt->dk_total ?? '' }}</td>
+            <td>{{ round($meanVisualArt->mean_dk) }}</td>
         </tr>
 
         <tr>
             <td rowspan="3">LEARNING BEHAVIOURS</td>
             <td colspan="3">Personal Management Skill</td>
-            <td>{{ $art->management_skill ?? 0 }}</td>
+            <td>{{ $visualArt->management_skill ?? 0 }}</td>
         </tr>
 
         <tr>
             <td colspan="3">Active Participation In Learning</td>
-            <td>{{ $art->active_participation ?? 0 }}</td>
+            <td>{{ $visualArt->active_participation ?? 0 }}</td>
         </tr>
 
         <tr>
             <td colspan="3">Social Responsibility</td>
-            <td>{{ $art->social_responsibility ?? 0 }}</td>
+            <td>{{ $visualArt->social_responsibility ?? 0 }}</td>
         </tr>
     </table>
+
+    @else
+
+    {{--Music --}}
+    <table class="mt-5" style="font-weight: bold; text-align: center">
+        <tr>
+            <th>MUSIC</th>
+            <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
+            <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
+        </tr>
+
+        <tr>
+            <th rowspan="2">ACADEMIC ACHIEVEMENT</th>
+            <th>SCORE</th>
+            <th>MEAN</th>
+            <th>SCORE</th>
+            <th>MEAN</th>
+        </tr>
+
+        <tr>
+            <td>{{ $music->ku_total ?? '' }}</td>
+            <td>{{ round($meanMusic->mean_ku) }}</td>
+            <td>{{ $music->dk_total ?? '' }}</td>
+            <td>{{ round($meanMusic->mean_dk) }}</td>
+        </tr>
+
+        <tr>
+            <td rowspan="3">LEARNING BEHAVIOURS</td>
+            <td colspan="3">Personal Management Skill</td>
+            <td>{{ $music->management_skill ?? 0 }}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">Active Participation In Learning</td>
+            <td>{{ $music->active_participation ?? 0 }}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">Social Responsibility</td>
+            <td>{{ $music->social_responsibility ?? 0 }}</td>
+        </tr>
+    </table>
+
+    @endif
 
     {{-- PE --}}
     <table class="mt-5" style="font-weight: bold; text-align: center">
@@ -549,13 +595,13 @@
         @if($imyc->imyc_geo != null)
         <?php
             if($imyc->imyc_geo_total >= 81) {
-                $geo_stage = $murid->name . ' ' .$imyc_stage->mastering_geo;
+                $geo_stage = $murid->name . ' ' .$imyc_stage?->mastering_geo;
                 $geo_level = 'MASTERING';
             }elseif($imyc->imyc_geo_total >= 61) {
-                $geo_stage = $murid->name . ' ' .$imyc_stage->developing_geo;
+                $geo_stage = $murid->name . ' ' .$imyc_stage?->developing_geo;
                 $geo_level = 'DEVELOPING';
             }else {
-                $geo_stage = $murid->name . ' ' .$imyc_stage->beginning_geo;
+                $geo_stage = $murid->name . ' ' .$imyc_stage?->beginning_geo;
                 $geo_level = 'BEGINNING';
             }
         ?>
@@ -568,8 +614,8 @@
             <th rowspan="2">{{ $imyc->imyc_geo_social_responsibility }}</th>
         </tr>
         <tr>
-            <th>{{ $imyc_stage->goal_geo }}</th>
-            <th style="text-align: left">{!! $geo_stage !!}</th>
+            <th>{{ $imyc_stage?->goal_geo }}</th>
+            <th style="text-align: left">{!! $geo_stage ?? '' !!}</th>
         </tr>
         @endif
 
@@ -751,11 +797,7 @@
 
         <tr>
             <th style="text-align: justify">
-                @if($reportData->comment == null)
-                {{ 'Comment belum diinput' }}
-                @else
-                {{ $reportData->comment }}
-                @endif
+                {{ $reportData->comment ?? 'Comment belum diinput' }}
             </th>
         </tr>
     </table>

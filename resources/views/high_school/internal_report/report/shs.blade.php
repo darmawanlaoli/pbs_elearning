@@ -369,7 +369,7 @@
 <div class="page">
 
     {{-- SOSIOLOGI --}}
-    @if($fisika->ku_total != null)
+    @if($sosiologi->ku_total != null)
     <table class="mt-2" style="font-weight: bold; text-align: center">
         <tr>
             <th>SOSIOLOGI</th>
@@ -412,7 +412,7 @@
 
 
     {{-- GEOGRAFI --}}
-    @if($fisika->ku_total != null)
+    @if($geografi->ku_total != null)
     <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
             <th>GEOGRAFI</th>
@@ -454,7 +454,7 @@
     @endif
 
     {{-- SEJARAH --}}
-    @if($fisika->ku_total != null)
+    @if($sejarah->ku_total != null)
     <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
             <th>SEJARAH</th>
@@ -497,7 +497,7 @@
 
 
     {{-- MATEMATIKA --}}
-    @if($fisika->ku_total != null)
+    @if($math->ku_total != null)
     <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
             <th>MATHEMATIC</th>
@@ -630,7 +630,7 @@
     @if(str_contains($murid->class, "Y10"))
 
     {{-- ART --}}
-    @if($fisika->ku_total != null)
+    @if($art->ku_total ?? '')
     <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
             <th>ART</th>
@@ -647,16 +647,16 @@
         </tr>
 
         <tr>
-            <td style="padding: 8px">{{ $sejarah->ku_total ?? 0 }}</td>
-            <td>{{ round($meanSejarah->mean_ku) }}</td>
-            <td>{{ $sejarah->dk_total ?? 0 }}</td>
-            <td>{{ round($meanSejarah->mean_dk) }}</td>
+            <td style="padding: 8px">{{ $art->ku_total ?? 0 }}</td>
+            <td>{{ round($meanArt->mean_ku) }}</td>
+            <td>{{ $art->dk_total ?? 0 }}</td>
+            <td>{{ round($meanArt->mean_dk) }}</td>
         </tr>
 
         <tr>
             <td rowspan="3">LEARNING BEHAVIOURS</td>
             <td colspan="3">Personal Management Skill</td>
-            <td>{{ $sejarah->management_skill ?? 0 }}</td>
+            <td>{{ $art->management_skill ?? 0 }}</td>
         </tr>
 
         <tr>
@@ -676,7 +676,7 @@
     @if(str_contains($murid->class, "Y11"))
 
     {{-- PERFORMING ARTS --}}
-    @if($fisika->ku_total != null)
+    @if($performing_arts->ku_total != null)
     <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
             <th>PERFORMING ARTS</th>
@@ -693,26 +693,26 @@
         </tr>
 
         <tr>
-            <td style="padding: 8px">{{ $sejarah->ku_total ?? 0 }}</td>
-            <td>{{ round($meanSejarah->mean_ku) }}</td>
-            <td>{{ $sejarah->dk_total ?? 0 }}</td>
-            <td>{{ round($meanSejarah->mean_dk) }}</td>
+            <td style="padding: 8px">{{ $performing_arts->ku_total ?? 0 }}</td>
+            <td>{{ round($meanPerformingArts->mean_ku) }}</td>
+            <td>{{ $performing_arts->dk_total ?? 0 }}</td>
+            <td>{{ round($meanPerformingArts->mean_dk) }}</td>
         </tr>
 
         <tr>
             <td rowspan="3">LEARNING BEHAVIOURS</td>
             <td colspan="3">Personal Management Skill</td>
-            <td>{{ $sejarah->management_skill ?? 0 }}</td>
+            <td>{{ $performing_arts->management_skill ?? 0 }}</td>
         </tr>
 
         <tr>
             <td colspan="3">Active Participation In Learning</td>
-            <td>{{ $sejarah->active_participation ?? 0 }}</td>
+            <td>{{ $performing_arts->active_participation ?? 0 }}</td>
         </tr>
 
         <tr>
             <td colspan="3">Social Responsibility</td>
-            <td>{{ $sejarah->social_responsibility ?? 0 }}</td>
+            <td>{{ $performing_arts->social_responsibility ?? 0 }}</td>
         </tr>
     </table>
     @endif
@@ -1147,11 +1147,7 @@
 
         <tr>
             <th style="text-align: justify">
-                @if($reportData->comment == null)
-                {{ 'Comment belum diinput' }}
-                @else
-                {{ $reportData->comment }}
-                @endif
+                {{ $reportData->comment ?? 'Comment belum diinput' }}
             </th>
         </tr>
     </table>
