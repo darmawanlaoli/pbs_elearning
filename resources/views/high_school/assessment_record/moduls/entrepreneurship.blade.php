@@ -7,29 +7,14 @@
                 <th>KU</th>
                 <th>Thinking</th>
                 <th>Communication</th>
-                <th>Thinking</th>
+                <th>Application</th>
                 <th>Management <br> Skill</th>
                 <th>Active <br>
                     Participation</th>
                 <th>Social <br> Responsibility</th>
             </tr>
 
-            <tr class="text-center">
-                {{-- knowledge --}}
-                <th>1</th>
-                <th>2</th>
-                <th>3</th>
-                <th>4</th>
-                <th>AVG X 95%</th>
-                <th>Att 5%</th>
-                <th>Final <br> Score</th>
 
-                {{-- demonstrate knowledge --}}
-                <th>1</th>
-                <th>AVG X 95%</th>
-                <th>Att 5%</th>
-                <th>Final <br> Score</th>
-            </tr>
 
         </thead>
 
@@ -43,60 +28,23 @@
 
                 {{-- KU --}}
                 <td>
-                    <input type="number" value="{{ $ass->ku1 ?? '' }}" class="score-input ku-input"
-                        name="students[{{ $ass->id }}][ku1]" min="0" max="100" step="0.01">
+                    <input type="number" value="{{ $ass->entrepreneur_ku ?? '' }}" class="score-input ku-input"
+                        name="students[{{ $ass->id }}][entrepreneur_ku]" min="0" max="100" step="0.01">
                 </td>
 
                 <td>
-                    <input type="number" value="{{ $ass->ku2 ?? '' }}" class="score-input ku-input"
-                        name="students[{{ $ass->id }}][ku2]" min="0" max="100" step="0.01">
+                    <input type="number" value="{{ $ass->entrepreneur_thinking ?? '' }}" class="score-input ku-input"
+                        name="students[{{ $ass->id }}][entrepreneur_thinking]" min="0" max="100" step="0.01">
                 </td>
 
                 <td>
-                    <input type="number" value="{{ $ass->ku3 ?? '' }}" class="score-input ku-input"
-                        name="students[{{ $ass->id }}][ku3]" min="0" max="100" step="0.01">
+                    <input type="number" value="{{ $ass->entrepreneur_communication ?? '' }}" class="score-input ku-input"
+                        name="students[{{ $ass->id }}][entrepreneur_communication]" min="0" max="100" step="0.01">
                 </td>
 
                 <td>
-                    <input type="number" value="{{ $ass->ku4 ?? '' }}" class="score-input ku-input"
-                        name="students[{{ $ass->id }}][ku4]" min="0" max="100" step="0.01">
-                </td>
-
-                <td>
-                    <input type="number" value="{{ $ass->ku_avg ?? '' }}" class="score-input avg-input"
-                        name="students[{{ $ass->id }}][ku_avg]" readonly>
-                </td>
-
-                <td>
-                    <input type="number" value="{{ $ass->attendance ?? '' }}" class="score-input ku-att-input"
-                        name="students[{{ $ass->id }}][attendance]" min="0" max="5" step="0.01">
-                </td>
-
-                <td class="total">
-                    <input type="number" value="{{ $ass->ku_total ?? '' }}" class="score-input ku-final-input"
-                        name="students[{{ $ass->id }}][ku_total]" readonly>
-                </td>
-
-
-                {{-- DK --}}
-                <td>
-                    <input type="number" value="{{ $ass->dk1 ?? '' }}" class="score-input dk-input"
-                        name="students[{{ $ass->id }}][dk1]" min="0" max="100" step="0.01">
-                </td>
-
-                <td>
-                    <input type="number" value="{{ $ass->dk_avg ?? '' }}" class="score-input dk-avg-input"
-                        name="students[{{ $ass->id }}][dk_avg]" readonly>
-                </td>
-
-                <td>
-                    <input type="number" value="{{ $ass->attendance ?? '' }}" class="score-input dk-att-input"
-                        name="students[{{ $ass->id }}][attendance]" min="0" max="5" step="0.01">
-                </td>
-
-                <td class="total">
-                    <input type="number" value="{{ $ass->dk_total ?? '' }}" class="score-input dk-final-input"
-                        name="students[{{ $ass->id }}][dk_total]" readonly>
+                    <input type="number" value="{{ $ass->entrepreneur_application ?? '' }}" class="score-input ku-input"
+                        name="students[{{ $ass->id }}][entrepreneur_application]" min="0" max="100" step="0.01">
                 </td>
 
                 <td>

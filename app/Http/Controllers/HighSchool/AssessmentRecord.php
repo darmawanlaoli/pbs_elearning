@@ -318,6 +318,12 @@ class AssessmentRecord extends Controller
                         'imyc_art_active_participation' => $data['imyc_art_active_participation'] ?? null,
                         'imyc_art_social_responsibility' => $data['imyc_art_social_responsibility'] ?? null,
 
+                        // entre
+                        'entrepreneur_ku' => $data['entrepreneur_ku'] ?? null,
+                        'entrepreneur_thinking' => $data['entrepreneur_thinking'] ?? null,
+                        'entrepreneur_communication' => $data['entrepreneur_communication'] ?? null,
+                        'entrepreneur_application' => $data['entrepreneur_application'] ?? null,
+
                         // uoi
                         'uoi_ips' => $data['uoi_ips'] ?? null,
                         'total_uoi_ips' => $data['total_uoi_ips'] ?? null,
