@@ -145,7 +145,9 @@
 
                 @include('high_school.assessment_record.moduls.assessment_list_btn')
 
+                @if(session('role') == 'hsadmin')
                 @include('high_school.assessment_record.moduls.accumulated_list_btn')
+                @endif
 
                 <!-- Teks ini otomatis terdorong ke paling kanan -->
                 <span class="ms-auto fw-bold text-primary">{{ $class . ' - Internal Accumulated' }}</span>

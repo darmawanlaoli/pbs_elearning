@@ -163,13 +163,24 @@ class InternalReportController extends Controller
         // 6. Kembalikan urutan siswa berdasarkan nama (sesuai abjad A-Z)
         $students = $studentsWithRank->sortBy('name')->values();
 
-        if (session('role') == 'hsadmin') {
-            $assessmentLists = DB::table('hs_assessment_records')
-                ->where('submitted_at', '!=', null)
-                ->get();
+        if (session('role') == 'hsteacher') {
+            if(session('homeroom') != null) {
+                $assessmentLists = DB::table('hs_assessment_records')
+                    // ->where('submitted_at', '!=', null)
+                    ->where('class', $class)
+                    ->orderBy('subject', 'ASC')
+                    ->get();
+            }else {
+                $assessmentLists = DB::table('hs_assessment_records')
+                    ->where('teacher', session('name'))
+                    ->get();
+            }
+
         } else {
             $assessmentLists = DB::table('hs_assessment_records')
-                ->where('teacher', session('name'))
+                // ->where('submitted_at', '!=', null)
+                ->where('class', $class)
+                ->orderBy('subject', 'ASC')
                 ->get();
         }
 

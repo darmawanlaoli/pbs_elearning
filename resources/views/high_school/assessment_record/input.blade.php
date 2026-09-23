@@ -158,11 +158,23 @@
             <div class="m-2 d-flex align-items-center gap-2">
                 @include('high_school.assessment_record.moduls.back_btn')
 
-                @if ($assessment->submitted_at == null)
-                <button type="submit" class="btn btn-primary">
-                    <i class="fa-regular fa-floppy-disk"></i> Save
-                </button>
+
+                @if(session('role') == 'hsteacher' && session('homeroom') == null)
+                    @if ($assessment->submitted_at == null)
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa-regular fa-floppy-disk"></i> Save
+                    </button>
+                    @endif
+                @else
+                    @if ($assessment->submitted_at == null)
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa-regular fa-floppy-disk"></i> Save
+                    </button>
+                    @endif
                 @endif
+
+
+
 
                 @include('high_school.assessment_record.moduls.assessment_list_btn')
 
