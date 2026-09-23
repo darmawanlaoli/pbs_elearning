@@ -18,9 +18,12 @@ class StudentDatabaseController extends Controller
 
         $filter_religion = $request->filter_religion;
 
+        $class = session('homeroom');
+
         if($filter_religion == null) {
             $data = HsStudent::orderBy('class', 'ASC')
                 ->orderBy('name', 'ASC')
+                ->where('class', $class)
                 ->get();
         }else {
             $data = HsStudent::orderBy('class', 'ASC')
@@ -67,8 +70,13 @@ class StudentDatabaseController extends Controller
     {
         $title = 'Edit Student Data';
         $path = 'Student Data';
-        $students = HsStudent::all();
+        $class = session('homeroom');
+        $students = HsStudent::orderBy('class', 'ASC')
+            ->orderBy('name', 'ASC')
+            ->where('class', $class)
+            ->get();
         $classes = HsClass::all();
+
         return view('high_school.student_database.edit', compact('title', 'path', 'students', 'classes'));
     }
 

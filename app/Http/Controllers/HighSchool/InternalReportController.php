@@ -569,36 +569,30 @@ class InternalReportController extends Controller
                     'mean_dk' => 0,
                 ];
 
-            $math = DB::table('primary_assesment_record_details')
-                ->join('primary_assesment_records', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
+            // IPS
+            $mtk = DB::table('hs_assessment_record_details')
+                ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
                 ->where('name', $student)
-                ->where('subject', 'MATHEMATIC')
                 ->where('term', $current_term)
+                ->where('subject', 'Matematika')
                 ->first();
 
-            $meanMath = DB::table('primary_assesment_record_details as d')
-                ->join('primary_assesment_records as r', 'r.id', '=', 'd.id_assesment')
+            $meanMatematika = DB::table('hs_assessment_record_details as d')
+                ->join('hs_assessment_records as r', 'r.id', '=', 'd.id_assesment')
                 ->where('r.class', $class)
-                ->where('r.subject', 'MATHEMATIC')
+                ->where('r.subject', 'Matematika')
                 ->where('term', $current_term)
                 ->select(
                     'r.subject',
-                    DB::raw('AVG(d.concept) as mean_math_concept'),
-                    DB::raw('AVG(d.demonstrate) as mean_math_demonstrate'),
+                    DB::raw('AVG(d.ku_total) as mean_ku'),
+                    DB::raw('AVG(d.dk_total) as mean_dk'),
                 )
                 ->groupBy('r.subject')
                 ->first() ?? (object)[
-                    'subject' => 'MATHEMATIC',
-                    'mean_math_concept' => 0,
-                    'mean_math_demonstrate' => 0,
+                    'subject' => 'Matematika',
+                    'mean_ku' => 0,
+                    'mean_dk' => 0,
                 ];
-
-            $mathematic = DB::table('primary_assesment_record_details')
-                ->join('primary_assesment_records', 'primary_assesment_records.id', '=', 'primary_assesment_record_details.id_assesment')
-                ->where('name', $student)
-                ->where('subject', 'Mathematic')
-                ->where('term', $current_term)
-                ->first();
 
             // IPS
             $dt = DB::table('hs_assessment_record_details')

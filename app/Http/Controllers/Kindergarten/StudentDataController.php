@@ -17,6 +17,7 @@ class StudentDataController extends Controller
     {
         $title = 'Student Data';
         $path = 'Student';
+
         $datas = DB::table('kindergarten_students')->orderBy('id', 'DESC')->get();
         return view('kindergarten/student_data/index', compact('title', 'path', 'datas'));
     }
