@@ -22,6 +22,14 @@
 
     </div>
 
+    @php
+    $page = 1;
+    @endphp
+
+    {{-- @php
+    $page++
+    @endphp --}}
+
     <table style="font-weight: bold; margin-top: 50px; margin-bottom: 50px">
 
         <tr>
@@ -173,7 +181,7 @@
 
     <div class="footer">
         <span class="left">{{ $murid->name .'/'.$murid->class.'/2026-2027' }}</span>
-        <span class="right">Page 1</span>
+        <span class="right">Page {{ $page }}</span>
     </div>
 </div>
 
@@ -352,7 +360,7 @@
 
     <div class="footer">
         <span class="left">{{ $murid->name .'/'.$murid->class.'/2026-2027' }}</span>
-        <span class="right">Page 2</span>
+        <span class="right">Page {{ $page }}</span>
     </div>
 </div>
 
@@ -445,7 +453,6 @@
     </table>
     @endif
 
-
     {{-- SEJARAH --}}
     @if($fisika->ku_total != null)
     <table class="mt-5" style="font-weight: bold; text-align: center">
@@ -534,6 +541,11 @@
             <td>{{ $sejarah->social_responsibility ?? 0 }}</td>
         </tr>
     </table>
+
+    <div class="footer">
+        <span class="left">{{ $murid->name .'/'.$murid->class.'/2026-2027' }}</span>
+        <span class="right">Page {{ $page }}</span>
+    </div>
     @endif
 
 </div>
@@ -725,26 +737,26 @@
         </tr>
 
         <tr>
-            <td>{{ $dt->ku_total ?? 0 }}</td>
-            <td>{{ round($meanDT->mean_ku) }}</td>
-            <td>{{ $dt->dk_total ?? 0 }}</td>
-            <td>{{ round($meanDT->mean_dk) }}</td>
+            <td>{{ $pe->ku_total ?? 0 }}</td>
+            <td>{{ round($meanPE->mean_ku) }}</td>
+            <td>{{ $pe->dk_total ?? 0 }}</td>
+            <td>{{ round($meanPE->mean_dk) }}</td>
         </tr>
 
         <tr>
             <td rowspan="3">LEARNING BEHAVIOURS</td>
             <td colspan="3">Personal Management Skill</td>
-            <td>{{ $dt->management_skill ?? 0 }}</td>
+            <td>{{ $pe->management_skill ?? 0 }}</td>
         </tr>
 
         <tr>
             <td colspan="3">Active Participation In Learning</td>
-            <td>{{ $dt->active_participation ?? 0 }}</td>
+            <td>{{ $pe->active_participation ?? 0 }}</td>
         </tr>
 
         <tr>
             <td colspan="3">Social Responsibility</td>
-            <td>{{ $dt->social_responsibility ?? 0 }}</td>
+            <td>{{ $pe->social_responsibility ?? 0 }}</td>
         </tr>
     </table>
 
@@ -1159,4 +1171,8 @@
         <span class="left">{{ $murid->name .'/'.$murid->class.'/2026-2027' }}</span>
         <span class="right">Page 5</span>
     </div>
+
+    @php
+    $page++
+    @endphp
 </div>
