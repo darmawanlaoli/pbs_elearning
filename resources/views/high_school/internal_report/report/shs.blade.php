@@ -514,9 +514,9 @@
         </tr>
 
         <?php
-                $mathKu = (($math->ku_total ?? 0) + ($mtk->ku_total ?? 0)) / 2;
-                $mathDk = (($math->dk_total ?? 0) + ($mtk->dk_total ?? 0)) / 2;
-                ?>
+            $mathKu = (($math->ku_total ?? 0) + ($mtk->ku_total ?? 0)) / 2;
+            $mathDk = (($math->dk_total ?? 0) + ($mtk->dk_total ?? 0)) / 2;
+        ?>
 
         <tr>
             <td style="padding: 8px">{{ round($mathKu) ?? '' }}</td>
@@ -782,26 +782,26 @@
         </tr>
 
         <tr>
-            <td>{{ $pe->ku_total ?? '' }}</td>
-            <td>{{ round($meanPE->mean_ku) }}</td>
-            <td>{{ $pe->dk_total ?? '' }}</td>
-            <td>{{ round($meanPE->mean_dk) }}</td>
+            <td>{{ $japanese->ku_total ?? '' }}</td>
+            <td>{{ round($meanJapanese->mean_ku) }}</td>
+            <td>{{ $japanese->dk_total ?? '' }}</td>
+            <td>{{ round($meanJapanese->mean_dk) }}</td>
         </tr>
 
         <tr>
             <td rowspan="3">LEARNING BEHAVIOURS</td>
             <td colspan="3">Personal Management Skill</td>
-            <td>{{ $pe->management_skill ?? 0 }}</td>
+            <td>{{ $japanese->management_skill ?? 0 }}</td>
         </tr>
 
         <tr>
             <td colspan="3">Active Participation In Learning</td>
-            <td>{{ $pe->active_participation ?? 0 }}</td>
+            <td>{{ $japanese->active_participation ?? 0 }}</td>
         </tr>
 
         <tr>
             <td colspan="3">Social Responsibility</td>
-            <td>{{ $pe->social_responsibility ?? 0 }}</td>
+            <td>{{ $japanese->social_responsibility ?? 0 }}</td>
         </tr>
     </table>
     @endif
@@ -858,6 +858,8 @@
     </table>
 
     {{-- UOI --}}
+
+    @if(str_contains($murid->class, "Y10"))
     <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
             <th colspan="6" style="padding: 10px"></th>
@@ -912,6 +914,7 @@
         </tr>
 
     </table>
+    @endif
 
 
     <div class="footer">

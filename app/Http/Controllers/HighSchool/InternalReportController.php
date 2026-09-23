@@ -778,7 +778,7 @@ class InternalReportController extends Controller
                 ->where('name', $student)
                 ->where('term', $current_term)
                 ->where('subject', 'Unit of Inquiry')
-                ->where('total_uoi_ips', '!=', null)
+                ->whereNotNull('total_uoi_ips') // Tips tambahan: lebih tepat gunakan whereNotNull
                 ->first();
 
             $entrepreneurship = DB::table('hs_assessment_record_details')
