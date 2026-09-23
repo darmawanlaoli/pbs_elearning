@@ -36,41 +36,20 @@
                         <table class="table search-table align-middle text-nowrap">
                             <thead class="header-item">
                                 <th>No.</th>
-                                <th>Class</th>
+                                <th>Academic Year/Term</th>
                                 <th>Homeroom</th>
                                 <th>Action</th>
                             </thead>
                             <tbody>
-                                @forelse ($classes as $class)
-                                    <tr class="bg-danger">
+                                @forelse ($stages as $stage)
+                                    <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $class->class }}</td>
-                                        <td>{{ $class->homeroom }}</td>
+                                        <td>{{ $stage->academic_year.'/'.$stage->term }}</td>
+                                        <td>{{ $stage->class }}</td>
 
-                                        <td class="d-flex">
-
-                                            <div class="d-flex justify-content-center gap-1 flex-wrap">
-                                                <a href="{{ route('high_school.internal_report.print', $class->class) }}"
-                                                    class="btn btn-sm btn-primary m-1">
-                                                    <i class="ti ti-printer"></i> Print Report
-                                                </a>
-                                            </div>
-
-                                            <div class="d-flex justify-content-center gap-1 flex-wrap">
-
-                                                <a href="{{ route('high_school.assessment_record.create_report_data', $class->class) }}"
-                                                    class="btn btn-sm btn-info m-1">
-                                                    <i class="ti ti-database"></i> Report Data</a>
-                                                </a>
-                                            </div>
-
-                                            <div class="d-flex justify-content-center gap-1 flex-wrap">
-
-                                                <a href="{{ route('high_school.internal_report.accumulated', $class->class) }}"
-                                                    class="btn btn-sm btn-success m-1">
-                                                    <i class="ti ti-pencil"></i> Assessment Record</a>
-                                                </a>
-                                            </div>
+                                        <td>
+                                            <a href="{{ route('imyc_stage.edit', $stage->id) }}" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-title="Tooltip on top" class="btn btn-primary btn-sm"><i class="ti ti-pencil"></i> Edit</a>
 
                                         </td>
 

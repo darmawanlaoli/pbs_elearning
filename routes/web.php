@@ -257,6 +257,10 @@ Route::middleware(['multi.role:hsadmin,hsteacher'])->group(function () {
     Route::get('high_school/internal_report/{class}/accumulated', [HighSchoolInternalReport::class, 'accumulated'])->name('high_school.internal_report.accumulated');
     Route::get('high_school/internal_report/{class}/print', [HighSchoolInternalReport::class, 'print'])->name('high_school.internal_report.print');
 
+    Route::get('imyc_stage', [HighSchoolInternalReport::class, 'imycStage'])->name('imyc_stage');
+    Route::get('imyc_stage/{id}/edit', [HighSchoolInternalReport::class, 'editImycStage'])->name('imyc_stage.edit');
+    Route::put('imyc_stage/update', [HighSchoolInternalReport::class, 'inputAction'])->name('imyc_stage.update');
+
     Route::get('high_school/assessment_record', [HighSchoolAssessmentRecord::class, 'index'])->name('high_school.assessment_record');
     Route::get('high_school/assessment_record/create', [HighSchoolAssessmentRecord::class, 'create'])->name('high_school.assessment_record.create');
     Route::post('high_school/assessment_record/store', [HighSchoolAssessmentRecord::class, 'store'])->name('high_school.assessment_record.store');

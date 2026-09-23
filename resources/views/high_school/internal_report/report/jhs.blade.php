@@ -27,7 +27,7 @@
     <table style="font-weight: bold; margin-top: 50px; margin-bottom: 50px">
 
         <tr>
-            <td>STUDENT</td>
+            <td class="subject">STUDENT</td>
             <td>{{ $murid->name }}</td>
         </tr>
 
@@ -55,7 +55,7 @@
     {{-- Religious --}}
     <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
-            <th>RELIGIOUS EDUCATION</th>
+            <th class="subject">RELIGIOUS EDUCATION</th>
             <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
             <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
         </tr>
@@ -69,7 +69,7 @@
         </tr>
 
         <tr>
-            <td>{{ $religious->ku_total ?? 0 }}</td>
+            <td style="padding: 8px">{{ $religious->ku_total ?? 0 }}</td>
             <td>{{ round($meanReligious->mean_religious_ku) }}</td>
             <td>{{ $religious->dk_total ?? 0 }}</td>
             <td>{{ round($meanReligious->mean_religious_dk) }}</td>
@@ -95,7 +95,7 @@
     {{-- PKN --}}
     <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
-            <th>PENDIDIKAN KEWARGANEGARAAN</th>
+            <th class="subject">PENDIDIKAN KEWARGANEGARAAN</th>
             <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
             <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
         </tr>
@@ -109,7 +109,7 @@
         </tr>
 
         <tr>
-            <td>{{ $pkn->ku_total ?? '' }}</td>
+            <td style="padding: 8px">{{ $pkn->ku_total ?? '' }}</td>
             <td>{{ round($meanPKn->mean_ku) }}</td>
             <td>{{ $pkn->dk_total ?? '' }}</td>
             <td>{{ round($meanPKn->mean_dk) }}</td>
@@ -136,7 +136,7 @@
     {{-- B. INDO --}}
     <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
-            <th>BAHASA INDONESIA</th>
+            <th class="subject">BAHASA INDONESIA</th>
             <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
             <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
         </tr>
@@ -150,7 +150,7 @@
         </tr>
 
         <tr>
-            <td>{{ $indonesia->lang_total_ku ?? '' }}</td>
+            <td style="padding: 8px">{{ $indonesia->lang_total_ku ?? '' }}</td>
             <td>{{ round($meanIndonesia->mean_lang_ku) }}</td>
             <td>{{ $indonesia->lang_total_dk ?? '' }}</td>
             <td>{{ round($meanIndonesia->mean_lang_dk) }}</td>
@@ -186,7 +186,7 @@
     {{-- IPA --}}
     <table class="mt-2" style="font-weight: bold; text-align: center">
         <tr>
-            <th>ILMU PENGETAHUAN ALAM</th>
+            <th class="subject">ILMU PENGETAHUAN ALAM</th>
             <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
             <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
         </tr>
@@ -200,7 +200,7 @@
         </tr>
 
         <tr>
-            <td>{{ $ipa->ku_total ?? 0 }}</td>
+            <td style="padding: 8px">{{ $ipa->ku_total ?? 0 }}</td>
             <td>{{ round($meanIPA->mean_ku) }}</td>
             <td>{{ $ipa->dk_total ?? 0 }}</td>
             <td>{{ round($meanIPA->mean_dk) }}</td>
@@ -226,7 +226,7 @@
     {{-- IPS --}}
     <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
-            <th>ILMU PENGETAHUAN SOSIAL</th>
+            <th class="subject">ILMU PENGETAHUAN SOSIAL</th>
             <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
             <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
         </tr>
@@ -240,7 +240,7 @@
         </tr>
 
         <tr>
-            <td>{{ $ips->ku_total ?? '' }}</td>
+            <td style="padding: 8px">{{ $ips->ku_total ?? '' }}</td>
             <td>{{ round($meanIPS->mean_ku) }}</td>
             <td>{{ $ips->dk_total ?? '' }}</td>
             <td>{{ round($meanIPS->mean_dk) }}</td>
@@ -267,7 +267,7 @@
     {{-- Math --}}
     <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
-            <th>MATHEMATIC</th>
+            <th class="subject">MATHEMATIC</th>
             <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
             <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
         </tr>
@@ -309,10 +309,10 @@
         </tr>
     </table>
 
-    {{-- B. INDO --}}
+    {{-- English --}}
     <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
-            <th>ENGLISH</th>
+            <th class="subject">ENGLISH</th>
             <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
             <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
         </tr>
@@ -326,7 +326,7 @@
         </tr>
 
         <tr>
-            <td>{{ $english->lang_total_ku ?? '' }}</td>
+            <td style="padding: 8px">{{ $english->lang_total_ku ?? '' }}</td>
             <td>{{ round($meanEnglish->mean_lang_ku) }}</td>
             <td>{{ $english->lang_total_dk ?? '' }}</td>
             <td>{{ round($meanEnglish->mean_lang_dk) }}</td>
@@ -364,7 +364,7 @@
     {{-- DT --}}
     <table class="mt-2" style="font-weight: bold; text-align: center">
         <tr>
-            <th>DESIGN AND TECHNOLOGY</th>
+            <th class="subject">DESIGN AND TECHNOLOGY</th>
             <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
             <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
         </tr>
@@ -378,7 +378,7 @@
         </tr>
 
         <tr>
-            <td>{{ $dt->ku_total ?? 0 }}</td>
+            <td style="padding: 8px">{{ $dt->ku_total ?? 0 }}</td>
             <td>{{ round($meanDT->mean_ku) }}</td>
             <td>{{ $dt->dk_total ?? 0 }}</td>
             <td>{{ round($meanDT->mean_dk) }}</td>
@@ -406,7 +406,7 @@
     {{-- Visual Art --}}
     <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
-            <th>VISUAL ART</th>
+            <th class="subject">VISUAL ART</th>
             <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
             <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
         </tr>
@@ -420,7 +420,7 @@
         </tr>
 
         <tr>
-            <td>{{ $visualArt->ku_total ?? '' }}</td>
+            <td style="padding: 8px">{{ $visualArt->ku_total ?? '' }}</td>
             <td>{{ round($meanVisualArt->mean_ku) }}</td>
             <td>{{ $visualArt->dk_total ?? '' }}</td>
             <td>{{ round($meanVisualArt->mean_dk) }}</td>
@@ -448,7 +448,7 @@
     {{--Music --}}
     <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
-            <th>MUSIC</th>
+            <th class="subject">MUSIC</th>
             <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
             <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
         </tr>
@@ -462,7 +462,7 @@
         </tr>
 
         <tr>
-            <td>{{ $music->ku_total ?? '' }}</td>
+            <td style="padding: 8px">{{ $music->ku_total ?? '' }}</td>
             <td>{{ round($meanMusic->mean_ku) }}</td>
             <td>{{ $music->dk_total ?? '' }}</td>
             <td>{{ round($meanMusic->mean_dk) }}</td>
@@ -490,7 +490,7 @@
     {{-- PE --}}
     <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
-            <th>PHYSICAL EDUCATION</th>
+            <th class="subject">PHYSICAL EDUCATION</th>
             <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
             <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
         </tr>
@@ -504,7 +504,7 @@
         </tr>
 
         <tr>
-            <td>{{ $pe->ku_total ?? '' }}</td>
+            <td style="padding: 8px">{{ $pe->ku_total ?? '' }}</td>
             <td>{{ round($meanPE->mean_ku) }}</td>
             <td>{{ $pe->dk_total ?? '' }}</td>
             <td>{{ round($meanPE->mean_dk) }}</td>
@@ -542,7 +542,7 @@
     {{-- IMYC --}}
     <table class="mt-2" style="font-weight: bold; text-align: center; font-size: 12px">
         <tr>
-            <th colspan="6">IMYC ASSESSMENT FOR LEARNING</th>
+            <th colspan="6" style="padding: 8px">IMYC ASSESSMENT FOR LEARNING</th>
         </tr>
 
         <tr>
@@ -559,45 +559,69 @@
         </tr>
 
         {{-- Language Arts --}}
-        @if($imyc->imyc_lang != null)
+        @if($imycLang->imyc_lang != null)
+        <?php
+            if($imycLang->imyc_lang_total >= 81) {
+                $lang_stage = $murid->name . ' ' .$imyc_stage?->mastering_lang_arts;
+                $lang_level = 'MASTERING';
+            }elseif($imycLang->imyc_lang_total >= 61) {
+                $lang_stage = $murid->name . ' ' .$imyc_stage?->developing_lang_arts;
+                $lang_level = 'DEVELOPING';
+            }else {
+                $lang_stage = $murid->name . ' ' .$imyc_stage?->beginning_lang_arts;
+                $lang_level = 'BEGINNING';
+            }
+        ?>
         <tr>
             <th>LANGUAGE ARTS</th>
-            <th>MASTERING</th>
-            <th rowspan="2">{{ $imyc->imyc_lang_total }}</th>
-            <th rowspan="2">{{ $imyc->imyc_lang_management_skill }}</th>
-            <th rowspan="2">{{ $imyc->imyc_lang_active_participation }}</th>
-            <th rowspan="2">{{ $imyc->imyc_lang_social_responsibility }}</th>
+            <th>{{ $lang_level }}</th>
+            <th rowspan="2">{{ $imycLang->imyc_lang_total }}</th>
+            <th rowspan="2">{{ $imycLang->imyc_lang_management_skill }}</th>
+            <th rowspan="2">{{ $imycLang->imyc_lang_active_participation }}</th>
+            <th rowspan="2">{{ $imycLang->imyc_lang_social_responsibility }}</th>
         </tr>
         <tr>
-            <th>LA</th>
-            <th>LA</th>
+            <th>{{ $imyc_stage?->goal_lang_arts }}</th>
+            <th style="text-align: left">{!! $lang_stage ?? '' !!}</th>
         </tr>
         @endif
 
-        @if($imyc->imyc_science != null)
         {{-- Science --}}
+        @if($imycScience->imyc_science != null)
+        <?php
+                if($imycScience->imyc_science_total >= 81) {
+                    $science_stage = $murid->name . ' ' .$imyc_stage?->mastering_science;
+                    $science_level = 'MASTERING';
+                }elseif($imycScience->imyc_science_total >= 61) {
+                    $science_stage = $murid->name . ' ' .$imyc_stage?->developing_science;
+                    $science_level = 'DEVELOPING';
+                }else {
+                    $science_stage = $murid->name . ' ' .$imyc_stage?->beginning_science;
+                    $science_level = 'BEGINNING';
+                }
+            ?>
         <tr>
             <th>SCIENCE</th>
-            <th>MASTERING</th>
-            <th rowspan="2">{{ $imyc->imyc_science_total }}</th>
-            <th rowspan="2">{{ $imyc->imyc_science_management_skill }}</th>
-            <th rowspan="2">{{ $imyc->imyc_science_active_participation }}</th>
-            <th rowspan="2">{{ $imyc->imyc_science_social_responsibility }}</th>
+            <th>{{ $science_level }}</th>
+            <th rowspan="2">{{ $imycScience->imyc_science_total }}</th>
+            <th rowspan="2">{{ $imycScience->imyc_science_management_skill }}</th>
+            <th rowspan="2">{{ $imycScience->imyc_science_active_participation }}</th>
+            <th rowspan="2">{{ $imycScience->imyc_science_social_responsibility }}</th>
         </tr>
         <tr>
-            <th>LA</th>
-            <th>LA</th>
+            <th>{{ $imyc_stage?->goal_science }}</th>
+            <th style="text-align: left">{!! $science_stage ?? '' !!}</th>
         </tr>
         @endif
 
 
         {{-- Geo --}}
-        @if($imyc->imyc_geo != null)
+        @if($imycGeo->imyc_geo != null)
         <?php
-            if($imyc->imyc_geo_total >= 81) {
+            if($imycGeo->imyc_geo_total >= 81) {
                 $geo_stage = $murid->name . ' ' .$imyc_stage?->mastering_geo;
                 $geo_level = 'MASTERING';
-            }elseif($imyc->imyc_geo_total >= 61) {
+            }elseif($imycGeo->imyc_geo_total >= 61) {
                 $geo_stage = $murid->name . ' ' .$imyc_stage?->developing_geo;
                 $geo_level = 'DEVELOPING';
             }else {
@@ -608,10 +632,10 @@
         <tr>
             <th>GEOGRAPHY</th>
             <th>{{ $geo_level }}</th>
-            <th rowspan="2">{{ $imyc->imyc_geo_total }}</th>
-            <th rowspan="2">{{ $imyc->imyc_geo_management_skill }}</th>
-            <th rowspan="2">{{ $imyc->imyc_geo_active_participation }}</th>
-            <th rowspan="2">{{ $imyc->imyc_geo_social_responsibility }}</th>
+            <th rowspan="2">{{ $imycGeo->imyc_geo_total }}</th>
+            <th rowspan="2">{{ $imycGeo->imyc_geo_management_skill }}</th>
+            <th rowspan="2">{{ $imycGeo->imyc_geo_active_participation }}</th>
+            <th rowspan="2">{{ $imycGeo->imyc_geo_social_responsibility }}</th>
         </tr>
         <tr>
             <th>{{ $imyc_stage?->goal_geo }}</th>
@@ -619,51 +643,88 @@
         </tr>
         @endif
 
-        {{-- History --}}
-        @if($imyc->imyc_history != null)
+        {{-- HISTORY --}}
+        @if($imycHistory->imyc_history ?? '')
+        <?php
+                if($imycHistory->imyc_history_total >= 81) {
+                    $history_stage = $murid->name . ' ' .$imyc_stage?->mastering_history;
+                    $history_level = 'MASTERING';
+                }elseif($imycHistory->imyc_history_total >= 61) {
+                    $history_stage = $murid->name . ' ' .$imyc_stage?->developing_history;
+                    $history_level = 'DEVELOPING';
+                }else {
+                    $history_stage = $murid->name . ' ' .$imyc_stage?->beginning_history;
+                    $history_level = 'BEGINNING';
+                }
+            ?>
         <tr>
             <th>HISTORY</th>
-            <th>MASTERING</th>
-            <th rowspan="2">{{ $imyc->imyc_history_total }}</th>
-            <th rowspan="2">{{ $imyc->imyc_history_management_skill }}</th>
-            <th rowspan="2">{{ $imyc->imyc_history_active_participation }}</th>
-            <th rowspan="2">{{ $imyc->imyc_history_social_responsibility }}</th>
+            <th>{{ $history_level }}</th>
+            <th rowspan="2">{{ $imycHistory->imyc_history_total }}</th>
+            <th rowspan="2">{{ $imycHistory->imyc_history_management_skill }}</th>
+            <th rowspan="2">{{ $imycHistory->imyc_history_active_participation }}</th>
+            <th rowspan="2">{{ $imycHistory->imyc_history_social_responsibility }}</th>
         </tr>
         <tr>
-            <th>LA</th>
-            <th>LA</th>
+            <th>{{ $imyc_stage?->goal_history }}</th>
+            <th style="text-align: left">{!! $history_stage ?? '' !!}</th>
         </tr>
         @endif
 
         {{-- Tech --}}
-        @if($imyc->imyc_tech != null)
+        @if($imycTech->imyc_tech ?? '')
+        <?php
+                if($imycTech->imyc_tech_total >= 81) {
+                    $tech_stage = $murid->name . ' ' .$imyc_stage?->mastering_tech;
+                    $tech_level = 'MASTERING';
+                }elseif($imycTech->imyc_tech_total >= 61) {
+                    $tech_stage = $murid->name . ' ' .$imyc_stage?->developing_tech;
+                    $tech_level = 'DEVELOPING';
+                }else {
+                    $tech_stage = $murid->name . ' ' .$imyc_stage?->beginning_tech;
+                    $tech_level = 'BEGINNING';
+                }
+            ?>
         <tr>
             <th>TECHNOLOGY</th>
-            <th>MASTERING</th>
-            <th rowspan="2">{{ $imyc->imyc_tech_total }}</th>
-            <th rowspan="2">{{ $imyc->imyc_tech_management_skill }}</th>
-            <th rowspan="2">{{ $imyc->imyc_tech_active_participation }}</th>
-            <th rowspan="2">{{ $imyc->imyc_tech_social_responsibility }}</th>
+            <th>{{ $tech_level }}</th>
+            <th rowspan="2">{{ $imycTech->imyc_tech_total }}</th>
+            <th rowspan="2">{{ $imycTech->imyc_tech_management_skill }}</th>
+            <th rowspan="2">{{ $imycTech->imyc_tech_active_participation }}</th>
+            <th rowspan="2">{{ $imycTech->imyc_tech_social_responsibility }}</th>
         </tr>
         <tr>
-            <th>LA</th>
-            <th>LA</th>
+            <th>{{ $imyc_stage?->goal_tech }}</th>
+            <th style="text-align: left">{!! $tech_stage ?? '' !!}</th>
         </tr>
         @endif
 
+
         {{-- Art --}}
-        @if($imyc->imyc_art != null)
+        @if($imycArt->imyc_art != null)
+        <?php
+                    if($imycArt->imyc_art_total >= 81) {
+                        $art_stage = $murid->name . ' ' .$imyc_stage?->mastering_art;
+                        $art_level = 'MASTERING';
+                    }elseif($imycArt->imyc_art_total >= 61) {
+                        $art_stage = $murid->name . ' ' .$imyc_stage?->developing_art;
+                        $art_level = 'DEVELOPING';
+                    }else {
+                        $art_stage = $murid->name . ' ' .$imyc_stage?->beginning_art;
+                        $art_level = 'BEGINNING';
+                    }
+                ?>
         <tr>
             <th>ART</th>
-            <th>MASTERING</th>
-            <th rowspan="2">{{ $imyc->imyc_art_total }}</th>
-            <th rowspan="2">{{ $imyc->imyc_art_management_skill }}</th>
-            <th rowspan="2">{{ $imyc->imyc_art_active_participation }}</th>
-            <th rowspan="2">{{ $imyc->imyc_art_social_responsibility }}</th>
+            <th>{{ $art_level }}</th>
+            <th rowspan="2">{{ $imycArt->imyc_art_total }}</th>
+            <th rowspan="2">{{ $imycArt->imyc_art_management_skill }}</th>
+            <th rowspan="2">{{ $imycArt->imyc_art_active_participation }}</th>
+            <th rowspan="2">{{ $imycArt->imyc_art_social_responsibility }}</th>
         </tr>
         <tr>
-            <th>LA</th>
-            <th>LA</th>
+            <th>{{ $imyc_stage?->goal_art }}</th>
+            <th style="text-align: left">{!! $art_stage ?? '' !!}</th>
         </tr>
         @endif
 
@@ -702,9 +763,9 @@
 
     </table>
 
-    <table class="mt-2" style="font-weight: bold; text-align: center">
+    <table class="mt-4" style="font-weight: bold; text-align: center">
         <tr>
-            <th colspan="2">SCALE</th>
+            <th colspan="3">SCALE</th>
         </tr>
         <tr>
             <th>A</th>
@@ -731,7 +792,7 @@
 
     <div class="row">
         <div class="col-8">
-            <table class="mt-2" style="font-weight: bold; text-align: center">
+            <table class="mt-4" style="font-weight: bold; text-align: center">
                 <tr>
                     <th>EXTRACURRICULAR</th>
                     <th>GRADE LEVEL</th>
@@ -754,7 +815,7 @@
         </div>
 
         <div class="col-4">
-            <table class="mt-3" style="font-weight: bold; text-align: center">
+            <table class="mt-4" style="font-weight: bold; text-align: center">
                 <tr>
                     <th>SCALE:</th>
                 </tr>
@@ -774,7 +835,7 @@
         </div>
     </div>
 
-    <table class="mt-3" style="font-weight: bold; text-align: center">
+    <table class="mt-4" style="font-weight: bold; text-align: center">
         <tr>
             <th rowspan="2">ATTENDANCE</th>
             <th>PRESENT</th>
@@ -783,20 +844,20 @@
             <th>TARDY</th>
         </tr>
         <tr>
-            <th>{{ $reportData->present ?? '0' }}</th>
+            <th style="padding: 10px">{{ $reportData->present ?? '0' }}</th>
             <th>{{ $reportData->excused ?? '0' }}</th>
             <th>{{ $reportData->unexcused ?? '0' }}</th>
             <th>{{ $reportData->tardy ?? '0' }}</th>
         </tr>
     </table>
 
-    <table class="mt-3" style="font-weight: bold; text-align: center">
+    <table class="mt-4" style="font-weight: bold; text-align: center">
         <tr>
             <th style="text-align: left">COMMENT</th>
         </tr>
 
         <tr>
-            <th style="text-align: justify">
+            <th style="text-align: justify; padding: 12px;">
                 {{ $reportData->comment ?? 'Comment belum diinput' }}
             </th>
         </tr>

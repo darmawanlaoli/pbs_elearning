@@ -7,6 +7,7 @@ use App\Models\AcademicYear;
 use App\Models\HsReportData;
 use App\Models\HsStudent;
 use App\Models\HsClass;
+use App\Models\HsImycStage;
 use App\Models\HsReportDataDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -839,11 +840,52 @@ class InternalReportController extends Controller
                     'mean_dk' => 0,
                 ];
 
-            $imyc = DB::table('hs_assessment_record_details')
+            $imycLang = DB::table('hs_assessment_record_details')
                 ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
                 ->where('name', $student)
                 ->where('term', $current_term)
                 ->where('subject', 'IMYC')
+                ->where('imyc_lang', '!=', null)
+                ->first();
+
+            $imycScience = DB::table('hs_assessment_record_details')
+                ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
+                ->where('name', $student)
+                ->where('term', $current_term)
+                ->where('subject', 'IMYC')
+                ->where('imyc_science', '!=', null)
+                ->first();
+
+            $imycTech = DB::table('hs_assessment_record_details')
+                ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
+                ->where('name', $student)
+                ->where('term', $current_term)
+                ->where('subject', 'IMYC')
+                ->where('imyc_tech', '!=', null)
+                ->first();
+
+            $imycGeo = DB::table('hs_assessment_record_details')
+                ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
+                ->where('name', $student)
+                ->where('term', $current_term)
+                ->where('subject', 'IMYC')
+                ->where('imyc_geo', '!=', null)
+                ->first();
+
+            $imycHistory = DB::table('hs_assessment_record_details')
+                ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
+                ->where('name', $student)
+                ->where('term', $current_term)
+                ->where('subject', 'IMYC')
+                ->where('imyc_history', '!=', null)
+                ->first();
+
+            $imycArt = DB::table('hs_assessment_record_details')
+                ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
+                ->where('name', $student)
+                ->where('term', $current_term)
+                ->where('subject', 'IMYC')
+                ->where('imyc_art', '!=', null)
                 ->first();
 
             $grade = substr($class, 0, 2);
@@ -933,6 +975,8 @@ class InternalReportController extends Controller
             $meanPKn = [];
             $ipa = null;
             $meanIPA = [];
+            $visualArt = null;
+            $meanVisualArt = [];
             $ips = null;
             $meanIPS = [];
             $pe = null;
@@ -965,7 +1009,12 @@ class InternalReportController extends Controller
             $music = null;
             $meanMusic = [];
             $mathematic = null;
-            $imyc = null;
+            $imycLang = null;
+            $imycArt = null;
+            $imycGeo = null;
+            $imycScience = null;
+            $imycHistory = null;
+            $imycTech = null;
             $imyc_stage = null;
             $records = [];
             $subjects = [];
@@ -995,6 +1044,8 @@ class InternalReportController extends Controller
             'meanDM',
             'biologi',
             'meanBiologi',
+            'visualArt',
+            'meanVisualArt',
             'kimia',
             'meanKimia',
             'sejarah',
@@ -1026,7 +1077,12 @@ class InternalReportController extends Controller
             'meanIndonesia',
             'english',
             'meanEnglish',
-            'imyc',
+            'imycLang',
+            'imycArt',
+            'imycGeo',
+            'imycHistory',
+            'imycTech',
+            'imycScience',
             'imyc_stage',
             'records',
             'subjects',
@@ -1349,5 +1405,38 @@ class InternalReportController extends Controller
 
         // Download file dengan nama asli atau kustom
         return Storage::download($path, "Download-{$filename}");
+    }
+
+    public function imycStage(){
+        $title = 'IMYC Stage';
+        $path = 'Report';
+        $stages = DB::table('hs_imyc_stages')
+            ->get();
+
+        return view('high_school/internal_report/imyc_stage', compact('title', 'path', 'stages'));
+    }
+
+    public function editImycStage(string $id)
+    {
+        $title = 'Edit IMYC Stage';
+        $path = 'Report';
+        $stage = HsImycStage::findOrFail($id);
+        return view('high_school/internal_report/edit_imyc_stage', compact('title', 'path', 'stage'));
+    }
+
+    public function updateImycStage(Request $request, $id)
+    {
+
+        $beanch = Branch::findOrFail($id);
+
+        $beanch->update([
+            'nama_cabang' => $request->nama_cabang,
+            'alamat' => $request->alamat,
+            'username' => $request->username,
+            'pass' => $request->password,
+            'password' => Hash::make($request->password),
+        ]);
+
+        return redirect()->route('superadmin.data_cabang')->with(['success' => 'Data cabang berhasil diubah!']);
     }
 }

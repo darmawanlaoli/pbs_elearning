@@ -30,6 +30,10 @@
         counter-reset: page-counter;
     }
 
+    table tr .subject {
+        width: 45%;
+    }
+
     tr td .nilai {
         padding-top: 13px;
         padding-bottom: 13px;
