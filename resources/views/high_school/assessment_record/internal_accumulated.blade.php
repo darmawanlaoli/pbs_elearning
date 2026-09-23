@@ -188,38 +188,31 @@
                             <td class="text-center fw-bold bg-success text-white">{{ $student['grand_total'] }}</td>
 
                             @foreach ($subjects as $mapel)
-
                             @php
-                                if (in_array($mapel->subject, ['Bahasa Indonesia', 'English'])) {
+                            // Ambil nilai KU & DK sesuai jenis mata pelajaran (bahasa atau reguler)
+                            if (in_array($mapel->subject, ['Bahasa Indonesia', 'English'])) {
+                            $valKu = $student['lang_total_ku'][$mapel->subject] ?? null;
+                            $valDk = $student['lang_total_dk'][$mapel->subject] ?? null;
+                            } else {
+                            $valKu = $student['ku_total'][$mapel->subject] ?? null;
+                            $valDk = $student['dk_total'][$mapel->subject] ?? null;
+                            }
 
-                                $valKu = $student['lang_total_ku'][$mapel->subject] ?? null;
-                                $valDk = $student['lang_total_dk'][$mapel->subject] ?? null;
+                            // Ambil KKM untuk mapel ini (default null / 0 jika tidak diset)
+                            $kkm = $mapel->kkm ?? null;
 
-                                } else {
+                            // Cek apakah nilai di bawah KKM (hanya jika nilai dan KKM valid/numerik)
+                            $isKuBelowKkm = (!is_null($valKu) && !is_null($kkm) && is_numeric($valKu) && $valKu < $kkm);
+                                $isDkBelowKkm=(!is_null($valDk) && !is_null($kkm) && is_numeric($valDk) && $valDk < $kkm); @endphp <!-- Kolom KU -->
+                                <td class="text-center {{ $isKuBelowKkm ? 'bg-danger text-white fw-bold' : '' }}">
+                                    {{ $valKu ?? '-' }}
+                                </td>
 
-                                $valKu = $student['ku_total'][$mapel->subject] ?? null;
-                                $valDk = $student['dk_total'][$mapel->subject] ?? null;
-                                }
-
-                                $kkm = $mapel->kkm ?? null;
-
-                                $isKuBelowKkm = (
-                                !is_null($valKu) &&
-                                !is_null($kkm) &&
-                                is_numeric($valKu) &&
-                                $valKu < $kkm ); $isDkBelowKkm=( !is_null($valDk) && !is_null($kkm) && is_numeric($valDk) && $valDk < $kkm );
-                            @endphp
-
-
-                            <td class="text-center {{ $isKuBelowKkm ? 'bg-danger text-white fw-bold' : '' }}">
-                                {{ $valKu ?? '-' }}
-                            </td>
-
-                            <!-- Kolom DK -->
-                            <td class="text-center {{ $isDkBelowKkm ? 'bg-danger text-white fw-bold' : '' }}">
-                                {{ $valDk ?? '-' }}
-                            </td>
-                            @endforeach
+                                <!-- Kolom DK -->
+                                <td class="text-center {{ $isDkBelowKkm ? 'bg-danger text-white fw-bold' : '' }}">
+                                    {{ $valDk ?? '-' }}
+                                </td>
+                                @endforeach
                         </tr>
                         @empty
                         <tr>

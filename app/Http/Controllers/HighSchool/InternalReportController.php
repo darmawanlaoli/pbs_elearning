@@ -109,7 +109,7 @@ class InternalReportController extends Controller
         $rawData = DB::table('hs_assessment_record_details as detail')
             ->join('hs_assessment_records as record', 'detail.id_assesment', '=', 'record.id')
             ->join('hs_report_subjects as subject', 'record.subject', '=', 'subject.subject')
-            ->select('detail.name', 'subject.subject as subject_name', 'subject.initial', 'subject.kkm', 'detail.ku_total', 'detail.dk_total', 'detail.lang_total_ku', 'detail.lang_reading_total', 'detail.lang_total_dk')
+            ->select('detail.name', 'subject.subject as subject_name', 'subject.initial', 'subject.kkm', 'detail.ku_total', 'detail.dk_total', 'detail.lang_total_ku', 'detail.lang_total_dk')
             ->where('record.class', $class)
             ->orderBy('detail.name')
             ->get();
@@ -123,21 +123,14 @@ class InternalReportController extends Controller
 
             // Daftar subject bahasa
             $languageSubjects = ['Bahasa Indonesia', 'English'];
-            $mathSubjects = ['Math', 'Matematika'];
 
             foreach ($items as $item) {
                 if (in_array($item->subject_name, $languageSubjects)) {
-
+                    // Simpan ke array khusus bahasa
                     $langKuScores[$item->subject_name] = $item->lang_total_ku;
                     $langDkScores[$item->subject_name] = $item->lang_total_dk;
-                } elseif (in_array($item->subject_name, $mathSubjects)) {
-
-                    // Math / Matematika
-                    $kuScores[$item->subject_name] = $item->ku_total;
-                    $dkScores[$item->subject_name] = $item->lang_total_ku;
                 } else {
-
-                    // Subject reguler
+                    // Simpan ke array reguler
                     $kuScores[$item->subject_name] = $item->ku_total;
                     $dkScores[$item->subject_name] = $item->dk_total;
                 }
