@@ -488,6 +488,8 @@
     </div>
 </div>
 
+@if(str_contains($murid->class, "Y7") || str_contains($murid->class, "Y8"))
+
 {{-- halaman 4 --}}
 <div class="page">
 
@@ -627,6 +629,8 @@
         <span class="right">Page 4</span>
     </div>
 </div>
+
+@endif
 
 {{-- halaman 5 --}}
 <div class="page">
