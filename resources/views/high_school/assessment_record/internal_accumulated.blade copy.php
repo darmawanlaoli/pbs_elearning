@@ -161,56 +161,22 @@
                             <th rowspan="2">Student's Name</th>
                             <th rowspan="2">Rank</th>
                             <th rowspan="2">Total</th>
-
-                            {{-- Header Utama Mapel --}}
+                            {{-- Ubah looping header untuk menampilkan initial --}}
                             @foreach ($subjects as $mapel)
-                            @if ($mapel->subject === 'Entrepreneurship')
-                            <th colspan="4" title="{{ $mapel->subject }}"
-                                style="background-color: #0182cd; max-width: 100px; white-space: normal; word-wrap: break-word;">
-                                {{ $mapel->initial }}
-                            </th>
-                            @elseif ($mapel->subject === 'IMYC')
-                            {{-- IMYC butuh 6 kolom --}}
-                            <th colspan="6" title="{{ $mapel->subject }}"
-                                style="background-color: #0182cd; max-width: 150px; white-space: normal; word-wrap: break-word;">
-                                {{ $mapel->initial }}
-                            </th>
-                            @elseif ($mapel->subject === 'Unit of Inquiry')
-                            <th colspan="2" title="{{ $mapel->subject }}"
-                                style="background-color: #0182cd; max-width: 60px; white-space: normal; word-wrap: break-word;">
-                                {{ $mapel->initial }}
-                            </th>
-                            @else
+                            {{-- Tambahkan title agar saat di-hover muncul nama panjangnya --}}
                             <th colspan="2" title="{{ $mapel->subject }}"
                                 style="background-color: #0182cd; max-width: 50px; white-space: normal; word-wrap: break-word;">
                                 {{ $mapel->initial }}
                             </th>
-                            @endif
                             @endforeach
                         </tr>
 
                         <tr>
-                            {{-- Sub-header --}}
+                            {{-- Looping untuk kolom KU dan DK --}}
+
                             @foreach ($subjects as $mapel)
-                            @if ($mapel->subject === 'Entrepreneurship')
-                            <th style="background-color: #0182cd;">KU</th>
-                            <th style="background-color: #0182cd;">Com</th>
-                            <th style="background-color: #0182cd;">App</th>
-                            <th style="background-color: #0182cd;">Think</th>
-                            @elseif ($mapel->subject === 'IMYC')
-                            <th style="background-color: #0182cd;">Geo</th>
-                            <th style="background-color: #0182cd;">Sci</th>
-                            <th style="background-color: #0182cd;">His</th>
-                            <th style="background-color: #0182cd;">Tech</th>
-                            <th style="background-color: #0182cd;">Lang</th>
-                            <th style="background-color: #0182cd;">Art</th>
-                            @elseif ($mapel->subject === 'Unit of Inquiry')
-                            <th style="background-color: #0182cd;">IPS</th>
-                            <th style="background-color: #0182cd;">IPA</th>
-                            @else
                             <th style="background-color: #0182cd;">KU</th>
                             <th style="background-color: #0182cd;">DK</th>
-                            @endif
                             @endforeach
                         </tr>
                     </thead>
@@ -224,118 +190,40 @@
                             <td class="text-center fw-bold bg-success text-white">{{ $student['grand_total'] }}</td>
 
                             @foreach ($subjects as $mapel)
-                            @if ($mapel->subject === 'Entrepreneurship')
                             @php
-                            $ent = $student['entrepreneur_details'];
+                            // Ambil nilai KU & DK sesuai jenis mata pelajaran (bahasa atau reguler)
+                            if (in_array($mapel->subject, ['Bahasa Indonesia', 'English'])) {
+                            $valKu = $student['lang_total_ku'][$mapel->subject] ?? null;
+                            $valDk = $student['lang_total_dk'][$mapel->subject] ?? null;
+                            } else {
+                            $valKu = $student['ku_total'][$mapel->subject] ?? null;
+                            $valDk = $student['dk_total'][$mapel->subject] ?? null;
+                            }
+
+                            // Ambil KKM untuk mapel ini (default null / 0 jika tidak diset)
                             $kkm = $mapel->kkm ?? null;
 
-                            $valKu = $ent['ku'] ?? null;
-                            $valCom = $ent['communication'] ?? null;
-                            $valApp = $ent['application'] ?? null;
-                            $valThink = $ent['thinking'] ?? null;
-
-                            $isKuBelow = (!is_null($valKu) && !is_null($kkm) && is_numeric($valKu) && $valKu < $kkm);
-                                $isComBelow=(!is_null($valCom) && !is_null($kkm) && is_numeric($valCom) && $valCom < $kkm);
-                                $isAppBelow=(!is_null($valApp) && !is_null($kkm) && is_numeric($valApp) && $valApp < $kkm);
-                                $isThinkBelow=(!is_null($valThink) && !is_null($kkm) && is_numeric($valThink) && $valThink < $kkm);
-                                @endphp <td class="text-center {{ $isKuBelow ? 'bg-danger text-white fw-bold' : '' }}">{{ $valKu ??
-                                '-' }}</td>
-                                <td class="text-center {{ $isComBelow ? 'bg-danger text-white fw-bold' : '' }}">{{ $valCom ?? '-' }}
+                            // Cek apakah nilai di bawah KKM (hanya jika nilai dan KKM valid/numerik)
+                            $isKuBelowKkm = (!is_null($valKu) && !is_null($kkm) && is_numeric($valKu) && $valKu < $kkm);
+                                $isDkBelowKkm=(!is_null($valDk) && !is_null($kkm) && is_numeric($valDk) && $valDk < $kkm); @endphp <!-- Kolom KU -->
+                                <td class="text-center {{ $isKuBelowKkm ? 'bg-danger text-white fw-bold' : '' }}">
+                                    {{ $valKu ?? '-' }}
                                 </td>
-                                <td class="text-center {{ $isAppBelow ? 'bg-danger text-white fw-bold' : '' }}">{{ $valApp ?? '-' }}
+
+                                <!-- Kolom DK -->
+                                <td class="text-center {{ $isDkBelowKkm ? 'bg-danger text-white fw-bold' : '' }}">
+                                    {{ $valDk ?? '-' }}
                                 </td>
-                                <td class="text-center {{ $isThinkBelow ? 'bg-danger text-white fw-bold' : '' }}">{{ $valThink ??
-                                    '-' }}</td>
-
-                                @elseif ($mapel->subject === 'IMYC')
-                                @php
-                                $imyc = $student['imyc_details'];
-                                $kkm = $mapel->kkm ?? null;
-
-                                $valGeo = $imyc['geo'] ?? null;
-                                $valSci = $imyc['science'] ?? null;
-                                $valHis = $imyc['history'] ?? null;
-                                $valTech = $imyc['tech'] ?? null;
-                                $valLang = $imyc['lang'] ?? null;
-                                $valArt = $imyc['art'] ?? null;
-
-                                $isGeoBelow = (!is_null($valGeo) && !is_null($kkm) && is_numeric($valGeo) && $valGeo < $kkm);
-                                    $isSciBelow=(!is_null($valSci) && !is_null($kkm) && is_numeric($valSci) && $valSci < $kkm);
-                                    $isHisBelow=(!is_null($valHis) && !is_null($kkm) && is_numeric($valHis) && $valHis < $kkm);
-                                    $isTechBelow=(!is_null($valTech) && !is_null($kkm) && is_numeric($valTech) && $valTech < $kkm);
-                                    $isLangBelow=(!is_null($valLang) && !is_null($kkm) && is_numeric($valLang) && $valLang < $kkm);
-                                    $isArtBelow=(!is_null($valArt) && !is_null($kkm) && is_numeric($valArt) && $valArt < $kkm);
-                                    @endphp <td class="text-center {{ $isGeoBelow ? 'bg-danger text-white fw-bold' : '' }}">{{
-                                    $valGeo ?? '-' }}</td>
-                                    <td class="text-center {{ $isSciBelow ? 'bg-danger text-white fw-bold' : '' }}">{{ $valSci ??
-                                        '-' }}</td>
-                                    <td class="text-center {{ $isHisBelow ? 'bg-danger text-white fw-bold' : '' }}">{{ $valHis ??
-                                        '-' }}</td>
-                                    <td class="text-center {{ $isTechBelow ? 'bg-danger text-white fw-bold' : '' }}">{{ $valTech ??
-                                        '-' }}</td>
-                                    <td class="text-center {{ $isLangBelow ? 'bg-danger text-white fw-bold' : '' }}">{{ $valLang ??
-                                        '-' }}</td>
-                                    <td class="text-center {{ $isArtBelow ? 'bg-danger text-white fw-bold' : '' }}">{{ $valArt ??
-                                        '-' }}</td>
-
-                                    @elseif ($mapel->subject === 'Unit of Inquiry')
-                                    @php
-                                    $uoi = $student['uoi_details'];
-                                    $kkm = $mapel->kkm ?? null;
-
-                                    $valIps = $uoi['ips'] ?? null;
-                                    $valIpa = $uoi['ipa'] ?? null;
-
-                                    $isIpsBelow = (!is_null($valIps) && !is_null($kkm) && is_numeric($valIps) && $valIps < $kkm);
-                                        $isIpaBelow=(!is_null($valIpa) && !is_null($kkm) && is_numeric($valIpa) && $valIpa < $kkm);
-                                        @endphp <td class="text-center {{ $isIpsBelow ? 'bg-danger text-white fw-bold' : '' }}">{{
-                                        $valIps ?? '-' }}</td>
-                                        <td class="text-center {{ $isIpaBelow ? 'bg-danger text-white fw-bold' : '' }}">{{ $valIpa
-                                            ?? '-' }}</td>
-
-                                        @else
-                                        @php
-                                        if (in_array($mapel->subject, ['Bahasa Indonesia', 'English'])) {
-                                        $valKu = $student['lang_total_ku'][$mapel->subject] ?? null;
-                                        $valDk = $student['lang_total_dk'][$mapel->subject] ?? null;
-                                        } else {
-                                        $valKu = $student['ku_total'][$mapel->subject] ?? null;
-                                        $valDk = $student['dk_total'][$mapel->subject] ?? null;
-                                        }
-
-                                        $kkm = $mapel->kkm ?? null;
-
-                                        $isKuBelowKkm = (!is_null($valKu) && !is_null($kkm) && is_numeric($valKu) && $valKu < $kkm);
-                                            $isDkBelowKkm=(!is_null($valDk) && !is_null($kkm) && is_numeric($valDk) && $valDk <
-                                            $kkm); @endphp <td
-                                            class="text-center {{ $isKuBelowKkm ? 'bg-danger text-white fw-bold' : '' }}">{{ $valKu
-                                            ?? '-' }}</td>
-                                            <td class="text-center {{ $isDkBelowKkm ? 'bg-danger text-white fw-bold' : '' }}">{{
-                                                $valDk ?? '-' }}</td>
-                                            @endif
-                                            @endforeach
+                                @endforeach
                         </tr>
                         @empty
                         <tr>
-                            @php
-                            $totalColumns = 4;
-                            foreach ($subjects as $m) {
-                            if ($m->subject === 'Entrepreneurship') {
-                            $totalColumns += 4;
-                            } elseif ($m->subject === 'IMYC') {
-                            $totalColumns += 6;
-                            } else {
-                            $totalColumns += 2;
-                            }
-                            }
-                            @endphp
-                            <td colspan="{{ $totalColumns }}" class="text-center">Tidak ada data nilai.</td>
+                            <td colspan="{{ (count($subjects) * 2) + 4 }}" class="text-center">Tidak ada data nilai.</td>
                         </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
-
         </form>
     </div>
 

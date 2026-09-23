@@ -87,7 +87,7 @@ class InternalReportController extends Controller
         return view('high_school.assessment_record.internal_accumulated', compact('title', 'path', 'subjects', 'assessmentLists', 'class', 'students'));
     }
 
-    public function accumulated(string $class)
+    public function accumulatedOk(string $class)
     {
         $title = 'Internal Accumulated';
         $path = 'Report';
@@ -101,10 +101,13 @@ class InternalReportController extends Controller
         }
         $unit = $u;
         $subjects = DB::table('hs_report_subjects')
-            ->where('unit', 'all')
-            ->orWhere('unit', $unit)
+            ->where('sequence', '!=', 0)
+            ->where(function ($query) use ($unit) {
+                $query->where('unit', 'all')
+                    ->orWhere('unit', $unit);
+            })
             ->orderBy('sequence')
-            ->get(['id', 'subject', 'initial', 'kkm']);
+            ->get(['id', 'subject', 'initial', 'kkm', 'sequence']);
 
         // 2. Ambil data nilai dan gabungkan tabel (filter kelas jika perlu, misal: kelas tertentu)
         $rawData = DB::table('hs_assessment_record_details as detail')
@@ -112,6 +115,15 @@ class InternalReportController extends Controller
             ->join('hs_report_subjects as subject', 'record.subject', '=', 'subject.subject')
             ->select('detail.name', 'subject.subject as subject_name', 'subject.initial', 'subject.kkm', 'detail.ku_total', 'detail.dk_total', 'detail.lang_total_ku', 'detail.lang_total_dk')
             ->where('record.class', $class)
+            ->orderBy('detail.name')
+            ->get();
+
+        $entreprenuer = DB::table('hs_assessment_record_details as detail')
+            ->join('hs_assessment_records as record', 'detail.id_assesment', '=', 'record.id')
+            ->join('hs_report_subjects as subject', 'record.subject', '=', 'subject.subject')
+            ->select('detail.name', 'subject.subject as subject_name', 'subject.initial', 'subject.kkm', 'detail.entrepreneur_ku', 'detail.entrepreneur_communication', 'detail.entrepreneur_application', 'detail.entrepreneur_communication', 'detail.entrepreneur_thinking')
+            ->where('record.class', $class)
+            ->where('record.subject', 'Entrepreneurship')
             ->orderBy('detail.name')
             ->get();
 
@@ -150,7 +162,10 @@ class InternalReportController extends Controller
                 'total_dk'      => $totalDk,
                 'grand_total'   => $totalKu + $totalDk,
             ];
+
         })->values();
+
+
 
         // 4. Urutkan berdasarkan nilai tertinggi dulu untuk menentukan ranking
         $rankedStudents = $students->sortByDesc('grand_total')->values();
@@ -187,6 +202,386 @@ class InternalReportController extends Controller
 
         return view('high_school.assessment_record.internal_accumulated', compact('title', 'path', 'subjects', 'assessmentLists', 'class', 'students', 'classes'));
     }
+
+    public function accumulatedOk2(string $class)
+    {
+        $title = 'Internal Accumulated';
+        $path = 'Report';
+        $classes = HsClass::get();
+
+        if (str_contains($class, 'Y7') || str_contains($class, 'Y8') || str_contains($class, 'Y9')) {
+            $u = 'jhs';
+        } else {
+            $u = 'shs';
+        }
+        $unit = $u;
+
+        $subjects = DB::table('hs_report_subjects')
+            ->where('sequence', '!=', 0)
+            ->where(function ($query) use ($unit) {
+                $query->where('unit', 'all')
+                    ->orWhere('unit', $unit);
+            })
+            ->orderBy('sequence')
+            ->get(['id', 'subject', 'initial', 'kkm', 'sequence']);
+
+        // 2. Query Raw Data
+        $rawData = DB::table('hs_assessment_record_details as detail')
+            ->join('hs_assessment_records as record', 'detail.id_assesment', '=', 'record.id')
+            ->join('hs_report_subjects as subject', 'record.subject', '=', 'subject.subject')
+            ->select(
+                'detail.name',
+                'subject.subject as subject_name',
+                'subject.initial',
+                'subject.kkm',
+                'detail.ku_total',
+                'detail.dk_total',
+                'detail.lang_total_ku',
+                'detail.lang_total_dk'
+            )
+            ->where('record.class', $class)
+            ->orderBy('detail.name')
+            ->get();
+
+        // Query khusus Entrepreneurship
+        $entrepreneurQuery = DB::table('hs_assessment_record_details as detail')
+            ->join('hs_assessment_records as record', 'detail.id_assesment', '=', 'record.id')
+            ->join('hs_report_subjects as subject', 'record.subject', '=', 'subject.subject')
+            ->select(
+                'detail.name',
+                'detail.entrepreneur_ku',
+                'detail.entrepreneur_communication',
+                'detail.entrepreneur_application',
+                'detail.entrepreneur_thinking'
+            )
+            ->where('record.class', $class)
+            ->where('record.subject', 'Entrepreneurship')
+            ->get()
+            ->keyBy('name');
+
+        // Query khusus Unit of Inquiry
+        // Query khusus Unit of Inquiry (menggabungkan record dari guru IPS & IPA)
+        $uoiQuery = DB::table('hs_assessment_record_details as detail')
+            ->join('hs_assessment_records as record', 'detail.id_assesment', '=', 'record.id')
+            ->select(
+                'detail.name',
+                // Mengambil nilai non-null terbesar jika terpisah di 2 baris record berbeda
+                DB::raw('MAX(detail.total_uoi_ips) as total_uoi_ips'),
+                DB::raw('MAX(detail.total_uoi_ipa) as total_uoi_ipa')
+            )
+            ->where('record.class', $class)
+            ->where('record.subject', 'Unit of Inquiry')
+            ->groupBy('detail.name')
+            ->get()
+            ->keyBy('name');
+
+        // 3. Pivot data & hitung total nilai
+        $students = $rawData->groupBy('name')->map(function ($items, $studentName) use ($entrepreneurQuery, $uoiQuery) {
+            $kuScores = [];
+            $dkScores = [];
+            $langKuScores = [];
+            $langDkScores = [];
+
+            $languageSubjects = ['Bahasa Indonesia', 'English'];
+
+            foreach ($items as $item) {
+                if (in_array($item->subject_name, $languageSubjects)) {
+                    $langKuScores[$item->subject_name] = $item->lang_total_ku;
+                    $langDkScores[$item->subject_name] = $item->lang_total_dk;
+                } else {
+                    $kuScores[$item->subject_name] = $item->ku_total;
+                    $dkScores[$item->subject_name] = $item->dk_total;
+                }
+            }
+
+            $totalKu = $items->sum('ku_total');
+            $totalDk = $items->sum('dk_total');
+
+            // Olah data Entrepreneurship
+            $entDetails = null;
+            $entTotalScore = 0;
+            if (isset($entrepreneurQuery[$studentName])) {
+                $entData = $entrepreneurQuery[$studentName];
+                $entDetails = [
+                    'ku'            => $entData->entrepreneur_ku,
+                    'communication' => $entData->entrepreneur_communication,
+                    'application'   => $entData->entrepreneur_application,
+                    'thinking'      => $entData->entrepreneur_thinking,
+                ];
+                $entTotalScore = ($entData->entrepreneur_ku ?? 0)
+                    + ($entData->entrepreneur_communication ?? 0)
+                    + ($entData->entrepreneur_application ?? 0)
+                    + ($entData->entrepreneur_thinking ?? 0);
+            }
+
+            // Olah data Unit of Inquiry (UOI)
+            $uoiDetails = null;
+            $uoiTotalScore = 0;
+            if (isset($uoiQuery[$studentName])) {
+                $uoiData = $uoiQuery[$studentName];
+                $uoiDetails = [
+                    'ips' => $uoiData->total_uoi_ips,
+                    'ipa' => $uoiData->total_uoi_ipa,
+                ];
+                $uoiTotalScore = ($uoiData->total_uoi_ips ?? 0)
+                    + ($uoiData->total_uoi_ipa ?? 0);
+            }
+
+            return [
+                'name'                 => $studentName,
+                'ku_total'             => $kuScores,
+                'dk_total'             => $dkScores,
+                'lang_total_ku'        => $langKuScores,
+                'lang_total_dk'        => $langDkScores,
+                'entrepreneur_details' => $entDetails,
+                'uoi_details'          => $uoiDetails, // Tambahan data UOI
+                'total_ku'             => $totalKu,
+                'total_dk'             => $totalDk,
+                'grand_total'          => $totalKu + $totalDk + $entTotalScore + $uoiTotalScore, // Sertakan UOI ke Grand Total
+            ];
+        })->values();
+
+        // 4. Ranking
+        $rankedStudents = $students->sortByDesc('grand_total')->values();
+
+        // 5. Berikan nomor rank
+        $studentsWithRank = $rankedStudents->map(function ($student, $index) {
+            $student['rank'] = $index + 1;
+            return $student;
+        });
+
+        // 6. Urutkan nama A-Z
+        $students = $studentsWithRank->sortBy('name')->values();
+
+        if (session('role') == 'hsteacher') {
+            if (session('homeroom') != null) {
+                $assessmentLists = DB::table('hs_assessment_records')
+                    ->where('class', $class)
+                    ->orderBy('subject', 'ASC')
+                    ->get();
+            } else {
+                $assessmentLists = DB::table('hs_assessment_records')
+                    ->where('teacher', session('name'))
+                    ->get();
+            }
+        } else {
+            $assessmentLists = DB::table('hs_assessment_records')
+                ->where('class', $class)
+                ->orderBy('subject', 'ASC')
+                ->get();
+        }
+
+        return view('high_school.assessment_record.internal_accumulated', compact('title', 'path', 'subjects', 'assessmentLists', 'class', 'students', 'classes'));
+    }
+
+    public function accumulated(string $class)
+    {
+        $title = 'Internal Accumulated';
+        $path = 'Report';
+        $classes = HsClass::get();
+
+        if (str_contains($class, 'Y7') || str_contains($class, 'Y8') || str_contains($class, 'Y9')) {
+            $u = 'jhs';
+        } else {
+            $u = 'shs';
+        }
+        $unit = $u;
+
+        $subjects = DB::table('hs_report_subjects')
+            ->where('sequence', '!=', 0)
+            ->where(function ($query) use ($unit) {
+                $query->where('unit', 'all')
+                    ->orWhere('unit', $unit);
+            })
+            ->orderBy('sequence')
+            ->get(['id', 'subject', 'initial', 'kkm', 'sequence']);
+
+        // 2. Query Raw Data (Untuk mapel reguler & bahasa)
+        $rawData = DB::table('hs_assessment_record_details as detail')
+            ->join('hs_assessment_records as record', 'detail.id_assesment', '=', 'record.id')
+            ->join('hs_report_subjects as subject', 'record.subject', '=', 'subject.subject')
+            ->select(
+                'detail.name',
+                'subject.subject as subject_name',
+                'subject.initial',
+                'subject.kkm',
+                'detail.ku_total',
+                'detail.dk_total',
+                'detail.lang_total_ku',
+                'detail.lang_total_dk'
+            )
+            ->where('record.class', $class)
+            ->orderBy('detail.name')
+            ->get();
+
+        // Query khusus Entrepreneurship
+        $entrepreneurQuery = DB::table('hs_assessment_record_details as detail')
+            ->join('hs_assessment_records as record', 'detail.id_assesment', '=', 'record.id')
+            ->select(
+                'detail.name',
+                'detail.entrepreneur_ku',
+                'detail.entrepreneur_communication',
+                'detail.entrepreneur_application',
+                'detail.entrepreneur_thinking'
+            )
+            ->where('record.class', $class)
+            ->where('record.subject', 'Entrepreneurship')
+            ->get()
+            ->keyBy('name');
+
+        // Query khusus Unit of Inquiry (UOI)
+        $uoiQuery = DB::table('hs_assessment_record_details as detail')
+            ->join('hs_assessment_records as record', 'detail.id_assesment', '=', 'record.id')
+            ->select(
+                'detail.name',
+                DB::raw('MAX(detail.total_uoi_ips) as total_uoi_ips'),
+                DB::raw('MAX(detail.total_uoi_ipa) as total_uoi_ipa')
+            )
+            ->where('record.class', $class)
+            ->where('record.subject', 'Unit of Inquiry')
+            ->groupBy('detail.name')
+            ->get()
+            ->keyBy('name');
+
+        // Query khusus IMYC (Menggabungkan record dari 6 guru/komponen)
+        $imycQuery = DB::table('hs_assessment_record_details as detail')
+            ->join('hs_assessment_records as record', 'detail.id_assesment', '=', 'record.id')
+            ->select(
+                'detail.name',
+                DB::raw('MAX(detail.imyc_geo_total) as imyc_geo_total'),
+                DB::raw('MAX(detail.imyc_science_total) as imyc_science_total'),
+                DB::raw('MAX(detail.imyc_history_total) as imyc_history_total'),
+                DB::raw('MAX(detail.imyc_tech_total) as imyc_tech_total'),
+                DB::raw('MAX(detail.imyc_lang_total) as imyc_lang_total'),
+                DB::raw('MAX(detail.imyc_art_total) as imyc_art_total')
+            )
+            ->where('record.class', $class)
+            ->where('record.subject', 'IMYC')
+            ->groupBy('detail.name')
+            ->get()
+            ->keyBy('name');
+
+        // 3. Pivot data & hitung total nilai
+        $students = $rawData->groupBy('name')->map(function ($items, $studentName) use ($entrepreneurQuery, $uoiQuery, $imycQuery) {
+            $kuScores = [];
+            $dkScores = [];
+            $langKuScores = [];
+            $langDkScores = [];
+
+            $languageSubjects = ['Bahasa Indonesia', 'English'];
+
+            foreach ($items as $item) {
+                if (in_array($item->subject_name, $languageSubjects)) {
+                    $langKuScores[$item->subject_name] = $item->lang_total_ku;
+                    $langDkScores[$item->subject_name] = $item->lang_total_dk;
+                } else {
+                    $kuScores[$item->subject_name] = $item->ku_total;
+                    $dkScores[$item->subject_name] = $item->dk_total;
+                }
+            }
+
+            $totalKu = $items->sum('ku_total');
+            $totalDk = $items->sum('dk_total');
+
+            // Olah Entrepreneurship
+            $entDetails = null;
+            $entTotalScore = 0;
+            if (isset($entrepreneurQuery[$studentName])) {
+                $entData = $entrepreneurQuery[$studentName];
+                $entDetails = [
+                    'ku'            => $entData->entrepreneur_ku,
+                    'communication' => $entData->entrepreneur_communication,
+                    'application'   => $entData->entrepreneur_application,
+                    'thinking'      => $entData->entrepreneur_thinking,
+                ];
+                $entTotalScore = ($entData->entrepreneur_ku ?? 0)
+                    + ($entData->entrepreneur_communication ?? 0)
+                    + ($entData->entrepreneur_application ?? 0)
+                    + ($entData->entrepreneur_thinking ?? 0);
+            }
+
+            // Olah UOI
+            $uoiDetails = null;
+            $uoiTotalScore = 0;
+            if (isset($uoiQuery[$studentName])) {
+                $uoiData = $uoiQuery[$studentName];
+                $uoiDetails = [
+                    'ips' => $uoiData->total_uoi_ips,
+                    'ipa' => $uoiData->total_uoi_ipa,
+                ];
+                $uoiTotalScore = ($uoiData->total_uoi_ips ?? 0)
+                    + ($uoiData->total_uoi_ipa ?? 0);
+            }
+
+            // Olah IMYC
+            $imycDetails = null;
+            $imycTotalScore = 0;
+            if (isset($imycQuery[$studentName])) {
+                $imycData = $imycQuery[$studentName];
+                $imycDetails = [
+                    'geo'     => $imycData->imyc_geo_total,
+                    'science' => $imycData->imyc_science_total,
+                    'history' => $imycData->imyc_history_total,
+                    'tech'    => $imycData->imyc_tech_total,
+                    'lang'    => $imycData->imyc_lang_total,
+                    'art'     => $imycData->imyc_art_total,
+                ];
+                $imycTotalScore = ($imycData->imyc_geo_total ?? 0)
+                    + ($imycData->imyc_science_total ?? 0)
+                    + ($imycData->imyc_history_total ?? 0)
+                    + ($imycData->imyc_tech_total ?? 0)
+                    + ($imycData->imyc_lang_total ?? 0)
+                    + ($imycData->imyc_art_total ?? 0);
+            }
+
+            return [
+                'name'                 => $studentName,
+                'ku_total'             => $kuScores,
+                'dk_total'             => $dkScores,
+                'lang_total_ku'        => $langKuScores,
+                'lang_total_dk'        => $langDkScores,
+                'entrepreneur_details' => $entDetails,
+                'uoi_details'          => $uoiDetails,
+                'imyc_details'         => $imycDetails, // Tambahan data IMYC
+                'total_ku'             => $totalKu,
+                'total_dk'             => $totalDk,
+                'grand_total'          => $totalKu + $totalDk + $entTotalScore + $uoiTotalScore + $imycTotalScore,
+            ];
+        })->values();
+
+        // 4. Ranking
+        $rankedStudents = $students->sortByDesc('grand_total')->values();
+
+        // 5. Berikan nomor rank
+        $studentsWithRank = $rankedStudents->map(function ($student, $index) {
+            $student['rank'] = $index + 1;
+            return $student;
+        });
+
+        // 6. Urutkan nama A-Z
+        $students = $studentsWithRank->sortBy('name')->values();
+
+        if (session('role') == 'hsteacher') {
+            if (session('homeroom') != null) {
+                $assessmentLists = DB::table('hs_assessment_records')
+                    ->where('class', $class)
+                    ->orderBy('subject', 'ASC')
+                    ->get();
+            } else {
+                $assessmentLists = DB::table('hs_assessment_records')
+                    ->where('teacher', session('name'))
+                    ->get();
+            }
+        } else {
+            $assessmentLists = DB::table('hs_assessment_records')
+                ->where('class', $class)
+                ->orderBy('subject', 'ASC')
+                ->get();
+        }
+
+        return view('high_school.assessment_record.internal_accumulated', compact('title', 'path', 'subjects', 'assessmentLists', 'class', 'students', 'classes'));
+    }
+
 
     public function print1(string $class, Request $request)
     {
