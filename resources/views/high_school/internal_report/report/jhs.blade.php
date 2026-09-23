@@ -175,7 +175,7 @@
 
     <div class="footer">
         <span class="left">{{ $murid->name .'/'.$murid->class.'/2026-2027' }}</span>
-        <span class="right">Page 1</span>
+        <span class="right"></span>
     </div>
 </div>
 
@@ -353,7 +353,7 @@
 
     <div class="footer">
         <span class="left">{{ $murid->name .'/'.$murid->class.'/2026-2027' }}</span>
-        <span class="right">Page 2</span>
+        <span class="right"></span>
     </div>
 </div>
 
@@ -484,7 +484,7 @@
 
     <div class="footer">
         <span class="left">{{ $murid->name .'/'.$murid->class.'/2026-2027' }}</span>
-        <span class="right">Page 2</span>
+        <span class="right"></span>
     </div>
 </div>
 
@@ -626,7 +626,7 @@
 
     <div class="footer">
         <span class="left">{{ $murid->name .'/'.$murid->class.'/2026-2027' }}</span>
-        <span class="right">Page 4</span>
+        <span class="right"></span>
     </div>
 </div>
 
@@ -779,6 +779,6 @@
 
     <div class="footer">
         <span class="left">{{ $murid->name .'/'.$murid->class.'/2026-2027' }}</span>
-        <span class="right">Page 5</span>
+        <span class="right"></span>
     </div>
 </div>
