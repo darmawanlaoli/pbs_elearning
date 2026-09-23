@@ -620,6 +620,7 @@
         </tr>
     </table>
 
+    @if(str_contains($murid->class, "Y10") || str_contains($murid->class, "Y11"))
 
     {{-- ART --}}
     @if($fisika->ku_total != null)
@@ -705,6 +706,8 @@
     </table>
     @endif
 
+    @endif
+
     {{-- PE --}}
     <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
@@ -745,8 +748,53 @@
         </tr>
     </table>
 
+    @if(str_contains($murid->class, "Y12"))
+    {{-- JEPANG --}}
+    <table class="mt-5" style="font-weight: bold; text-align: center">
+        <tr>
+            <th>JAPANESE</th>
+            <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
+            <th style="width: 180px" colspan="2">Demonstrate The Knowledge of Subject Matter</th>
+        </tr>
+
+        <tr>
+            <th rowspan="2">ACADEMIC ACHIEVEMENT</th>
+            <th>SCORE</th>
+            <th>MEAN</th>
+            <th>SCORE</th>
+            <th>MEAN</th>
+        </tr>
+
+        <tr>
+            <td>{{ $pe->ku_total ?? '' }}</td>
+            <td>{{ round($meanPE->mean_ku) }}</td>
+            <td>{{ $pe->dk_total ?? '' }}</td>
+            <td>{{ round($meanPE->mean_dk) }}</td>
+        </tr>
+
+        <tr>
+            <td rowspan="3">LEARNING BEHAVIOURS</td>
+            <td colspan="3">Personal Management Skill</td>
+            <td>{{ $pe->management_skill ?? 0 }}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">Active Participation In Learning</td>
+            <td>{{ $pe->active_participation ?? 0 }}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">Social Responsibility</td>
+            <td>{{ $pe->social_responsibility ?? 0 }}</td>
+        </tr>
+    </table>
+
+    @endif
+
 </div>
 
+
+@if(str_contains($murid->class, "Y10") || str_contains($murid->class, "Y11"))
 <div class="page">
 
     {{-- JEPANG --}}
@@ -792,7 +840,7 @@
     {{-- UOI --}}
     <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
-            <th colspan="6" style="padding: 10px">INQUIRY LEARNING</th>
+            <th colspan="6" style="padding: 10px"></th>
         </tr>
 
         <tr>
@@ -959,6 +1007,7 @@
     </div>
 </div>
 
+@endif
 
 {{-- halaman 5 --}}
 <div class="page">
