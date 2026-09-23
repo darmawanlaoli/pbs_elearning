@@ -506,11 +506,16 @@
             <th>MEAN</th>
         </tr>
 
+        <?php
+                $mathKu = (($math->ku_total ?? 0) + ($mtk->ku_total ?? 0)) / 2;
+                $mathDk = (($math->dk_total ?? 0) + ($dk->dk_total ?? 0)) / 2;
+                ?>
+
         <tr>
-            <td style="padding: 8px">{{ $sejarah->ku_total ?? 0 }}</td>
-            <td>{{ round($meanSejarah->mean_ku) }}</td>
-            <td>{{ $sejarah->dk_total ?? 0 }}</td>
-            <td>{{ round($meanSejarah->mean_dk) }}</td>
+            <td style="padding: 8px">{{ $mathKu ?? '' }}</td>
+            <td>{{ round($meanMath->mean_ku) }}</td>
+            <td>{{ $mathDk ?? '' }}</td>
+            <td>{{ round($meanMath->mean_dk) }}</td>
         </tr>
 
         <tr>

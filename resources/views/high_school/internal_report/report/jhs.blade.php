@@ -280,27 +280,32 @@
             <th>MEAN</th>
         </tr>
 
+        <?php
+        $mathKu = (($math->ku_total ?? 0) + ($mtk->ku_total ?? 0)) / 2;
+        $mathDk = (($math->dk_total ?? 0) + ($dk->dk_total ?? 0)) / 2;
+        ?>
+
         <tr>
-            <td>{{ $ips->ku_total ?? '' }}</td>
-            <td>{{ round($meanIPS->mean_ku) }}</td>
-            <td>{{ $ips->dk_total ?? '' }}</td>
-            <td>{{ round($meanIPS->mean_dk) }}</td>
+            <td>{{ $mathKu ?? '' }}</td>
+            <td>{{ round($meanMath->mean_ku) }}</td>
+            <td>{{ $mathDk ?? '' }}</td>
+            <td>{{ round($meanMath->mean_dk) }}</td>
         </tr>
 
         <tr>
             <td rowspan="3">LEARNING BEHAVIOURS</td>
             <td colspan="3">Personal Management Skill</td>
-            <td>{{ $ips->management_skill ?? 0 }}</td>
+            <td>{{ $math->management_skill ?? 0 }}</td>
         </tr>
 
         <tr>
             <td colspan="3">Active Participation In Learning</td>
-            <td>{{ $ips->active_participation ?? 0 }}</td>
+            <td>{{ $math->active_participation ?? 0 }}</td>
         </tr>
 
         <tr>
             <td colspan="3">Social Responsibility</td>
-            <td>{{ $ips->social_responsibility ?? 0 }}</td>
+            <td>{{ $math->social_responsibility ?? 0 }}</td>
         </tr>
     </table>
 

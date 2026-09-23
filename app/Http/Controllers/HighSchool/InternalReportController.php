@@ -569,7 +569,7 @@ class InternalReportController extends Controller
                     'mean_dk' => 0,
                 ];
 
-            // IPS
+            // MTK
             $mtk = DB::table('hs_assessment_record_details')
                 ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
                 ->where('name', $student)
@@ -590,6 +590,30 @@ class InternalReportController extends Controller
                 ->groupBy('r.subject')
                 ->first() ?? (object)[
                     'subject' => 'Matematika',
+                    'mean_ku' => 0,
+                    'mean_dk' => 0,
+                ];
+
+            $math = DB::table('hs_assessment_record_details')
+                ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
+                ->where('name', $student)
+                ->where('term', $current_term)
+                ->where('subject', 'Math')
+                ->first();
+
+            $meanMath = DB::table('hs_assessment_record_details as d')
+                ->join('hs_assessment_records as r', 'r.id', '=', 'd.id_assesment')
+                ->where('r.class', $class)
+                ->where('r.subject', 'Math')
+                ->where('term', $current_term)
+                ->select(
+                    'r.subject',
+                    DB::raw('AVG(d.ku_total) as mean_ku'),
+                    DB::raw('AVG(d.dk_total) as mean_dk'),
+                )
+                ->groupBy('r.subject')
+                ->first() ?? (object)[
+                    'subject' => 'Math',
                     'mean_ku' => 0,
                     'mean_dk' => 0,
                 ];
@@ -792,6 +816,8 @@ class InternalReportController extends Controller
             $meanPE = [];
             $math = null;
             $meanMath = [];
+            $mtk = null;
+            $meanMatematika = [];
             $art = null;
             $meanArt = [];
             $indonesia = null;
@@ -838,6 +864,8 @@ class InternalReportController extends Controller
             'meanPE',
             'math',
             'meanMath',
+            'mtk',
+            'meanMatematika',
             'ipa',
             'meanIPA',
             'ips',
