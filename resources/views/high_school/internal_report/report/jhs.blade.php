@@ -559,7 +559,7 @@
         </tr>
 
         {{-- Language Arts --}}
-        @if($imycLang->imyc_lang != null)
+        @if($imycLang->imyc_lang ?? '')
         <?php
             if($imycLang->imyc_lang_total >= 81) {
                 $lang_stage = $murid->name . ' ' .$imyc_stage?->mastering_lang_arts;
@@ -573,7 +573,7 @@
             }
         ?>
         <tr>
-            <th>LANGUAGE ARTS</th>
+            <th>LANGUAGE ART</th>
             <th>{{ $lang_level }}</th>
             <th rowspan="2">{{ $imycLang->imyc_lang_total }}</th>
             <th rowspan="2">{{ $imycLang->imyc_lang_management_skill }}</th>
@@ -587,7 +587,7 @@
         @endif
 
         {{-- Science --}}
-        @if($imycScience->imyc_science != null)
+        @if($imycScience->imyc_science ?? '')
         <?php
                 if($imycScience->imyc_science_total >= 81) {
                     $science_stage = $murid->name . ' ' .$imyc_stage?->mastering_science;
@@ -701,7 +701,7 @@
 
 
         {{-- Art --}}
-        @if($imycArt->imyc_art != null)
+        @if($imycArt->imyc_art ?? '')
         <?php
                     if($imycArt->imyc_art_total >= 81) {
                         $art_stage = $murid->name . ' ' .$imyc_stage?->mastering_art;
