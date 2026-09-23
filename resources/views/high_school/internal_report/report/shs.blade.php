@@ -597,26 +597,26 @@
         </tr>
 
         <tr>
-            <td>{{ $dt->ku_total ?? 0 }}</td>
-            <td>{{ round($meanDT->mean_ku) }}</td>
-            <td>{{ $dt->dk_total ?? 0 }}</td>
-            <td>{{ round($meanDT->mean_dk) }}</td>
+            <td>{{ $dm->ku_total ?? 0 }}</td>
+            <td>{{ round($meanDM->mean_ku) }}</td>
+            <td>{{ $dm->dk_total ?? 0 }}</td>
+            <td>{{ round($meanDM->mean_dk) }}</td>
         </tr>
 
         <tr>
             <td rowspan="3">LEARNING BEHAVIOURS</td>
             <td colspan="3">Personal Management Skill</td>
-            <td>{{ $dt->management_skill ?? 0 }}</td>
+            <td>{{ $dm->management_skill ?? 0 }}</td>
         </tr>
 
         <tr>
             <td colspan="3">Active Participation In Learning</td>
-            <td>{{ $dt->active_participation ?? 0 }}</td>
+            <td>{{ $dm->active_participation ?? 0 }}</td>
         </tr>
 
         <tr>
             <td colspan="3">Social Responsibility</td>
-            <td>{{ $dt->social_responsibility ?? 0 }}</td>
+            <td>{{ $dm->social_responsibility ?? 0 }}</td>
         </tr>
     </table>
 
@@ -792,7 +792,7 @@
     {{-- UOI --}}
     <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
-            <th colspan="6">INQUIRY LEARNING</th>
+            <th colspan="6" style="padding: 10px">INQUIRY LEARNING</th>
         </tr>
 
         <tr>
@@ -809,17 +809,35 @@
         </tr>
 
         <tr>
-            <th>ILMU PENGETAHUAN SOSIAL</th>
-            <th></th>
-            <th></th>
+            <th style="padding: 30px">ILMU PENGETAHUAN SOSIAL</th>
+           <?php
+                if($uoi->uoi_ips >= 81) {
+                    $entrepreneur_ku_level = 'MASTERING';
+                }elseif($uoi->uoi_ips >= 61) {
+                    $entrepreneur_ku_level = 'DEVELOPING';
+                }else {
+                    $entrepreneur_ku_level = 'BEGINNING';
+                }
+            ?>
+            <th>{{ $entrepreneur_ku_level }}</th>
+            <td>{{ $uoi->uoi_ips ?? 0 }}</td>
             <td>{{ $pe->management_skill ?? 0 }}</td>
             <td>{{ $pe->active_participation ?? 0 }}</td>
             <td>{{ $pe->social_responsibility ?? 0 }}</td>
         </tr>
         <tr>
-            <th>ILMU PENGETAHUAN ALAM</th>
-            <th></th>
-            <th></th>
+            <th style="padding: 30px">ILMU PENGETAHUAN ALAM</th>
+            <?php
+                if($uoi->uoi_ipa >= 81) {
+                    $entrepreneur_ku_level = 'MASTERING';
+                }elseif($uoi->uoi_ipa >= 61) {
+                    $entrepreneur_ku_level = 'DEVELOPING';
+                }else {
+                    $entrepreneur_ku_level = 'BEGINNING';
+                }
+            ?>
+            <th>{{ $entrepreneur_ku_level }}</th>
+            <td>{{ $uoi->uoi_ipa ?? 0 }}</td>
             <td>{{ $pe->management_skill ?? 0 }}</td>
             <td>{{ $pe->active_participation ?? 0 }}</td>
             <td>{{ $pe->social_responsibility ?? 0 }}</td>
@@ -837,10 +855,10 @@
 
 <div class="page">
 
-    {{-- UOI --}}
+    {{-- ENTREPRE --}}
     <table class="mt-2" style="font-weight: bold; text-align: center">
         <tr>
-            <th colspan="6">ENTREPRENEURSHIP ASSESSMENT FOR LEARNING</th>
+            <th colspan="6" style="padding: 10px">ENTREPRENEURSHIP ASSESSMENT FOR LEARNING</th>
         </tr>
 
         <tr>
@@ -857,40 +875,76 @@
         </tr>
 
         <tr>
-            <th>Knowledge and Understanding (Subject-specific content acquired in each grade (knowledge), and the comprehension of its
+            <th style="padding: 10px">Knowledge and Understanding (Subject-specific content acquired in each grade (knowledge), and the comprehension of its
             meaning and significance (understanding)).</th>
-            <th></th>
-            <th></th>
+            <?php
+                if($entrepreneurship->entrepreneur_ku >= 81) {
+                    $entrepreneur_ku_level = 'MASTERING';
+                }elseif($entrepreneurship->entrepreneur_ku >= 61) {
+                    $entrepreneur_ku_level = 'DEVELOPING';
+                }else {
+                    $entrepreneur_ku_level = 'BEGINNING';
+                }
+            ?>
+            <th>{{ $entrepreneur_ku_level }}</th>
+            <td>{{ $entrepreneurship->entrepreneur_ku ?? 0 }}</td>
             <td>{{ $pe->management_skill ?? 0 }}</td>
             <td>{{ $pe->active_participation ?? 0 }}</td>
             <td>{{ $pe->social_responsibility ?? 0 }}</td>
         </tr>
 
         <tr>
-            <th>Thinking
+            <th style="padding: 10px">Thinking
             (The use of critical and creative thinking skills and/or processes).</th>
-            <th></th>
-            <th></th>
+            <?php
+                if($entrepreneurship->entrepreneur_thinking >= 81) {
+                    $entrepreneur_thinking_level = 'MASTERING';
+                }elseif($entrepreneurship->entrepreneur_thinking >= 61) {
+                    $entrepreneur_thinking_level = 'DEVELOPING';
+                }else {
+                    $entrepreneur_thinking_level = 'BEGINNING';
+                }
+            ?>
+            <th>{{ $entrepreneur_thinking_level }}</th>
+            <td>{{ $entrepreneurship->entrepreneur_thinking ?? 0 }}</td>
             <td>{{ $pe->management_skill ?? 0 }}</td>
             <td>{{ $pe->active_participation ?? 0 }}</td>
             <td>{{ $pe->social_responsibility ?? 0 }}</td>
         </tr>
 
         <tr>
-            <th>Communication
+            <th style="padding: 10px">Communication
             (The conveying of meaning through various forms).</th>
-            <th></th>
-            <th></th>
+            <?php
+                if($entrepreneurship->entrepreneur_communication >= 81) {
+                    $entrepreneur_communication_level = 'MASTERING';
+                }elseif($entrepreneurship->entrepreneur_communication >= 61) {
+                    $entrepreneur_communication_level = 'DEVELOPING';
+                }else {
+                    $entrepreneur_communication_level = 'BEGINNING';
+                }
+            ?>
+            <th>{{ $entrepreneur_communication_level }}</th>
+            <td>{{ $entrepreneurship->entrepreneur_communication ?? 0 }}</td>
             <td>{{ $pe->management_skill ?? 0 }}</td>
             <td>{{ $pe->active_participation ?? 0 }}</td>
             <td>{{ $pe->social_responsibility ?? 0 }}</td>
         </tr>
 
         <tr>
-            <th>Application
+            <th style="padding: 10px">Application
             (The use of knowledge and skills to make connections within and between various contexts).</th>
-            <th></th>
-            <th></th>
+            <?php
+                if($entrepreneurship->entrepreneur_application >= 81) {
+                    $entrepreneur_application_level = 'MASTERING';
+                }elseif($entrepreneurship->entrepreneur_application >= 61) {
+                    $entrepreneur_application_level = 'DEVELOPING';
+                }else {
+                    $entrepreneur_application_level = 'BEGINNING';
+                }
+            ?>
+            <th>{{ $entrepreneur_application_level }}</th>
+            <td>{{ $entrepreneurship->entrepreneur_application ?? 0 }}</td>
             <td>{{ $pe->management_skill ?? 0 }}</td>
             <td>{{ $pe->active_participation ?? 0 }}</td>
             <td>{{ $pe->social_responsibility ?? 0 }}</td>

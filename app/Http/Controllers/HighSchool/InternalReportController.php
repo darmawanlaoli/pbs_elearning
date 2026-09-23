@@ -618,7 +618,7 @@ class InternalReportController extends Controller
                     'mean_dk' => 0,
                 ];
 
-            // IPS
+            // dt
             $dt = DB::table('hs_assessment_record_details')
                 ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
                 ->where('name', $student)
@@ -639,6 +639,31 @@ class InternalReportController extends Controller
                 ->groupBy('r.subject')
                 ->first() ?? (object)[
                     'subject' => 'Design and Technology',
+                    'mean_ku' => 0,
+                    'mean_dk' => 0,
+                ];
+
+            // dt
+            $dm = DB::table('hs_assessment_record_details')
+                ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
+                ->where('name', $student)
+                ->where('term', $current_term)
+                ->where('subject', 'Digital Marketing')
+                ->first();
+
+            $meanDM = DB::table('hs_assessment_record_details as d')
+                ->join('hs_assessment_records as r', 'r.id', '=', 'd.id_assesment')
+                ->where('r.class', $class)
+                ->where('r.subject', 'Digital Marketing')
+                ->where('term', $current_term)
+                ->select(
+                    'r.subject',
+                    DB::raw('AVG(d.ku_total) as mean_ku'),
+                    DB::raw('AVG(d.dk_total) as mean_dk'),
+                )
+                ->groupBy('r.subject')
+                ->first() ?? (object)[
+                    'subject' => 'Digital Marketing',
                     'mean_ku' => 0,
                     'mean_dk' => 0,
                 ];
@@ -691,6 +716,71 @@ class InternalReportController extends Controller
                     'mean_ku' => 0,
                     'mean_dk' => 0,
                 ];
+
+            $performing_arts = DB::table('hs_assessment_record_details')
+                ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
+                ->where('name', $student)
+                ->where('term', $current_term)
+                ->where('subject', 'Performing Arts')
+                ->first();
+
+            $meanPerformingArts = DB::table('hs_assessment_record_details as d')
+                ->join('hs_assessment_records as r', 'r.id', '=', 'd.id_assesment')
+                ->where('r.class', $class)
+                ->where('r.subject', 'Performing Arts')
+                ->where('term', $current_term)
+                ->select(
+                    'r.subject',
+                    DB::raw('AVG(d.ku_total) as mean_ku'),
+                    DB::raw('AVG(d.dk_total) as mean_dk'),
+                )
+                ->groupBy('r.subject')
+                ->first() ?? (object)[
+                    'subject' => 'Performing Arts',
+                    'mean_ku' => 0,
+                    'mean_dk' => 0,
+                ];
+
+            $japanese = DB::table('hs_assessment_record_details')
+                ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
+                ->where('name', $student)
+                ->where('term', $current_term)
+                ->where('subject', 'Japanese')
+                ->first();
+
+            $meanJapanese = DB::table('hs_assessment_record_details as d')
+                ->join('hs_assessment_records as r', 'r.id', '=', 'd.id_assesment')
+                ->where('r.class', $class)
+                ->where('r.subject', 'Japanese')
+                ->where('term', $current_term)
+                ->select(
+                    'r.subject',
+                    DB::raw('AVG(d.ku_total) as mean_ku'),
+                    DB::raw('AVG(d.dk_total) as mean_dk'),
+                )
+                ->groupBy('r.subject')
+                ->first() ?? (object)[
+                    'subject' => 'Japanese',
+                    'mean_ku' => 0,
+                    'mean_dk' => 0,
+                ];
+
+            $uoi = DB::table('hs_assessment_record_details')
+                ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
+                ->where('name', $student)
+                ->where('term', $current_term)
+                ->where('subject', 'Unit of Inquiry')
+                ->first();
+
+            $entrepreneurship = DB::table('hs_assessment_record_details')
+                ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
+                ->where('name', $student)
+                ->where('term', $current_term)
+                ->where('subject', 'Entrepreneurship')
+                ->first();
+
+
+
 
             $art = DB::table('hs_assessment_record_details')
                 ->join('hs_assessment_records', 'hs_assessment_records.id', '=', 'hs_assessment_record_details.id_assesment')
@@ -814,12 +904,22 @@ class InternalReportController extends Controller
             $meanIPS = [];
             $pe = null;
             $meanPE = [];
+            $dm = null;
+            $meanDM = [];
             $math = null;
             $meanMath = [];
             $mtk = null;
             $meanMatematika = [];
             $art = null;
             $meanArt = [];
+
+            $performing_arts = null;
+            $meanPerformingArts = [];
+            $japanese = null;
+            $meanJapanese = [];
+            $uoi = null;
+            $entrepreneurship = null;
+
             $indonesia = null;
             $meanIndonesia = [];
             $english = null;
@@ -846,7 +946,14 @@ class InternalReportController extends Controller
             'meanPKn',
             'fisika',
             'meanFisika',
-
+            'performing_arts',
+            'meanPerformingArts',
+            'japanese',
+            'meanJapanese',
+            'uoi',
+            'entrepreneurship',
+            'dm',
+            'meanDM',
             'biologi',
             'meanBiologi',
             'kimia',

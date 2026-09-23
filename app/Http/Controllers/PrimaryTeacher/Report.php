@@ -503,15 +503,17 @@ class Report extends Controller
             'academicyears'
         );
 
-        if(isset($_REQUEST['print'])){
-            if(session('is_allow_print_report') == 1) {
-                return view('primaryteacher.report.print', $data);
-            }else{
-                return redirect()->route('primary_teacher.report')->with(['alert' => 'Anda belum dapat mencetak RAPOR karena belum disetujui oleh Principal.']);
-            }
-        }else{
-            return view('primaryteacher.report.index', $data);
-        }
+        // if(isset($_REQUEST['print'])){
+        //     if(session('is_allow_print_report') == 1) {
+        //         return view('primaryteacher.report.print', $data);
+        //     }else{
+        //         return redirect()->route('primary_teacher.report')->with(['alert' => 'Anda belum dapat mencetak RAPOR karena belum disetujui oleh Principal.']);
+        //     }
+        // }else{
+        //     return view('primaryteacher.report.index', $data);
+        // }
+
+        return view('primaryteacher.report.index', $data);
 
 
     }
