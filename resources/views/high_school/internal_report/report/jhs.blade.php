@@ -164,12 +164,12 @@
 
         <tr>
             <td colspan="3">Active Participation In Learning</td>
-            <td>{{ $indonesia->management_skill ?? 0 }}</td>
+            <td>{{ $indonesia->active_participation ?? 0 }}</td>
         </tr>
 
         <tr>
             <td colspan="3">Social Responsibility</td>
-            <td>{{ $indonesia->management_skill ?? 0 }}</td>
+            <td>{{ $indonesia->social_responsibility ?? 0 }}</td>
         </tr>
     </table>
 
@@ -340,12 +340,12 @@
 
         <tr>
             <td colspan="3">Active Participation In Learning</td>
-            <td>{{ $english->management_skill ?? 0 }}</td>
+            <td>{{ $english->active_participation ?? 0 }}</td>
         </tr>
 
         <tr>
             <td colspan="3">Social Responsibility</td>
-            <td>{{ $english->management_skill ?? 0 }}</td>
+            <td>{{ $english->social_responsibility ?? 0 }}</td>
         </tr>
     </table>
 
@@ -875,7 +875,7 @@
         <tr>
             <th style="height: 130px;">25-Sep-2026</th>
             <th style="vertical-align: bottom">{{ session('name') }}</th>
-            <th style="vertical-align: bottom">Ancilla Dewi Respati</th>
+            <th style="vertical-align: bottom">Ancilla Dewi Ruspati</th>
             <th></th>
         </tr>
     </table>
