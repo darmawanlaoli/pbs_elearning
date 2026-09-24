@@ -813,7 +813,7 @@
 <div class="page">
 
     {{-- JEPANG --}}
-    <table class="mt-2" style="font-weight: bold; text-align: center">
+    <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
             <th>JAPANESE</th>
             <th style="width: 180px" colspan="2">Knowledge and Understanding</th>
@@ -829,26 +829,26 @@
         </tr>
 
         <tr>
-            <td>{{ $pe->ku_total ?? '' }}</td>
-            <td>{{ round($meanPE->mean_ku) }}</td>
-            <td>{{ $pe->dk_total ?? '' }}</td>
-            <td>{{ round($meanPE->mean_dk) }}</td>
+            <td>{{ $japanese->ku_total ?? '' }}</td>
+            <td>{{ round($meanJapanese->mean_ku) }}</td>
+            <td>{{ $japanese->dk_total ?? '' }}</td>
+            <td>{{ round($meanJapanese->mean_dk) }}</td>
         </tr>
 
         <tr>
             <td rowspan="3">LEARNING BEHAVIOURS</td>
             <td colspan="3">Personal Management Skill</td>
-            <td>{{ $pe->management_skill ?? 0 }}</td>
+            <td>{{ $japanese->management_skill ?? 0 }}</td>
         </tr>
 
         <tr>
             <td colspan="3">Active Participation In Learning</td>
-            <td>{{ $pe->active_participation ?? 0 }}</td>
+            <td>{{ $japanese->active_participation ?? 0 }}</td>
         </tr>
 
         <tr>
             <td colspan="3">Social Responsibility</td>
-            <td>{{ $pe->social_responsibility ?? 0 }}</td>
+            <td>{{ $japanese->social_responsibility ?? 0 }}</td>
         </tr>
     </table>
 
@@ -857,11 +857,11 @@
     @if(str_contains($murid->class, "Y10"))
     <table class="mt-5" style="font-weight: bold; text-align: center">
         <tr>
-            <th colspan="6" style="padding: 10px"></th>
+            <th colspan="6" style="padding: 10px">UNIT OF INQUIRY</th>
         </tr>
 
         <tr>
-            <th style="width: 100px" rowspan="2">SUBJECT AND LEARNING GOAL</th>
+            <th style="width: 120px !important" rowspan="2">SUBJECT AND LEARNING GOAL</th>
             <th rowspan="2">STAGE</th>
             <th style="width: 12px" rowspan="2">SCORE</th>
             <th colspan="3">LEARNING BEHAVIOURS</th>
@@ -874,7 +874,7 @@
         </tr>
 
         <tr>
-            <th style="padding: 30px">ILMU PENGETAHUAN SOSIAL</th>
+            <th style="padding-top: 40px; padding-bottom: 40px;">ILMU PENGETAHUAN SOSIAL</th>
            <?php
                 if($uoiIPS->total_uoi_ips >= 81) {
                     $uoi_ips_level = 'MASTERING';
@@ -891,7 +891,7 @@
             <td>{{ $uoiIPS->uoi_ips_social_responsibility ?? 0 }}</td>
         </tr>
         <tr>
-            <th style="padding: 30px">ILMU PENGETAHUAN ALAM</th>
+            <th style="padding-top: 40px; padding-bottom: 40px;">ILMU PENGETAHUAN ALAM</th>
             <?php
                 if($uoiIPA->total_uoi_ipa >= 81) {
                     $uoi_ipa_level = 'MASTERING';

@@ -25,6 +25,33 @@
         src: url('/assets/font/arialroundedmtbold.ttf')format('truetype');
     }
 
+    body {
+        margin: 0;
+        padding: 0;
+        background: #ccc; /* Warna abu-abu tetap ada saat dilihat di layar monitor */
+    }
+
+    /* PENTING: Gunakan table-layout fixed agar lebar tidak jebol */
+    table {
+        border-collapse: collapse;
+        /* table-layout: fixed; */
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    /* Izinkan teks membungkus ke bawah jika terlalu panjang */
+    table,
+    td,
+    th {
+        border: 2px solid black;
+        padding: 2px 5px;
+        /* Dikecilkan dari 10px ke 5px */
+        font-family: 'FontKustomKu';
+        word-wrap: break-word;
+        /* Memutus kata jika melampaui lebar kolom */
+        overflow-wrap: break-word;
+    }
+
     .report-container {
         font-family: 'FontKustomKu';
         counter-reset: page-counter;
@@ -40,14 +67,14 @@
         background-color: red !important;
     }
 
-    table,
+    /* table,
     td,
     th {
         border: 2px solid black;
         padding-left: 10px;
         padding-right: 10px;
         font-family: 'FontKustomKu';
-    }
+    } */
 
     table {
         border-collapse: collapse;
@@ -69,7 +96,7 @@
     .page {
         width: 210mm;
         height: 297mm;
-        margin: 18px auto;
+        margin: 18px auto; /* Membuat halaman pas di tengah monitor */
         background: white;
         padding: 12mm;
         box-sizing: border-box;
@@ -77,13 +104,12 @@
         overflow: hidden;
         position: relative;
         margin-bottom: 30px;
-        /* background-image: url('https://elearning.peachblossomsschool.sch.id/assets/images/logos/logo.png'); */
+        background-image: url('https://elearning.peachblossomsschool.sch.id/assets/images/logos/bg-rapor.png');
         background-repeat: no-repeat;
         background-position: center;
-        background-size: 450px;
+        background-size: 650px;
         outline: 6px solid rgb(247, 134, 3);
         outline-offset: -8mm;
-        /* geser ke dalam */
         counter-increment: page-counter;
     }
 
@@ -122,7 +148,111 @@
         /* sejajar dengan padding isi */
         box-sizing: border-box;
     }
+
+    @media print {
+    /* 1. Paksa ukuran kertas printer menjadi A4 dan hilangkan margin bawaan browser */
+    @page {
+    size: A4;
+    margin: 0;
+    }
+
+    /* 2. Bersihkan background abu-abu body & paksa warna/gambar latar belakang muncul */
+    body {
+    background: white !important;
+    -webkit-print-color-adjust: exact; /* Untuk Chrome, Edge, Safari */
+    print-color-adjust: exact; /* Standar masa depan */
+    }
+
+    .filter-card {
+    display: none;
+    }
+
+    /* 3. Reset posisi .page agar menempel sempurna di ujung kertas fisik */
+    .page {
+    box-shadow: none !important;
+    outline: 6px solid rgb(247, 134, 3) !important; /* Jaga outline tetap tercetak */
+        margin: 0 !important;
+        padding: 12mm !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        page-break-after: always; /* Pastikan tiap .page otomatis pindah ke kertas baru */
+    }
+
+    .page::before {
+        content: "";
+        position: absolute;
+        top: 8mm;
+        left: 8mm;
+        right: 8mm;
+        bottom: 8mm;
+        pointer-events: none;
+    }
 </style>
+
+{{-- <style>
+    @font-face {
+        font-family: 'FontKustomKu';
+        src: url('/assets/font/arialroundedmtbold.ttf') format('truetype');
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background: #ccc;
+    }
+
+    .page {
+        width: 210mm;
+        height: 297mm;
+        margin: 18px auto 30px auto;
+        background: white;
+        padding: 12mm;
+        box-sizing: border-box;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        position: relative;
+        outline: 6px solid rgb(247, 134, 3);
+        outline-offset: -8mm;
+        counter-increment: page-counter;
+    }
+
+    /* PENTING: Gunakan table-layout fixed agar lebar tidak jebol */
+    table {
+        border-collapse: collapse;
+        table-layout: fixed;
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    /* Izinkan teks membungkus ke bawah jika terlalu panjang */
+    table,
+    td,
+    th {
+        border: 2px solid black;
+        padding: 4px 5px;
+        /* Dikecilkan dari 10px ke 5px */
+        font-family: 'FontKustomKu';
+        word-wrap: break-word;
+        /* Memutus kata jika melampaui lebar kolom */
+        overflow-wrap: break-word;
+    }
+
+    .footer {
+        position: absolute;
+        bottom: 8mm;
+        left: 0;
+        width: 100%;
+        font-size: 14px;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 13mm;
+        box-sizing: border-box;
+    }
+
+    .footer .right::after {
+        content: "Page " counter(page-counter);
+    }
+</style> --}}
 
 <?php $grade = Str::substr(session('homeroom_class'), 0, 2); ?>
 
@@ -130,7 +260,7 @@
 
     <div class="widget-content searchable-container list">
 
-        <div class="card mb-3 col-md-6 col-lg-6 mx-auto mt-3">
+        <div class="card mb-3 col-md-6 col-lg-6 mx-auto mt-3 filter-card">
             <div class="card-header font-weight-bold">Print Rapor {{ $current_term }}</div>
             <div class="card-body">
                 <p class="text-center">Sebelum print rapor, pastikan sudah membaca <a target="blank"
@@ -152,7 +282,7 @@
                         <button type="submit" class="btn btn-secondary" type="button" id="button-addon2"><i
                                 class="ti ti-eye"></i>
                             Show</button>
-                        <button type="submit" name="print" class="btn btn-primary" type="button"
+                        <button type="submit" onclick="window.print()" name="print" class="btn btn-primary" type="button"
                             id="button-addon2"><i class="ti ti-printer"></i>
                             Print</button>
                     </div>
