@@ -122,10 +122,10 @@
     /* --- 4. Footer --- */
     .footer {
         position: absolute;
-        bottom: 4mm;
+        bottom: 3mm;
         left: 0;
         width: 100%;
-        font-size: 14px;
+        font-size: 11px;
         display: flex;
         justify-content: space-between;
         padding: 0 13mm;
