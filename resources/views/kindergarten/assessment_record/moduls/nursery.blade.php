@@ -112,7 +112,7 @@
                 <td class="text-center">{{ $assesment->obey_teachers }}</td>
                 <td class="text-center">{{ $assesment->get_along_with_classmates }}</td>
                 <td class="text-center">{{ $assesment->give_attention_to_the_lesson }}</td>
-                <td class="text-center">{{ $assesment->do_given_task_independetly }}</td>
+                <td class="text-center">{{ $assesment->do_given_task_independently }}</td>
                 <td class="text-center">{{ $assesment->finish_task_as_order }}</td>
                 <td class="text-center">{{ $assesment->willing_to_perform }}</td>
                 <td class="text-center">{{ $assesment->willing_to_take_turn }}</td>

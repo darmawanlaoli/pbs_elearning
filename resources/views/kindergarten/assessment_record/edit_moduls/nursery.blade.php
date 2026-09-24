@@ -56,7 +56,7 @@
                         'DAILY PERFORMANCE' => [
                         'Get along with classmates' => 'get_along_with_classmates',
                         'Give attention to the lesson' => 'give_attention_to_the_lesson',
-                        'Do given task independently' => 'do_given_task_independetly',
+                        'Do given task independently' => 'do_given_task_independently',
                         'Finish task as order' => 'finish_task_as_order',
                         'Willing to perform' => 'willing_to_perform',
                         'Willing to take turn' => 'willing_to_take_turn',
