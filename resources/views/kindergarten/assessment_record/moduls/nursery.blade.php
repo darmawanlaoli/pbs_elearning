@@ -94,7 +94,7 @@
                 <td class="text-center">{{ $assesment->state_willingness }}</td>
                 <td class="text-center">{{ $assesment->report_word }}</td>
                 <td class="text-center">{{ $assesment->repeat_day_date_month_year }}</td>
-                <td class="text-center">{{ $assesment->sing_song }}</td>
+                <td class="text-center">{{ $assesment->sing_songs }}</td>
                 <td class="text-center">{{ $assesment->recite_rhymes }}</td>
                 <td class="text-center no-t1">{{ $assesment->inform_gender }}</td>
                 <td class="text-center no-t1">{{ $assesment->inform_age }}</td>
