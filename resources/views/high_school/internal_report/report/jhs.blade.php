@@ -37,8 +37,8 @@
         </tr>
 
         <tr>
-            <td>GRADE</td>
-            <td>{{ $murid->class }}</td>
+            <td>GRADE/HOMEROOM TEACHER</td>
+            <td>{{ $murid->class . '/'.session('name') }}</td>
         </tr>
 
         <tr>
