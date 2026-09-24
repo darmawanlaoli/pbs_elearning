@@ -19,42 +19,74 @@
 {{-- select2 --}}
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
+
 <style>
     @font-face {
         font-family: 'FontKustomKu';
-        src: url('/assets/font/arialroundedmtbold.ttf')format('truetype');
+        src: url('/assets/font/arialroundedmtbold.ttf') format('truetype');
     }
 
+    /* --- 1. Reset Global --- */
+    * {
+        box-sizing: border-box !important;
+        color: black !important;
+    }
+
+    html,
     body {
         margin: 0;
         padding: 0;
-        background: #ccc; /* Warna abu-abu tetap ada saat dilihat di layar monitor */
+        background: #ccc;
+        color: black;
     }
 
-    /* PENTING: Gunakan table-layout fixed agar lebar tidak jebol */
-    table {
-        border-collapse: collapse;
-        /* table-layout: fixed; */
-        width: 100%;
-        margin-top: 15px;
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
     }
 
-    /* Izinkan teks membungkus ke bawah jika terlalu panjang */
-    table,
-    td,
-    th {
-        border: 2px solid black;
-        padding: 2px 5px;
-        /* Dikecilkan dari 10px ke 5px */
-        font-family: 'FontKustomKu';
-        word-wrap: break-word;
-        /* Memutus kata jika melampaui lebar kolom */
-        overflow-wrap: break-word;
+    /* --- 2. Kontainer Halaman Layar Monitor --- */
+    .page {
+        width: 210mm;
+        height: 297mm;
+        margin: 18px auto 30px auto;
+        background: white;
+        padding: 12mm;
+        position: relative;
+        overflow: hidden;
+
+        background-image: url('https://elearning.peachblossomsschool.sch.id/assets/images/logos/bg-rapor.png');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 650px;
+
+        /* Garis bingkai oranye presisi di dalam */
+        box-shadow: inset 0 0 0 6px rgb(247, 134, 3);
+        counter-increment: page-counter;
     }
 
     .report-container {
         font-family: 'FontKustomKu';
         counter-reset: page-counter;
+    }
+
+    /* --- 3. Elemen Tabel --- */
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    table,
+    td,
+    th {
+        border: 2px solid black;
+        padding: 2px 5px;
+        font-family: 'FontKustomKu';
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
 
     table tr .subject {
@@ -65,21 +97,6 @@
         padding-top: 13px;
         padding-bottom: 13px;
         background-color: red !important;
-    }
-
-    /* table,
-    td,
-    th {
-        border: 2px solid black;
-        padding-left: 10px;
-        padding-right: 10px;
-        font-family: 'FontKustomKu';
-    } */
-
-    table {
-        border-collapse: collapse;
-        /* table-layout: fixed; */
-        width: 100%;
     }
 
     .subject {
@@ -93,37 +110,6 @@
         color: black;
     }
 
-    .page {
-        width: 210mm;
-        height: 297mm;
-        margin: 18px auto; /* Membuat halaman pas di tengah monitor */
-        background: white;
-        padding: 12mm;
-        box-sizing: border-box;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        position: relative;
-        margin-bottom: 30px;
-        background-image: url('https://elearning.peachblossomsschool.sch.id/assets/images/logos/bg-rapor.png');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: 650px;
-        outline: 6px solid rgb(247, 134, 3);
-        outline-offset: -8mm;
-        counter-increment: page-counter;
-    }
-
-    .footer .right::after {
-        content: "Page " counter(page-counter);
-    }
-
-    body {
-        margin: 0;
-        padding: 0;
-        background: #ccc;
-        /* Warna abu-abu agar halaman A4 terlihat menonjol */
-    }
-
     .li {
         list-style-type: disc;
         margin-left: 20px;
@@ -133,126 +119,63 @@
         line-height: 17px;
     }
 
+    /* --- 4. Footer --- */
     .footer {
         position: absolute;
-        bottom: 8mm;
-        /* jarak dari bawah kertas */
-        left: 0;
-        width: 100%;
-        font-size: 14px;
-
-        display: flex;
-        justify-content: space-between;
-        /* kiri dan kanan */
-        padding: 0 13mm;
-        /* sejajar dengan padding isi */
-        box-sizing: border-box;
-    }
-
-    @media print {
-    /* 1. Paksa ukuran kertas printer menjadi A4 dan hilangkan margin bawaan browser */
-    @page {
-    size: A4;
-    margin: 0;
-    }
-
-    /* 2. Bersihkan background abu-abu body & paksa warna/gambar latar belakang muncul */
-    body {
-    background: white !important;
-    -webkit-print-color-adjust: exact; /* Untuk Chrome, Edge, Safari */
-    print-color-adjust: exact; /* Standar masa depan */
-    }
-
-    .filter-card {
-    display: none;
-    }
-
-    /* 3. Reset posisi .page agar menempel sempurna di ujung kertas fisik */
-    .page {
-    box-shadow: none !important;
-    outline: 6px solid rgb(247, 134, 3) !important; /* Jaga outline tetap tercetak */
-        margin: 0 !important;
-        padding: 12mm !important;
-        width: 210mm !important;
-        height: 297mm !important;
-        page-break-after: always; /* Pastikan tiap .page otomatis pindah ke kertas baru */
-    }
-
-    .page::before {
-        content: "";
-        position: absolute;
-        top: 8mm;
-        left: 8mm;
-        right: 8mm;
-        bottom: 8mm;
-        pointer-events: none;
-    }
-</style>
-
-{{-- <style>
-    @font-face {
-        font-family: 'FontKustomKu';
-        src: url('/assets/font/arialroundedmtbold.ttf') format('truetype');
-    }
-
-    body {
-        margin: 0;
-        padding: 0;
-        background: #ccc;
-    }
-
-    .page {
-        width: 210mm;
-        height: 297mm;
-        margin: 18px auto 30px auto;
-        background: white;
-        padding: 12mm;
-        box-sizing: border-box;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        position: relative;
-        outline: 6px solid rgb(247, 134, 3);
-        outline-offset: -8mm;
-        counter-increment: page-counter;
-    }
-
-    /* PENTING: Gunakan table-layout fixed agar lebar tidak jebol */
-    table {
-        border-collapse: collapse;
-        table-layout: fixed;
-        width: 100%;
-        margin-top: 15px;
-    }
-
-    /* Izinkan teks membungkus ke bawah jika terlalu panjang */
-    table,
-    td,
-    th {
-        border: 2px solid black;
-        padding: 4px 5px;
-        /* Dikecilkan dari 10px ke 5px */
-        font-family: 'FontKustomKu';
-        word-wrap: break-word;
-        /* Memutus kata jika melampaui lebar kolom */
-        overflow-wrap: break-word;
-    }
-
-    .footer {
-        position: absolute;
-        bottom: 8mm;
+        bottom: 4mm;
         left: 0;
         width: 100%;
         font-size: 14px;
         display: flex;
         justify-content: space-between;
         padding: 0 13mm;
-        box-sizing: border-box;
     }
 
     .footer .right::after {
         content: "Page " counter(page-counter);
     }
-</style> --}}
+
+    /* --- 5. Fix Khusus Cetak (Print Simetris Atas-Bawah-Kiri-Kanan) --- */
+    @media print {
+        @page {
+            size: A4 portrait;
+            margin: 0;
+            /* Menghilangkan margin fisik kertas */
+        }
+
+        html,
+        body {
+            width: 210mm !important;
+            height: 297mm !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            background: white !important;
+            display: block !important;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .filter-card {
+            display: none !important;
+        }
+
+        .page {
+            /* Menyesuaikan sedikit skala internal agar tidak meluap akibat margin printer */
+            width: 200mm !important;
+            height: 285mm !important;
+            margin: 6mm auto !important;
+            /* Memberikan jarak seimbang atas dan bawah */
+            padding: 10mm !important;
+            position: relative !important;
+
+            box-shadow: inset 0 0 0 6px rgb(247, 134, 3) !important;
+            outline: none !important;
+
+            page-break-after: always;
+            page-break-inside: avoid;
+        }
+    }
+</style>
 
 <?php $grade = Str::substr(session('homeroom_class'), 0, 2); ?>
 
