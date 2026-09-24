@@ -36,7 +36,7 @@
                         'State willingness' => 'state_willingness',
                         'Repeat Word' => 'report_word',
                         'Repeat day, date, month, year' => 'repeat_day_date_month_year',
-                        'Sing songs' => 'sing_song',
+                        'Sing songs' => 'sing_songs',
                         'Recite rhymes' => 'recite_rhymes',
                         'Listen to teachers' => 'listen_to_teacher',
                         'Follow instruction' => 'follow_instruction',
