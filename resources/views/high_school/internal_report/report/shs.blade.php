@@ -1155,10 +1155,10 @@
     <p class="mt-5 text-center">Acknowledged by :</p>
     <table class="mt-2" style="font-weight: bold; text-align: center">
         <tr>
-            <th style="width: 25%">DATE ISSUED</th>
-            <th style="width: 25%">HOMEROOM <br> TEACHER</th>
-            <th style="width: 25%">PRINCIPAL</th>
-            <th style="width: 25%">PARENT</th>
+            <th style="width: 20%">DATE ISSUED</th>
+            <th style="width: 26%">HOMEROOM <br> TEACHER</th>
+            <th style="width: 28%">PRINCIPAL</th>
+            <th style="width: 26%">PARENT</th>
         </tr>
 
         <tr>
