@@ -603,8 +603,8 @@ class Report extends Controller
                     ) as total_score
                 ')
             )
-            ->where('r.academic_year', '2025/2026')
-            ->where('r.term', 'Term 2')
+            ->where('r.academic_year', '2026/2027')
+            ->where('r.term', 'Term 1')
             ->where('r.class', $class->homeroom_class)
             ->groupBy('d.name')
             ->orderByDesc('total_score')

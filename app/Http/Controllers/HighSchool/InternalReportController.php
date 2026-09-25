@@ -462,6 +462,8 @@ class InternalReportController extends Controller
             ->keyBy('name');
 
         // 3. Pivot data & hitung total nilai
+        // 3. Pivot data & hitung total nilai
+        // 3. Pivot data & hitung total nilai
         $students = $rawData->groupBy('name')->map(function ($items, $studentName) use ($entrepreneurQuery, $uoiQuery, $imycQuery) {
             $kuScores = [];
             $dkScores = [];
@@ -470,18 +472,28 @@ class InternalReportController extends Controller
 
             $languageSubjects = ['Bahasa Indonesia', 'English'];
 
+            $totalLangKu = 0;
+            $totalLangDk = 0;
+
             foreach ($items as $item) {
                 if (in_array($item->subject_name, $languageSubjects)) {
+                    // Simpan ke array bahasa
                     $langKuScores[$item->subject_name] = $item->lang_total_ku;
                     $langDkScores[$item->subject_name] = $item->lang_total_dk;
+
+                    // Akumulasikan nilai bahasa
+                    $totalLangKu += ($item->lang_total_ku ?? 0);
+                    $totalLangDk += ($item->lang_total_dk ?? 0);
                 } else {
+                    // Simpan ke array reguler
                     $kuScores[$item->subject_name] = $item->ku_total;
                     $dkScores[$item->subject_name] = $item->dk_total;
                 }
             }
 
-            $totalKu = $items->sum('ku_total');
-            $totalDk = $items->sum('dk_total');
+            // Hitung total nilai mapel reguler
+            $totalKu = $items->whereNotIn('subject_name', $languageSubjects)->sum('ku_total');
+            $totalDk = $items->whereNotIn('subject_name', $languageSubjects)->sum('dk_total');
 
             // Olah Entrepreneurship
             $entDetails = null;
@@ -534,6 +546,10 @@ class InternalReportController extends Controller
                     + ($imycData->imyc_art_total ?? 0);
             }
 
+            // PERHITUNGAN GRAND TOTAL AKURAT:
+            // Mapel Reguler (KU+DK) + Mapel Bahasa (KU+DK) + Entrepreneurship + UOI + IMYC
+            $grandTotal = $totalKu + $totalDk + $totalLangKu + $totalLangDk + $entTotalScore + $uoiTotalScore + $imycTotalScore;
+
             return [
                 'name'                 => $studentName,
                 'ku_total'             => $kuScores,
@@ -542,10 +558,10 @@ class InternalReportController extends Controller
                 'lang_total_dk'        => $langDkScores,
                 'entrepreneur_details' => $entDetails,
                 'uoi_details'          => $uoiDetails,
-                'imyc_details'         => $imycDetails, // Tambahan data IMYC
+                'imyc_details'         => $imycDetails,
                 'total_ku'             => $totalKu,
                 'total_dk'             => $totalDk,
-                'grand_total'          => $totalKu + $totalDk + $entTotalScore + $uoiTotalScore + $imycTotalScore,
+                'grand_total'          => $grandTotal,
             ];
         })->values();
 
