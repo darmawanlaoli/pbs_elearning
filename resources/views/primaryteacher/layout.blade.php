@@ -79,6 +79,14 @@
                             </a>
                             <ul aria-expanded="false" class="collapse first-level">
                                 <li class="sidebar-item">
+
+                                    <a href="{{ route('primary_teacher.lesson_material') }}" class="sidebar-link">
+                                        <div class="round-16 d-flex align-items-center justify-content-center">
+                                            <i class="ti ti-circle"></i>
+                                        </div>
+                                        <span class="hide-menu">Lesson Material</span>
+                                    </a>
+
                                     <a href="{{ route('primary_teacher.lesson_plan') }}" class="sidebar-link">
                                         <div class="round-16 d-flex align-items-center justify-content-center">
                                             <i class="ti ti-circle"></i>
