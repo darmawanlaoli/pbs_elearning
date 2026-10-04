@@ -44,7 +44,7 @@
             <!-- Sidebar scroll-->
             <div>
                 <div class="brand-logo d-flex align-items-center justify-content-between">
-                    <a href="./index.html" class="text-nowrap logo-img">
+                    <a href="{{ route('primary_student.home') }}" class="text-nowrap logo-img">
                         <img src="../../assets/images/logos/dark-logo.svg" class="dark-logo" width="180" alt="" />
                         <img src="../../assets/images/logos/light-logo.svg" class="light-logo" width="180" alt="" />
                     </a>
@@ -60,7 +60,7 @@
                         <!-- Dashboard -->
                         <!-- =================== -->
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{ route('hs_student.home') }}" aria-expanded="false">
+                            <a class="sidebar-link" href="{{ route('primary_student.home') }}" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-dashboard"></i>
                                 </span>
@@ -147,13 +147,7 @@
                             </a>
                         </li>
                     </ul>
-                    <ul class="navbar-nav quick-links d-none d-lg-flex">
 
-                        <li class="nav-item dropdown-hover d-none d-lg-block">
-                            <a class="nav-link" href="app-calendar.html">Calendar</a>
-                        </li>
-
-                    </ul>
                     <div class="d-block d-lg-none">
                         <img src="../../assets/images/logos/dark-logo.svg" class="dark-logo" width="180" alt="" />
                         <img src="../../assets/images/logos/light-logo.svg" class="light-logo" width="180" alt="" />
@@ -185,8 +179,14 @@
                                         aria-labelledby="drop2">
                                         <div class="d-flex align-items-center justify-content-between py-3 px-7">
                                             <h5 class="mb-0 fs-5 fw-semibold">Notifications</h5>
-                                            <span class="badge bg-primary rounded-4 px-3 py-1 lh-sm">5 new</span>
+                                            <span class="badge bg-primary rounded-4 px-3 py-1 lh-sm">0 new</span>
+
+
                                         </div>
+
+
+
+
 
                                     </div>
                                 </li>

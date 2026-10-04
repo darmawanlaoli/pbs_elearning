@@ -24,7 +24,8 @@ class PrimaryStudent extends Authenticatable
         'grade',
         'class',
         'religion',
-        'is_update_password',
+        'last_update_password',
+        'last_login',
         'role',
     ];
 

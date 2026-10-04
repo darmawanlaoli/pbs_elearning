@@ -50,6 +50,9 @@ use App\Http\Controllers\HighSchool\ProjectFormulationController as HighSchoolPr
 use App\Http\Controllers\HighSchool\AssessmentRecord as HighSchoolAssessmentRecord;
 use App\Http\Controllers\HighSchool\InternalReportController as HighSchoolInternalReport;
 
+use App\Http\Controllers\HighSchool\KurmerAssessment as HighSchoolKurmerAssessment;
+
+
 use App\Http\Controllers\HsStudent\AssignmentController as HsStudentAssignment;
 use App\Http\Controllers\HsStudent\HomeController as HsStudentHome;
 use App\Http\Controllers\HsStudent\LessonMaterialController as StudentLessonMaterial;
@@ -281,6 +284,10 @@ Route::middleware(['multi.role:hsadmin,hsteacher'])->group(function () {
     Route::put('high_school/report_data/input_action', [HighSchoolInternalReport::class, 'updateReportData'])->name('high_school.report_data.input_action');
     Route::put('high_school/report_data/{class}/submit', [HighSchoolInternalReport::class, 'submit'])->name('high_school.report_data.submit');
 
+    // Kurmer Report
+    Route::get('high_school/kurmer_assessment', [HighSchoolKurmerAssessment::class, 'index'])->name('high_school.kurmer_assessment');
+    Route::get('high_school/kurmer_assessment/{class}/input', [HighSchoolKurmerAssessment::class, 'input'])->name('high_school.kurmer_assessment.input');
+
     // database student
     Route::get('high_school/database/students', [HighSchoolDatabaseStudents::class, 'index'])->name('high_school.database.students');
     Route::get('high_school/database/students/edit', [HighSchoolDatabaseStudents::class, 'edit'])->name('high_school.database.students.edit');
@@ -391,7 +398,7 @@ Route::middleware(['auth:hsstudent', 'role:hsstudent'])->group(function () {
 Route::middleware(['auth:primarystudent', 'role:primarystudent'])->group(function () {
     Route::get('primary_student/home', [PrimaryStudentHome::class, 'index'])->name('primary_student.home');
     // Route::post('/chat_student/kirim', [PrimaryStudentHome::class, 'storeChat'])->name('chat_student.kirim');
-    // Route::post('hs_student/update_password/store', [PrimaryStudentHome::class, 'storeUpdatePassword'])->name('primary_student.update_password.store');
+    Route::post('primary_student/update_password', [PrimaryStudentHome::class, 'storeUpdatePassword'])->name('primary_student.update_password');
 
     Route::get('primary_student/assignment', [StudentProjectFormulation::class, 'index'])->name('primary_student.assignment');
 

@@ -160,6 +160,12 @@ class LoginController extends Controller
             }
 
             Auth::guard('primarystudent')->login($user);
+
+            // Update field last_login
+            $user->update([
+                'last_login' => date('Y-m-d H:i:s'),
+            ]);
+
             $this->saveLoginLog($request, $user, 'primarystudent');
             $request->session()->regenerate();
 
@@ -168,6 +174,7 @@ class LoginController extends Controller
                 'name' => $user->name,
                 'username' => $user->username,
                 'class' => $user->class,
+                'last_update_password' => $user->last_update_password,
             ]);
 
             return redirect()->route('primary_student.home');

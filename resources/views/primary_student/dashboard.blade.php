@@ -78,7 +78,7 @@
 <div class="container-fluid">
     <div class="row">
 
-        <div class="col-md-4 mb-5 mx-auto text-center">
+        {{-- <div class="col-md-4 mb-5 mx-auto text-center">
 
             <h2 class="mt-5 mb-3 text-center text-primary">Join Zoom Meeting</h2>
 
@@ -100,10 +100,21 @@
                 <small>Please join the Zoom meeting by clicking 'Join Now'. If the 'Join Now' button does not work, you can manually enter the Zoom Meeting ID and Passcode in the Zoom application.</small>
             </div>
 
+        </div> --}}
+
+        <div class="col-md-4">
+            <div class="card h-100 text-center">
+                <div class="card-header" style="background-color: #ff7034;">
+                    <h5 class="text-center text-white">Announcements</h5>
+                </div>
+                <div class="card-body">
+                    <i>No announcements available.</i>
+                </div>
+            </div>
         </div>
 
         <div class="col-lg-8">
-            <div class="card w-100 bg-light-info overflow-hidden shadow-none">
+            <div class="card w-100 bg-light-danger overflow-hidden shadow-none">
                 <div class="card-body position-relative">
                     <div class="row">
                         <div class="col-sm-12">
