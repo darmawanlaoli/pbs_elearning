@@ -209,14 +209,14 @@
                             </ul>
                         </li>
 
-                        {{-- <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{ route('admin_primary.setting') }}" aria-expanded="false">
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('admin_primary.lesson_material') }}" aria-expanded="false">
                                 <span>
-                                    <i class="ti ti-settings"></i>
+                                    <i class="ti ti-book"></i>
                                 </span>
-                                <span class="hide-menu">Setting</span>
+                                <span class="hide-menu">Lesson Material</span>
                             </a>
-                        </li> --}}
+                        </li>
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{ route('logout') }}" aria-expanded="false">
