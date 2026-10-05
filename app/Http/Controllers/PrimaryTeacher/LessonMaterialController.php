@@ -9,6 +9,7 @@ use App\Models\PrimaryLessonPlan;
 use App\Models\PrimaryLessonMaterial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class LessonMaterialController extends Controller
@@ -46,30 +47,28 @@ class LessonMaterialController extends Controller
 
         // Validasi dan proses berdasarkan tipe input
         if ($type === 'upload') {
-            $request->validate([
-                'file_upload' => 'required|file|mimes:pdf,doc,docx,ppt,pptx,xls,xlsx,jpg,jpeg,png|max:15048', // max 2MB
-            ]);
 
-            $uploadedFile = $request->file('file_upload');
-            $filename = Str::uuid() . '.' . $uploadedFile->getClientOriginalExtension();
-            $filePathOrLink = $uploadedFile->storeAs('public/primary_lesson_material', $filename); // path di storage
-
-
-
-            $filePathOrLink = null;
-
-            if ($request->hasFile('file_upload')) {
-                $file = $request->file('file_upload');
-                $filePathOrLink = time() . '_' . $file->getClientOriginalName();
-
-                // local
-                // $file->move(public_path('lesson_material'), $filePathOrLink);
-
-                // hosting
-                $destination = base_path('../../public_html/elearning/primary_lesson_material');
-                $file->move($destination, $filePathOrLink);
+            // 1. Cek secara eksplisit apakah file melebihi 15MB (15360 KB / 15728640 Bytes)
+            if ($request->hasFile('file_upload') && $request->file('file_upload')->getSize() > 15360 * 1024) {
+                return back()->with('error', 'File yang Anda unggah melebihi batas ukuran maksimum (15MB). Silakan compress file Anda menggunakan alat kompresor seperti wecompress.com.');
             }
 
+            // 2. Lakukan validasi lengkap (mime, required, dll)
+            $validator = Validator::make($request->all(), [
+                'file_upload' => 'required|file|mimes:pdf,doc,docx,ppt,pptx,xls,xlsx,jpg,jpeg,png|max:15048',
+            ]);
+
+            if ($validator->fails()) {
+                return back()->withErrors($validator)->withInput();
+            }
+
+            // 3. Proses upload file
+            $file = $request->file('file_upload');
+            $filePathOrLink = time() . '_' . $file->getClientOriginalName();
+
+            // Hosting path
+            $destination = base_path('../../public_html/elearning/primary_lesson_material');
+            $file->move($destination, $filePathOrLink);
         } elseif ($type === 'link') {
             $request->validate([
                 'file_link' => 'required|url|max:2048',

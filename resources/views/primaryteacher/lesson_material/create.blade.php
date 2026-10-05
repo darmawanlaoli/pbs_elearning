@@ -114,6 +114,12 @@
                         @error('file')
                         <div class="invalid-feedback">{{$message}}</div>
                         @enderror
+                        <small class="form-text text-danger">
+                            <ul>
+                                <li>Maximum file size: 15MB</li>
+                                <li>Allowed file types: PDF, DOCX, PPTX, XLSX, JPG, PNG</li>
+                            </ul>
+                        </small>
                     </div>
 
                     <!-- Paste Link -->
