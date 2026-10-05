@@ -38,7 +38,7 @@
                     <div class="mb-3 position-relative">
                         <label class="control-label col-form-label">Class</label>
                         <div class="input-group">
-                            
+
                             <select name="class" class="form-control">
                                 <option value="P1 Tokyo">P1 Tokyo</option>
                                 <option value="P1 Paris">P1 Paris</option>
@@ -47,6 +47,7 @@
                                 <option value="P2 Madrid">P2 Madrid</option>
                                 <option value="P2 Rome">P2 Rome</option>
                                 <option value="P3 Cairo">P3 Cairo</option>
+                                <option value="P3 Lisbon">P3 Lisbon</option>
                                 <option value="P3 Brasilia">P3 Brasilia</option>
                                 <option value="P4 Wellington">P4 Wellington</option>
                                 <option value="P4 Washington">P4 Washington</option>
