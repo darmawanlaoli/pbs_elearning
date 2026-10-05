@@ -44,7 +44,7 @@
                                             <h6 class="fw-medium text-primary mb-0">{{ $subject->subject }}</h6>
                                         </div>
                                         <div class="ms-auto">
-                                            <span class="text-primary display-6"><i class="ti ti-clipboard"></i></span>
+                                            <span class="text-primary display-6"><i class="{{ $subject->icon }}"></i></span>
                                         </div>
                                     </div>
                                 </div>

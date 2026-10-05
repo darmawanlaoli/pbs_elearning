@@ -12,6 +12,7 @@ use App\Http\Controllers\AdminPrimary\UtsController as AdminPrimaryUts;
 use App\Http\Controllers\AdminPrimary\UtsReportController as AdminPrimaryUtsReport;
 use App\Http\Controllers\AdminPrimary\AssesmentRecord as PrimaryAssesmentRecordAdmin;
 use App\Http\Controllers\AdminPrimary\Report as PrimaryReportAdmin;
+use App\Http\Controllers\AdminPrimary\LessonMaterialController as PrimaryAdminLessonMaterial;
 
 use App\Http\Controllers\HighSchool\HomeController as HighSchoolHome;
 use App\Http\Controllers\HighSchool\LoginLogController as HighSchoolLoginLog;
@@ -130,6 +131,9 @@ Route::middleware(['auth:primaryadmin', 'role:primaryadmin'])->group(function ()
     Route::delete('admin_primary/zoom/{id}/destroy', [AdminPrimaryZoom::class, 'destroy'])->name('admin_primary.zoom.destroy');
     Route::get('admin_primary/zoom/{id}/edit', [AdminPrimaryZoom::class, 'edit'])->name('admin_primary.zoom.edit');
     Route::post('admin_primary/zoom/{id}/update', [AdminPrimaryZoom::class, 'update'])->name('admin_primary.zoom.update');
+
+    Route::get('admin_primary/lesson_material', [PrimaryAdminLessonMaterial::class, 'index'])->name('admin_primary.lesson_material');
+    Route::get('admin_primary/lesson_material/{id}/show', [PrimaryAdminLessonMaterial::class, 'show'])->name('admin_primary.lessonmaterial.show');
 });
 
 Route::get('kindergarten_teacher/home', [KindergartenHome::class, 'index'])->name('kindergarten_teacher.home');

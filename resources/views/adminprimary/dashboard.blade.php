@@ -16,15 +16,13 @@
                                 <h5 class="fw-semibold mb-0 fs-5">Welcome back {{ session('name') }} </h5>
                             </div>
                             <div class="d-flex align-items-center">
-                                <div class="border-end pe-4 border-muted border-opacity-10">
-                                    <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center">45<i
-                                            class="ti ti-arrow-up-right fs-5 lh-base text-success"></i></h3>
-                                    <p class="mb-0 text-dark">Today’s Visitors</p>
-                                </div>
-                                <div class="ps-4">
-                                    <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center">95%<i
-                                            class="ti ti-arrow-up-right fs-5 lh-base text-success"></i></h3>
-                                    <p class="mb-0 text-dark">Overall Performance</p>
+                                <div class="border-end pe-4">
+                                    <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center">
+                                        <div id="clock">00:00:00</div><i class="ti ti-arrow-up-right fs-5 lh-base text-success"></i>
+                                    </h3>
+                                    <p class="mb-0 text-dark">
+                                    <div id="date">Tanggal</div>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -77,32 +75,30 @@
                         </div>
                         <div class="col-4">
                             <div class="position-relative">
-                                <a href="https://pay.peachblossomsschool.sch.id/"
+                                <a href="{{ route('admin_primary.lesson_material') }}"
                                     class="d-flex align-items-center pb-9 position-relative    ">
                                     <div
                                         class="bg-light rounded-1 me-3 p-6 d-flex align-items-center justify-content-center">
-                                        <img src="../../assets/images/svgs/icon-dd-invoice.svg" alt="" class="img-fluid"
+                                        <img src="../../assets/images/svgs/icon-database.svg" alt="" class="img-fluid"
                                             width="24" height="24">
                                     </div>
                                     <div class="d-inline-block">
                                         <h6 class="mb-1 fw-semibold bg-hover-primary">
-                                            Invoice App</h6>
-                                        <span class="fs-2 d-block text-dark">Get latest
-                                            invoice</span>
+                                            Lesson Materials</h6>
+                                        <span class="fs-2 d-block text-dark">Access lesson materials</span>
                                     </div>
                                 </a>
-                                <a href="./app-calendar.html"
+                                <a href="{{ route('admin_primary.student') }}"
                                     class="d-flex align-items-center pb-9 position-relative    ">
                                     <div
                                         class="bg-light rounded-1 me-3 p-6 d-flex align-items-center justify-content-center">
-                                        <img src="../../assets/images/svgs/icon-dd-date.svg" alt="" class="img-fluid"
+                                        <img src="../../assets/images/svgs/icon-user-male.svg" alt="" class="img-fluid"
                                             width="24" height="24">
                                     </div>
                                     <div class="d-inline-block">
                                         <h6 class="mb-1 fw-semibold bg-hover-primary">
-                                            Calendar App</h6>
-                                        <span class="fs-2 d-block text-dark">Get
-                                            dates</span>
+                                            Student Data</h6>
+                                        <span class="fs-2 d-block text-dark">View student information</span>
                                     </div>
                                 </a>
 
@@ -110,7 +106,7 @@
                         </div>
                         <div class="col-4">
                             <div class="position-relative">
-                                <a href="https://elearning.peachblossomsschool.sch.id/"
+                                <a href="{{ route('admin_primary.assesment_record') }}"
                                     class="d-flex align-items-center pb-9 position-relative    ">
                                     <div
                                         class="bg-light rounded-1 me-3 p-6 d-flex align-items-center justify-content-center">
@@ -118,23 +114,20 @@
                                             width="24" height="24">
                                     </div>
                                     <div class="d-inline-block">
-                                        <h6 class="mb-1 fw-semibold bg-hover-primary">Elearing App</h6>
-                                        <span class="fs-2 d-block text-dark">learn more
-                                            information</span>
+                                        <h6 class="mb-1 fw-semibold bg-hover-primary">Assessment Records</h6>
+                                        <span class="fs-2 d-block text-dark">Manage assessment data</span>
                                     </div>
                                 </a>
 
-                                <a href="./app-notes.html" class="d-flex align-items-center pb-9 position-relative    ">
+                                <a href="{{ route('admin_primary.teacher') }}" class="d-flex align-items-center pb-9 position-relative    ">
                                     <div
                                         class="bg-light rounded-1 me-3 p-6 d-flex align-items-center justify-content-center">
-                                        <img src="../../assets/images/svgs/icon-dd-application.svg" alt=""
+                                        <img src="../../assets/images/svgs/icon-user-male.svg" alt=""
                                             class="img-fluid" width="24" height="24">
                                     </div>
                                     <div class="d-inline-block">
-                                        <h6 class="mb-1 fw-semibold bg-hover-primary">Notes
-                                            Application</h6>
-                                        <span class="fs-2 d-block text-dark">To-do and Daily
-                                            tasks</span>
+                                        <h6 class="mb-1 fw-semibold bg-hover-primary">Teacher Data</h6>
+                                        <span class="fs-2 d-block text-dark">View and manage teacher information</span>
                                     </div>
                                 </a>
                             </div>
@@ -149,5 +142,31 @@
     </div>
 
 </div>
+
+<script>
+    function updateTime() {
+      const now = new Date();
+
+      // Ambil waktu
+      let hours = now.getHours().toString().padStart(2, '0');
+      let minutes = now.getMinutes().toString().padStart(2, '0');
+      let seconds = now.getSeconds().toString().padStart(2, '0');
+
+      // Format jam
+      const timeString = `${hours}:${minutes}:${seconds}`;
+      document.getElementById("clock").textContent = timeString;
+
+      // Ambil tanggal
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const dateString = now.toLocaleDateString('id-ID', options);
+      document.getElementById("date").textContent = dateString;
+    }
+
+    // Update setiap detik
+    setInterval(updateTime, 1000);
+
+    // Panggil pertama kali
+    updateTime();
+</script>
 
 @endsection

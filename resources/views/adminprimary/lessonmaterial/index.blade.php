@@ -1,4 +1,4 @@
-@extends('hsstudent.layout')
+@extends('adminprimary.layout')
 
 @section('content')
 
@@ -32,7 +32,7 @@
                     @foreach ($subjects as $subject)
 
                     <div class="col-lg-3 col-md-6">
-                        <a href="{{ route('hsstudent.lessonmaterial.show', $subject->subject) }}"
+                        <a href="{{ route('admin_primary.lessonmaterial.show', $subject->subject) }}"
                             class="text-decoration-none">
                             <div class="card border-bottom border-primary">
                                 <div class="card-body">
@@ -44,7 +44,7 @@
                                             <h6 class="fw-medium text-primary mb-0">{{ $subject->subject }}</h6>
                                         </div>
                                         <div class="ms-auto">
-                                            <span class="text-primary display-6"><i class="ti ti-clipboard"></i></span>
+                                            <span class="text-primary display-6"><i class="{{ $subject->icon }}"></i></span>
                                         </div>
                                     </div>
                                 </div>
