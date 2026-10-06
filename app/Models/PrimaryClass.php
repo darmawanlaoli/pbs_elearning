@@ -1,0 +1,14 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class PrimaryClass extends Model
+{
+
+    protected $fillable = [
+        'class',
+        'homeroom',
+    ];
+}

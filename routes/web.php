@@ -200,6 +200,8 @@ Route::middleware(['auth:primaryteacher', 'role:primaryteacher'])->group(functio
     Route::get('primary_teacher/academic_records', [PrimaryAcademicRecordAdmin::class, 'index'])->name('primary_teacher.academic_records');
     Route::get('primary_teacher/academic_records/{id}/detail', [PrimaryAcademicRecordAdmin::class, 'detail'])->name('primary_teacher.academic_records.detail');
 
+    Route::post('primary_teacher/send_message', [PrimaryTeacherHome::class, 'storeMessage'])->name('primary_teacher.send_message');
+
 
     Route::get('primary_teacher/report_data', [ReportPrimaryTeacher::class, 'reportData'])->name('primary_teacher.report_data');
     Route::get('primary_teacher/report_data/create', [ReportPrimaryTeacher::class, 'create'])->name('primary_teacher.report_data.create');
@@ -302,30 +304,30 @@ Route::middleware(['multi.role:hsadmin,hsteacher'])->group(function () {
 Route::middleware(['multi.role:kindergartenadmin,kindergartenteacher'])->group(
     function () {
 
-    Route::get('kindergarten/home', [KindergartenHome::class, 'index'])->name('kindergarten.home');
-    Route::get('kindergarten/report_data', [KindergartenReportData::class, 'index'])->name('kindergarten.report_data');
-    Route::get('kindergarten/report_data/create', [KindergartenReportData::class, 'create'])->name('kindergarten.report_data.create');
-    Route::post('kindergarten/report_data/store', [KindergartenReportData::class, 'store'])->name('kindergarten.report_data.store');
-    Route::delete('kindergarten/report_data/{reportData}/destroy', [KindergartenReportData::class, 'destroy'])->name('kindergarten.report_data.destroy');
-    Route::get('kindergarten/report_data/{reportData}/edit', [KindergartenReportData::class, 'edit'])->name('kindergarten.report_data.edit');
-    Route::put('kindergarten/report_data/{reportData}/update', [KindergartenReportData::class, 'update'])->name('kindergarten.report_data.update');
+        Route::get('kindergarten/home', [KindergartenHome::class, 'index'])->name('kindergarten.home');
+        Route::get('kindergarten/report_data', [KindergartenReportData::class, 'index'])->name('kindergarten.report_data');
+        Route::get('kindergarten/report_data/create', [KindergartenReportData::class, 'create'])->name('kindergarten.report_data.create');
+        Route::post('kindergarten/report_data/store', [KindergartenReportData::class, 'store'])->name('kindergarten.report_data.store');
+        Route::delete('kindergarten/report_data/{reportData}/destroy', [KindergartenReportData::class, 'destroy'])->name('kindergarten.report_data.destroy');
+        Route::get('kindergarten/report_data/{reportData}/edit', [KindergartenReportData::class, 'edit'])->name('kindergarten.report_data.edit');
+        Route::put('kindergarten/report_data/{reportData}/update', [KindergartenReportData::class, 'update'])->name('kindergarten.report_data.update');
 
-    // Kindergarten student data
-    Route::get('kindergarten/student_data', [KindergartenStudentData::class, 'index'])->name('kindergarten.student_data');
-    Route::get('kindergarten/student_data/create', [KindergartenStudentData::class, 'create'])->name('kindergarten.student_data.create');
-    Route::post('kindergarten/student_data/store', [KindergartenStudentData::class, 'store'])->name('kindergarten.student_data.store');
-    Route::delete('kindergarten/student_data/{studentData}/destroy', [KindergartenStudentData::class, 'destroy'])->name('kindergarten.student_data.destroy');
-    Route::get('kindergarten/student_data/{studentData}/edit', [KindergartenStudentData::class, 'edit'])->name('kindergarten.student_data.edit');
-    Route::put('kindergarten/student_data/{studentData}/update', [KindergartenStudentData::class, 'update'])->name('kindergarten.student_data.update');
-    Route::post('kindergarten/student_data/import', [KindergartenStudentData::class, 'import'])->name('kindergarten.student_data.import');
+        // Kindergarten student data
+        Route::get('kindergarten/student_data', [KindergartenStudentData::class, 'index'])->name('kindergarten.student_data');
+        Route::get('kindergarten/student_data/create', [KindergartenStudentData::class, 'create'])->name('kindergarten.student_data.create');
+        Route::post('kindergarten/student_data/store', [KindergartenStudentData::class, 'store'])->name('kindergarten.student_data.store');
+        Route::delete('kindergarten/student_data/{studentData}/destroy', [KindergartenStudentData::class, 'destroy'])->name('kindergarten.student_data.destroy');
+        Route::get('kindergarten/student_data/{studentData}/edit', [KindergartenStudentData::class, 'edit'])->name('kindergarten.student_data.edit');
+        Route::put('kindergarten/student_data/{studentData}/update', [KindergartenStudentData::class, 'update'])->name('kindergarten.student_data.update');
+        Route::post('kindergarten/student_data/import', [KindergartenStudentData::class, 'import'])->name('kindergarten.student_data.import');
 
-    // Kindergarten teacher data
-    Route::get('kindergarten/teacher_data', [KindergartenTeacherData::class, 'index'])->name('kindergarten.teacher_data');
-    Route::get('kindergarten/teacher_data/create', [KindergartenTeacherData::class, 'create'])->name('kindergarten.teacher_data.create');
-    Route::post('kindergarten/teacher_data/store', [KindergartenTeacherData::class, 'store'])->name('kindergarten.teacher_data.store');
-    Route::delete('kindergarten/teacher_data/{teacher}/destroy', [KindergartenTeacherData::class, 'destroy'])->name('kindergarten.teacher_data.destroy');
-    Route::get('kindergarten/teacher_data/{teacher}/edit', [KindergartenTeacherData::class, 'edit'])->name('kindergarten.teacher_data.edit');
-    Route::put('kindergarten/teacher_data/{teacher}/update', [KindergartenTeacherData::class, 'update'])->name('kindergarten.teacher_data.update');
+        // Kindergarten teacher data
+        Route::get('kindergarten/teacher_data', [KindergartenTeacherData::class, 'index'])->name('kindergarten.teacher_data');
+        Route::get('kindergarten/teacher_data/create', [KindergartenTeacherData::class, 'create'])->name('kindergarten.teacher_data.create');
+        Route::post('kindergarten/teacher_data/store', [KindergartenTeacherData::class, 'store'])->name('kindergarten.teacher_data.store');
+        Route::delete('kindergarten/teacher_data/{teacher}/destroy', [KindergartenTeacherData::class, 'destroy'])->name('kindergarten.teacher_data.destroy');
+        Route::get('kindergarten/teacher_data/{teacher}/edit', [KindergartenTeacherData::class, 'edit'])->name('kindergarten.teacher_data.edit');
+        Route::put('kindergarten/teacher_data/{teacher}/update', [KindergartenTeacherData::class, 'update'])->name('kindergarten.teacher_data.update');
     }
 );
 
