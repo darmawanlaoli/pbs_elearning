@@ -86,7 +86,7 @@ Route::middleware(['auth:primaryadmin', 'role:primaryadmin'])->group(function ()
     Route::post('admin_primary/weekly_lp/print', [WeeklyLessonPlan::class, 'print'])->name('admin_primary.weekly_lp.print');
 
     Route::get('admin_primary/weekly_lp_pic', [WeeklyLessonPlan::class, 'pic'])->name('admin_primary.weekly_lp_pic');
-
+    Route::get('admin_primary/communication_book', [CommunicationBook::class, 'index'])->name('admin_primary.communication_book');
 
     Route::get('admin_primary/lp_report', [LpReport::class, 'index'])->name('admin_primary.lp_report');
     Route::post('admin_primary/lp_report_print', [LpReport::class, 'print'])->name('admin_primary.lp_report_print');

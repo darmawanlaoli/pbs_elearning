@@ -64,7 +64,7 @@ class AssignmentController extends Controller
     public function submit(Request $request, $id)
     {
         $request->validate([
-            'response' => 'nullable|file|mimes:jpeg,png,jpg,webp,pdf,doc,docx|max:2048',
+            'response' => 'nullable|file|mimes:ai,jpeg,png,jpg,webp,pdf,doc,docx|max:2048',
         ]);
 
         $assignmentResponse = AssignmentResponse::findOrFail($id);
