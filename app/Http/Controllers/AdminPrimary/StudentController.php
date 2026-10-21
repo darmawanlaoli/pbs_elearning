@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AdminPrimary;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PrimaryStudent;
+use App\Models\Log;
 use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
@@ -85,6 +86,27 @@ class StudentController extends Controller
         ]);
 
         return redirect()->route('superadmin.data_cabang')->with(['success' => 'Data cabang berhasil diubah!']);
+    }
+
+    public function resetPassword(Request $request, $id)
+    {
+        $student = PrimaryStudent::findOrFail($id);
+
+        $student->update([
+            'last_update_password' => null,
+            'password' => Hash::make('pbsprimary2026'),
+        ]);
+
+        Log::create([
+            'user'        => session('name'),
+            'description'    => '',
+            'activity' => 'Primary Admin reset password ' . $student->name,
+            'grade'  => $student->class,
+            'role'   => 'Primary Admin',
+            'created_at'  => now(),
+        ]);
+
+        return redirect()->route('admin_primary.student')->with(['success' => 'Password berhasil direset!']);
     }
 
     public function destroy($id)

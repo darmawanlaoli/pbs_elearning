@@ -73,7 +73,6 @@ class LessonMaterialController extends Controller
             $request->validate([
                 'file_link' => 'required|url|max:2048',
             ]);
-
             $filePathOrLink = $request->input('file_link');
         }
 

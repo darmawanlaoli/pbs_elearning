@@ -413,6 +413,7 @@
 
 
     <script>
+        // tombol hapus
         $(document).ready(function() {
             $('.tombol-hapus').on('click', function(e) {
                 e.preventDefault(); // Mencegah submit langsung
@@ -425,6 +426,27 @@
                     confirmButtonColor: "#3085d6",
                     cancelButtonColor: "#d33",
                     confirmButtonText: "Ya, hapus"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit(); // Submit form setelah konfirmasi
+                    }
+                });
+            });
+        });
+
+        // tombol reset
+        $(document).ready(function() {
+            $('.tombol-reset').on('click', function(e) {
+                e.preventDefault(); // Mencegah submit langsung
+                var form = $(this).closest('form'); // Ambil form terdekat
+                Swal.fire({
+                    title: "Yakin reset?",
+                    text: "Apakah Anda yakin ingin reset password siswa ini?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Ya, reset"
                 }).then((result) => {
                     if (result.isConfirmed) {
                         form.submit(); // Submit form setelah konfirmasi

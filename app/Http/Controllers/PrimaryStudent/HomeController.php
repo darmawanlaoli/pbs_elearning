@@ -24,7 +24,7 @@ class HomeController extends Controller
         $grade = session('grade');
         $last_update_password = session('last_update_password');
 
-        if ($last_update_password == '0000-00-00 00:00:00') {
+        if ($last_update_password == '0000-00-00 00:00:00' || $last_update_password == null) {
             return view('primary_student/update_password');
         } else {
             return view('primary_student/dashboard', compact('class', 'zoom'));

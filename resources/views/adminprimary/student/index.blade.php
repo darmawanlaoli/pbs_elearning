@@ -63,7 +63,8 @@
                             <td>{{ $teacher->name }}</td>
                             <td>{{ $teacher->username }}</td>
                             <td>{{ $teacher->class }}</td>
-                            <td><form id="deleteForm-{{ $teacher->id }}"
+                            <td class="d-flex">
+                                <form id="deleteForm-{{ $teacher->id }}"
                                 action="{{ route('admin_primary.student.destroy', $teacher->id) }}"
                                 method="POST">
                                 @csrf
@@ -71,7 +72,15 @@
                                 <button tabindex="0" data-bs-toggle="tooltip" title="Hapus"
                                     class="m-1 tombol-hapus border-0 badge text-white btn btn-danger"><i
                                         class="ti ti-trash"></i></button>
-                            </form></td>
+                                </form>
+
+                                <form action="{{ route('admin_primary.student.reset_password', $teacher->id) }}"
+                                    method="POST">
+                                    @csrf
+                                    <button tabindex="0" data-bs-toggle="tooltip" title="Reset Password"
+                                        class="m-1 tombol-reset border-0 badge text-white btn btn-primary"><i class="ti ti-rotate-clockwise-2"></i></button>
+                                </form>
+                            </td>
                         <tr>
 
                             @empty

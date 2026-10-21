@@ -124,6 +124,8 @@ Route::middleware(['auth:primaryadmin', 'role:primaryadmin'])->group(function ()
     Route::delete('admin_primary/student/{id}/destroy', [AdminPrimaryStudent::class, 'destroy'])->name('admin_primary.student.destroy');
     Route::get('admin_primary/student/{id}/edit', [AdminPrimaryStudent::class, 'edit'])->name('admin_primary.teacher.edit');
     Route::post('admin_primary/student/{id}/update', [AdminPrimaryStudent::class, 'update'])->name('admin_primary.student.update');
+    Route::post('admin_primary/student/{id}/reset_password', [AdminPrimaryStudent::class, 'resetPassword'])->name('admin_primary.student.reset_password');
+
 
     Route::get('admin_primary/zoom', [AdminPrimaryZoom::class, 'index'])->name('admin_primary.zoom');
     Route::get('admin_primary/zoom/create', [AdminPrimaryZoom::class, 'create'])->name('admin_primary.zoom.create');
