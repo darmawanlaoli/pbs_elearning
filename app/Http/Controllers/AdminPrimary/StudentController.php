@@ -10,12 +10,22 @@ use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Student';
         $path = 'Master Data';
-        $teachers = PrimaryStudent::all();
-        return view('adminprimary.student.index', compact('title', 'path', 'teachers'));
+        $search = $request->input('search');
+        if($search == null) {
+            $students = PrimaryStudent::all();
+        }else {
+            $students = PrimaryStudent::where(function ($query) use ($search) {
+                $query->whereLike('name', '%' . $search . '%')
+                    ->orWhereLike('username', '%' . $search . '%');
+            })
+                ->get();
+        }
+
+        return view('adminprimary.student.index', compact('title', 'path', 'students'));
     }
 
     public function create(){

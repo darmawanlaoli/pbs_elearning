@@ -28,11 +28,12 @@
         <div class="card card-body">
             <div class="row">
                 <div class="col-md-4 col-xl-3">
-                    <form class="position-relative">
-                        <input type="text" class="form-control product-search ps-5" id="input-search"
-                            placeholder="Search Students..." />
-                        <i
-                            class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
+                    <form class="row">
+                        @csrf
+                        <div class="input-group mb-3">
+                            <input type="text" name="search" class="form-control" autofocus placeholder="Search Student">
+                            <button type="submit" class="input-group-text btn btn-primary">Search</button>
+                        </div>
                     </form>
                 </div>
                 <div
@@ -54,18 +55,23 @@
                         <th>Name</th>
                         <th>Username</th>
                         <th>Class</th>
+                        <th>Last Login</th>
                         <th>Action</th>
                     </thead>
                     <tbody>
-                        @forelse ($teachers as $teacher)
+                        @php
+                            use Carbon\Carbon;
+                        @endphp
+                        @forelse ($students as $student)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $teacher->name }}</td>
-                            <td>{{ $teacher->username }}</td>
-                            <td>{{ $teacher->class }}</td>
+                            <td>{{ $student->name }}</td>
+                            <td>{{ $student->username }}</td>
+                            <td>{{ $student->class }}</td>
+                            <td>{{ Carbon::parse($student->last_login)->diffForHumans(); }}</td>
                             <td class="d-flex">
-                                <form id="deleteForm-{{ $teacher->id }}"
-                                action="{{ route('admin_primary.student.destroy', $teacher->id) }}"
+                                <form id="deleteForm-{{ $student->id }}"
+                                action="{{ route('admin_primary.student.destroy', $student->id) }}"
                                 method="POST">
                                 @csrf
                                 @method('DELETE')
@@ -74,7 +80,7 @@
                                         class="ti ti-trash"></i></button>
                                 </form>
 
-                                <form action="{{ route('admin_primary.student.reset_password', $teacher->id) }}"
+                                <form action="{{ route('admin_primary.student.reset_password', $student->id) }}"
                                     method="POST">
                                     @csrf
                                     <button tabindex="0" data-bs-toggle="tooltip" title="Reset Password"
