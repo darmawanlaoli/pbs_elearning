@@ -13,6 +13,7 @@ use App\Http\Controllers\AdminPrimary\UtsReportController as AdminPrimaryUtsRepo
 use App\Http\Controllers\AdminPrimary\AssesmentRecord as PrimaryAssesmentRecordAdmin;
 use App\Http\Controllers\AdminPrimary\Report as PrimaryReportAdmin;
 use App\Http\Controllers\AdminPrimary\LessonMaterialController as PrimaryAdminLessonMaterial;
+use App\Http\Controllers\Primary\HwWsScheduleController;
 
 use App\Http\Controllers\HighSchool\HomeController as HighSchoolHome;
 use App\Http\Controllers\HighSchool\LoginLogController as HighSchoolLoginLog;
@@ -125,7 +126,6 @@ Route::middleware(['auth:primaryadmin', 'role:primaryadmin'])->group(function ()
     Route::get('admin_primary/student/{id}/edit', [AdminPrimaryStudent::class, 'edit'])->name('admin_primary.teacher.edit');
     Route::post('admin_primary/student/{id}/update', [AdminPrimaryStudent::class, 'update'])->name('admin_primary.student.update');
     Route::post('admin_primary/student/{id}/reset_password', [AdminPrimaryStudent::class, 'resetPassword'])->name('admin_primary.student.reset_password');
-
 
     Route::get('admin_primary/zoom', [AdminPrimaryZoom::class, 'index'])->name('admin_primary.zoom');
     Route::get('admin_primary/zoom/create', [AdminPrimaryZoom::class, 'create'])->name('admin_primary.zoom.create');
@@ -412,4 +412,13 @@ Route::middleware(['auth:primarystudent', 'role:primarystudent'])->group(functio
 
     Route::get('primary_student/lesson_material', [PrimaryStudentLessonMaterial::class, 'index'])->name('primary_student.lesson_material');
     Route::get('primary_student/lesson_material/{id}/show', [PrimaryStudentLessonMaterial::class, 'show'])->name('primary_student.lessonmaterial.show');
+});
+
+Route::middleware(['multi.role:primaryteacher,primaryadmin'])->group(function () {
+    Route::get('primary/hw_ws_schedule', [HwWsScheduleController::class, 'index'])->name('primary.hw_ws_schedule');
+    Route::get('primary/hw_ws_schedule/create', [HwWsScheduleController::class, 'create'])->name('primary.hw_ws_schedule.create');
+    Route::post('primary/hw_ws_schedule/store', [HwWsScheduleController::class, 'store'])->name('primary.hw_ws_schedule.store');
+    Route::get('primary/hw_ws_schedule/{id}/edit', [HwWsScheduleController::class, 'edit'])->name('primary.hw_ws_schedule.edit');
+    Route::put('primary/hw_ws_schedule/{id}/update', [HwWsScheduleController::class, 'update'])->name('primary.hw_ws_schedule.update');
+    Route::delete('primary/hw_ws_schedule/{id}/destroy', [HwWsScheduleController::class, 'destroy'])->name('primary.hw_ws_schedule.destroy');
 });

@@ -80,6 +80,13 @@
                             <ul aria-expanded="false" class="collapse first-level">
                                 <li class="sidebar-item">
 
+                                    <a href="{{ route('primary.hw_ws_schedule') }}" class="sidebar-link">
+                                        <div class="round-16 d-flex align-items-center justify-content-center">
+                                            <i class="ti ti-circle"></i>
+                                        </div>
+                                        <span class="hide-menu">HW & WS Schedule</span>
+                                    </a>
+
                                     <a href="{{ route('primary_teacher.lesson_material') }}" class="sidebar-link">
                                         <div class="round-16 d-flex align-items-center justify-content-center">
                                             <i class="ti ti-circle"></i>

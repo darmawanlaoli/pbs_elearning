@@ -219,6 +219,15 @@
                         </li>
 
                         <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('primary.hw_ws_schedule') }}" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-calendar"></i>
+                                </span>
+                                <span class="hide-menu">HW WS Schedule</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
                             <a class="sidebar-link" href="{{ route('logout') }}" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-arrow-left"></i>

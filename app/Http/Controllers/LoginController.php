@@ -249,6 +249,7 @@ class LoginController extends Controller
 
             session([
                 'role' => 'primaryteacher',
+                'id' => $user->id,
                 'name' => $user->name,
                 'username' => $user->username,
                 'is_homeroom' => $user->is_homeroom,
